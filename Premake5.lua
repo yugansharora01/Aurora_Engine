@@ -18,6 +18,9 @@ project "Aurora"
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
 
+	pchheader "pch.h"
+	pchsource "Aurora/src/pch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -27,7 +30,7 @@ project "Aurora"
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
-		"src"
+		"%{prj.name}/src"
 	}
 
 	filter "system:windows"

@@ -4,6 +4,9 @@
     <Filter Include="Aurora">
       <UniqueIdentifier>{0FF303A8-FB94-2E7E-E44F-42D2D090B5CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aurora\Events">
+      <UniqueIdentifier>{13B80547-7F78-817D-48B3-CAFAB432C659}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Aurora.h" />
@@ -16,14 +19,22 @@
     <ClInclude Include="src\Aurora\EntryPoint.h">
       <Filter>Aurora</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Events\ApplicationEvents.h">
+      <Filter>Aurora\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Events\Events.h">
+      <Filter>Aurora\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Events\KeyboardEvents.h">
+      <Filter>Aurora\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Events\MouseEvents.h">
+      <Filter>Aurora\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Log.h">
       <Filter>Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\test.h" />
-    <ClInclude Include="src\Aurora\Events\Events.h" />
-    <ClInclude Include="src\Aurora\Events\ApplicationEvents.h" />
-    <ClInclude Include="src\Aurora\Events\MouseEvents.h" />
-    <ClInclude Include="src\Aurora\Events\KeyboardEvents.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -32,6 +43,6 @@
     <ClCompile Include="src\Aurora\Log.cpp">
       <Filter>Aurora</Filter>
     </ClCompile>
-    <ClCompile Include="src\test.cpp" />
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
 </Project>

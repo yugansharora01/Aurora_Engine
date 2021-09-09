@@ -2,9 +2,6 @@
 
 #include "Aurora/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace Aurora {
 	
 	// Events in Hazel are currently blocking, meaning when an event occurs it
@@ -56,7 +53,30 @@ namespace Aurora {
 
 	class EventDispatcher
 	{
+		template<typename T>
+		using EventFn = std::function<bool(T&)>;
+	public:
+		EventDispatcher(Event& event)
+			:m_Event(event){}
 
+		template<typename T>
+		bool Dispatch(EventFn<T> func)
+		{
+			if (m_Event.GetEventType() == T::GetStaticType())
+			{
+				m_Event.m_handled = func(*(*T) & m_Event);
+				return true;
+			}
+			return false;
+		}
+
+	private:
+		Event& m_Event;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
 
 }

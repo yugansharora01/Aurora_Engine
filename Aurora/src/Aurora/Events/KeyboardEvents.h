@@ -2,8 +2,6 @@
 
 #include "Events.h"
 
-#include <sstream>
-
 namespace Aurora
 {
 	class AURORA_API KeyEvent : public Event
