@@ -20,6 +20,10 @@
       <Filter>Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\test.h" />
+    <ClInclude Include="src\Aurora\Events\Events.h" />
+    <ClInclude Include="src\Aurora\Events\ApplicationEvents.h" />
+    <ClInclude Include="src\Aurora\Events\MouseEvents.h" />
+    <ClInclude Include="src\Aurora\Events\KeyboardEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">

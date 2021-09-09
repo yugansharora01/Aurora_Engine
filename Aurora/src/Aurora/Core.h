@@ -10,3 +10,5 @@
 	#error Aurora only supports windows
 
 #endif // AU_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)
