@@ -35,6 +35,14 @@
       <Filter>Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Aurora\Window.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Platform\Windows\Win32_Window.h" />
+    <ClInclude Include="src\Platform\Windows\AuroraException.h" />
+    <ClInclude Include="src\Platform\Windows\AuroraWin.h" />
+    <ClInclude Include="src\Platform\Windows\Keyboard.h" />
+    <ClInclude Include="src\Platform\Windows\Mouse.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsThrowMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -44,5 +52,10 @@
       <Filter>Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Platform\Windows\Win32_Window.cpp" />
+    <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
+    <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
+    <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
   </ItemGroup>
 </Project>

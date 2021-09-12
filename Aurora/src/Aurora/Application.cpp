@@ -8,6 +8,7 @@ namespace Aurora {
 
 	Application::Application()
 	{
+		m_Window = Window::Create();
 	}
 
 	Application::~Application()
@@ -16,16 +17,19 @@ namespace Aurora {
 
 	void Application::Run()
 	{
-		WindowResizeEvent e(1200, 720);
-		if (e.IsInCategory(EventCategoryApplication))
+		//WindowResizeEvent e(1200, 720);
+		//if (e.IsInCategory(EventCategoryApplication))
+		//{
+		//	AU_TRACE(e);
+		//}
+		//if (e.IsInCategory(EventCategoryInput))
+		//{
+		//	AU_TRACE(e);
+		//}
+		while (m_Running)
 		{
-			AU_TRACE(e);
+			m_Window->OnUpdate(m_Running);
 		}
-		if (e.IsInCategory(EventCategoryInput))
-		{
-			AU_TRACE(e);
-		}
-		while (true);
 	}
 
 }
