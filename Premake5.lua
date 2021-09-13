@@ -13,6 +13,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir={}
 
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
+IncludeDir["imgui"] = "Aurora/vendor/imgui"
 
 project "Aurora"
 	location "Aurora"
@@ -35,7 +36,13 @@ project "Aurora"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.imgui}"
+	}
+
+	links
+	{
+		"Imgui"
 	}
 
 	filter "system:windows"
@@ -117,4 +124,4 @@ project "Sandbox"
 		defines "AU_DIST"
 		optimize "On"
 
-	
+include "Aurora/vendor/imgui"
