@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_BUILD_DLL;AU_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -101,7 +101,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_BUILD_DLL;AU_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -126,7 +126,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_BUILD_DLL;AU_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -154,9 +154,10 @@
     <ClInclude Include="src\Aurora\Events\Events.h" />
     <ClInclude Include="src\Aurora\Events\KeyboardEvents.h" />
     <ClInclude Include="src\Aurora\Events\MouseEvents.h" />
+    <ClInclude Include="src\Aurora\Layer.h" />
+    <ClInclude Include="src\Aurora\LayerStack.h" />
     <ClInclude Include="src\Aurora\Log.h" />
     <ClInclude Include="src\Aurora\Window.h" />
-    <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Platform\Windows\AuroraException.h" />
     <ClInclude Include="src\Platform\Windows\AuroraWin.h" />
     <ClInclude Include="src\Platform\Windows\Keyboard.h" />
@@ -164,18 +165,21 @@
     <ClInclude Include="src\Platform\Windows\Win32_Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsThrowMacros.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp" />
+    <ClCompile Include="src\Aurora\Layer.cpp" />
+    <ClCompile Include="src\Aurora\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Log.cpp" />
-    <ClCompile Include="src\pch.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
     <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

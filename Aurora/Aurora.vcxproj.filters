@@ -7,6 +7,12 @@
     <Filter Include="Aurora\Events">
       <UniqueIdentifier>{13B80547-7F78-817D-48B3-CAFAB432C659}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Aurora.h" />
@@ -31,31 +37,69 @@
     <ClInclude Include="src\Aurora\Events\MouseEvents.h">
       <Filter>Aurora\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Layer.h">
+      <Filter>Aurora</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\LayerStack.h">
+      <Filter>Aurora</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Log.h">
       <Filter>Aurora</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Window.h">
+      <Filter>Aurora</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\AuroraException.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\AuroraWin.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\Keyboard.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\Mouse.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\Win32_Window.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsThrowMacros.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Aurora\Window.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
-    <ClInclude Include="src\Platform\Windows\Win32_Window.h" />
-    <ClInclude Include="src\Platform\Windows\AuroraException.h" />
-    <ClInclude Include="src\Platform\Windows\AuroraWin.h" />
-    <ClInclude Include="src\Platform\Windows\Keyboard.h" />
-    <ClInclude Include="src\Platform\Windows\Mouse.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsThrowMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
       <Filter>Aurora</Filter>
     </ClCompile>
+    <ClCompile Include="src\Aurora\Layer.cpp">
+      <Filter>Aurora</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\LayerStack.cpp">
+      <Filter>Aurora</Filter>
+    </ClCompile>
     <ClCompile Include="src\Aurora\Log.cpp">
       <Filter>Aurora</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\AuroraException.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\Keyboard.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\Mouse.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\Win32_Window.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\Platform\Windows\Win32_Window.cpp" />
-    <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
-    <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
-    <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
   </ItemGroup>
 </Project>

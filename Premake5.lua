@@ -10,13 +10,15 @@ workspace "Aurora"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-IncludeDir = []
-IncludeDir[spdlog] = "Aurora/vendor/spdlog/include"
+IncludeDir={}
+
+IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 
 project "Aurora"
 	location "Aurora"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -33,7 +35,7 @@ project "Aurora"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%IncludeDir.spdlog"
+		"%{IncludeDir.spdlog}"
 	}
 
 	filter "system:windows"
@@ -70,6 +72,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
