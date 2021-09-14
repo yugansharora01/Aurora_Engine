@@ -5,7 +5,6 @@
 
 namespace Aurora {
 
-
 	Application::Application()
 	{
 		m_Window = Window::Create();
@@ -17,15 +16,6 @@ namespace Aurora {
 
 	void Application::Run()
 	{
-		//WindowResizeEvent e(1200, 720);
-		//if (e.IsInCategory(EventCategoryApplication))
-		//{
-		//	AU_TRACE(e);
-		//}
-		//if (e.IsInCategory(EventCategoryInput))
-		//{
-		//	AU_TRACE(e);
-		//}
 		while (m_Running)
 		{
 			for (Layer* layer : m_LayerStack)

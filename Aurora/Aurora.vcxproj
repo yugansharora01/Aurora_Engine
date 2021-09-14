@@ -159,6 +159,8 @@
     <ClInclude Include="src\Aurora\LayerStack.h" />
     <ClInclude Include="src\Aurora\Log.h" />
     <ClInclude Include="src\Aurora\Window.h" />
+    <ClInclude Include="src\Platform\DirectX\imgui_dx11Renderer.h" />
+    <ClInclude Include="src\Platform\DirectX\imgui_impl_win32.h" />
     <ClInclude Include="src\Platform\Windows\AuroraException.h" />
     <ClInclude Include="src\Platform\Windows\AuroraWin.h" />
     <ClInclude Include="src\Platform\Windows\Keyboard.h" />
@@ -174,6 +176,8 @@
     <ClCompile Include="src\Aurora\Layer.cpp" />
     <ClCompile Include="src\Aurora\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Log.cpp" />
+    <ClCompile Include="src\Platform\DirectX\imgui_dx11Renderer.cpp" />
+    <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp" />
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
     <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
