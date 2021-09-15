@@ -5,7 +5,7 @@
 #include "AuroraException.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-//#include "Graphics.h"
+#include "Graphics.h"
 
 #include <optional>
 #include <memory>
@@ -66,7 +66,8 @@ public:
     void SetTitle(const std::string& title);
     static std::optional<int> ProcessMessages();
     void Destroy();
-    //Graphics& Gfx();
+    Graphics& Gfx();
+    inline HWND GetHandle() noexcept { return hWnd; }
 
 private:
     static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -76,7 +77,7 @@ private:
 public:
     Keyboard kbd;
     Mouse mouse;
-    //std::unique_ptr<Graphics> pGfx;
+    std::unique_ptr<Graphics> pGfx;
 
 private:
     int width;

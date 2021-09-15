@@ -10,16 +10,17 @@ workspace "Aurora"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-IncludeDir={}
+IncludeDir = {}
 
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
 
 project "Aurora"
 	location "Aurora"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -42,12 +43,10 @@ project "Aurora"
 
 	links
 	{
-		"Imgui"
+		"ImGui"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -56,30 +55,28 @@ project "Aurora"
 			"AU_BUILD_DLL"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/"..outputdir.."/Sandbox")
-		}
-
 	filter "configurations:Debug"
 		defines "AU_DEBUG"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "AU_RELEASE"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 		
 	filter "configurations:Dist"
 		defines "AU_DIST"
-		optimize "On"
-
+		runtime "Release"
+		optimize "on"
 
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -102,8 +99,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -114,14 +109,17 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "AU_DEBUG"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "AU_RELEASE"
+		runtime "Release"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "AU_DIST"
+		runtime "Release"
 		optimize "On"
 
 include "Aurora/vendor/imgui"

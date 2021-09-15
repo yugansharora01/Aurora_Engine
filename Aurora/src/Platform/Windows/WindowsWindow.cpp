@@ -54,12 +54,12 @@ namespace Aurora {
 			//Initialising Window Code If Any:
 		}
 
-		wnd = Win32_Window::Create(m_Data.Width, m_Data.Height, m_Data.Title.c_str());
+		m_Window = Win32_Window::Create(m_Data.Width, m_Data.Height, m_Data.Title.c_str());
 
 
 	}
 	void WindowsWindow::Shutdown()
 	{
-		wnd->Destroy();
+		m_Window->Destroy();
 	}
 }

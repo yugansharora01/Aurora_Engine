@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef AU_PLATFORM_WINDOWS
+#if AU_DYNAMIC_LINK
 	#ifdef AU_BUILD_DLL
 		#define AURORA_API __declspec(dllexport)
 	#else
 		#define AURORA_API __declspec(dllimport)
 	#endif // AU_BUILD_DLL
+#else 
+#define AURORA_API
+#endif
 #else
 	#error Aurora only supports windows
 

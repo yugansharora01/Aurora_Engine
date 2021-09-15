@@ -4,11 +4,20 @@
     <Filter Include="Aurora">
       <UniqueIdentifier>{0FF303A8-FB94-2E7E-E44F-42D2D090B5CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aurora\Core">
+      <UniqueIdentifier>{C758EA1D-330E-6313-BC02-5DEA28B75917}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Aurora\Events">
       <UniqueIdentifier>{13B80547-7F78-817D-48B3-CAFAB432C659}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aurora\Imgui">
+      <UniqueIdentifier>{99BFA0DB-8522-3080-2EA8-68361AEAFB02}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\DirectX">
+      <UniqueIdentifier>{EC338E64-D82C-ADB6-015F-923BEDB68CC2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -21,6 +30,9 @@
     </ClInclude>
     <ClInclude Include="src\Aurora\Core.h">
       <Filter>Aurora</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\AuTimer.h">
+      <Filter>Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\EntryPoint.h">
       <Filter>Aurora</Filter>
@@ -37,6 +49,9 @@
     <ClInclude Include="src\Aurora\Events\MouseEvents.h">
       <Filter>Aurora\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h">
+      <Filter>Aurora\Imgui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Layer.h">
       <Filter>Aurora</Filter>
     </ClInclude>
@@ -49,10 +64,22 @@
     <ClInclude Include="src\Aurora\Window.h">
       <Filter>Aurora</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\DirectX\imgui_impl_dx11.h">
+      <Filter>Platform\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraException.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraWin.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\Graphics.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\Keyboard.h">
@@ -70,14 +97,20 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\dxerr.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h" />
-    <ClInclude Include="src\Platform\DirectX\imgui_dx11Renderer.h" />
-    <ClInclude Include="src\Platform\DirectX\imgui_impl_win32.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
       <Filter>Aurora</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Core\AuTimer.cpp">
+      <Filter>Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp">
+      <Filter>Aurora\Imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Layer.cpp">
       <Filter>Aurora</Filter>
@@ -88,7 +121,16 @@
     <ClCompile Include="src\Aurora\Log.cpp">
       <Filter>Aurora</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\DirectX\imgui_impl_dx11.cpp">
+      <Filter>Platform\DirectX</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\Graphics.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp">
@@ -103,9 +145,9 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\dxerr.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
-    <ClCompile Include="src\Platform\DirectX\imgui_dx11Renderer.cpp" />
-    <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp" />
   </ItemGroup>
 </Project>

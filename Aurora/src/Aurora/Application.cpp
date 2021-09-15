@@ -5,8 +5,13 @@
 
 namespace Aurora {
 
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		AU_CORE_ASSERT(!s_Instance, "Application already exists");
+		s_Instance = this;
+
 		m_Window = Window::Create();
 	}
 
@@ -37,11 +42,13 @@ namespace Aurora {
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 }

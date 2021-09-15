@@ -31,7 +31,7 @@
 
 #include "pch.h"
 #include "imgui.h"
-#include "imgui_dx11Renderer.h"
+#include "imgui_impl_dx11.h"
 
 // DirectX
 #include <stdio.h>

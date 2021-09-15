@@ -21,6 +21,8 @@ namespace Aurora {
 		}
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+		void* GetNativeWindow() override { return m_Window; }
+
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
@@ -36,8 +38,7 @@ namespace Aurora {
 
 		WindowsData m_Data;
 
-		Win32_Window* wnd;
-		
+		Win32_Window* m_Window;
 	};
 
 	

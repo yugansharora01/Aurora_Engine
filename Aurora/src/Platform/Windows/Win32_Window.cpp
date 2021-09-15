@@ -113,7 +113,7 @@ Win32_Window::Win32_Window(int width, int height, const char* name)
     ShowWindow(hWnd, SW_SHOWDEFAULT);
 
     //create graphics object
-    //pGfx = std::make_unique<Graphics>(hWnd);
+    pGfx = std::make_unique<Graphics>(hWnd);
 }
 Win32_Window::~Win32_Window()
 {
@@ -160,10 +160,10 @@ void Win32_Window::Destroy()
     DestroyWindow(hWnd);
 }
 
-//Graphics& Window::Gfx()
-//{
-//    return *pGfx;
-//}
+Graphics& Win32_Window::Gfx()
+{
+    return *pGfx;
+}
 
 LRESULT CALLBACK Win32_Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
