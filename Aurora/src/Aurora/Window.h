@@ -13,7 +13,7 @@ namespace Aurora {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Aurora Engine", unsigned int width = 1200, unsigned int height = 720)
+		WindowProps(const std::string& title = "Aurora Engine", unsigned int width = 1200, unsigned int height = 700)
 			:Title(title), Width(width), Height(height)
 		{
 		}

@@ -107,8 +107,8 @@ Graphics::Graphics(HWND hWnd)
 
     // configure viewport
     D3D11_VIEWPORT vp;
-    vp.Width = 800.0f;
-    vp.Height = 600.0f;
+    vp.Width = 1200.0f;
+    vp.Height = 700.0f;
     vp.MinDepth = 0.0f;
     vp.MaxDepth = 1.0f;
     vp.TopLeftX = 0.0f;

@@ -65,11 +65,11 @@ namespace Aurora {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(app.GetWindow().GetHeight(), app.GetWindow().GetWidth());
+		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
-		float time = timer.Peek();
-		io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
-		m_Time = time;
+		float m_Time = timer.Mark();
+		io.DeltaTime = m_Time > 0.0f ? m_Time : (1.0f / 60.0f);
+
 
 		ImGui_ImplDX11_NewFrame();
 		ImGui::NewFrame();
