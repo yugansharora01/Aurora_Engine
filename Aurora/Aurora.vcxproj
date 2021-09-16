@@ -146,8 +146,12 @@
     <ClInclude Include="src\Aurora\Log.h" />
     <ClInclude Include="src\Aurora\Window.h" />
     <ClInclude Include="src\Platform\DirectX\imgui_impl_dx11.h" />
+    <ClInclude Include="src\Platform\DirectX\imgui_impl_win32.h" />
     <ClInclude Include="src\Platform\Windows\AuroraException.h" />
     <ClInclude Include="src\Platform\Windows\AuroraWin.h" />
+    <ClInclude Include="src\Platform\Windows\DXGetErrorDescription.inl" />
+    <ClInclude Include="src\Platform\Windows\DXGetErrorString.inl" />
+    <ClInclude Include="src\Platform\Windows\DXTrace.inl" />
     <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h" />
     <ClInclude Include="src\Platform\Windows\Graphics.h" />
     <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h" />
@@ -167,6 +171,7 @@
     <ClCompile Include="src\Aurora\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Log.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_dx11.cpp" />
+    <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp" />
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
     <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp" />
     <ClCompile Include="src\Platform\Windows\Graphics.cpp" />

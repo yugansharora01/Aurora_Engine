@@ -10,7 +10,7 @@ public:
 	
 	void OnUpdate() override
 	{
-		AU_INFO("ExampleLayer::Update");
+		//AU_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Aurora::Event& event) override

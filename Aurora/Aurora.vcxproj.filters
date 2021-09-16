@@ -67,10 +67,22 @@
     <ClInclude Include="src\Platform\DirectX\imgui_impl_dx11.h">
       <Filter>Platform\DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\DirectX\imgui_impl_win32.h">
+      <Filter>Platform\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraException.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraWin.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\DXGetErrorDescription.inl">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\DXGetErrorString.inl">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\DXTrace.inl">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h">
@@ -122,6 +134,9 @@
       <Filter>Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\imgui_impl_dx11.cpp">
+      <Filter>Platform\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp">
       <Filter>Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp">

@@ -31,7 +31,8 @@ project "Aurora"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/Platform/Windows/**.inl"
 	}
 
 	includedirs

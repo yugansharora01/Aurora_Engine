@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Platform/Windows/AuroraWin.h"
 #include "DxgiInfoManager.h"
 #include "Win32_Window.h"
 #include "Graphics.h"
@@ -16,7 +17,7 @@ DxgiInfoManager::DxgiInfoManager()
 	typedef HRESULT(WINAPI* DXGIGetDebugInterface)(REFIID, void**);
 
 	// load the dll that contains the function DXGIGetDebugInterface
-	const auto hModDxgiDebug = LoadLibraryEx("dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+	const auto hModDxgiDebug = LoadLibraryExA("dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hModDxgiDebug == nullptr)
 	{
 		throw AUWND_LAST_EXCEPT();

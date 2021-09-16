@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Aurora/Events/ApplicationEvents.h"
 #include "Aurora/Log.h"
+#include "Platform/Windows/Win32_Window.h"
 
 namespace Aurora {
 
@@ -21,11 +22,24 @@ namespace Aurora {
 
 	void Application::Run()
 	{
+		float i = 0.0f;
+		float inc = 0.01f;
 		while (m_Running)
 		{
+			if (i > 1.0f || i < 0.0f)
+			{
+				inc = -inc;
+			}
+				AU_INFO("inc = {0}", inc);
+
+			i = i + inc;
+
+			auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
+			wnd->Gfx().ClearBuffer(i, 0.08f, 0.9f);
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 			m_Window->OnUpdate(m_Running);
+			wnd->Gfx().EndFrame();
 		}
 	}
 

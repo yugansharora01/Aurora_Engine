@@ -3,9 +3,9 @@
 #include "dxerr.h"
 #include "GraphicsThrowMacros.h"
 
-//#include <iostream>
-//#include <sstream>
-//#include <cmath>
+
+#include "Aurora/Imgui/ImguiLayer.h"
+
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
@@ -18,6 +18,8 @@ namespace dx = DirectX;
 
 Graphics::Graphics(HWND hWnd)
 {
+    AU_INFO("Initialised Graphics");
+
     DXGI_SWAP_CHAIN_DESC sd = {};
     sd.BufferDesc.Width = 0;
     sd.BufferDesc.Height = 0;
@@ -114,6 +116,9 @@ Graphics::Graphics(HWND hWnd)
     vp.TopLeftX = 0.0f;
     vp.TopLeftY = 0.0f;
     pContext->RSSetViewports(1u, &vp);
+
+
+    
 }
 
 void Graphics::EndFrame()
