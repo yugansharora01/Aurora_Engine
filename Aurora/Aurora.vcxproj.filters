@@ -113,19 +113,33 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\Bindable.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\BindableBase.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\ConstantBuffers.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\IndexBuffer.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\InputLayout.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\PixelShader.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\Surface.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\Texture.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\Topology.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\TransformCbuf.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\VertexBuffer.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable\VertexShader.h" />
-    <ClInclude Include="src\Platform\DirectX\Drawable.h" />
+    <ClInclude Include="src\Aurora\Renderer\Bindable.h" />
+    <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
+    <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
+    <ClInclude Include="src\Aurora\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\InputLayout.h" />
+    <ClInclude Include="src\Aurora\Renderer\PixelShader.h" />
+    <ClInclude Include="src\Aurora\Renderer\Surface.h" />
+    <ClInclude Include="src\Aurora\Renderer\Texture.h" />
+    <ClInclude Include="src\Aurora\Renderer\Topology.h" />
+    <ClInclude Include="src\Aurora\Renderer\TransformCbuf.h" />
+    <ClInclude Include="src\Aurora\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\VertexShader.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Drawable.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\SkinnedBox.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Sheet.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Pyramid.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Melon.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Box.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Sphere.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Prism.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Plane.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Cone.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Cube.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\IndexedTriangleList.h" />
+    <ClInclude Include="src\Aurora\AuroraMath.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\DrawableBase.h" />
+    <ClInclude Include="src\Aurora\Renderer\Sampler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -177,16 +191,23 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\Bindable.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\InputLayout.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\Surface.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\Texture.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\Topology.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\TransformCbuf.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\VertexBuffer.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\VertexShader.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Bindable.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\InputLayout.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Surface.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Topology.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\TransformCbuf.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\VertexShader.cpp" />
     <ClCompile Include="..\..\Aurora1\Aurora\PixelShader.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable\PixelShader.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Drawable.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\PixelShader.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Drawable.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\SkinnedBox.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Sheet.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Pyramid.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Melon.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Box.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Sampler.cpp" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ConstantBuffers.h"
-#include "../Drawable.h"
+#include "Aurora/Renderer/Drawables/Drawable.h"
 #include <DirectXMath.h>
 
 class TransformCbuf : public Bindable

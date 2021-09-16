@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Drawable.h"
-#include "Bindable/IndexBuffer.h"
+#include "Aurora/Renderer/IndexBuffer.h"
 #include <cassert>
 #include <typeinfo>
 
