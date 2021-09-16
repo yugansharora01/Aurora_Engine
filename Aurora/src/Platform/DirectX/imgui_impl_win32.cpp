@@ -13,10 +13,9 @@
 // Read online: https://github.com/ocornut/imgui/tree/master/docs
 
 #include "pch.h"
-#include "Platform/Windows/AuroraWin.h"
 #include "imgui.h"
 #include "imgui_impl_win32.h"
-
+#include <Windows.h>
 #include <tchar.h>
 #include <dwmapi.h>
 

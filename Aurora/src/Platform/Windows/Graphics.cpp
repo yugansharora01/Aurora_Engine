@@ -4,7 +4,7 @@
 #include "GraphicsThrowMacros.h"
 
 
-#include "Aurora/Imgui/ImguiLayer.h"
+#include "Aurora/Log.h"
 
 #include <d3dcompiler.h>
 #include <DirectXMath.h>

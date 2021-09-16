@@ -38,7 +38,7 @@ const char * Win32_Window::HrException::what() const noexcept
 
 const char * Win32_Window::HrException::GetType() const noexcept
 {
-    return "Chili Window Exception";
+    return "Aurora Window Exception";
 }
 
 HRESULT Win32_Window::HrException::GetErrorCode() const noexcept
