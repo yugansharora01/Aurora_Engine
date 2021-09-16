@@ -14,7 +14,7 @@ namespace Aurora {
 		s_Instance = this;
 
 		m_Window = Window::Create();
-	}
+	} 
 
 	Application::~Application()
 	{
@@ -29,16 +29,19 @@ namespace Aurora {
 			if (i > 1.0f || i < 0.0f)
 			{
 				inc = -inc;
-			}
-				AU_INFO("inc = {0}", inc);
+			} 
 
 			i = i + inc;
 
 			auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
 			wnd->Gfx().ClearBuffer(i, 0.08f, 0.9f);
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
 			m_Window->OnUpdate(m_Running);
+
+
 			wnd->Gfx().EndFrame();
 		}
 	}
