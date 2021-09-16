@@ -145,6 +145,19 @@
     <ClInclude Include="src\Aurora\LayerStack.h" />
     <ClInclude Include="src\Aurora\Log.h" />
     <ClInclude Include="src\Aurora\Window.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Bindable.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\BindableBase.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\ConstantBuffers.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\IndexBuffer.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\InputLayout.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\PixelShader.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Surface.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Texture.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Topology.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\TransformCbuf.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\VertexBuffer.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\VertexShader.h" />
+    <ClInclude Include="src\Platform\DirectX\Drawable.h" />
     <ClInclude Include="src\Platform\DirectX\imgui_impl_dx11.h" />
     <ClInclude Include="src\Platform\DirectX\imgui_impl_win32.h" />
     <ClInclude Include="src\Platform\Windows\AuroraException.h" />
@@ -164,12 +177,23 @@
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Aurora1\Aurora\PixelShader.cpp" />
     <ClCompile Include="src\Aurora\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Layer.cpp" />
     <ClCompile Include="src\Aurora\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Log.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Bindable.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\InputLayout.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\PixelShader.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Surface.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Texture.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Topology.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\TransformCbuf.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\VertexBuffer.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\VertexShader.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Drawable.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_dx11.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp" />
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />

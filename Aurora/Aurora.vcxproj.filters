@@ -113,6 +113,19 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Bindable.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\BindableBase.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\ConstantBuffers.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\IndexBuffer.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\InputLayout.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\PixelShader.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Surface.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Texture.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\Topology.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\TransformCbuf.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\VertexBuffer.h" />
+    <ClInclude Include="src\Platform\DirectX\Bindable\VertexShader.h" />
+    <ClInclude Include="src\Platform\DirectX\Drawable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -164,5 +177,16 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Bindable.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\InputLayout.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Surface.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Texture.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\Topology.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\TransformCbuf.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\VertexBuffer.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\VertexShader.cpp" />
+    <ClCompile Include="..\..\Aurora1\Aurora\PixelShader.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Bindable\PixelShader.cpp" />
+    <ClCompile Include="src\Platform\DirectX\Drawable.cpp" />
   </ItemGroup>
 </Project>
