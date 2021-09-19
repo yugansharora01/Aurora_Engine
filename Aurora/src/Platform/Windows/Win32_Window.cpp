@@ -2,6 +2,10 @@
 #include "Win32_Window.h"
 #include "WindowsThrowMacros.h"
 
+#include "Platform/DirectX/imgui_impl_win32.h"
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 Win32_Window::WindowClass Win32_Window::WindowClass::wndClass;
 
 std::string Win32_Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
@@ -196,6 +200,11 @@ LRESULT CALLBACK Win32_Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam
 
 LRESULT Win32_Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+    {
+        return true;
+    }
+
     switch (msg)
     {
     case WM_CLOSE:
