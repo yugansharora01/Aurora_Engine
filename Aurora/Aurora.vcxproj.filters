@@ -210,4 +210,12 @@
     <ClCompile Include="src\Aurora\Renderer\Drawables\Box.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Sampler.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Aurora\shaders\TextureVS.hlsl" />
+    <FxCompile Include="src\Aurora\shaders\TexturePS.hlsl" />
+    <FxCompile Include="src\Aurora\shaders\ColorIndexVS.hlsl" />
+    <FxCompile Include="src\Aurora\shaders\ColorIndexPS.hlsl" />
+    <FxCompile Include="src\Aurora\shaders\ColorBlendVS.hlsl" />
+    <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl" />
+  </ItemGroup>
 </Project>

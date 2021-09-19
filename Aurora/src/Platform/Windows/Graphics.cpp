@@ -175,6 +175,8 @@ Graphics::HrException::HrException(int line, const char* file, HRESULT hr, std::
         info += m;
         info.push_back('\n');
     }
+
+    AU_CORE_ERROR("{0}",info);
     // remove final newline if exists
     if (!info.empty())
     {
