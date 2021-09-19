@@ -19,7 +19,7 @@ project "Aurora"
 	location "Aurora"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "latest"
 	staticruntime "on"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
@@ -32,6 +32,7 @@ project "Aurora"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/**.hlsl",
 		"%{prj.name}/src/Platform/Windows/**.inl"
 	}
 
@@ -76,7 +77,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "latest"
 	staticruntime "on"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")

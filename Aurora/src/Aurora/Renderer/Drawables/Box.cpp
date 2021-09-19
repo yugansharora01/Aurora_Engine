@@ -4,6 +4,7 @@
 #include "platform/Windows/GraphicsThrowMacros.h"
 #include "Aurora/Renderer/Geometry/Cube.h"
 
+
 Box::Box(Graphics& gfx)
 {
 	namespace dx = DirectX;
@@ -17,6 +18,7 @@ Box::Box(Graphics& gfx)
 		const auto model = Cube::Make<Vertex>();
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
+
 
 		auto pvs = std::make_unique<VertexShader>(gfx, L"ColorIndexVS.cso");
 		auto pvsbc = pvs->GetBytecode();

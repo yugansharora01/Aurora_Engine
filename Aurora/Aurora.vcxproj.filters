@@ -199,7 +199,6 @@
     <ClCompile Include="src\Aurora\Renderer\TransformCbuf.cpp" />
     <ClCompile Include="src\Aurora\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\VertexShader.cpp" />
-    <ClCompile Include="..\..\Aurora1\Aurora\PixelShader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\PixelShader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Drawables\Drawable.cpp" />
     <ClCompile Include="src\Aurora\Renderer\IndexBuffer.cpp" />

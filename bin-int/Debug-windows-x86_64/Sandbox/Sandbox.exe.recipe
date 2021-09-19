@@ -7,7 +7,22 @@
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>E:\Yash\C++\Aurora\Aurora\(Filename).cso</FullPath>
+      <FullPath>E:\Yash\C++\Aurora\bin\Debug-windows-x86_64\Aurora\ColorBlendPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>E:\Yash\C++\Aurora\bin\Debug-windows-x86_64\Aurora\ColorBlendVS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>E:\Yash\C++\Aurora\bin\Debug-windows-x86_64\Aurora\ColorIndexPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>E:\Yash\C++\Aurora\bin\Debug-windows-x86_64\Aurora\ColorIndexVS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>E:\Yash\C++\Aurora\bin\Debug-windows-x86_64\Aurora\TexturePS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>E:\Yash\C++\Aurora\bin\Debug-windows-x86_64\Aurora\TextureVS.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
