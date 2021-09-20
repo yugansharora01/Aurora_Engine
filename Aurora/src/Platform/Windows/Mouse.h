@@ -1,8 +1,6 @@
 #ifndef MOUSE_H_INCLUDED
 #define MOUSE_H_INCLUDED
 
-#include <queue>
-#include <optional>
 
 class Mouse
 {

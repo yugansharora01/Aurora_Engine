@@ -7,9 +7,6 @@
 #include "Mouse.h"
 #include "Graphics.h"
 
-#include <optional>
-#include <memory>
-
 class Win32_Window
 {
 public:

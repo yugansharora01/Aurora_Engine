@@ -1,9 +1,6 @@
 #ifndef KEYBOARD_H_INCLUDED
 #define KEYBOARD_H_INCLUDED
 
-#include <queue>
-#include <bitset>
-#include <optional>
 
 class Keyboard
 {

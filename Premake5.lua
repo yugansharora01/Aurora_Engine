@@ -1,5 +1,6 @@
 workspace "Aurora"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{

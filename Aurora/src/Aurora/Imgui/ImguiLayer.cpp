@@ -24,7 +24,6 @@ namespace Aurora {
 
 	void ImguiLayer::OnAttach()
 	{
-		AU_INFO("ImGui Attach called");
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
 
@@ -81,6 +80,10 @@ namespace Aurora {
 
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
+
+		auto wnd = (Win32_Window*)app.GetWindow().GetNativeWindow();
+
+		wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(),NULL);
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

@@ -10,7 +10,6 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
-#include <memory>
 #include <random>
 
 class Graphics
@@ -72,6 +71,7 @@ public:
 
     inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
     inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
+    inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
 
 private:
     DirectX::XMMATRIX projection;
