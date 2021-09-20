@@ -5,6 +5,8 @@
 #include "Aurora/LayerStack.h"
 #include "Events/Events.h"
 
+#include "Aurora/Renderer/Drawables/Box.h"
+
 
 namespace Aurora {
 
@@ -32,6 +34,7 @@ namespace Aurora {
 
 		static Application* s_Instance;
 
+		std::unique_ptr<Box> b;
 	};
 
 	//To be defined in client

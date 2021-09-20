@@ -81,7 +81,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -101,7 +101,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -122,7 +122,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="src\Aurora.h" />
     <ClInclude Include="src\Aurora\Application.h" />
+    <ClInclude Include="src\Aurora\AuroraMath.h" />
     <ClInclude Include="src\Aurora\Core.h" />
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
     <ClInclude Include="src\Aurora\EntryPoint.h" />
@@ -144,7 +145,33 @@
     <ClInclude Include="src\Aurora\Layer.h" />
     <ClInclude Include="src\Aurora\LayerStack.h" />
     <ClInclude Include="src\Aurora\Log.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Box.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\DrawableBase.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Melon.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Pyramid.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Sheet.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\SkinnedBox.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Cone.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Cube.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\IndexedTriangleList.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Plane.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Prism.h" />
+    <ClInclude Include="src\Aurora\Renderer\Geometry\Sphere.h" />
+    <ClInclude Include="src\Aurora\Renderer\Sampler.h" />
     <ClInclude Include="src\Aurora\Window.h" />
+    <ClInclude Include="src\Aurora\Renderer\Bindable.h" />
+    <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
+    <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
+    <ClInclude Include="src\Aurora\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\InputLayout.h" />
+    <ClInclude Include="src\Aurora\Renderer\PixelShader.h" />
+    <ClInclude Include="src\Aurora\Renderer\Surface.h" />
+    <ClInclude Include="src\Aurora\Renderer\Texture.h" />
+    <ClInclude Include="src\Aurora\Renderer\Topology.h" />
+    <ClInclude Include="src\Aurora\Renderer\TransformCbuf.h" />
+    <ClInclude Include="src\Aurora\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\VertexShader.h" />
+    <ClInclude Include="src\Aurora\Renderer\Drawables\Drawable.h" />
     <ClInclude Include="src\Platform\DirectX\imgui_impl_dx11.h" />
     <ClInclude Include="src\Platform\DirectX\imgui_impl_win32.h" />
     <ClInclude Include="src\Platform\Windows\AuroraException.h" />
@@ -170,6 +197,23 @@
     <ClCompile Include="src\Aurora\Layer.cpp" />
     <ClCompile Include="src\Aurora\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Log.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Bindable.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Box.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Melon.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Pyramid.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Sheet.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\SkinnedBox.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\InputLayout.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\PixelShader.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Sampler.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Surface.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Topology.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\TransformCbuf.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\VertexShader.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Drawables\Drawable.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_dx11.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp" />
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
@@ -188,6 +232,74 @@
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="src\Aurora\shaders\ColorBlendVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="src\Aurora\shaders\ColorIndexPS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="src\Aurora\shaders\ColorIndexVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="src\Aurora\shaders\TexturePS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="src\Aurora\shaders\TextureVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

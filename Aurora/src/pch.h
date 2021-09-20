@@ -16,3 +16,4 @@
 #include <bitset>
 #include <optional>
 
+#include <assert.h>
