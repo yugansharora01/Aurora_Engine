@@ -20,6 +20,14 @@ Graphics::Graphics(HWND hWnd)
 {
     AU_INFO("Initialised Graphics");
 
+    RECT rect;
+    unsigned int WindowWidth = 1200, WindowHeight = 700;
+    if (GetWindowRect(hWnd, &rect))
+    {
+        WindowWidth = rect.right - rect.left;
+        WindowHeight = rect.bottom - rect.top;
+    }
+
     DXGI_SWAP_CHAIN_DESC sd = {};
     sd.BufferDesc.Width = 0;
     sd.BufferDesc.Height = 0;
@@ -38,9 +46,9 @@ Graphics::Graphics(HWND hWnd)
     sd.Flags = 0;
 
     UINT swapCreateFlags = 0u;
-#ifndef NDEBUG
+#ifndef AU_DEBUG
     swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif // !NDEBUG
+#endif // !AU_DEBUG
 
 
     //for checking results of d3d functions
@@ -81,8 +89,8 @@ Graphics::Graphics(HWND hWnd)
     //create depth stencil texture
     wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
     D3D11_TEXTURE2D_DESC descDepth = {};
-    descDepth.Width = 800u;
-    descDepth.Height = 600u;
+    descDepth.Width = 1200u;          //WindowWidth;
+    descDepth.Height = 700u;          //WindowHeight;
     descDepth.MipLevels = 1u;
     descDepth.ArraySize = 1u;
     descDepth.Format = DXGI_FORMAT_D32_FLOAT;
@@ -109,8 +117,8 @@ Graphics::Graphics(HWND hWnd)
 
     // configure viewport
     D3D11_VIEWPORT vp;
-    vp.Width = 1200.0f;
-    vp.Height = 700.0f;
+    vp.Width = 1200.0f;              //(float)WindowWidth;
+    vp.Height = 700.0f;              //(float)WindowHeight;
     vp.MinDepth = 0.0f;
     vp.MaxDepth = 1.0f;
     vp.TopLeftX = 0.0f;
@@ -124,9 +132,9 @@ Graphics::Graphics(HWND hWnd)
 void Graphics::EndFrame()
 {
     HRESULT hr;
-#ifndef NDEBUG
+#ifndef AU_DEBUG
     infoManager.Set();
-#endif // !NDEBUG
+#endif // !AU_DEBUG
 
     if (FAILED(hr = pSwap->Present(1u, 0u)))
     {

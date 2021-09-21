@@ -3,6 +3,7 @@
 #include "Platform/Windows/GraphicsThrowMacros.h"
 #include <d3dcompiler.h>
 
+
 VertexShader::VertexShader(Graphics& gfx, const std::wstring& path)
 {
 	INFOMAN(gfx);

@@ -140,6 +140,7 @@
     <ClInclude Include="src\Aurora\AuroraMath.h" />
     <ClInclude Include="src\Aurora\Renderer\Drawables\DrawableBase.h" />
     <ClInclude Include="src\Aurora\Renderer\Sampler.h" />
+    <ClInclude Include="src\Aurora\Utils\Convertors.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -208,6 +209,7 @@
     <ClCompile Include="src\Aurora\Renderer\Drawables\Melon.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Drawables\Box.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Sampler.cpp" />
+    <ClCompile Include="src\Aurora\Utils\Convertors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Aurora\shaders\TextureVS.hlsl" />

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Drawable.h"
 #include "Aurora/Renderer/IndexBuffer.h"
+#include "Aurora/Log.h"
 #include <cassert>
 #include <typeinfo>
 

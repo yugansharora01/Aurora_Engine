@@ -16,7 +16,7 @@ namespace Aurora {
 		m_Window = Window::Create();
 
 		auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
-		//b = std::make_unique<Box>(wnd->Gfx());
+		b = std::make_unique<Box>(wnd->Gfx());
 
 	} 
 
@@ -46,7 +46,7 @@ namespace Aurora {
 
 			m_Window->OnUpdate(m_Running);
 
-			//b->Draw(wnd->Gfx());
+			b->Draw(wnd->Gfx());
 
 			wnd->Gfx().EndFrame();
 		}

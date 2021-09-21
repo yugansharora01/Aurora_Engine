@@ -5,16 +5,19 @@
 
 
 namespace Aurora {
-	class ImguiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public:
-		ImguiLayer();
-		~ImguiLayer();
+		ImGuiLayer();
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 		virtual void OnUpdate() override;
-		virtual void OnEvent(Event& event) override;
+
+		void Begin();
+		void End();
+
+		void SetDarkThemeColors();
 
 	private:
 		AuTimer timer;

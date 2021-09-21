@@ -158,6 +158,7 @@
     <ClInclude Include="src\Aurora\Renderer\Geometry\Prism.h" />
     <ClInclude Include="src\Aurora\Renderer\Geometry\Sphere.h" />
     <ClInclude Include="src\Aurora\Renderer\Sampler.h" />
+    <ClInclude Include="src\Aurora\Utils\Convertors.h" />
     <ClInclude Include="src\Aurora\Window.h" />
     <ClInclude Include="src\Aurora\Renderer\Bindable.h" />
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="src\Aurora\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\VertexShader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Drawables\Drawable.cpp" />
+    <ClCompile Include="src\Aurora\Utils\Convertors.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_dx11.cpp" />
     <ClCompile Include="src\Platform\DirectX\imgui_impl_win32.cpp" />
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
