@@ -4,6 +4,8 @@
 #include "Aurora/Log.h"
 #include "Platform/Windows/Win32_Window.h"
 
+#include "imgui.h"
+
 namespace Aurora {
 
 	Application* Application::s_Instance = nullptr;
@@ -14,6 +16,9 @@ namespace Aurora {
 		s_Instance = this;
 
 		m_Window = Window::Create();
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 
 		auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
 		b = std::make_unique<Box>(wnd->Gfx());
@@ -29,20 +34,37 @@ namespace Aurora {
 	{
 		float i = 0.0f;
 		float inc = 0.01f;
+		float inc1 = 0.01f;
+
+		m_EditorLayer = new EditorLayer();
+		PushOverlay(m_EditorLayer);
 		while (m_Running)
 		{
-			if (i > 1.0f || i < 0.0f)
-			{
-				inc = -inc;
-			} 
+			//if (i > 1.0f || i < 0.0f)
+			//{
+			//	inc = -inc;
+			//} 
 
-			i = i + inc;
+			//i = i + inc;
+
+			m_EditorLayer->Get(i,inc,inc1);
 
 			auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
-			wnd->Gfx().ClearBuffer(i, 0.08f, 0.9f);
+			wnd->Gfx().ClearBuffer(i, inc, inc1);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+
+			m_ImGuiLayer->Begin();
+
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiRender();
+			}
+
+			m_ImGuiLayer->End();
+
 
 			m_Window->OnUpdate(m_Running);
 

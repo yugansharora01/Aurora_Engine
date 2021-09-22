@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "ImguiLayer.h"
 
-
 #include "imgui.h"
-#include "Platform/DirectX/imgui_impl_dx11.h"
-#include "Platform/DirectX/imgui_impl_win32.h"
+#include "backends/imgui_impl_dx11.h"
+#include "backends/imgui_impl_win32.h"
+//#include "Platform/DirectX/imgui_impl_dx11.h"
+//#include "Platform/DirectX/imgui_impl_win32.h"
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
@@ -18,12 +19,33 @@ namespace Aurora {
 
 	void ImGuiLayer::OnAttach()
 	{
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGui::StyleColorsDark();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigViewportsNoAutoMerge = true;
+		//io.ConfigViewportsNoTaskBarIcon = true;
+		//io.ConfigViewportsNoDefaultParent = true;
+		//io.ConfigDockingAlwaysTabBar = true;
+		//io.ConfigDockingTransparentPayload = true;
+		//io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;     // FIXME-DPI: Experimental. THIS CURRENTLY DOESN'T WORK AS EXPECTED. DON'T USE IN USER APP!
+		//io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleViewports; // FIXME-DPI: Experimental.
 
-		ImGuiIO& io = ImGui::GetIO();
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 
 		SetDarkThemeColors();
 
@@ -40,15 +62,10 @@ namespace Aurora {
 		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnUpdate()
+	void ImGuiLayer::OnImGuiRender()
 	{
-		Begin();
-
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
-
-		End();
-
 	}
 
 	void ImGuiLayer::Begin()
@@ -71,7 +88,14 @@ namespace Aurora {
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		
-		//wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), wnd->Gfx().GetDepthStencil().Get());
+		// Update and Render additional Platform Windows
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
+
+		wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), wnd->Gfx().GetDepthStencil().Get());
 	}
 
 	void ImGuiLayer::SetDarkThemeColors()

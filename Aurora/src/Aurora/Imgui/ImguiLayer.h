@@ -3,7 +3,6 @@
 #include "Aurora/Layer.h"
 #include "Aurora/Core/AuTimer.h"
 
-
 namespace Aurora {
 	class ImGuiLayer : public Layer
 	{
@@ -12,7 +11,8 @@ namespace Aurora {
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
-		virtual void OnUpdate() override;
+		virtual void OnImGuiRender() override;
+		
 
 		void Begin();
 		void End();

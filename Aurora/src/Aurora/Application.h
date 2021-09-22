@@ -4,6 +4,8 @@
 #include "Window.h"
 #include "Aurora/LayerStack.h"
 #include "Events/Events.h"
+#include "Aurora/Imgui/ImguiLayer.h"
+#include "Aurora/EditorLayer.h"
 
 #include "Aurora/Renderer/Drawables/Box.h"
 
@@ -28,6 +30,10 @@ namespace Aurora {
 
 	private:
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
+		EditorLayer* m_EditorLayer;
+		
+
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;

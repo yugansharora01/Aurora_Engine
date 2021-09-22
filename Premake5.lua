@@ -20,7 +20,7 @@ project "Aurora"
 	location "Aurora"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "latest"
+	cppdialect "C++20"
 	staticruntime "on"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
@@ -78,7 +78,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "latest"
+	cppdialect "C++20"
 	staticruntime "on"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
