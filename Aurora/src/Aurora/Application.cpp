@@ -20,6 +20,9 @@ namespace Aurora {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
+		m_EditorLayer = new EditorLayer();
+		PushOverlay(m_EditorLayer);
+
 		auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
 		b = std::make_unique<Box>(wnd->Gfx());
 
@@ -36,17 +39,8 @@ namespace Aurora {
 		float inc = 0.01f;
 		float inc1 = 0.01f;
 
-		m_EditorLayer = new EditorLayer();
-		PushOverlay(m_EditorLayer);
 		while (m_Running)
 		{
-			//if (i > 1.0f || i < 0.0f)
-			//{
-			//	inc = -inc;
-			//} 
-
-			//i = i + inc;
-
 			m_EditorLayer->Get(i,inc,inc1);
 
 			auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
@@ -68,6 +62,10 @@ namespace Aurora {
 
 			m_Window->OnUpdate(m_Running);
 
+			b->SetMatrix(
+				DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
+				DirectX::XMMatrixTranslation(0.0f - 4.0f, 0.0f, 20.0f)
+			);
 			b->Draw(wnd->Gfx());
 
 			wnd->Gfx().EndFrame();

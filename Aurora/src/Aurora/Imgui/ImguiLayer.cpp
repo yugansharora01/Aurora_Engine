@@ -4,8 +4,6 @@
 #include "imgui.h"
 #include "backends/imgui_impl_dx11.h"
 #include "backends/imgui_impl_win32.h"
-//#include "Platform/DirectX/imgui_impl_dx11.h"
-//#include "Platform/DirectX/imgui_impl_win32.h"
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
