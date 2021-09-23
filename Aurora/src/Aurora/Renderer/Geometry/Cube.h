@@ -11,7 +11,6 @@ namespace Aurora {
 		template<class V>
 		static IndexedTriangleList<V> Make()
 		{
-			namespace dx = DirectX;
 			constexpr float side = 1.0f / 2.0f;
 
 			std::vector<V> vertices(8);

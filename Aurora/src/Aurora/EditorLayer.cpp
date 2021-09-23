@@ -9,6 +9,14 @@ namespace Aurora {
 		Green = green;
 		Blue = blue;
 	}
+
+	void EditorLayer::GetPos(float& x, float& y, float& z)
+	{
+		x = EditorLayer::x;
+		y = EditorLayer::y;
+		z = EditorLayer::z;
+	}
+	
 	void EditorLayer::OnImGuiRender()
 	{
 		static ImVec4 color = {};
@@ -28,6 +36,12 @@ namespace Aurora {
 		green = color.y;
 		blue = color.z;
 
+		ImGui::End();
+
+		ImGui::Begin("Pos");
+		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
+		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
+		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
 		ImGui::End();
 	}
 }
