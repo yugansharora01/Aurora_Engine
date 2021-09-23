@@ -5,22 +5,25 @@
 #include <exception>
 #include <string>
 
-class AuroraException : public std::exception
-{
-public:
-    AuroraException(int line, const char *file) noexcept;
-    const char *what() const noexcept override;
-    virtual const char *GetType() const noexcept;
-    int GetLine() const noexcept;
-    const std::string &GetFile() const noexcept;
-    std::string GetOriginString() const noexcept;
+namespace Aurora {
 
-private:
-    int line;
-    std::string file;
+    class AuroraException : public std::exception
+    {
+    public:
+        AuroraException(int line, const char* file) noexcept;
+        const char* what() const noexcept override;
+        virtual const char* GetType() const noexcept;
+        int GetLine() const noexcept;
+        const std::string& GetFile() const noexcept;
+        std::string GetOriginString() const noexcept;
 
-protected:
-    mutable std::string whatBuffer;
-};
+    private:
+        int line;
+        std::string file;
+
+    protected:
+        mutable std::string whatBuffer;
+    };
+}
 
 #endif // AURORAEXCEPTION_H_INCLUDED

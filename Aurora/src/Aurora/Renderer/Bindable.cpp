@@ -2,21 +2,24 @@
 #include "Bindable.h"
 #include <stdexcept>
 
-ID3D11DeviceContext* Bindable::GetContext(Graphics& gfx) noexcept
-{
-	return gfx.pContext.Get();
-}
+namespace Aurora {
 
-ID3D11Device* Bindable::GetDevice(Graphics& gfx) noexcept
-{
-	return gfx.pDevice.Get();
-}
+	ID3D11DeviceContext* Bindable::GetContext(Graphics& gfx) noexcept
+	{
+		return gfx.pContext.Get();
+	}
 
-DxgiInfoManager& Bindable::GetInfoManager(Graphics& gfx) noexcept(AU_DEBUG)
-{
-	#ifndef NDEBUG
+	ID3D11Device* Bindable::GetDevice(Graphics& gfx) noexcept
+	{
+		return gfx.pDevice.Get();
+	}
+
+	DxgiInfoManager& Bindable::GetInfoManager(Graphics& gfx) noexcept(AU_DEBUG)
+	{
+	#ifndef AU_RELEASE
 		return gfx.infoManager;
 	#else
 		throw std::logic_error("LOL XD Tried to Access InfoManager in Release Mode");
 	#endif
+	}
 }

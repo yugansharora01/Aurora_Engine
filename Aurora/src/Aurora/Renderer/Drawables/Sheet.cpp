@@ -7,73 +7,76 @@
 #include "Aurora/Renderer/Texture.h"
 #include "Aurora/Renderer/Sampler.h"
 
-Sheet::Sheet(Graphics& gfx,std::string name)
-	:name(name)
-{
-	namespace dx = DirectX;
+namespace Aurora {
 
-	if (!IsStaticInitialized())
+	Sheet::Sheet(Graphics& gfx, std::string name)
+		:name(name)
 	{
-		struct Vertex
+		namespace dx = DirectX;
+
+		if (!IsStaticInitialized())
 		{
-			dx::XMFLOAT3 pos;
-			struct
+			struct Vertex
 			{
-				float u;
-				float v;
-			}tex;
-		};
-		auto model = Plane::Make<Vertex>();
+				dx::XMFLOAT3 pos;
+				struct
+				{
+					float u;
+					float v;
+				}tex;
+			};
+			auto model = Plane::Make<Vertex>();
 
-		model.vertices[0].tex = { 0.0f,0.0f };
-		model.vertices[1].tex = { 1.0f,0.0f };
-		model.vertices[2].tex = { 0.0f,1.0f };
-		model.vertices[3].tex = { 1.0f,1.0f };
+			model.vertices[0].tex = { 0.0f,0.0f };
+			model.vertices[1].tex = { 1.0f,0.0f };
+			model.vertices[2].tex = { 0.0f,1.0f };
+			model.vertices[3].tex = { 1.0f,1.0f };
 
-		//AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile(name)));
+			//AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile(name)));
 
-		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
+			AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		AddStaticBind(std::make_unique<Sampler>(gfx));
+			AddStaticBind(std::make_unique<Sampler>(gfx));
 
-		auto pvs = std::make_unique<VertexShader>(gfx, L"TextureVS.cso");
-		auto pvsbc = pvs->GetBytecode();
+			auto pvs = std::make_unique<VertexShader>(gfx, L"TextureVS.cso");
+			auto pvsbc = pvs->GetBytecode();
 
-		AddStaticBind(std::move(pvs));
+			AddStaticBind(std::move(pvs));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, L"TexturePS.cso"));
+			AddStaticBind(std::make_unique<PixelShader>(gfx, L"TexturePS.cso"));
 
-		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
+			AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
-		const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
+			const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
+			{
+				{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+				{"TexCoord",0,DXGI_FORMAT_R32G32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0}
+			};
+			AddStaticBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
+			AddStaticBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+		}
+		else
 		{
-			{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-			{"TexCoord",0,DXGI_FORMAT_R32G32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0}
-		};
-		AddStaticBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
-		AddStaticBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+			SetIndexFromStatic();
+		}
+		SetMatrix(dx::XMMatrixTranslation(0.0f, 0.0f, 20.0f));
+		AddBind(std::make_unique<TransformCbuf>(gfx, *this));
+		AddBind(std::make_unique<Texture>(gfx, Surface::FromFile(name)));
+
 	}
-	else
+
+	void Sheet::Update(float dt) noexcept
 	{
-		SetIndexFromStatic();
 	}
-	SetMatrix(dx::XMMatrixTranslation(0.0f, 0.0f, 20.0f));
-	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
-	AddBind(std::make_unique<Texture>(gfx, Surface::FromFile(name)));
+
+	DirectX::XMMATRIX Sheet::GetTransformXM() const noexcept
+	{
+		return mat;
+	}
+
+	void Sheet::SetMatrix(DirectX::XMMATRIX m) noexcept
+	{
+		mat = m;
+	}
 
 }
-
-void Sheet::Update(float dt) noexcept
-{	
-}
-
-DirectX::XMMATRIX Sheet::GetTransformXM() const noexcept
-{
-	return mat;
-}
-
-void Sheet::SetMatrix(DirectX::XMMATRIX m) noexcept
-{
-	mat = m;
-}
-

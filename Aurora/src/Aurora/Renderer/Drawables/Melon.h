@@ -2,16 +2,18 @@
 
 #include "DrawableBase.h"
 
-class Melon : public DrawableBase<Melon>
-{
-public:
-	Melon(Graphics& gfx, int latdistp, int longdistp);
-	void Update(float dt) noexcept override;
-	DirectX::XMMATRIX GetTransformXM() const noexcept override;
-	void SetMatrix(DirectX::XMMATRIX m) noexcept;
+namespace Aurora {
 
-private:
+	class Melon : public DrawableBase<Melon>
+	{
+	public:
+		Melon(Graphics& gfx, int latdistp, int longdistp);
+		void Update(float dt) noexcept override;
+		DirectX::XMMATRIX GetTransformXM() const noexcept override;
+		void SetMatrix(DirectX::XMMATRIX m) noexcept;
 
-	DirectX::XMMATRIX mat;
-};
+	private:
 
+		DirectX::XMMATRIX mat;
+	};
+}

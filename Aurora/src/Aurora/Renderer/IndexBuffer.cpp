@@ -2,31 +2,34 @@
 #include "IndexBuffer.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
-IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indices)
-    :count((UINT)indices.size())
-{
-    INFOMAN(gfx);
+namespace Aurora {
 
-    D3D11_BUFFER_DESC ibd = {};
-    ibd.ByteWidth = count * sizeof(unsigned short);
-    ibd.Usage = D3D11_USAGE_DEFAULT;
-    ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-    ibd.CPUAccessFlags = 0u;
-    ibd.MiscFlags = 0u;
-    ibd.StructureByteStride = sizeof(unsigned short);
+    IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indices)
+        :count((UINT)indices.size())
+    {
+        INFOMAN(gfx);
 
-    D3D11_SUBRESOURCE_DATA isd = {};
-    isd.pSysMem = indices.data();
+        D3D11_BUFFER_DESC ibd = {};
+        ibd.ByteWidth = count * sizeof(unsigned short);
+        ibd.Usage = D3D11_USAGE_DEFAULT;
+        ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+        ibd.CPUAccessFlags = 0u;
+        ibd.MiscFlags = 0u;
+        ibd.StructureByteStride = sizeof(unsigned short);
 
-    GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&ibd, &isd, &pIndexBuffer));
-}
+        D3D11_SUBRESOURCE_DATA isd = {};
+        isd.pSysMem = indices.data();
 
-void IndexBuffer::Bind(Graphics& gfx) noexcept
-{
-    GetContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
-}
+        GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&ibd, &isd, &pIndexBuffer));
+    }
 
-UINT IndexBuffer::GetCount() const noexcept
-{
-    return count;
+    void IndexBuffer::Bind(Graphics& gfx) noexcept
+    {
+        GetContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
+    }
+
+    UINT IndexBuffer::GetCount() const noexcept
+    {
+        return count;
+    }
 }

@@ -1,39 +1,42 @@
 #include "pch.h"
 #include "AuroraException.h"
 
-AuroraException::AuroraException(int line, const char *file) noexcept
-    : line(line), file(file)
-{
-}
+namespace Aurora {
 
-const char *AuroraException::what() const noexcept
-{
-    std::ostringstream oss;
-    oss << GetType() << std::endl
-        << GetOriginString();
-    whatBuffer = oss.str();
-    return whatBuffer.c_str();
-}
+    AuroraException::AuroraException(int line, const char* file) noexcept
+        : line(line), file(file)
+    {
+    }
 
-const char *AuroraException::GetType() const noexcept
-{
-    return "Aurora Exception";
-}
+    const char* AuroraException::what() const noexcept
+    {
+        std::ostringstream oss;
+        oss << GetType() << std::endl
+            << GetOriginString();
+        whatBuffer = oss.str();
+        return whatBuffer.c_str();
+    }
 
-int AuroraException::GetLine() const noexcept
-{
-    return line;
-}
+    const char* AuroraException::GetType() const noexcept
+    {
+        return "Aurora Exception";
+    }
 
-const std::string &AuroraException::GetFile() const noexcept
-{
-    return file;
-}
+    int AuroraException::GetLine() const noexcept
+    {
+        return line;
+    }
 
-std::string AuroraException::GetOriginString() const noexcept
-{
-    std::ostringstream oss;
-    oss << "[FILE]" << file << std::endl
-        << "[LINE]" << line;
-    return oss.str();
+    const std::string& AuroraException::GetFile() const noexcept
+    {
+        return file;
+    }
+
+    std::string AuroraException::GetOriginString() const noexcept
+    {
+        std::ostringstream oss;
+        oss << "[FILE]" << file << std::endl
+            << "[LINE]" << line;
+        return oss.str();
+    }
 }
