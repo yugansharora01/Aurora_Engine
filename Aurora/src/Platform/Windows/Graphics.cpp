@@ -26,35 +26,8 @@ namespace Aurora {
     {
         AU_INFO("Initialised Graphics");
 
-        RECT rect;
         unsigned int WindowWidth = 800, WindowHeight = 600;
 
-        if (GetWindowRect(hWnd, &rect))
-        {
-            //WindowWidth = rect.right - rect.left;
-            //WindowHeight = rect.bottom - rect.top;
-        }
-
-        int m_finalWidth;
-        int m_finalHeight;
-
-        {
-            RECT wr;
-            wr.left = 100;
-            wr.right = WindowWidth + wr.left;
-            wr.top = 100;
-            wr.bottom = WindowHeight + wr.top;
-            if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
-            {
-                throw AUWND_LAST_EXCEPT();
-            }
-
-            m_finalWidth = wr.right - wr.left;
-            m_finalHeight = wr.bottom - wr.top;
-        }
-
-        AU_INFO("width = {0},height = {1}", WindowWidth, WindowHeight);
-        AU_INFO("width = {0},height = {1}", m_finalWidth, m_finalHeight);
 
         DXGI_SWAP_CHAIN_DESC sd = {};
         sd.BufferDesc.Width = 0;
