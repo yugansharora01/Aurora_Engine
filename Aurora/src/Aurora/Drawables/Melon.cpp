@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Melon.h"
-#include "Aurora/Renderer/BindableBase.h"
+#include "Platform/DirectX/BindableBase.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
-#include "Aurora/Renderer/Geometry/Sphere.h"
+#include "Aurora/Drawables/Geometry/Sphere.h"
 
 namespace Aurora {
 

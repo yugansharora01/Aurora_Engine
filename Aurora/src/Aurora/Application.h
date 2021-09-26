@@ -7,7 +7,7 @@
 #include "Aurora/Imgui/ImguiLayer.h"
 #include "Aurora/EditorLayer.h"
 
-#include "Aurora/Renderer/Drawables/Box.h"
+#include "Aurora/Drawables/Box.h"
 
 
 namespace Aurora {

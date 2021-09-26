@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Box.h"
-#include "Aurora/Renderer/BindableBase.h"
-#include "platform/Windows/GraphicsThrowMacros.h"
-#include "Aurora/Renderer/Geometry/Cube.h"
+#include "Platform/DirectX/BindableBase.h"
+#include "Platform/Windows/GraphicsThrowMacros.h"
+#include "Aurora/Drawables/Geometry/Cube.h"
 
 namespace Aurora {
 

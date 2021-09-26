@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Pyramid.h"
-#include "Aurora/Renderer/BindableBase.h"
+#include "Platform/DirectX/BindableBase.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
-#include "Aurora/Renderer/Geometry/Cone.h"
+#include "Aurora/Drawables/Geometry/Cone.h"
 
 namespace Aurora {
 

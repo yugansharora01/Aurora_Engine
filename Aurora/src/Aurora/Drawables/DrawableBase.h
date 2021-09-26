@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Drawable.h"
-#include "Aurora/Renderer/IndexBuffer.h"
+#include "Platform/DirectX/IndexBuffer.h"
 
 namespace Aurora {
 

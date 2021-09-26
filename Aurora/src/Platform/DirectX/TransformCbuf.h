@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ConstantBuffers.h"
-#include "Aurora/Renderer/Drawables/Drawable.h"
+#include "Aurora/Drawables/Drawable.h"
 #include <DirectXMath.h>
 
 
