@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Bindable.h"
+#include "Aurora/Renderer/Buffer.h"
 
 namespace Aurora {
 
-	class InputLayout : public Bindable
+	class D3D11InputLayout : public InputLayout
 	{
 	public:
-		InputLayout(Graphics& gfx,
+		D3D11InputLayout(
 			const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
 			ID3DBlob* pVertexShaderBytecode
 		);
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind() noexcept override;
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;

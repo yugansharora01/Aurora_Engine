@@ -82,10 +82,10 @@
     <ClInclude Include="src\Platform\DirectX\Bindable.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\BindableBase.h">
+    <ClInclude Include="src\Aurora\Renderer\BindableBase.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\ConstantBuffers.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11ConstantBuffers.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Box.h">
@@ -127,34 +127,34 @@
     <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h">
       <Filter>Aurora\Renderer\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\IndexBuffer.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11IndexBuffer.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\InputLayout.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11InputLayout.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\PixelShader.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11PixelShader.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\Sampler.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11Sampler.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\Surface.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11Surface.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\Texture.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11Texture.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\Topology.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11Topology.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\TransformCbuf.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11TransformCbuf.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\VertexBuffer.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11VertexBuffer.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\VertexShader.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11VertexShader.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Utils\Convertors.h">
@@ -207,6 +207,10 @@
     </ClInclude>
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Aurora\EditorLayer.h" />
+    <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
+    <ClInclude Include="src\Aurora\Renderer\Shader.h" />
+    <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
+    <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -248,34 +252,34 @@
     <ClCompile Include="src\Aurora\Drawables\SkinnedBox.cpp">
       <Filter>Aurora\Renderer\Drawables</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\IndexBuffer.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\InputLayout.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11InputLayout.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\PixelShader.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11PixelShader.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\Sampler.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11Sampler.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\Surface.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11Surface.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\Texture.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11Texture.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\Topology.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11Topology.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\TransformCbuf.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11TransformCbuf.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\VertexBuffer.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11VertexBuffer.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\VertexShader.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11VertexShader.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp">
@@ -308,6 +312,10 @@
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
     <ClCompile Include="src\Aurora\EditorLayer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl">

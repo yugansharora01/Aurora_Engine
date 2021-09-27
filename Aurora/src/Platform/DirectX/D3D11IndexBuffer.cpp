@@ -1,13 +1,13 @@
 #include "pch.h"
-#include "IndexBuffer.h"
+#include "D3D11IndexBuffer.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
 namespace Aurora {
 
-    IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indices)
+    D3D11IndexBuffer::D3D11IndexBuffer(const std::vector<unsigned short>& indices)
         :count((UINT)indices.size())
     {
-        INFOMAN(gfx);
+        INFOMAN();
 
         D3D11_BUFFER_DESC ibd = {};
         ibd.ByteWidth = count * sizeof(unsigned short);
@@ -20,15 +20,19 @@ namespace Aurora {
         D3D11_SUBRESOURCE_DATA isd = {};
         isd.pSysMem = indices.data();
 
-        GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&ibd, &isd, &pIndexBuffer));
+        GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&ibd, &isd, &pIndexBuffer));
     }
 
-    void IndexBuffer::Bind(Graphics& gfx) noexcept
+    void D3D11IndexBuffer::Bind() noexcept
     {
-        GetContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
+        Getgfx().GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
     }
 
-    UINT IndexBuffer::GetCount() const noexcept
+    void D3D11IndexBuffer::Unbind() noexcept
+    {
+    }
+
+    UINT D3D11IndexBuffer::GetCount() const noexcept
     {
         return count;
     }

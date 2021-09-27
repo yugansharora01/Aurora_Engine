@@ -1,15 +1,15 @@
 #include "pch.h"
-#include "VertexShader.h"
+#include "D3D11VertexShader.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 #include <d3dcompiler.h>
 
 namespace Aurora {
 
-	VertexShader::VertexShader(Graphics& gfx, const std::wstring& path)
+	D3D11VertexShader::D3D11VertexShader(const std::wstring& path)
 	{
-		INFOMAN(gfx);
+		INFOMAN();
 		GFX_THROW_INFO(D3DReadFileToBlob(path.c_str(), &pBytecodeBlob));
-		GFX_THROW_INFO(GetDevice(gfx)->CreateVertexShader(
+		GFX_THROW_INFO(Getgfx().GetDevice()->CreateVertexShader(
 			pBytecodeBlob->GetBufferPointer(),
 			pBytecodeBlob->GetBufferSize(),
 			nullptr,
@@ -17,12 +17,12 @@ namespace Aurora {
 		));
 	}
 
-	void VertexShader::Bind(Graphics& gfx) noexcept
+	void D3D11VertexShader::Bind() noexcept
 	{
-		GetContext(gfx)->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+		Getgfx().GetContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 	}
 
-	ID3DBlob* VertexShader::GetBytecode() const noexcept
+	ID3DBlob* D3D11VertexShader::GetBytecode() const noexcept
 	{
 		return pBytecodeBlob.Get();
 	}

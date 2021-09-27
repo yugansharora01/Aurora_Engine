@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Melon.h"
-#include "Platform/DirectX/BindableBase.h"
+#include "Aurora/Renderer/BindableBase.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 #include "Aurora/Drawables/Geometry/Sphere.h"
 
@@ -12,12 +12,12 @@ namespace Aurora {
 
 		if (!IsStaticInitialized())
 		{
-			auto pvs = std::make_unique<VertexShader>(gfx, L"ColorIndexVS.cso");
+			auto pvs = VertexShader::Create(L"ColorIndexVS.cso");
 			auto pvsbc = pvs->GetBytecode();
 
 			AddStaticBind(std::move(pvs));
 
-			AddStaticBind(std::make_unique<PixelShader>(gfx, L"ColorIndexPS.cso"));
+			AddStaticBind(PixelShader::Create(L"ColorIndexPS.cso"));
 
 			struct PixelShaderConstants
 			{
@@ -43,31 +43,31 @@ namespace Aurora {
 					{ 0.0f,0.0f,0.0f },
 				}
 			};
-			AddStaticBind(std::make_unique<PixelConstantBuffer<PixelShaderConstants>>(gfx, cb2));
+			AddStaticBind(std::make_unique<PixelConstantBuffer<PixelShaderConstants>>(cb2));
 
 
 			const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
 			{
 				{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0}
 			};
-			AddStaticBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
-			AddStaticBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+			AddStaticBind(std::make_unique<InputLayout>(ied, pvsbc));
+			AddStaticBind(std::make_unique<Topology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 		}
 		struct Vertex
 		{
 			dx::XMFLOAT3 pos;
 		};
-		auto model = Sphere::MakeTesselated<Vertex>(latdistp, longdistp);
+		auto model = Sphere::MakeTesselated<dx::XMFLOAT3>(latdistp, longdistp);
 
 		//deform vertices of model by linear transformation
 		model.Transform(dx::XMMatrixScaling(1.0f, 1.0f, 1.2f));
-		AddBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
-		AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
+		AddBind(VertexBuffer::Create(model.vertices));
+		AddIndexBuffer(IndexBuffer::Create(model.indices));
 
 		SetMatrix(dx::XMMatrixTranslation(0.0f, 0.0f, 20.0f));
 
-		AddBind(std::make_unique<TransformCbuf>(gfx, *this));
+		AddBind(std::make_unique<TransformCbuf>(*this));
 	}
 
 	void Melon::Update(float dt) noexcept

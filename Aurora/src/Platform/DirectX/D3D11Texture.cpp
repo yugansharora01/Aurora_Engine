@@ -1,13 +1,13 @@
 #include "pch.h"
-#include "Texture.h"
-#include "Surface.h"
+#include "D3D11Texture.h"
+#include "D3D11Surface.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
 namespace Aurora {
 
-	Texture::Texture(Graphics& gfx, const Surface& s)
+	D3D11Texture::D3D11Texture(const Surface& s)
 	{
-		INFOMAN(gfx);
+		INFOMAN();
 
 		//create texture resource
 		D3D11_TEXTURE2D_DESC textureDesc = {};
@@ -27,7 +27,7 @@ namespace Aurora {
 		sd.pSysMem = s.GetBufferPtr();
 		sd.SysMemPitch = s.GetWidth() * sizeof(Surface::Color);
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> pTexture;
-		GFX_THROW_INFO(GetDevice(gfx)->CreateTexture2D(
+		GFX_THROW_INFO(Getgfx().GetDevice()->CreateTexture2D(
 			&textureDesc, &sd, &pTexture
 		));
 
@@ -37,13 +37,13 @@ namespace Aurora {
 		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MostDetailedMip = 0;
 		srvDesc.Texture2D.MipLevels = 1;
-		GFX_THROW_INFO(GetDevice(gfx)->CreateShaderResourceView(
+		GFX_THROW_INFO(Getgfx().GetDevice()->CreateShaderResourceView(
 			pTexture.Get(), &srvDesc, &pTextureView
 		));
 	}
 
-	void Texture::Bind(Graphics& gfx) noexcept
+	void D3D11Texture::Bind() noexcept
 	{
-		GetContext(gfx)->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
+		Getgfx().GetContext()->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
 	}
 }

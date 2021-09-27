@@ -1,17 +1,17 @@
 #pragma once
 
-#include "ConstantBuffers.h"
+#include "D3D11ConstantBuffers.h"
 #include "Aurora/Drawables/Drawable.h"
 #include <DirectXMath.h>
 
 
 namespace Aurora {
 
-	class TransformCbuf : public Bindable
+	class D3D11TransformCbuf : public Bindables
 	{
 	public:
-		TransformCbuf(Graphics& gfx, const Drawable& parent);
-		void Bind(Graphics& gfx) noexcept override;
+		D3D11TransformCbuf(const Drawable& parent);
+		void Bind() noexcept override;
 
 	private:
 		static std::unique_ptr<VertexConstantBuffer<DirectX::XMMATRIX>> pVcbuf;

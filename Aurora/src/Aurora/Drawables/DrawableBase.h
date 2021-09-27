@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Drawable.h"
-#include "Platform/DirectX/IndexBuffer.h"
+#include "Aurora/Renderer/Buffer.h"
 
 namespace Aurora {
 
@@ -13,12 +13,12 @@ namespace Aurora {
 		{
 			return !staticBinds.empty();
 		}
-		static void AddStaticBind(std::unique_ptr<Bindable> bind) noexcept (!AU_DEBUG)
+		static void AddStaticBind(std::shared_ptr<Bindables> bind) noexcept (!AU_DEBUG)
 		{
 			assert("*Must* use AddStaticIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer));
 			staticBinds.push_back(std::move(bind));
 		}
-		void AddStaticIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept(!AU_DEBUG)
+		void AddStaticIndexBuffer(std::shared_ptr<IndexBuffer> ibuf) noexcept(!AU_DEBUG)
 		{
 			assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
 			pIndexBuffer = ibuf.get();
@@ -37,7 +37,7 @@ namespace Aurora {
 			}
 			assert("failed to find index buffer in static binds" && pIndexBuffer != nullptr);
 		}
-		void ReplaceStaticBindable(std::unique_ptr<Bindable> bindable)
+		void ReplaceStaticBindable(std::shared_ptr<Bindable> bindable)
 		{
 			//for (auto i = binds.begin(); i != binds.end(); i++)
 			//{
@@ -49,16 +49,24 @@ namespace Aurora {
 			//}
 		}
 	private:
-		const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const noexcept override
+		/*const std::vector<std::shared_ptr<Bindable>>& GetStaticBinds() const noexcept override
 		{
 			return staticBinds;
+		}*/
+		
+		const std::vector<std::shared_ptr<Bindables>>& GetStaticBindss() const noexcept override
+		{
+			return staticBindss;
 		}
 
 
 	private:
-		static std::vector<std::unique_ptr<Bindable>> staticBinds;
+		static std::vector<std::shared_ptr<Bindable>> staticBinds;
+		static std::vector<std::shared_ptr<Bindables>> staticBindss;
 	};
 
 	template<class T>
-	std::vector<std::unique_ptr<Bindable>> DrawableBase<T>::staticBinds;
+	std::vector<std::shared_ptr<Bindable>> DrawableBase<T>::staticBinds;
+	template<class T>
+	std::vector<std::shared_ptr<Bindables>> DrawableBase<T>::staticBindss;
 }

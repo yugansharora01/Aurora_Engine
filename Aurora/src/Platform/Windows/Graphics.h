@@ -74,6 +74,7 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
         inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
         inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencil() { return pDSV; }
+        inline DxgiInfoManager& GetInfoManager() { return infoManager; }
 
     private:
         DirectX::XMMATRIX projection;

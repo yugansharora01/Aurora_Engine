@@ -1,15 +1,15 @@
 #include "pch.h"
-#include "InputLayout.h"
+#include "D3D11InputLayout.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
 namespace Aurora {
 
-	InputLayout::InputLayout(Graphics& gfx,
+	D3D11InputLayout::D3D11InputLayout(
 		const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
 		ID3DBlob* pVertexShaderBytecode)
 	{
-		INFOMAN(gfx);
-		GFX_THROW_INFO(GetDevice(gfx)->CreateInputLayout(
+		INFOMAN();
+		GFX_THROW_INFO(Getgfx().GetDevice()->CreateInputLayout(
 			layout.data(), (UINT)layout.size(),
 			pVertexShaderBytecode->GetBufferPointer(),
 			pVertexShaderBytecode->GetBufferSize(),
@@ -17,8 +17,8 @@ namespace Aurora {
 		));
 	}
 
-	void InputLayout::Bind(Graphics& gfx) noexcept
+	void D3D11InputLayout::Bind() noexcept
 	{
-		GetContext(gfx)->IASetInputLayout(pInputLayout.Get());
+		Getgfx().GetContext()->IASetInputLayout(pInputLayout.Get());
 	}
 }

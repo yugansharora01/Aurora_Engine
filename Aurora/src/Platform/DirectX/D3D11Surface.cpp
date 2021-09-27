@@ -1,6 +1,6 @@
 #include "pch.h"
 #define FULL_WINTARD
-#include "Surface.h"
+#include "D3D11Surface.h"
 #include <algorithm>
 namespace Gdiplus
 {
