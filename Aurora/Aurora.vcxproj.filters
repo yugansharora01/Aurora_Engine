@@ -88,45 +88,6 @@
     <ClInclude Include="src\Platform\DirectX\D3D11ConstantBuffers.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Box.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Drawable.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\DrawableBase.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Melon.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Pyramid.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Sheet.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\SkinnedBox.h">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h">
-      <Filter>Aurora\Renderer\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h">
-      <Filter>Aurora\Renderer\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\IndexedTriangleList.h">
-      <Filter>Aurora\Renderer\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h">
-      <Filter>Aurora\Renderer\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Prism.h">
-      <Filter>Aurora\Renderer\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h">
-      <Filter>Aurora\Renderer\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11IndexBuffer.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
@@ -211,6 +172,7 @@
     <ClInclude Include="src\Aurora\Renderer\Shader.h" />
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
+    <ClInclude Include="src\Aurora\Renderer\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -233,24 +195,6 @@
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\Bindable.cpp">
       <Filter>Aurora\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Drawables\Box.cpp">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Drawables\Drawable.cpp">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Drawables\Melon.cpp">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Drawables\Pyramid.cpp">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Drawables\Sheet.cpp">
-      <Filter>Aurora\Renderer\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Drawables\SkinnedBox.cpp">
-      <Filter>Aurora\Renderer\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp">
       <Filter>Aurora\Renderer</Filter>
@@ -316,6 +260,7 @@
     <ClCompile Include="src\Aurora\Renderer\Shader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl">

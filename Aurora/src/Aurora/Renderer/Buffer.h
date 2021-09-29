@@ -6,6 +6,15 @@
 namespace Aurora
 {
 
+	enum class TopologyType
+	{
+		Point_List = 0,
+		Line_List,
+		Line_Strip,
+		Triangle_List,
+		Triangle_Strip
+	};
+
 	class VertexBuffer : public Bindables
 	{
 	public:
@@ -45,5 +54,12 @@ namespace Aurora
 		
 	};
 
+	class Topology : public Bindables
+	{
+		
+	public:
+		virtual ~Topology() = default;
 
+		static std::shared_ptr<Topology> Create(TopologyType Type);
+	};
 }

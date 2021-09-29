@@ -8,7 +8,7 @@ namespace Aurora {
 	{
 		if (!pVcbuf)
 		{
-			pVcbuf = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>();
+			pVcbuf = std::make_unique<D3D11VertexConstantBuffer<DirectX::XMMATRIX>>();
 		}
 	}
 
@@ -20,6 +20,6 @@ namespace Aurora {
 		pVcbuf->Bind();
 	}
 
-	std::unique_ptr<VertexConstantBuffer<DirectX::XMMATRIX>> D3D11TransformCbuf::pVcbuf;
+	std::unique_ptr<D3D11VertexConstantBuffer<DirectX::XMMATRIX>> D3D11TransformCbuf::pVcbuf;
 
 }

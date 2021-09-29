@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Aurora/Renderer/Bindables.h"
+#include "Aurora/Renderer/Buffer.h"
 
 namespace Aurora {
 
-	class D3D11Topology : public Bindables
+	class D3D11Topology : public Topology
 	{
 	public:
-		D3D11Topology(D3D11_PRIMITIVE_TOPOLOGY type);
+		D3D11Topology(TopologyType type);
 		void Bind() noexcept override;
 
 	private:

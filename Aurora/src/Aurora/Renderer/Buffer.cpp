@@ -3,6 +3,7 @@
 #include "Platform/DirectX/D3D11IndexBuffer.h"
 #include "Platform/DirectX/D3D11VertexBuffer.h"
 #include "Platform/DirectX/D3D11InputLayout.h"
+#include "Platform/DirectX/D3D11Topology.h"
 
 
 namespace Aurora {
@@ -20,5 +21,10 @@ namespace Aurora {
 	std::shared_ptr<InputLayout> InputLayout::Create(const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout, ID3DBlob* pVertexShaderBytecode)
 	{
 		return std::make_shared<D3D11InputLayout>(layout, pVertexShaderBytecode);
+	}
+	
+	std::shared_ptr<Topology> Topology::Create(TopologyType Type)
+	{
+		return std::make_shared<D3D11Topology>(Type);
 	}
 }

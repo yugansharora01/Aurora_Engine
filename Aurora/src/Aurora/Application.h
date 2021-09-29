@@ -7,8 +7,6 @@
 #include "Aurora/Imgui/ImguiLayer.h"
 #include "Aurora/EditorLayer.h"
 
-#include "Aurora/Drawables/Box.h"
-
 
 namespace Aurora {
 
@@ -40,7 +38,6 @@ namespace Aurora {
 
 		static Application* s_Instance;
 
-		std::unique_ptr<Box> b;
 	};
 
 	//To be defined in client
