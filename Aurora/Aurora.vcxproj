@@ -136,6 +136,7 @@
     <ClInclude Include="src\Aurora\AuroraMath.h" />
     <ClInclude Include="src\Aurora\Core.h" />
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
+    <ClInclude Include="src\Aurora\Drawables\Drawable.h" />
     <ClInclude Include="src\Aurora\EntryPoint.h" />
     <ClInclude Include="src\Aurora\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Aurora\Events\Events.h" />
@@ -185,6 +186,7 @@
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
+    <ClCompile Include="src\Aurora\Drawables\Drawable.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Layer.cpp" />

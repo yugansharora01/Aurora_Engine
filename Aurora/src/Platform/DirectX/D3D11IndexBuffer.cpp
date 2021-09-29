@@ -7,7 +7,7 @@ namespace Aurora {
     D3D11IndexBuffer::D3D11IndexBuffer(const std::vector<unsigned short>& indices)
         :count((UINT)indices.size())
     {
-        INFOMAN();
+        INFOMAN;
 
         D3D11_BUFFER_DESC ibd = {};
         ibd.ByteWidth = count * sizeof(unsigned short);
@@ -23,12 +23,12 @@ namespace Aurora {
         GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&ibd, &isd, &pIndexBuffer));
     }
 
-    void D3D11IndexBuffer::Bind() noexcept
+    void D3D11IndexBuffer::Bind()
     {
         Getgfx().GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
     }
 
-    void D3D11IndexBuffer::Unbind() noexcept
+    void D3D11IndexBuffer::Unbind()
     {
     }
 

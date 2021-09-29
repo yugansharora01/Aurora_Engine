@@ -7,7 +7,7 @@ namespace Aurora {
 
 	D3D11PixelShader::D3D11PixelShader(const std::wstring& path)
 	{
-		INFOMAN();
+		INFOMAN;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
 		GFX_THROW_INFO(D3DReadFileToBlob(path.c_str(), &pBytecodeBlob));
@@ -20,7 +20,7 @@ namespace Aurora {
 		));
 	}
 
-	void D3D11PixelShader::Bind() noexcept
+	void D3D11PixelShader::Bind()
 	{
 		Getgfx().GetContext()->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 	}

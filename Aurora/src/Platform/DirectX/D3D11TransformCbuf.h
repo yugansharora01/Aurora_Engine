@@ -11,10 +11,10 @@ namespace Aurora {
 	{
 	public:
 		D3D11TransformCbuf(const Drawable& parent);
-		void Bind() noexcept override;
-
+		void Bind() override;
+		void Unbind() override {}
 	private:
-		static std::unique_ptr<D3D11VertexConstantBuffer<DirectX::XMMATRIX>> pVcbuf;
+		static std::unique_ptr<D3D11VertexConstantBuffer> pVcbuf;
 		const Drawable& parent;
 	};
 }

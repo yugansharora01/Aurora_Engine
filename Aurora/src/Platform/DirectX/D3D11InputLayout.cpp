@@ -8,7 +8,7 @@ namespace Aurora {
 		const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
 		ID3DBlob* pVertexShaderBytecode)
 	{
-		INFOMAN();
+		INFOMAN;
 		GFX_THROW_INFO(Getgfx().GetDevice()->CreateInputLayout(
 			layout.data(), (UINT)layout.size(),
 			pVertexShaderBytecode->GetBufferPointer(),
@@ -17,7 +17,7 @@ namespace Aurora {
 		));
 	}
 
-	void D3D11InputLayout::Bind() noexcept
+	void D3D11InputLayout::Bind() 
 	{
 		Getgfx().GetContext()->IASetInputLayout(pInputLayout.Get());
 	}

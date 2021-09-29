@@ -8,8 +8,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11IndexBuffer(const std::vector<unsigned short>& indices);
-		void Bind() noexcept override;
-		void Unbind() noexcept override;
+		void Bind() override;
+		void Unbind() override;
 		UINT GetCount() const noexcept;
 
 	private:

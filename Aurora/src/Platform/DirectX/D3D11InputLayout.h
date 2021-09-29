@@ -11,7 +11,8 @@ namespace Aurora {
 			const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
 			ID3DBlob* pVertexShaderBytecode
 		);
-		void Bind() noexcept override;
+		void Bind() override;
+		void Unbind() override{}
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;

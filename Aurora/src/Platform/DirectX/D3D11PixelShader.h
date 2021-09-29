@@ -9,8 +9,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11PixelShader(const std::wstring& path);
-		void Bind() noexcept override;
-
+		void Bind() override;
+		void Unbind() override {}
 	private:
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
 	};

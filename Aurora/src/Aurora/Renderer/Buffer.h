@@ -34,7 +34,7 @@ namespace Aurora
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		
-		virtual const UINT GetCount() = 0;
+		virtual UINT GetCount() const noexcept = 0;
 
 		static std::shared_ptr<IndexBuffer> Create(
 			const std::vector<unsigned short>& indices);
@@ -46,7 +46,8 @@ namespace Aurora
 	{
 	public:
 		virtual ~InputLayout() = default;
-
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 		
 		static std::shared_ptr<InputLayout> Create(
 			const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
@@ -59,6 +60,8 @@ namespace Aurora
 		
 	public:
 		virtual ~Topology() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 
 		static std::shared_ptr<Topology> Create(TopologyType Type);
 	};

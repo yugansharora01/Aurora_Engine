@@ -9,8 +9,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11Topology(TopologyType type);
-		void Bind() noexcept override;
-
+		void Bind() override;
+		void Unbind() override {}
 	private:
 		D3D11_PRIMITIVE_TOPOLOGY type;
 	};

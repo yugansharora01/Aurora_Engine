@@ -6,7 +6,7 @@ namespace Aurora {
 
 	D3D11Sampler::D3D11Sampler()
 	{
-		INFOMAN();
+		INFOMAN;
 
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -17,7 +17,7 @@ namespace Aurora {
 		GFX_THROW_INFO(Getgfx().GetDevice()->CreateSamplerState(&samplerDesc, &pSampler));
 	}
 
-	void D3D11Sampler::Bind() noexcept
+	void D3D11Sampler::Bind() 
 	{
 		Getgfx().GetContext()->PSSetSamplers(0, 1, pSampler.GetAddressOf());
 	}

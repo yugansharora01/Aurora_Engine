@@ -9,7 +9,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11VertexShader(const std::wstring& path);
-		void Bind() noexcept override;
+		void Bind() override;
+		void Unbind() override {}
 		ID3DBlob* GetBytecode() const noexcept override;
 
 	private:

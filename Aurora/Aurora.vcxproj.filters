@@ -173,6 +173,7 @@
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
+    <ClInclude Include="src\Aurora\Drawables\Drawable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -261,6 +262,7 @@
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Aurora\Drawables\Drawable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl">

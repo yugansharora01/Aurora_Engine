@@ -8,8 +8,9 @@ namespace Aurora {
 	{
 	public:
 		virtual ~PixelConstantBuffer() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 
-		static std::shared_ptr<PixelConstantBuffer> Create();
 		
 		static std::shared_ptr<PixelConstantBuffer> Create(std::array<DirectX::XMFLOAT3, 8> facecolors);
 
@@ -19,10 +20,10 @@ namespace Aurora {
 	{
 	public:
 		virtual ~VertexConstantBuffer() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 
-		virtual ID3DBlob* GetBytecode() const noexcept = 0;
 
-		static std::shared_ptr<VertexConstantBuffer> Create();
 
 		static std::shared_ptr<VertexConstantBuffer> Create(DirectX::XMMATRIX mat);
 	};

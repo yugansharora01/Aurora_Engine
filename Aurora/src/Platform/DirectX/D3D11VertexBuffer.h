@@ -11,8 +11,8 @@ namespace Aurora {
 	public:
 		D3D11VertexBuffer(const std::vector<DirectX::XMFLOAT3>& vertices);
 		
-		void Bind() noexcept override;
-		void Unbind() noexcept override{}
+		void Bind() override;
+		void Unbind() override{}
 
 	private:
 		UINT stride;

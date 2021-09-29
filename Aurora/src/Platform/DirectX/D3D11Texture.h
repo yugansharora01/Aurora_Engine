@@ -9,7 +9,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11Texture(const class Surface& s);
-		void Bind() noexcept override;
+		void Bind() override;
+		void Unbind() override {}
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
 	};

@@ -7,7 +7,7 @@ namespace Aurora {
 
 	D3D11Texture::D3D11Texture(const Surface& s)
 	{
-		INFOMAN();
+		INFOMAN;
 
 		//create texture resource
 		D3D11_TEXTURE2D_DESC textureDesc = {};
@@ -42,7 +42,7 @@ namespace Aurora {
 		));
 	}
 
-	void D3D11Texture::Bind() noexcept
+	void D3D11Texture::Bind() 
 	{
 		Getgfx().GetContext()->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
 	}

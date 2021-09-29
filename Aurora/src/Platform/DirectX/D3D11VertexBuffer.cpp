@@ -5,7 +5,7 @@ namespace Aurora {
 	
 	D3D11VertexBuffer::D3D11VertexBuffer(const std::vector<DirectX::XMFLOAT3>& vertices)
 	{
-		INFOMAN();
+		INFOMAN;
 
 		D3D11_BUFFER_DESC bd = {};
 		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
@@ -23,7 +23,7 @@ namespace Aurora {
 		GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
 	}
 
-	void D3D11VertexBuffer::Bind() noexcept
+	void D3D11VertexBuffer::Bind() 
 	{
 		const UINT offset = 0u;
 		Getgfx().GetContext()->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);

@@ -24,7 +24,6 @@ namespace Aurora {
 		PushOverlay(m_EditorLayer);
 
 		auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
-		b = std::make_unique<Box>(wnd->Gfx());
 
 		wnd->Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 
@@ -52,11 +51,7 @@ namespace Aurora {
 				layer->OnUpdate();
 
 			m_EditorLayer->GetPos(i,inc,inc1);
-			b->SetMatrix(
-				DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
-				DirectX::XMMatrixTranslation(i,inc, inc1)
-			);
-			b->Draw(wnd->Gfx());
+			
 
 			m_ImGuiLayer->Begin();
 

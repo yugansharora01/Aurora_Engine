@@ -6,13 +6,14 @@ namespace Aurora {
 	D3D11TransformCbuf::D3D11TransformCbuf(const Drawable& parent)
 		:parent(parent)
 	{
+		DirectX::XMMATRIX mat = DirectX::XMMatrixIdentity();
 		if (!pVcbuf)
 		{
-			pVcbuf = std::make_unique<D3D11VertexConstantBuffer<DirectX::XMMATRIX>>();
+			pVcbuf = std::make_unique<D3D11VertexConstantBuffer>(mat);
 		}
 	}
 
-	void D3D11TransformCbuf::Bind() noexcept
+	void D3D11TransformCbuf::Bind() 
 	{
 		pVcbuf->Update(DirectX::XMMatrixTranspose(
 			parent.GetTransformXM() * Getgfx().GetProjection()
@@ -20,6 +21,6 @@ namespace Aurora {
 		pVcbuf->Bind();
 	}
 
-	std::unique_ptr<D3D11VertexConstantBuffer<DirectX::XMMATRIX>> D3D11TransformCbuf::pVcbuf;
+	std::unique_ptr<D3D11VertexConstantBuffer> D3D11TransformCbuf::pVcbuf;
 
 }
