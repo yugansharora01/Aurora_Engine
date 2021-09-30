@@ -79,9 +79,6 @@
     <ClInclude Include="src\Aurora\Log.h">
       <Filter>Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\Bindable.h">
-      <Filter>Aurora\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
@@ -107,9 +104,6 @@
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Topology.h">
-      <Filter>Aurora\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\D3D11TransformCbuf.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11VertexBuffer.h">
@@ -173,7 +167,6 @@
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
-    <ClInclude Include="src\Aurora\Drawables\Drawable.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h" />
@@ -200,9 +193,6 @@
     <ClCompile Include="src\Aurora\Log.cpp">
       <Filter>Aurora</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\Bindable.cpp">
-      <Filter>Aurora\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
@@ -222,9 +212,6 @@
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Topology.cpp">
-      <Filter>Aurora\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\D3D11TransformCbuf.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11VertexBuffer.cpp">
@@ -268,25 +255,24 @@
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Aurora\Drawables\Drawable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">
       <Filter>Aurora\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\ColorBlendVS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendVS.hlsl">
       <Filter>Aurora\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\ColorIndexPS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorIndexPS.hlsl">
       <Filter>Aurora\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\ColorIndexVS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorIndexVS.hlsl">
       <Filter>Aurora\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\TexturePS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\TexturePS.hlsl">
       <Filter>Aurora\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\TextureVS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\TextureVS.hlsl">
       <Filter>Aurora\shaders</Filter>
     </FxCompile>
   </ItemGroup>

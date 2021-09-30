@@ -5,7 +5,7 @@
 namespace Aurora {
 	
 
-	std::shared_ptr<PixelConstantBuffer> PixelConstantBuffer::Create(std::array<DirectX::XMFLOAT3, 8> facecolors)
+	std::shared_ptr<PixelConstantBuffer> PixelConstantBuffer::Create(std::array<DirectX::XMFLOAT4, 8> facecolors)
 	{
 		return std::make_shared<D3D11PixelConstantBuffer>(facecolors);
 	}

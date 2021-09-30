@@ -136,7 +136,6 @@
     <ClInclude Include="src\Aurora\AuroraMath.h" />
     <ClInclude Include="src\Aurora\Core.h" />
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
-    <ClInclude Include="src\Aurora\Drawables\Drawable.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\IndexedTriangleList.h" />
@@ -157,7 +156,6 @@
     <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
     <ClInclude Include="src\Aurora\Renderer\Shader.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
-    <ClInclude Include="src\Platform\DirectX\Bindable.h" />
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11ConstantBuffers.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11IndexBuffer.h" />
@@ -167,7 +165,6 @@
     <ClInclude Include="src\Platform\DirectX\D3D11Surface.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Texture.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Topology.h" />
-    <ClInclude Include="src\Platform\DirectX\D3D11TransformCbuf.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11VertexBuffer.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11VertexShader.h" />
     <ClInclude Include="src\Aurora\EditorLayer.h" />
@@ -192,7 +189,6 @@
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
-    <ClCompile Include="src\Aurora\Drawables\Drawable.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Layer.cpp" />
@@ -203,7 +199,6 @@
     <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Shader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Platform\DirectX\Bindable.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11InputLayout.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11PixelShader.cpp" />
@@ -211,7 +206,6 @@
     <ClCompile Include="src\Platform\DirectX\D3D11Surface.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Texture.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Topology.cpp" />
-    <ClCompile Include="src\Platform\DirectX\D3D11TransformCbuf.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11VertexBuffer.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11VertexShader.cpp" />
     <ClCompile Include="src\Aurora\EditorLayer.cpp" />
@@ -229,7 +223,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="src\Aurora\shaders\ColorBlendPS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
@@ -237,7 +231,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\ColorBlendVS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendVS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
@@ -245,7 +239,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\ColorIndexPS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorIndexPS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
@@ -253,7 +247,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\ColorIndexVS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\ColorIndexVS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
@@ -261,7 +255,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\TexturePS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\TexturePS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
@@ -269,7 +263,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="src\Aurora\shaders\TextureVS.hlsl">
+    <FxCompile Include="src\Platform\DirectX\shaders\TextureVS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>

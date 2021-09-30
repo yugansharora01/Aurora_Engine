@@ -57,7 +57,7 @@ namespace Aurora {
 
 		static ImVec4 color = {};
 
-		ImGui::SetNextWindowPos(ImVec2(lastwindowposition.x, lastwindowposition.y),ImGuiCond_Once);
+		ImGui::SetNextWindowPos(ImVec2((float)lastwindowposition.x, (float)lastwindowposition.y),ImGuiCond_Once);
 		
 		lastwindowposition.z -= lastwindowposition.x;       //Full screen width
 		lastwindowposition.z /= 5;                          //20% of full width
@@ -84,15 +84,10 @@ namespace Aurora {
 
 		
 
-		ImGui::SetNextWindowPos(ImVec2(lastwindowposition.x , lastwindowposition.y + lastwindowposition.w), ImGuiCond_Once);
+		//ImGui::SetNextWindowPos(ImVec2(lastwindowposition.x , lastwindowposition.y + lastwindowposition.w), ImGuiCond_Once);
 
-		ImGui::SetNextWindowSize(ImVec2(lastwindowposition.z, lastwindowposition.w), ImGuiCond_Once);
+		//ImGui::SetNextWindowSize(ImVec2(lastwindowposition.z, lastwindowposition.w), ImGuiCond_Once);
 
 
-		ImGui::Begin("Pos");
-		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
-		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
-		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
-		ImGui::End();
 	}
 }

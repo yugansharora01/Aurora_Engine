@@ -4,7 +4,7 @@
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
-#include <array>
+#include <vector>
 #include "imgui.h"
 
 
@@ -35,17 +35,17 @@ public:
 		iBuf = Aurora::IndexBuffer::Create(model.indices);
 		iBuf->Bind();
 
-		std::array<DirectX::XMFLOAT3,8> face_colors =
+		std::array<DirectX::XMFLOAT4, 8> face_colors =
 		{
 			{
-				{ 1.0f,1.0f,1.0f },
-				{ 1.0f,0.0f,0.0f },
-				{ 0.0f,1.0f,0.0f },
-				{ 1.0f,1.0f,0.0f },
-				{ 0.0f,0.0f,1.0f },
-				{ 1.0f,0.0f,1.0f },
-				{ 0.0f,1.0f,1.0f },
-				{ 0.0f,0.0f,0.0f },
+				{ 1.0f,1.0f,1.0f,1.0f },
+				{ 1.0f,0.0f,0.0f,1.0f },
+				{ 0.0f,1.0f,0.0f,1.0f },
+				{ 1.0f,1.0f,0.0f,1.0f },
+				{ 0.0f,0.0f,1.0f,1.0f },
+				{ 1.0f,0.0f,1.0f,1.0f },
+				{ 0.0f,1.0f,1.0f,1.0f },
+				{ 0.0f,0.0f,0.0f,1.0f },
 			}
 		};
 		pConst = Aurora::PixelConstantBuffer::Create(face_colors);
@@ -77,11 +77,39 @@ public:
 		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
 		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
 		
-		ImGui::SliderFloat("x1", &x1, 0.0f, 2.0f);
-		ImGui::SliderFloat("y1", &y1, 0.0f, 2.0f);
-		ImGui::SliderFloat("z1", &z1, 0.0f, 2.0f);
+		ImGui::SliderFloat("x1", &x1, -3.14f, 3.14f);
+		ImGui::SliderFloat("y1", &y1, -3.14f, 3.14f);
+		ImGui::SliderFloat("z1", &z1, -3.14f, 3.14f);
+
+		ImGui::SliderFloat4("Face1", Face1, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face2", Face2, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face3", Face3, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face4", Face4, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face5", Face5, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face6", Face6, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face7", Face7, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face8", Face8, 0.0f, 1.0f);
 
 		ImGui::End();
+	}
+
+	std::array<DirectX::XMFLOAT4, 8> GetColor()
+	{
+		
+		std::array<DirectX::XMFLOAT4, 8> face_colors =
+		{
+			{
+				{ Face1[0] ,Face1[1] ,Face1[2] , Face1[3] },
+				{ Face2[0] ,Face2[1] ,Face2[2] , Face2[3] },
+				{ Face3[0] ,Face3[1] ,Face3[2] , Face3[3] },
+				{ Face4[0] ,Face4[1] ,Face4[2] , Face4[3] },
+				{ Face5[0] ,Face5[1] ,Face5[2] , Face5[3] },
+				{ Face6[0] ,Face6[1] ,Face6[2] , Face6[3] },
+				{ Face7[0] ,Face7[1] ,Face7[2] , Face7[3] },
+				{ Face8[0] ,Face8[1] ,Face8[2] , Face8[3] }
+			}
+		};
+		return face_colors;
 	}
 	
 	void OnUpdate() override
@@ -90,6 +118,9 @@ public:
 		auto& gfx = wnd->Gfx();
 		vConst = Aurora::VertexConstantBuffer::Create(DirectX::XMMatrixTranspose(
 			GetMatrix() * gfx.GetProjection()));
+
+		
+		pConst = Aurora::PixelConstantBuffer::Create(GetColor());
 
 		vBuf->Bind();
 		vShader->Bind();
@@ -128,6 +159,10 @@ private:
 
 	float x = -4.0f, y = 0.0f, z = 20.0f;
 	float x1 = 0.0f, y1 = 0.0f, z1 = 0.0f;
+	
+
+	float Face1[4], Face2[4], Face3[4], Face4[4], Face5[4], Face6[4], Face7[4], Face8[4];
+
 	DirectX::XMMATRIX mat;
 };
 

@@ -4,6 +4,11 @@
 
 namespace Aurora {
 
+	class Shader : Bindables
+	{
+
+	};
+
 	class PixelShader : public Bindables
 	{
 	public:

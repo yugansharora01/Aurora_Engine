@@ -12,7 +12,7 @@ namespace Aurora {
 		virtual void Unbind() = 0;
 
 		
-		static std::shared_ptr<PixelConstantBuffer> Create(std::array<DirectX::XMFLOAT3, 8> facecolors);
+		static std::shared_ptr<PixelConstantBuffer> Create(std::array<DirectX::XMFLOAT4, 8> facecolors);
 
 	};
 
@@ -28,15 +28,5 @@ namespace Aurora {
 		static std::shared_ptr<VertexConstantBuffer> Create(DirectX::XMMATRIX mat);
 	};
 
-	/*class TransformCBuf : public Bindables
-	{
-	public:
-		virtual ~VertexConstantBuffer() = default;
-		virtual void Bind() = 0;
-		virtual void Unbind() = 0;
-
-
-
-		static std::shared_ptr<VertexConstantBuffer> Create(DirectX::XMMATRIX mat);
-	};*/
+	
 }
