@@ -28,5 +28,15 @@ namespace Aurora {
 		static std::shared_ptr<VertexConstantBuffer> Create(DirectX::XMMATRIX mat);
 	};
 
+	/*class TransformCBuf : public Bindables
+	{
+	public:
+		virtual ~VertexConstantBuffer() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 
+
+
+		static std::shared_ptr<VertexConstantBuffer> Create(DirectX::XMMATRIX mat);
+	};*/
 }

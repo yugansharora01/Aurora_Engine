@@ -9,7 +9,7 @@ namespace Aurora {
 		DirectX::XMMATRIX mat = DirectX::XMMatrixIdentity();
 		if (!pVcbuf)
 		{
-			pVcbuf = std::make_unique<D3D11VertexConstantBuffer>(mat);
+			pVcbuf = std::make_unique<D3D11VertexConstantBuffer>();
 		}
 	}
 

@@ -174,6 +174,12 @@
     <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
     <ClInclude Include="src\Aurora\Drawables\Drawable.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Prism.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\IndexedTriangleList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
