@@ -41,7 +41,7 @@ namespace Aurora {
 			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
 
-		void Update(const DirectX::XMMATRIX& consts)
+		void Update(const DirectX::XMMATRIX& consts) override
 		{
 			INFOMAN;
 			D3D11_MAPPED_SUBRESOURCE msr;
@@ -101,7 +101,7 @@ namespace Aurora {
 			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
 
-		void Update(const std::array<DirectX::XMFLOAT4, 8>& consts)
+		void Update(const std::array<DirectX::XMFLOAT4, 8>& consts) override
 		{
 			INFOMAN;
 			D3D11_MAPPED_SUBRESOURCE msr;

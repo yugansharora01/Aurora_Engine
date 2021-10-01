@@ -9,13 +9,12 @@
 #include <wrl.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-
+ 
 #include <random>
 
 namespace Aurora {
     class Graphics
     {
-        friend class Bindable;
     public:
         class Exception : public AuroraException
         {
@@ -66,7 +65,7 @@ namespace Aurora {
         ~Graphics() = default;
         void EndFrame();
         void ClearBuffer(float red, float green, float blue) noexcept;
-        void DrawIndexed(UINT count) noexcept(!AU_DEBUG);
+        void DrawIndexed(unsigned int count) AU_DEBUGNOEXCEPT;
         void SetProjection(DirectX::FXMMATRIX proj) noexcept;
         DirectX::XMMATRIX GetProjection() const noexcept;
 

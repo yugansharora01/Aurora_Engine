@@ -47,9 +47,9 @@ namespace Aurora {
         sd.Flags = 0;
 
         UINT swapCreateFlags = 0u;
-#ifndef AU_DEBUG
-        swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif // !AU_DEBUG
+        #ifndef AU_DEBUG
+            swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
+        #endif // !AU_DEBUG
 
 
         //for checking results of d3d functions
@@ -126,16 +126,14 @@ namespace Aurora {
         vp.TopLeftY = 0.0f;
         pContext->RSSetViewports(1u, &vp);
 
-
-
     }
 
     void Graphics::EndFrame()
     {
         HRESULT hr;
-#ifndef AU_DEBUG
-        infoManager.Set();
-#endif // !AU_DEBUG
+        #ifndef AU_DEBUG
+            infoManager.Set();
+        #endif // !AU_DEBUG
 
         if (FAILED(hr = pSwap->Present(1u, 0u)))
         {
@@ -158,7 +156,7 @@ namespace Aurora {
         pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
     }
 
-    void Graphics::DrawIndexed(UINT count) noexcept(!AU_DEBUG)
+    void Graphics::DrawIndexed(UINT count) AU_DEBUGNOEXCEPT
     {
         GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
     }

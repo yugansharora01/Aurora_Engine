@@ -21,6 +21,7 @@ namespace Aurora
 		virtual ~VertexBuffer() = default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
+		//virtual void Update() = 0;
 
 		static std::shared_ptr<VertexBuffer> Create(
 			const std::vector<DirectX::XMFLOAT3>& vertices);
@@ -33,6 +34,7 @@ namespace Aurora
 		virtual ~IndexBuffer() = default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
+		//virtual void Update() = 0;
 		
 		virtual UINT GetCount() const noexcept = 0;
 
@@ -48,6 +50,7 @@ namespace Aurora
 		virtual ~InputLayout() = default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
+		//virtual void Update() = 0;
 		
 		static std::shared_ptr<InputLayout> Create(
 			const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
@@ -62,6 +65,7 @@ namespace Aurora
 		virtual ~Topology() = default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
+		//virtual void Update() = 0;
 
 		static std::shared_ptr<Topology> Create(TopologyType Type);
 	};

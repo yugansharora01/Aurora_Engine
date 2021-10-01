@@ -24,3 +24,11 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+#define AURORA_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+
+#ifdef AU_DEBUG
+	#define AU_DEBUGNOEXCEPT noexcept
+#else
+	#define DEBUGNOEXCEPT 
+#endif

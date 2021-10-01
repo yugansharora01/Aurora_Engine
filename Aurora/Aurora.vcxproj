@@ -154,6 +154,9 @@
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
     <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
+    <ClInclude Include="src\Aurora\Renderer\EditorCamera.h" />
+    <ClInclude Include="src\Aurora\Renderer\Renderer.h" />
+    <ClInclude Include="src\Aurora\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Aurora\Renderer\Shader.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
@@ -197,6 +200,9 @@
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Shader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp" />

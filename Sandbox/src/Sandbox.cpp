@@ -81,14 +81,14 @@ public:
 		ImGui::SliderFloat("y1", &y1, -3.14f, 3.14f);
 		ImGui::SliderFloat("z1", &z1, -3.14f, 3.14f);
 
-		ImGui::SliderFloat4("Face1", Face1, 0.0f, 1.0f);
+		/*ImGui::SliderFloat4("Face1", Face1, 0.0f, 1.0f);
 		ImGui::SliderFloat4("Face2", Face2, 0.0f, 1.0f);
 		ImGui::SliderFloat4("Face3", Face3, 0.0f, 1.0f);
 		ImGui::SliderFloat4("Face4", Face4, 0.0f, 1.0f);
 		ImGui::SliderFloat4("Face5", Face5, 0.0f, 1.0f);
 		ImGui::SliderFloat4("Face6", Face6, 0.0f, 1.0f);
 		ImGui::SliderFloat4("Face7", Face7, 0.0f, 1.0f);
-		ImGui::SliderFloat4("Face8", Face8, 0.0f, 1.0f);
+		ImGui::SliderFloat4("Face8", Face8, 0.0f, 1.0f);*/
 
 		ImGui::End();
 	}
@@ -120,7 +120,7 @@ public:
 			GetMatrix() * gfx.GetProjection()));
 
 		
-		pConst = Aurora::PixelConstantBuffer::Create(GetColor());
+		//pConst = Aurora::PixelConstantBuffer::Create(GetColor());
 
 		vBuf->Bind();
 		vShader->Bind();
