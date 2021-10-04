@@ -6,7 +6,7 @@
 namespace Aurora {
 	
 
-	std::shared_ptr<PixelConstantBuffer> PixelConstantBuffer::Create(std::array<DirectX::XMFLOAT4, 8> facecolors)
+	/*std::shared_ptr<PixelConstantBuffer> PixelConstantBuffer::Create(std::array<DirectX::XMFLOAT4, 8> facecolors)
 	{
 		switch (RendererAPI::GetAPI())
 		{
@@ -36,6 +36,6 @@ namespace Aurora {
 		AU_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 		
-	}
+	}*/
 
 }

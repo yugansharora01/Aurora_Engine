@@ -40,7 +40,7 @@ namespace Aurora {
 		
 	}
 
-	std::shared_ptr<InputLayout> InputLayout::Create(const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout, ID3DBlob* pVertexShaderBytecode)
+	std::shared_ptr<InputLayout> InputLayout::Create(const std::vector<LayoutBuffer>& layout, ID3DBlob* pVertexShaderBytecode)
 	{
 		switch (RendererAPI::GetAPI())
 		{

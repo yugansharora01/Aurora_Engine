@@ -1,6 +1,7 @@
 #include <Aurora.h>
 #include <Aurora/Drawables/Geometry/Cube.h>
 #include <Aurora/Renderer/BindableBase.h>
+#include <Aurora/Renderer/Bindables.h>
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
@@ -20,20 +21,17 @@ public:
 		const auto model = Cube::Make<DirectX::XMFLOAT3>();
 
 		vBuf = Aurora::VertexBuffer::Create(model.vertices);
-		vBuf->Bind();
 
 		vShader = Aurora::VertexShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
-		vShader->Bind();
 
-		auto pvsbc = vShader->GetBytecode();
 
 		
 
 		pShader = Aurora::PixelShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
-		pShader->Bind();
+		
 
 		iBuf = Aurora::IndexBuffer::Create(model.indices);
-		iBuf->Bind();
+		
 
 		std::array<DirectX::XMFLOAT4, 8> face_colors =
 		{
@@ -48,25 +46,23 @@ public:
 				{ 0.0f,0.0f,0.0f,1.0f },
 			}
 		};
-		pConst = Aurora::PixelConstantBuffer::Create(face_colors);
-		pConst->Bind();
+		pShader->UploadMat4X8(face_colors);
 
 		const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
 		{
 			{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0}
 		};
-		iLayout = Aurora::InputLayout::Create(ied, pvsbc);
-		iLayout->Bind();
+
+		std::vector<Aurora::LayoutBuffer> list;
+
+		list.emplace_back("Position", 0u, Aurora::ShaderDataType::Float3, false, 32);
+		
+
+		vBuf->SetLayout(list,vShader);
 
 		topology = Aurora::Topology::Create(Aurora::TopologyType::Triangle_List);
 		topology->Bind();
 
-		auto wnd = (Aurora::Win32_Window*)Aurora::Application::Get().GetWindow().GetNativeWindow();
-		auto& gfx = wnd->Gfx();
-
-		vConst = Aurora::VertexConstantBuffer::Create(DirectX::XMMatrixTranspose(
-			 gfx.GetProjection()));
-		vConst->Bind();
 	}
 
 	void OnImGuiRender() override
@@ -114,27 +110,30 @@ public:
 	
 	void OnUpdate() override
 	{
-		auto wnd = (Aurora::Win32_Window*)Aurora::Application::Get().GetWindow().GetNativeWindow();
+		/*auto wnd = (Aurora::Win32_Window*)Aurora::Application::Get().GetWindow().GetNativeWindow();
 		auto& gfx = wnd->Gfx();
 		vConst = Aurora::VertexConstantBuffer::Create(DirectX::XMMatrixTranspose(
-			GetMatrix() * gfx.GetProjection()));
+			GetMatrix() * gfx.GetProjection()));*/
 
 		
 		//pConst = Aurora::PixelConstantBuffer::Create(GetColor());
 
-		vBuf->Bind();
+		Aurora::Renderer::BeginScene();
+
+		/*vBuf->Bind();
 		vShader->Bind();
 		pShader->Bind();
 		iBuf->Bind();
 		pConst->Bind();
 		iLayout->Bind();
 		topology->Bind();
-		vConst->Bind();
+		vConst->Bind();*/
+		Aurora::Renderer::Submit(vShader, pShader, vBuf, iBuf);
 
 
+		Aurora::Renderer::EndScene();
 
-
-		gfx.DrawIndexed(iBuf->GetCount());
+		//gfx.DrawIndexed(iBuf->GetCount());
 	}
 
 	DirectX::XMMATRIX GetMatrix()
@@ -152,10 +151,10 @@ private:
 	std::shared_ptr<Aurora::VertexShader> vShader;
 	std::shared_ptr<Aurora::PixelShader> pShader;
 	std::shared_ptr<Aurora::IndexBuffer> iBuf;
-	std::shared_ptr<Aurora::PixelConstantBuffer> pConst;
+	//std::shared_ptr<Aurora::PixelConstantBuffer> pConst;
 	std::shared_ptr<Aurora::InputLayout> iLayout;
 	std::shared_ptr<Aurora::Topology> topology;
-	std::shared_ptr<Aurora::VertexConstantBuffer> vConst;
+	//std::shared_ptr<Aurora::VertexConstantBuffer> vConst;
 
 	float x = -4.0f, y = 0.0f, z = 20.0f;
 	float x1 = 0.0f, y1 = 0.0f, z1 = 0.0f;

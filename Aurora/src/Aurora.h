@@ -7,6 +7,7 @@
 #include "Aurora/Layer.h"
 
 #include "Aurora/Imgui/ImguiLayer.h"
+#include "Aurora/Renderer/Renderer.h"
 
 // ------Entry Point--------------
 #include "Aurora/EntryPoint.h"

@@ -8,7 +8,7 @@ namespace Aurora {
 	{
 	public:
 		D3D11InputLayout(
-			const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout,
+			const std::vector<LayoutBuffer>& layout,
 			ID3DBlob* pVertexShaderBytecode
 		);
 		void Bind() override;

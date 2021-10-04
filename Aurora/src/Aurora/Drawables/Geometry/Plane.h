@@ -3,7 +3,7 @@
 #include <vector>
 #include <array>
 #include "IndexedTriangleList.h"
-#include "AuroraMath.h"
+#include "Aurora/AuroraMath.h"
 
 class Plane
 {

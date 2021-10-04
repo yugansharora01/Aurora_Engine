@@ -2,7 +2,7 @@
 
 #include "IndexedTriangleList.h"
 #include <DirectXMath.h>
-#include "AuroraMath.h"
+#include "Aurora/AuroraMath.h"
 
 class Prism
 {

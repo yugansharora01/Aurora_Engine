@@ -14,8 +14,15 @@ namespace Aurora {
 		void Bind() override;
 		void Unbind() override{}
 
+		virtual void SetData(void* data, unsigned int size) override;
+
+
+		virtual void SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<class VertexShader> vShader) override;
+
+		
 	private:
 		UINT stride;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
+		std::shared_ptr<InputLayout> m_layout;
 	};
 }

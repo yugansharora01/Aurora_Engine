@@ -30,5 +30,5 @@
 #ifdef AU_DEBUG
 	#define AU_DEBUGNOEXCEPT noexcept
 #else
-	#define DEBUGNOEXCEPT 
+	#define AU_DEBUGNOEXCEPT 
 #endif
