@@ -2,6 +2,7 @@
 
 #include "Aurora/Renderer/Bindables.h"
 #include "Aurora/Renderer/Shader.h"
+#include "D3D11ConstantBuffers.h"
 
 namespace Aurora {
 
@@ -15,7 +16,7 @@ namespace Aurora {
 		D3D11VertexShader(const std::wstring& path);
 		void Bind() override;
 		void Unbind() override {}
-		ID3DBlob* GetBytecode() const noexcept;
+		ID3DBlob* GetBytecode() const noexcept override;
 
 		virtual void UploadFloat2(DirectX::XMFLOAT2 val) override;
 		virtual void UploadFloat3(DirectX::XMFLOAT3 val) override;
@@ -27,6 +28,6 @@ namespace Aurora {
 	private:
 		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
 		Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
-		//std::shared_ptr<D3D11ConstantBuffer> vConst;
+		std::shared_ptr<D3D11ConstantBuffer> vConst;
 	};
 }

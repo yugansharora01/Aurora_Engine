@@ -21,9 +21,10 @@ namespace Aurora {
 	void D3D11VertexShader::Bind() 
 	{
 		Getgfx().GetContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+		vConst->Bind();
 	}
 
-	ID3DBlob* D3D11VertexShader::GetBytecode() const noexcept
+	ID3DBlob* D3D11VertexShader::GetBytecode() const noexcept 
 	{
 		return pBytecodeBlob.Get();
 	}
@@ -42,6 +43,8 @@ namespace Aurora {
 	}
 	void D3D11VertexShader::UploadMat4(DirectX::XMMATRIX mat4)
 	{
+		vConst = std::make_shared<D3D11VertexConstantBuffer>();
+		vConst->Create<DirectX::XMMATRIX>(mat4);
 	}
 
 	void D3D11VertexShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)

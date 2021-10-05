@@ -4,6 +4,7 @@
 #include "Aurora/Renderer/Buffer.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
+
 namespace Aurora {
 
 	class D3D11VertexBuffer : public VertexBuffer
@@ -18,11 +19,12 @@ namespace Aurora {
 
 
 		virtual void SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<class VertexShader> vShader) override;
-
+		virtual void SetTopology(TopologyType type) override;
 		
 	private:
 		UINT stride;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
-		std::shared_ptr<InputLayout> m_layout;
+		std::shared_ptr<class D3D11InputLayout> m_layout;
+		std::shared_ptr<class D3D11Topology> m_topology;
 	};
 }

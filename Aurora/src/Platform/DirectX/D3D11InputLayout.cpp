@@ -127,12 +127,14 @@ namespace Aurora {
 	std::vector<D3D11_INPUT_ELEMENT_DESC> GetLayoutDesc(const std::vector<LayoutBuffer>& layout)
 	{
 		std::vector<D3D11_INPUT_ELEMENT_DESC> layoutdesc;
-		for (auto Layout : layout)
-		{
-			//D3D11_INPUT_ELEMENT_DESC desc = { Layout.name.c_str(),0,GetFormat(Layout),0,Layout.offset,D3D11_INPUT_PER_VERTEX_DATA ,0 };
-			layoutdesc.push_back(D3D11_INPUT_ELEMENT_DESC({ Layout.name.c_str(),0,GetFormat(Layout),0,Layout.offset,D3D11_INPUT_PER_VERTEX_DATA ,0 }));
-		}
-
+		int i = 0;
+		//for (auto Layout : layout)
+		
+			D3D11_INPUT_ELEMENT_DESC desc = { layout[0].name.c_str(),0,GetFormat(layout[0]),0,layout[0].offset,D3D11_INPUT_PER_VERTEX_DATA ,0 };
+			layoutdesc.push_back(desc);
+			i++;
+		
+		AU_CORE_INFO("{0}", i);
 		return layoutdesc;
 	}
 
@@ -142,6 +144,15 @@ namespace Aurora {
 	{
 
 		auto layoutdesc = GetLayoutDesc(layout);
+		std::vector<D3D11_INPUT_ELEMENT_DESC> lay;
+		D3D11_INPUT_ELEMENT_DESC i = { "Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 };
+		
+		lay.push_back(i);
+		
+		/*if (lay == layoutdesc)
+			AU_CORE_INFO("LOL");*/
+
+
 		INFOMAN;
 		GFX_THROW_INFO(Getgfx().GetDevice()->CreateInputLayout(
 			layoutdesc.data(), (UINT)layout.size(),

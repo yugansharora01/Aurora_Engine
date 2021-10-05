@@ -32,9 +32,9 @@ namespace Aurora {
 
 	void Renderer::Submit(std::shared_ptr<VertexShader> vShader, std::shared_ptr<PixelShader> pShader, std::shared_ptr<VertexBuffer> vBuffer, std::shared_ptr<IndexBuffer> iBuffer)
 	{
+		vBuffer->Bind(); 
 		vShader->Bind();
 		pShader->Bind();
-		vBuffer->Bind();
 		iBuffer->Bind();
 		count = iBuffer->GetCount();
 	}

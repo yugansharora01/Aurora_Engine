@@ -3,6 +3,7 @@
 #include "Aurora/Events/ApplicationEvents.h"
 #include "Aurora/Log.h"
 #include "Platform/Windows/Win32_Window.h"
+#include "Platform/Windows/AuroraException.h"
 
 #include "imgui.h"
 
@@ -36,36 +37,52 @@ namespace Aurora {
 
 	void Application::Run()
 	{
-		float i = 0.0f;
-		float inc = 0.01f;
-		float inc1 = 0.01f;
-
-		while (m_Running)
+		try
 		{
-			m_EditorLayer->Get(i,inc,inc1);
+			float i = 0.0f;
+			float inc = 0.01f;
+			float inc1 = 0.01f;
 
-			auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
-			wnd->Gfx().ClearBuffer(i, inc, inc1);
-
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
-
-			m_EditorLayer->GetPos(i,inc,inc1);
-			
-
-			m_ImGuiLayer->Begin();
-
-			for (Layer* layer : m_LayerStack)
+			while (m_Running)
 			{
-				layer->OnImGuiRender();
+				m_EditorLayer->Get(i,inc,inc1);
+
+				auto wnd = (Win32_Window*)m_Window->GetNativeWindow();
+				wnd->Gfx().ClearBuffer(i, inc, inc1);
+
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate();
+
+				m_EditorLayer->GetPos(i,inc,inc1);
+				
+
+				m_ImGuiLayer->Begin();
+
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnImGuiRender();
+				}
+
+				m_ImGuiLayer->End();
+
+				m_Window->OnUpdate(m_Running);
+
+
+				wnd->Gfx().EndFrame();
 			}
-
-			m_ImGuiLayer->End();
-
-			m_Window->OnUpdate(m_Running);
-
-
-			wnd->Gfx().EndFrame();
+		}
+		catch (const AuroraException& e)
+		{
+			AU_CORE_FATAL("{0}", e.what());
+			MessageBoxA(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
+		}
+		catch (const std::exception& e)
+		{
+			MessageBoxA(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+		}
+		catch (...)
+		{
+			MessageBoxA(nullptr, "No Details Available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
 		}
 	}
 

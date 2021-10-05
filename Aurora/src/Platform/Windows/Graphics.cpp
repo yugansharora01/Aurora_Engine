@@ -22,6 +22,8 @@ namespace dx = DirectX;
 
 namespace Aurora {
 
+    DirectX::XMMATRIX Graphics::projection = DirectX::XMMatrixIdentity();
+
     Graphics::Graphics(HWND hWnd)
     {
         AU_INFO("Initialised Graphics");
@@ -166,7 +168,7 @@ namespace Aurora {
         projection = proj;
     }
 
-    DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+    DirectX::XMMATRIX Graphics::GetProjection() noexcept
     {
         return projection;
     }

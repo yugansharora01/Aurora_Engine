@@ -67,7 +67,7 @@ namespace Aurora {
         void ClearBuffer(float red, float green, float blue) noexcept;
         void DrawIndexed(unsigned int count) AU_DEBUGNOEXCEPT;
         void SetProjection(DirectX::FXMMATRIX proj) noexcept;
-        DirectX::XMMATRIX GetProjection() const noexcept;
+        static DirectX::XMMATRIX GetProjection() noexcept;
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
@@ -76,7 +76,7 @@ namespace Aurora {
         inline DxgiInfoManager& GetInfoManager() { return infoManager; }
 
     private:
-        DirectX::XMMATRIX projection;
+        static DirectX::XMMATRIX projection;
 
     private:
 #ifndef NDEBUG

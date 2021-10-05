@@ -27,7 +27,7 @@ namespace Aurora {
 #define AU_CORE_INFO(...)   ::Aurora::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define AU_CORE_ERROR(...)  ::Aurora::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define AU_CORE_WARN(...)   ::Aurora::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define AU_CORE_FATAL(...)  ::Aurora::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define AU_CORE_FATAL(...)  ::Aurora::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 
 //Client Log macros
@@ -35,7 +35,7 @@ namespace Aurora {
 #define AU_INFO(...)        ::Aurora::Log::GetClientLogger()->info(__VA_ARGS__)
 #define AU_ERROR(...)       ::Aurora::Log::GetClientLogger()->error(__VA_ARGS__)
 #define AU_WARN(...)        ::Aurora::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define AU_FATAL(...)       ::Aurora::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define AU_FATAL(...)       ::Aurora::Log::GetClientLogger()->critical(__VA_ARGS__)
 
 
 

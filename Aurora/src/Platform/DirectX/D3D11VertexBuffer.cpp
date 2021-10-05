@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "D3D11VertexBuffer.h"
 #include "D3D11VertexShader.h"
+#include "D3D11Topology.h"
+#include "D3D11InputLayout.h"
 
 namespace Aurora {
 	
@@ -30,6 +32,7 @@ namespace Aurora {
 		const UINT offset = 0u;
 		Getgfx().GetContext()->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 		m_layout->Bind();
+		m_topology->Bind();
 	}
 	void D3D11VertexBuffer::SetData(void* data, unsigned int size)
 	{
@@ -53,8 +56,13 @@ namespace Aurora {
 
 	void D3D11VertexBuffer::SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<VertexShader> vShader)
 	{
-		ID3DBlob* blob = std::dynamic_pointer_cast<D3D11VertexShader>(vShader)->GetBytecode();
-		m_layout = InputLayout::Create(layout,blob);
+		//ID3DBlob* blob = std::dynamic_pointer_cast<D3D11VertexShader>(vShader)->GetBytecode();
+		m_layout = std::make_shared<D3D11InputLayout>(layout,vShader->GetBytecode());
+	}
+
+	void D3D11VertexBuffer::SetTopology(TopologyType type)
+	{
+		m_topology = std::make_shared<D3D11Topology>(type);
 	}
 
 

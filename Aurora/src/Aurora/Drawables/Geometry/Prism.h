@@ -20,7 +20,7 @@ public:
 		// near center
 		std::vector<V> vertices;
 		vertices.emplace_back();
-		vertices.back().pos = { 0.0f,0.0f,-1.0ff };
+		vertices.back().pos = { 0.0f,0.0f,-1.0f };
 		const auto iCenterNear = (unsigned short)(vertices.size() - 1);
 
 		//far center

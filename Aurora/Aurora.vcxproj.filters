@@ -176,6 +176,7 @@
     <ClInclude Include="src\Aurora\Renderer\Renderer.h" />
     <ClInclude Include="src\Aurora\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Aurora\Renderer\EditorCamera.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">

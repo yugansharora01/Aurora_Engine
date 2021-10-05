@@ -138,6 +138,7 @@
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
+    <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\IndexedTriangleList.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Prism.h" />

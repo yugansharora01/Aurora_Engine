@@ -15,6 +15,5 @@ namespace Aurora {
 	private:
 		UINT count;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;
-
 	};
 }
