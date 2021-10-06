@@ -32,8 +32,9 @@ namespace Aurora {
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
-
-		virtual void* GetNativeWindow() = 0;
+		
+		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
+		virtual void* GetNativeWindowPtr() = 0;
 
 		static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
 	};

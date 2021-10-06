@@ -47,7 +47,7 @@ namespace Aurora {
 
 		SetDarkThemeColors();
 
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindow();
+		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
 		ImGui_ImplWin32_Init(wnd->GetHandle());
 		ImGui_ImplDX11_Init(wnd->Gfx().GetDevice().Get(), wnd->Gfx().GetContext().Get());
 
@@ -78,9 +78,9 @@ namespace Aurora {
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
+		
 
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindow();
-
+		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
 		wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), NULL);
 
 		ImGui::Render();

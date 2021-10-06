@@ -8,13 +8,13 @@ namespace Aurora {
 
 	Graphics& Bindables::Getgfx()
 	{
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindow();
+		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
 		return wnd->Gfx();
 	}
-	DxgiInfoManager& Bindables::GetInfoManager() noexcept(AU_DEBUG)
+	DxgiInfoManager& Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
 	{
 		// TODO: insert return statement here
-		#ifndef AU_RELEASE
+		#ifdef AU_DEBUG
 				return Getgfx().GetInfoManager();
 		#else
 				throw std::logic_error("LOL XD Tried to Access InfoManager in Release Mode");

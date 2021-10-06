@@ -8,7 +8,7 @@ namespace Aurora {
 	{
 	public:
 		EditorCamera(float fov, float aspectRatio, float nearClip, float farClip);
-		void UpdateProjection();
+		void UpdateProjection(float fov, float aspectRatio, float nearClip, float farClip);
 		DirectX::XMMATRIX GetProjection() noexcept;
 	private:
 		DirectX::XMMATRIX m_proj;

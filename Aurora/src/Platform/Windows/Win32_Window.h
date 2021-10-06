@@ -67,7 +67,8 @@ namespace Aurora {
         void Destroy();
         Graphics& Gfx();
         inline HWND GetHandle() noexcept { return hWnd; }
-        inline void GetWindowSize(unsigned int& width, unsigned int& height) noexcept { width = m_finalWidth; height = m_finalHeight; };
+        void GetWindowSize(unsigned int& width, unsigned int& height) noexcept;
+        void SetViewPort(unsigned int width, unsigned int height) { pGfx->SetViewPort(width,height); }
 
 
     private:

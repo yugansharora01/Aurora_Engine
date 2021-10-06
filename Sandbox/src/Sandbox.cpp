@@ -1,6 +1,8 @@
 #include <Aurora.h>
 #include <vector>
 
+#include <Platform/Windows/Win32_Window.h>
+
 
 class ExampleLayer : public Aurora::Layer
 {
@@ -93,7 +95,14 @@ public:
 	
 	void OnUpdate() override
 	{
+		//unsigned int width = 0, height = 0;
+		//auto wnd = (Aurora::Win32_Window*)Aurora::Application::Get().GetWindow().GetNativeWindowPtr();
+		//wnd->GetWindowSize(width, height);
+		auto height = Aurora::Application::Get().GetWindow().GetHeight();
+		auto width = Aurora::Application::Get().GetWindow().GetWidth();
+		m_camera->UpdateProjection(1, (float)height / (float)width, 0.5f,40.0f);
 
+		
 		vShader->UploadMat4(DirectX::XMMatrixTranspose(
 			GetMatrix() * m_camera->GetProjection()));
 

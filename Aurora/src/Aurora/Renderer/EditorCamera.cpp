@@ -14,8 +14,12 @@ namespace Aurora {
 		return m_proj;
 	}
 
-	void EditorCamera::UpdateProjection()
+	void EditorCamera::UpdateProjection(float fov, float aspectRatio, float nearClip, float farClip)
 	{
+		m_fov = fov; 
+		m_aspectRatio = aspectRatio; 
+		m_nearClip = nearClip; 
+		m_farClip = farClip;
 		m_proj = DirectX::XMMatrixPerspectiveLH(m_fov, m_aspectRatio, m_nearClip, m_farClip);
 	}
 

@@ -27,8 +27,14 @@
 
 #define AURORA_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
-#ifdef AU_DEBUG
-	#define AU_DEBUGNOEXCEPT noexcept
+#ifdef AU_RELEASE
+	#define AU_RELEASENOEXCEPT noexcept
 #else
-	#define AU_DEBUGNOEXCEPT 
+	#define AU_RELEASENOEXCEPT 
+#endif
+
+#ifdef AU_DEBUG
+#define AU_DEBUGNOEXCEPT noexcept
+#else
+#define AU_DEBUGNOEXCEPT 
 #endif

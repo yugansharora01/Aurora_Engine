@@ -118,15 +118,7 @@ namespace Aurora {
         //bind depth stencil view to OM
         pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
 
-        // configure viewport
-        D3D11_VIEWPORT vp;
-        vp.Width = (float)WindowWidth;
-        vp.Height = (float)WindowHeight;
-        vp.MinDepth = 0.0f;
-        vp.MaxDepth = 1.0f;
-        vp.TopLeftX = 0.0f;
-        vp.TopLeftY = 0.0f;
-        pContext->RSSetViewports(1u, &vp);
+        SetViewPort(WindowWidth, WindowHeight);
 
     }
 
@@ -158,7 +150,7 @@ namespace Aurora {
         pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
     }
 
-    void Graphics::DrawIndexed(UINT count) AU_DEBUGNOEXCEPT
+    void Graphics::DrawIndexed(UINT count) AU_RELEASENOEXCEPT
     {
         GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
     }
@@ -171,6 +163,21 @@ namespace Aurora {
     DirectX::XMMATRIX Graphics::GetProjection() noexcept
     {
         return projection;
+    }
+
+    void Graphics::SetViewPort(unsigned int width, unsigned int height)
+    {
+        // configure viewport
+        D3D11_VIEWPORT vp;
+        vp.Width = (float)width;
+        vp.Height = (float)height;
+        vp.MinDepth = 0.0f;
+        vp.MaxDepth = 1.0f;
+        vp.TopLeftX = 0.0f;
+        vp.TopLeftY = 0.0f;
+        pContext->RSSetViewports(1u, &vp);
+
+        AU_CORE_INFO("Graphics : width = {0}, Height = {1}", width, height); 
     }
 
 

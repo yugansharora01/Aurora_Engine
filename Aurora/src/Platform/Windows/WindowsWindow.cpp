@@ -29,17 +29,27 @@ namespace Aurora {
 			//return *ecode;
 			m_Running = false;
 		}
+
+		m_Window->GetWindowSize(m_Data.Width, m_Data.Height);
+		SetViewPort(m_Data.Width, m_Data.Height);
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
-		m_Data.VSync = enabled;
+		
 	}
 
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
 	}
+
+	void WindowsWindow::SetViewPort(unsigned int width, unsigned int height)
+	{
+		m_Window->SetViewPort(width, height);
+	}
+	
+
 	void WindowsWindow::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;

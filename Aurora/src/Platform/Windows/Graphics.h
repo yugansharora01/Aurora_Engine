@@ -65,9 +65,10 @@ namespace Aurora {
         ~Graphics() = default;
         void EndFrame();
         void ClearBuffer(float red, float green, float blue) noexcept;
-        void DrawIndexed(unsigned int count) AU_DEBUGNOEXCEPT;
+        void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT;
         void SetProjection(DirectX::FXMMATRIX proj) noexcept;
         static DirectX::XMMATRIX GetProjection() noexcept;
+        void SetViewPort(unsigned int width, unsigned int height);
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }

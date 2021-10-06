@@ -2,6 +2,9 @@
 #include "Win32_Window.h"
 #include "WindowsThrowMacros.h"
 
+#include "Aurora/Application.h"
+#include "Aurora/Window.h"
+#include "Platform/Windows/WindowsWindow.h"
 #include <backends/imgui_impl_win32.h>
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -101,7 +104,7 @@ namespace Aurora {
         wr.right = width + wr.left;
         wr.top = 100;
         wr.bottom = height + wr.top;
-        if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
+        if (AdjustWindowRect(&wr, WS_SIZEBOX | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
         {
             throw AUWND_LAST_EXCEPT();
         }
@@ -109,7 +112,7 @@ namespace Aurora {
         m_finalWidth = wr.right - wr.left;
         m_finalHeight = wr.bottom - wr.top;
 
-        hWnd = CreateWindowA(WindowClass::GetName(), name, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+        hWnd = CreateWindowA(WindowClass::GetName(), name, WS_SIZEBOX| WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
             CW_USEDEFAULT, CW_USEDEFAULT, m_finalWidth, m_finalHeight,
             nullptr, nullptr, WindowClass::GetInstance(), this);
 
@@ -174,6 +177,27 @@ namespace Aurora {
         return *pGfx;
     }
 
+    void Win32_Window::GetWindowSize(unsigned int& width, unsigned int& height) noexcept
+    {
+
+        RECT wr;
+        wr.left = 100;
+        wr.right = this->width + wr.left;
+        wr.top = 100;
+        wr.bottom = this->height + wr.top;
+        if (AdjustWindowRect(&wr, WS_SIZEBOX | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
+        {
+            throw AUWND_LAST_EXCEPT();
+        }
+
+        m_finalWidth = wr.right - wr.left;
+        m_finalHeight = wr.bottom - wr.top;
+
+
+        width = m_finalWidth; 
+        height = m_finalHeight;
+    }
+
     LRESULT CALLBACK Win32_Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         if (msg == WM_NCCREATE)
@@ -212,6 +236,13 @@ namespace Aurora {
 
         switch (msg)
         {
+        case WM_SIZE:
+        {
+            width = LOWORD(lParam);
+            height = HIWORD(lParam);
+        }
+        break;
+
         case WM_CLOSE:
             PostQuitMessage(0);
             return 0;

@@ -21,7 +21,8 @@ namespace Aurora {
 		}
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
-		void* GetNativeWindow() override { return m_Window; }
+		void* GetNativeWindowPtr() override { return m_Window; }
+		void SetViewPort(unsigned int width,unsigned int height) override;
 
 	private:
 		virtual void Init(const WindowProps& props);

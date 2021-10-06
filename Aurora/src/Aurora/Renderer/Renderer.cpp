@@ -25,7 +25,7 @@ namespace Aurora {
 
 	void Renderer::EndScene()
 	{
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindow();
+		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
 		auto& gfx = wnd->Gfx();
 		gfx.DrawIndexed(count);
 	}

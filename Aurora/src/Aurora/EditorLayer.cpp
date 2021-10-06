@@ -50,7 +50,7 @@ namespace Aurora {
 	
 	void EditorLayer::OnImGuiRender()
 	{
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindow();
+		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
 
 		//To get the upper Left corner
 		lastwindowposition = GetDisplayCoord(wnd->GetHandle());
