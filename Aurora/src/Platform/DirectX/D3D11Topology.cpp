@@ -17,6 +17,8 @@ namespace Aurora {
 			break;
 		case Aurora::TopologyType::Triangle_Strip: return D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
 			break;
+		default: return D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+			break;
 		}
 	}
 

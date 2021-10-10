@@ -134,7 +134,6 @@ namespace Aurora {
 			layoutdesc.push_back(desc);
 			i++;
 		
-		AU_CORE_INFO("{0}", i);
 		return layoutdesc;
 	}
 
@@ -149,10 +148,7 @@ namespace Aurora {
 		
 		lay.push_back(i);
 		
-		/*if (lay == layoutdesc)
-			AU_CORE_INFO("LOL");*/
-
-
+		
 		INFOMAN;
 		GFX_THROW_INFO(Getgfx().GetDevice()->CreateInputLayout(
 			layoutdesc.data(), (UINT)layout.size(),

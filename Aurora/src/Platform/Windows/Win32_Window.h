@@ -69,7 +69,7 @@ namespace Aurora {
         inline HWND GetHandle() noexcept { return hWnd; }
         void GetWindowSize(unsigned int& width, unsigned int& height) noexcept;
         void SetViewPort(unsigned int width, unsigned int height) { pGfx->SetViewPort(width,height); }
-
+        void Resize(unsigned int width,unsigned int height);
 
     private:
         static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

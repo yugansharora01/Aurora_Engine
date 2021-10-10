@@ -10,6 +10,7 @@
 
 
 #include "Aurora/Log.h"
+#include "Platform/DirectX/D3D11FrameBuffer.h"
 
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -49,7 +50,7 @@ namespace Aurora {
         sd.Flags = 0;
 
         UINT swapCreateFlags = 0u;
-        #ifndef AU_DEBUG
+        #ifdef AU_DEBUG
             swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
         #endif // !AU_DEBUG
 

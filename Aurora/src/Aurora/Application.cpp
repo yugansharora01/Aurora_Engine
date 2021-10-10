@@ -39,22 +39,20 @@ namespace Aurora {
 	{
 		try
 		{
-			float i = 0.0f;
-			float inc = 0.01f;
-			float inc1 = 0.01f;
+			float i ;
+			float j;
+			float k;
 
 			while (m_Running)
 			{
-				m_EditorLayer->Get(i,inc,inc1);
+				m_EditorLayer->Get(i,j,k);
 
 				auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
-				wnd->Gfx().ClearBuffer(i, inc, inc1);
+				wnd->Gfx().ClearBuffer(i, j,k);
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
-
-				m_EditorLayer->GetPos(i,inc,inc1);
-				
+						
 
 				m_ImGuiLayer->Begin();
 

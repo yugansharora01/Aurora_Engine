@@ -177,6 +177,9 @@
     <ClInclude Include="src\Aurora\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Aurora\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h" />
+    <ClInclude Include="src\Aurora\Renderer\FrameBuffer.h" />
+    <ClInclude Include="src\Platform\DirectX\D3D11FrameBuffer.h" />
+    <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -262,6 +265,9 @@
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp" />
+    <ClCompile Include="src\Aurora\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Platform\DirectX\D3D11FrameBuffer.cpp" />
+    <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">

@@ -8,6 +8,8 @@
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
 
+#include "Platform/DirectX/D3D11FrameBuffer.h"
+
 namespace Aurora {
 
 	ImGuiLayer::ImGuiLayer()
@@ -81,7 +83,9 @@ namespace Aurora {
 		
 
 		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
-		wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), NULL);
+		//wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), NULL);
+		std::shared_ptr<D3D11FrameBuffer> fbuf = std::make_shared<D3D11FrameBuffer>(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		fbuf->Unbind();
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -94,6 +98,7 @@ namespace Aurora {
 		}
 
 		wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), wnd->Gfx().GetDepthStencil().Get());
+		//fbuf->Bind();
 	}
 
 	void ImGuiLayer::SetDarkThemeColors()

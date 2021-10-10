@@ -179,23 +179,41 @@ namespace Aurora {
 
     void Win32_Window::GetWindowSize(unsigned int& width, unsigned int& height) noexcept
     {
+        width = this->width;
+        height = this->height;
 
-        RECT wr;
-        wr.left = 100;
-        wr.right = this->width + wr.left;
-        wr.top = 100;
-        wr.bottom = this->height + wr.top;
-        if (AdjustWindowRect(&wr, WS_SIZEBOX | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
-        {
-            throw AUWND_LAST_EXCEPT();
-        }
+    }
 
-        m_finalWidth = wr.right - wr.left;
-        m_finalHeight = wr.bottom - wr.top;
+    void Win32_Window::Resize(unsigned int width, unsigned int height)
+    {
+        auto hwnd = hWnd;
+        RECT rect;
 
+        GetWindowRect(hwnd, &rect);
 
-        width = m_finalWidth; 
-        height = m_finalHeight;
+        RECT wrect;
+        GetWindowRect(hwnd, &wrect);
+        RECT crect;
+        GetClientRect(hwnd, &crect);
+        POINT lefttop = { crect.left, crect.top }; // Practicaly both are 0
+        ClientToScreen(hwnd, &lefttop);
+        POINT rightbottom = { crect.right, crect.bottom };
+        ClientToScreen(hwnd, &rightbottom);
+
+        int left_border = lefttop.x - wrect.left; // Windows 10: includes transparent part
+        int right_border = wrect.right - rightbottom.x; // As above
+        int bottom_border = wrect.bottom - rightbottom.y; // As above
+        int top_border_with_title_bar = lefttop.y - wrect.top; // There is no transparent part
+
+        auto l = rect.left + left_border;
+        auto t = rect.top + top_border_with_title_bar;
+        auto r = rect.right - right_border;
+        auto b = rect.bottom - bottom_border;
+
+        AU_CORE_TRACE("LOL Resize : {0},{1}", this->width, this->height);
+        this->width = r - l;
+        this->height = b - t;
+        AU_CORE_TRACE("Resize : {0},{1}", r-l,b-t);
     }
 
     LRESULT CALLBACK Win32_Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -238,8 +256,13 @@ namespace Aurora {
         {
         case WM_SIZE:
         {
-            width = LOWORD(lParam);
-            height = HIWORD(lParam);
+            if (LOWORD(lParam) != 0 && HIWORD(lParam) != 0)
+            {
+                width = LOWORD(lParam);
+                height = HIWORD(lParam);
+                Resize(width, height);
+            }
+            
         }
         break;
 
