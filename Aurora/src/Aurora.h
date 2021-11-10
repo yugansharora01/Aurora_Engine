@@ -14,8 +14,6 @@
 #include "Platform/Windows/AuroraException.h"
 #include "Aurora/Renderer/EditorCamera.h"
 
-#include "imgui.h"
-
 // ------Entry Point--------------
 #include "Aurora/EntryPoint.h"
 //--------------------------------

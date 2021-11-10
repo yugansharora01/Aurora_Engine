@@ -74,6 +74,58 @@ project "Aurora"
 		optimize "on"
 
 
+project "Aurora-Editor"
+	location "Aurora-Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++20"
+	staticruntime "on"
+
+	targetdir ("bin/"..outputdir.."/%{prj.name}")
+	objdir ("bin-int/"..outputdir.."/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Aurora/vendor/spdlog/include",
+		"Aurora/src"
+	}
+
+	links
+	{
+		"Aurora"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"AU_PLATFORM_WINDOWS"
+		}
+
+
+	filter "configurations:Debug"
+		defines "AU_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "AU_RELEASE"
+		runtime "Release"
+		optimize "On"
+		
+	filter "configurations:Dist"
+		defines "AU_DIST"
+		runtime "Release"
+		optimize "On"
+
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -93,6 +145,7 @@ project "Sandbox"
 	includedirs
 	{
 		"Aurora/vendor/spdlog/include",
+		"Aurora/vendor/ImGui",
 		"Aurora/src"
 	}
 

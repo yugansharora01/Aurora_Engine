@@ -21,9 +21,6 @@ namespace Aurora {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		m_EditorLayer = new EditorLayer();
-		PushOverlay(m_EditorLayer);
-
 		auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
 
 		wnd->Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
@@ -39,13 +36,13 @@ namespace Aurora {
 	{
 		try
 		{
-			float i ;
-			float j;
-			float k;
+			float i = 0.0f;
+			float j = 0.0f;
+			float k = 0.0f;
 
 			while (m_Running)
 			{
-				m_EditorLayer->Get(i,j,k);
+				
 
 				auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
 				wnd->Gfx().ClearBuffer(i, j,k);

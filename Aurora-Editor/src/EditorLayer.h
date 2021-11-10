@@ -1,5 +1,19 @@
 #pragma once
+#include <iostream>
+#include <memory>
+#include <utility>
+#include <algorithm>
+#include <functional>
 
+#include <string>
+#include <sstream>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <chrono>
+#include <queue>
+#include <bitset>
+#include <optional>
 #include "Aurora/Layer.h"
 
 #include <DirectXMath.h>
@@ -21,7 +35,7 @@ namespace Aurora {
 		float y = 0.0f;
 		float z = 20.0f;
 
-		DirectX::XMINT4 lastwindowposition;
+		std::vector<int> lastwindowposition;
 
 		
 	};

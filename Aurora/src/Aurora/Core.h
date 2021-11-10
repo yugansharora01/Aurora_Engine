@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef AU_PLATFORM_WINDOWS
 #if AU_DYNAMIC_LINK
 	#ifdef AU_BUILD_DLL
@@ -38,3 +40,23 @@
 #else
 #define AU_DEBUGNOEXCEPT 
 #endif
+
+
+namespace Aurora {
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+	template<typename T,typename... Args>
+	constexpr Scope<T> CreateScope(Args&&... args) 
+	{
+		return std::unique_ptr<T>(std::forward<Args>(args)...);
+	}
+
+
+	template<typename T>
+	using Ref = std::unique_ptr<T>;
+	template<typename T,typename... Args>
+	constexpr Ref<T> CreateRef(Args&&... args)
+	{
+		return std::shared_ptr<T>(std::forward<Args>(args)...);
+	}
+}

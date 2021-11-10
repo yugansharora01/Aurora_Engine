@@ -5,7 +5,6 @@
 #include "Aurora/LayerStack.h"
 #include "Events/Events.h"
 #include "Aurora/Imgui/ImguiLayer.h"
-#include "Aurora/EditorLayer.h"
 
 
 namespace Aurora {
@@ -29,7 +28,6 @@ namespace Aurora {
 	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
-		EditorLayer* m_EditorLayer;
 		
 
 		bool m_Running = true;
