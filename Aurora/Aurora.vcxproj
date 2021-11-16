@@ -131,7 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Aurora\ECS\ECS.h" />
+    <ClInclude Include="src\Aurora\Scene\ECS.h" />
     <ClInclude Include="src\Aurora.h" />
     <ClInclude Include="src\Aurora\Application.h" />
     <ClInclude Include="src\Aurora\AuroraMath.h" />
@@ -163,6 +163,7 @@
     <ClInclude Include="src\Aurora\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Aurora\Renderer\Shader.h" />
     <ClInclude Include="src\Aurora\Renderer\Texture.h" />
+    <ClInclude Include="src\Aurora\Scene\Scene.h" />
     <ClInclude Include="src\Aurora\Utils\Convertors.h" />
     <ClInclude Include="src\Aurora\Utils\Util.h" />
     <ClInclude Include="src\Aurora\Window.h" />
@@ -196,7 +197,7 @@
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Aurora\ECS\ECS.cpp" />
+    <ClCompile Include="src\Aurora\Scene\ECS.cpp" />
     <ClCompile Include="src\Aurora\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
@@ -214,6 +215,7 @@
     <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Shader.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp" />
     <ClCompile Include="src\Aurora\Utils\Util.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp" />

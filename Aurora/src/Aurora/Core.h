@@ -30,9 +30,9 @@
 #define AURORA_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
 #ifdef AU_RELEASE
-	#define AU_RELEASENOEXCEPT noexcept
+#define AU_RELEASENOEXCEPT noexcept
 #else
-	#define AU_RELEASENOEXCEPT 
+#define AU_RELEASENOEXCEPT 
 #endif
 
 #ifdef AU_DEBUG
@@ -53,7 +53,7 @@ namespace Aurora {
 
 
 	template<typename T>
-	using Ref = std::unique_ptr<T>;
+	using Ref = std::shared_ptr<T>;
 	template<typename T,typename... Args>
 	constexpr Ref<T> CreateRef(Args&&... args)
 	{

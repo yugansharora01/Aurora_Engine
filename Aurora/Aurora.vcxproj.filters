@@ -217,7 +217,8 @@
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Platform\Windows\Utility.h" />
     <ClInclude Include="src\Aurora\Utils\Util.h" />
-    <ClInclude Include="src\Aurora\ECS\ECS.h" />
+    <ClInclude Include="src\Aurora\Scene\ECS.h" />
+    <ClInclude Include="src\Aurora\Scene\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -332,7 +333,8 @@
     <ClCompile Include="src\Platform\Windows\Utility.cpp" />
     <ClCompile Include="src\Aurora\Utils\Util.cpp" />
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
-    <ClCompile Include="src\Aurora\ECS\ECS.cpp" />
+    <ClCompile Include="src\Aurora\Scene\ECS.cpp" />
+    <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">
