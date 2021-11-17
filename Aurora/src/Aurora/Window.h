@@ -25,6 +25,7 @@ namespace Aurora {
 		using EventCallbackFn = std::function<void(Event&)>;
 		virtual ~Window() {};
 		virtual void OnUpdate(bool &m_Running) = 0;
+		virtual void Close() = 0;
 
 		virtual inline unsigned int GetWidth() const = 0;
 		virtual inline unsigned int GetHeight() const = 0;

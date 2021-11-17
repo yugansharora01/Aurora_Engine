@@ -81,6 +81,11 @@ namespace Aurora {
 		}
 	}
 
+	void Application::Close()
+	{
+		m_Window->Close();
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); it++)

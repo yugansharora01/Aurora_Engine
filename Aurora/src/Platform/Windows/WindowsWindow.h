@@ -26,7 +26,7 @@ namespace Aurora {
 
 	private:
 		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
+		virtual void Close();
 	private:
 		struct WindowsData
 		{

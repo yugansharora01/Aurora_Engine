@@ -18,7 +18,7 @@ namespace Aurora {
 
 	WindowsWindow::~WindowsWindow()
 	{
-		Shutdown();
+		Close();
 	}
 
 	void WindowsWindow::OnUpdate(bool &m_Running)
@@ -82,7 +82,7 @@ namespace Aurora {
 
 
 	}
-	void WindowsWindow::Shutdown()
+	void WindowsWindow::Close()
 	{
 		m_Window->Destroy();
 	}
