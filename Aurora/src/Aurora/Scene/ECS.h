@@ -51,6 +51,7 @@ namespace Aurora {
 
 		~Entity(){}
 
+		//Updates every component
 		void Update()
 		{
 			for (auto& c : components)
@@ -59,22 +60,27 @@ namespace Aurora {
 			}
 		}
 
+		//Deletes Entity
 		void Delete()
 		{
 			active = false;
+			//TO DO
 		}
 
+		//returns true if entity is active
 		bool IsActive() const
 		{
 			return active;
 		}
 
+		//Checks if the Entity have the passed component
 		template<typename T>
 		bool HasComponent()
 		{
 			return componentBitSet[GetComponentTypeID<T>()];
 		}
 
+		//Adds the component to componentArray and also sets the componentBitSet 
 		template<typename T,typename... Args>
 		Ref<T>& AddComponent(Args&&... args)
 		{
@@ -88,6 +94,7 @@ namespace Aurora {
 			return *c;
 		}
 
+		//Returns the component passed as temlate argument
 		template<typename T>
 		Ref<T> GetComponent() const
 		{
@@ -96,10 +103,18 @@ namespace Aurora {
 			
 		}
 
-		std::vector<GroupID> GetGroups() const
+		//Returns the Group with the passed GroupID
+		std::vector<GroupID> GetGroup() const
 		{
 			return m_Groups;
 		}
+
+		//compares the Entity handle 
+		bool operator==(const Entity& e)
+		{
+			return this->handle == e.handle;
+		}
+
 	private:
 		Ref<Scene> m_scene;
 		std::vector<GroupID> m_Groups;
@@ -107,7 +122,6 @@ namespace Aurora {
 		std::bitset<maxComponents> componentBitSet;
 		std::array<Component, maxComponents> componentArray;
 		bool active;
-		
 	};
 
 	class Group
@@ -115,14 +129,14 @@ namespace Aurora {
 	public:
 		GroupID id;
 	public:
+		Group() = default;
+
 		Group(GroupID ID)
 			:id(ID)
 		{
 
 		}
 
-		
-		
 		void add(Entity entity)
 		{
 			GroupOfEntities.emplace_back(entity);
@@ -160,7 +174,7 @@ namespace Aurora {
 		void AddToGroup(Entity entity, GroupID group)
 		{
 			GroupMap[group].add(entity);
-			entity.GetGroups().push_back(group);
+			entity.GetGroup().push_back(group);
 		}
 
 		//Removes the entity from the group
@@ -189,9 +203,9 @@ namespace Aurora {
 		void DestroyEntity(Entity entity)
 		{
 			//Remove Entity from every group
-			for (size_t i = 0;i < entity.GetGroups().size();i++)
+			for (size_t i = 0;i < entity.GetGroup().size();i++)
 			{
-				RemoveEntityFromGroup(entity, entity.GetGroups()[i]);
+				RemoveEntityFromGroup(entity, entity.GetGroup()[i]);
 			}
 
 			//Remove Entity from the list of entities 

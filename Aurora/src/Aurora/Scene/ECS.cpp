@@ -9,5 +9,6 @@ namespace Aurora {
 		/*m_scene = CreateRef<Scene>(scene);
 		m_scene->registry->add(*this);*/
 	}
+
 }
 
