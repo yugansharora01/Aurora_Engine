@@ -3,11 +3,10 @@
 #include "Scene.h"
 
 namespace Aurora {
-	Entity::Entity(EntityHandle Handle, Scene scene)
-		:handle(Handle)
+	Entity::Entity(EntityHandle Handle, Scene* scene)
+		:handle(Handle),m_scene(scene)
 	{
-		/*m_scene = CreateRef<Scene>(scene);
-		m_scene->registry->add(*this);*/
+		m_scene->registry->add(*this);
 	}
 
 }

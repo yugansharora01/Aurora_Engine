@@ -11,7 +11,10 @@ namespace Aurora {
 		Ref<Registry> registry;
 	public:
 		Scene();
-		Scene(Scene& other) = default;
+		Scene(Scene& other)
+		{
+			this->registry = registry;
+		}
 		Entity CreateEntity();
 		void DestroyEntity(Entity entity);
 

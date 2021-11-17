@@ -36,8 +36,6 @@ namespace Aurora {
 		float z = 20.0f;
 
 		std::vector<int> lastwindowposition;
-
-		
 	};
 
 }

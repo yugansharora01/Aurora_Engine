@@ -10,7 +10,7 @@ namespace Aurora {
 
 	Entity Scene::CreateEntity()
 	{
-		Entity entity(registry->CreateEntity(),*this);
+		Entity entity(registry->CreateEntity(),this);
 		return entity;
 	}
 

@@ -45,7 +45,7 @@ namespace Aurora {
 	public:
 		EntityHandle handle;
 	public:
-		Entity(EntityHandle Handle, Scene scene);
+		Entity(EntityHandle Handle, Scene* scene);
 
 		Entity(const Entity& other) = default;
 
@@ -116,7 +116,7 @@ namespace Aurora {
 		}
 
 	private:
-		Ref<Scene> m_scene;
+		Scene* m_scene;
 		std::vector<GroupID> m_Groups;
 		std::vector<Component> components;
 		std::bitset<maxComponents> componentBitSet;
