@@ -1,9 +1,8 @@
-#include <Aurora.h>
-#include <Aurora/EntryPoint.h>
-#include <vector>
-#include "imgui.h"
-#include <Platform/Windows/Win32_Window.h>
+#pragma once
 
+#include <Aurora.h>
+
+#include "imgui.h"
 
 class ExampleLayer : public Aurora::Layer
 {
@@ -11,9 +10,9 @@ public:
 	ExampleLayer()
 		:Layer("Example")
 	{
-		
+
 		DirectX::XMFLOAT3 pos;
-		
+
 		const auto model = Cube::Make<DirectX::XMFLOAT3>();
 
 		vBuf = Aurora::VertexBuffer::Create(model.vertices);
@@ -21,7 +20,7 @@ public:
 		vShader = Aurora::VertexShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
 
 		pShader = Aurora::PixelShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
-		
+
 		iBuf = Aurora::IndexBuffer::Create(model.indices);
 
 		std::array<DirectX::XMFLOAT4, 8> face_colors =
@@ -42,9 +41,9 @@ public:
 		std::vector<Aurora::LayoutBuffer> list;
 
 		list.emplace_back("Position", 0u, Aurora::ShaderDataType::Float3, false, 32);
-		
 
-		vBuf->SetLayout(list,vShader);
+
+		vBuf->SetLayout(list, vShader);
 
 		vBuf->SetTopology(Aurora::TopologyType::Triangle_List);
 
@@ -58,7 +57,7 @@ public:
 		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
 		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
 		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
-		
+
 		ImGui::SliderFloat("x-axis", &x1, -3.14f, 3.14f);
 		ImGui::SliderFloat("y-axis", &y1, -3.14f, 3.14f);
 		ImGui::SliderFloat("z-axis", &z1, -3.14f, 3.14f);
@@ -77,7 +76,7 @@ public:
 
 	/*std::array<DirectX::XMFLOAT4, 8> GetColor()
 	{
-		
+
 		std::array<DirectX::XMFLOAT4, 8> face_colors =
 		{
 			{
@@ -93,7 +92,7 @@ public:
 		};
 		return face_colors;
 	}*/
-	
+
 	void OnUpdate() override
 	{
 		//unsigned int width = 0, height = 0;
@@ -101,9 +100,9 @@ public:
 		//wnd->GetWindowSize(width, height);
 		auto height = Aurora::Application::Get().GetWindow().GetHeight();
 		auto width = Aurora::Application::Get().GetWindow().GetWidth();
-		m_camera->UpdateProjection(1, (float)height / (float)width, 0.5f,40.0f);
+		m_camera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);
 
-		
+
 		vShader->UploadMat4(DirectX::XMMatrixTranspose(
 			GetMatrix() * m_camera->GetProjection()));
 
@@ -119,8 +118,8 @@ public:
 
 	DirectX::XMMATRIX GetMatrix()
 	{
-		return DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) * 
-				DirectX::XMMatrixTranslation(x, y, z);
+		return DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
+			DirectX::XMMatrixTranslation(x, y, z);
 	}
 
 	void OnEvent(Aurora::Event& event) override
@@ -136,42 +135,9 @@ private:
 
 	float x = -4.0f, y = 0.0f, z = 20.0f;
 	float x1 = 0.0f, y1 = 0.0f, z1 = 0.0f;
-	
+
 
 	//float Face1[4], Face2[4], Face3[4], Face4[4], Face5[4], Face6[4], Face7[4], Face8[4];
 
 	DirectX::XMMATRIX mat;
 };
-
-class Sandbox : public Aurora::Application
-{
-public:
-	Sandbox()
-	{
-		try {
-			//PushLayer(new ExampleLayer());
-		}
-		catch (const Aurora::AuroraException& e)
-		{
-			AU_CORE_FATAL("{0}", e.what());
-			MessageBoxA(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
-		}
-		catch (const std::exception& e)
-		{
-			MessageBoxA(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
-		}
-		catch (...)
-		{
-			MessageBoxA(nullptr, "No Details Available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
-		}
-	}
-	~Sandbox()
-	{
-
-	}
-};
-
-Aurora::Application* Aurora::CreateApplication()
-{
-	return new Sandbox();
-}

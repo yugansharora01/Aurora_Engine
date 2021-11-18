@@ -15,5 +15,5 @@
 #include "Aurora/Renderer/EditorCamera.h"
 
 // ------Entry Point--------------
-#include "Aurora/EntryPoint.h"
+//#include "Aurora/EntryPoint.h"
 //--------------------------------

@@ -30,6 +30,7 @@ namespace Aurora {
 
 	Application::~Application()
 	{
+		m_Window->Close();
 	}
 
 	void Application::Run()
@@ -42,8 +43,6 @@ namespace Aurora {
 
 			while (m_Running)
 			{
-				
-
 				auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
 				wnd->Gfx().ClearBuffer(i, j,k);
 
@@ -83,7 +82,7 @@ namespace Aurora {
 
 	void Application::Close()
 	{
-		m_Window->Close();
+		m_Running = false;
 	}
 
 	void Application::OnEvent(Event& e)

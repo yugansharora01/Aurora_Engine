@@ -219,6 +219,7 @@
     <ClInclude Include="src\Aurora\Utils\Util.h" />
     <ClInclude Include="src\Aurora\Scene\ECS.h" />
     <ClInclude Include="src\Aurora\Scene\Scene.h" />
+    <ClInclude Include="src\Aurora\Scene\Components.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -335,6 +336,7 @@
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
     <ClCompile Include="src\Aurora\Scene\ECS.cpp" />
     <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
+    <ClCompile Include="src\Aurora\Scene\Components.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">

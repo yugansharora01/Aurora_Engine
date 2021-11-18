@@ -41,6 +41,22 @@ namespace Aurora {
 		m_DepthStencil->Create(width, height);
 	}
 
+	void* D3D11FrameBuffer::GetBufferAsTexture()
+	{
+		INFOMAN;
+
+		ID3D11Texture2D* pBackBuffer;
+		GFX_THROW_INFO(Getgfx().GetSwap()->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer));
+		ID3D11Texture2D* tex = NULL;
+		D3D11_TEXTURE2D_DESC td;
+		pBackBuffer->GetDesc(&td);
+		GFX_THROW_INFO(Getgfx().GetDevice()->CreateTexture2D(&td, NULL, &tex));
+		Getgfx().GetContext()->CopyResource(tex,pBackBuffer);
+		
+		
+		return (void*)tex;
+	}
+
 	void D3D11FrameBuffer::RefreshBackBuffer()
 	{
 		INFOMAN;

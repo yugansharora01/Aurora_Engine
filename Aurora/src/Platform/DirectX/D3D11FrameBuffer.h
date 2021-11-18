@@ -13,6 +13,7 @@ namespace Aurora {
 		virtual void Bind() override;
 		virtual void Unbind() override;//this unbinds the depth stencil only
 		virtual void Resize(unsigned int width, unsigned int height) override;
+		virtual void* GetBufferAsTexture() override;
 		void RefreshBackBuffer();
 		static bool IsBound() { return bound; }
 	private:

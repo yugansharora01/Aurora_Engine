@@ -1,4 +1,5 @@
 #pragma once
+#include <Aurora.h>
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -27,6 +28,7 @@ namespace Aurora {
 		void Get(float &Red, float &Green, float &Blue);
 		void GetPos(float & x, float & y, float & z);
 		virtual void OnImGuiRender() override;
+		virtual void OnAttach() override;
 	private:
 		float red = 0.01f;
 		float green = 0.01f;
@@ -36,6 +38,7 @@ namespace Aurora {
 		float z = 20.0f;
 
 		std::vector<int> lastwindowposition;
+		Ref<FrameBuffer> fBuffer;
 	};
 
 }
