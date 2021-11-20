@@ -15,6 +15,7 @@ IncludeDir = {}
 
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
+IncludeDir["imgui"] = "Aurora/vendor/glm"
 
 project "Aurora"
 	location "Aurora"
@@ -41,7 +42,8 @@ project "Aurora"
 	{
 		"%{prj.name}/src",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -94,6 +96,7 @@ project "Aurora-Editor"
 	{
 		"Aurora/vendor/spdlog/include",
 		"Aurora/src"
+		"Aurora/vendor/glm"
 	}
 
 	links
