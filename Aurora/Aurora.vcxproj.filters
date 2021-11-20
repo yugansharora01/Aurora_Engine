@@ -22,6 +22,9 @@
     <Filter Include="Aurora\Renderer">
       <UniqueIdentifier>{95174F16-01A3-BCDA-0AB4-3FCF76BE18DB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aurora\Scene">
+      <UniqueIdentifier>{6C2F50DC-5892-DF80-0118-1837ED59AB03}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Aurora\Utils">
       <UniqueIdentifier>{AFC37DDC-9B26-0D81-44AC-453730EED803}</UniqueIdentifier>
     </Filter>
@@ -130,7 +133,19 @@
     <ClInclude Include="src\Aurora\Renderer\Texture.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Scene\Components.h">
+      <Filter>Aurora\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Scene\ECS.h">
+      <Filter>Aurora\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Scene\Scene.h">
+      <Filter>Aurora\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Utils\Convertors.h">
+      <Filter>Aurora\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Utils\Util.h">
       <Filter>Aurora\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Window.h">
@@ -202,6 +217,9 @@
     <ClInclude Include="src\Platform\Windows\Mouse.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\Utility.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\Win32_Window.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -215,11 +233,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Platform\Windows\Utility.h" />
-    <ClInclude Include="src\Aurora\Utils\Util.h" />
-    <ClInclude Include="src\Aurora\Scene\ECS.h" />
-    <ClInclude Include="src\Aurora\Scene\Scene.h" />
-    <ClInclude Include="src\Aurora\Scene\Components.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -227,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp">
       <Filter>Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Events\Events.cpp">
+      <Filter>Aurora\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp">
       <Filter>Aurora\Imgui</Filter>
@@ -270,7 +286,19 @@
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Aurora\Scene\Components.cpp">
+      <Filter>Aurora\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Scene\ECS.cpp">
+      <Filter>Aurora\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Scene\Scene.cpp">
+      <Filter>Aurora\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp">
+      <Filter>Aurora\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Utils\Util.cpp">
       <Filter>Aurora\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp">
@@ -321,6 +349,9 @@
     <ClCompile Include="src\Platform\Windows\Mouse.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\Utility.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
@@ -331,12 +362,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Platform\Windows\Utility.cpp" />
-    <ClCompile Include="src\Aurora\Utils\Util.cpp" />
-    <ClCompile Include="src\Aurora\Events\Events.cpp" />
-    <ClCompile Include="src\Aurora\Scene\ECS.cpp" />
-    <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
-    <ClCompile Include="src\Aurora\Scene\Components.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">

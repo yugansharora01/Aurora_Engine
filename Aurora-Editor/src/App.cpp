@@ -1,3 +1,4 @@
+#include "Editorpch.h"
 #include <Aurora.h>
 #include <Aurora/EntryPoint.h>
 #include "EditorLayer.h"

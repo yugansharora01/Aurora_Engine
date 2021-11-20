@@ -12,6 +12,8 @@ namespace Aurora {
 		TagComponent(const std::string& str)
 			:tag(str){}
 		~TagComponent(){}
+		virtual void OnComponentAdd() override {}
+		virtual void update() override {}
 	};
 
 }

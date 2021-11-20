@@ -1,3 +1,4 @@
+#include "Editorpch.h"
 #include "SceneHierarchyPanel.h"
 
 namespace Aurora {

@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "Scene.h"
 #include "ECS.h"
+#include "Scene.h"
 
 namespace Aurora {
 	Scene::Scene()

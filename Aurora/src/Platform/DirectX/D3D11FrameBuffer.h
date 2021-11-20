@@ -16,12 +16,15 @@ namespace Aurora {
 		virtual void* GetBufferAsTexture() override;
 		void RefreshBackBuffer();
 		static bool IsBound() { return bound; }
+		void Clear(float red, float green, float blue);
 	private:
 		static bool bound;
 		static unsigned int s_Width;
 		static unsigned int s_Height;
 		std::shared_ptr<DepthStencil> m_DepthStencil;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTargetTextureMap;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetViewMap;
 	};
 
 }

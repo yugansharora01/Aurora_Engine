@@ -29,6 +29,7 @@ namespace Aurora {
 		void GetPos(float & x, float & y, float & z);
 		virtual void OnImGuiRender() override;
 		virtual void OnAttach() override;
+		void Panels();
 	private:
 		float red = 0.01f;
 		float green = 0.01f;

@@ -1,6 +1,6 @@
 workspace "Aurora"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Aurora-Editor"
 
 	configurations
 	{
@@ -15,7 +15,7 @@ IncludeDir = {}
 
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
-IncludeDir["imgui"] = "Aurora/vendor/glm"
+IncludeDir["glm"] = "Aurora/vendor/glm"
 
 project "Aurora"
 	location "Aurora"
@@ -86,6 +86,9 @@ project "Aurora-Editor"
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
 
+	pchheader "Editorpch.h"
+	pchsource "Aurora-Editor/src/Editorpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -94,9 +97,11 @@ project "Aurora-Editor"
 
 	includedirs
 	{
-		"Aurora/vendor/spdlog/include",
-		"Aurora/src"
-		"Aurora/vendor/glm"
+		"%{prj.name}/src",
+		"Aurora/src",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links

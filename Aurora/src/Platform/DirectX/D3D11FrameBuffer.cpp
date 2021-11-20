@@ -45,16 +45,70 @@ namespace Aurora {
 	{
 		INFOMAN;
 
-		ID3D11Texture2D* pBackBuffer;
+		int Width = 800;
+		int Height = 600;
+
+		/*ID3D11Texture2D* pBackBuffer;
 		GFX_THROW_INFO(Getgfx().GetSwap()->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer));
 		ID3D11Texture2D* tex = NULL;
 		D3D11_TEXTURE2D_DESC td;
 		pBackBuffer->GetDesc(&td);
 		GFX_THROW_INFO(Getgfx().GetDevice()->CreateTexture2D(&td, NULL, &tex));
-		Getgfx().GetContext()->CopyResource(tex,pBackBuffer);
+		Getgfx().GetContext()->CopyResource(tex,pBackBuffer);*/
 		
 		
-		return (void*)tex;
+		
+
+		D3D11_TEXTURE2D_DESC textureDesc;
+		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+
+		///////////////////////// Map's Texture
+		// Initialize the  texture description.
+		ZeroMemory(&textureDesc, sizeof(textureDesc));
+
+		// Setup the texture description.
+		// We will have our map be a square
+		// We will need to have this texture bound as a render target AND a shader resource
+		textureDesc.Width = Width / 2;
+		textureDesc.Height = Height / 2;
+		textureDesc.MipLevels = 1;
+		textureDesc.ArraySize = 1;
+		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		textureDesc.SampleDesc.Count = 1;
+		textureDesc.Usage = D3D11_USAGE_DEFAULT;
+		textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET;
+		textureDesc.CPUAccessFlags = 0;
+		textureDesc.MiscFlags = 0;
+
+		// Create the texture
+		Getgfx().GetDevice()->CreateTexture2D(&textureDesc, NULL, &renderTargetTextureMap);
+
+		/////////////////////// Map's Render Target
+		// Setup the description of the render target view.
+		renderTargetViewDesc.Format = textureDesc.Format;
+		renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		renderTargetViewDesc.Texture2D.MipSlice = 0;
+
+		// Create the render target view.
+		Getgfx().GetDevice()->CreateRenderTargetView(renderTargetTextureMap.Get(), &renderTargetViewDesc, &renderTargetViewMap);
+
+		// Set our maps Render Target
+		Getgfx().GetContext()->OMSetRenderTargets(1, &renderTargetViewMap, Getgfx().GetDepthStencil().Get());
+
+
+		const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+		// Now clear the render target
+		Getgfx().GetContext()->ClearRenderTargetView(renderTargetViewMap.Get(), bgColor);
+
+
+		return (void*)renderTargetTextureMap.Get();
+	}
+
+	void D3D11FrameBuffer::Clear(float red, float green, float blue)
+	{
+		const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+		// Now clear the render target
+		Getgfx().GetContext()->ClearRenderTargetView(renderTargetViewMap.Get(), bgColor);
 	}
 
 	void D3D11FrameBuffer::RefreshBackBuffer()
