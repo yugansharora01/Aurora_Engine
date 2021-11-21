@@ -10,20 +10,20 @@ namespace Aurora {
 	public:
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow();
-		void OnUpdate(bool &m_Running) override;
+		virtual void OnUpdate(bool &m_Running) override;
 
-		inline unsigned int GetWidth() const override { return m_Data.Width; };
-		inline unsigned int GetHeight() const override { return m_Data.Height; };
+		virtual inline unsigned int GetWidth() const override { return m_Data.Width; };
+		virtual inline unsigned int GetHeight() const override { return m_Data.Height; };
 
-		inline void SetEventCallback(const EventCallbackFn& callback) override
+		virtual inline void SetEventCallback(const EventCallbackFn& callback) override
 		{
 			m_Data.EventCallback = callback;
 		}
-		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
-		void* GetNativeWindowPtr() override { return m_Window; }
-		void SetViewPort(unsigned int width,unsigned int height) override;
-
+		virtual void SetVSync(bool enabled) override;
+		virtual bool IsVSync() const override;
+		virtual void* GetNativeWindowPtr() override { return m_Window; }
+		virtual void SetViewPort(unsigned int width,unsigned int height) override;
+		virtual void makeGraphics() override;
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Close();

@@ -13,6 +13,9 @@
 #include <random>
 
 namespace Aurora {
+
+    class D3D11FrameBuffer;
+
     class Graphics
     {
     public:
@@ -69,6 +72,7 @@ namespace Aurora {
         void SetProjection(DirectX::FXMMATRIX proj) noexcept;
         static DirectX::XMMATRIX GetProjection() noexcept;
         void SetViewPort(unsigned int width, unsigned int height);
+        void RenderToTex();
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
@@ -76,12 +80,13 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
         inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencil() { return pDSV; }
         inline DxgiInfoManager& GetInfoManager() { return infoManager; }
+        inline Ref<D3D11FrameBuffer> GetFrameBuffer() { return fbuf; }
 
     private:
         static DirectX::XMMATRIX projection;
 
     private:
-#ifndef NDEBUG
+#ifndef AU_RELEASE
         DxgiInfoManager infoManager;
 #endif // !NDEBUG
 
@@ -90,6 +95,8 @@ namespace Aurora {
         Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
+
+        Ref<D3D11FrameBuffer> fbuf;
     };
 }
 #endif // GRAPHICS_H_INCLUDED

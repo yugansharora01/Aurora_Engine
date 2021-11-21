@@ -62,6 +62,11 @@ namespace Aurora {
 	{
 		m_Window->SetViewPort(width, height);
 	}
+
+	void WindowsWindow::makeGraphics()
+	{
+		
+	}
 	
 
 	void WindowsWindow::Init(const WindowProps& props)

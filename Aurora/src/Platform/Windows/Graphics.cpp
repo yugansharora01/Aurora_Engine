@@ -29,8 +29,9 @@ namespace Aurora {
     {
         AU_INFO("Initialised Graphics");
 
-        unsigned int WindowWidth = 800, WindowHeight = 600;
-
+        unsigned int WindowWidth = 800;
+        unsigned int WindowHeight = 600;
+        
 
         DXGI_SWAP_CHAIN_DESC sd = {};
         sd.BufferDesc.Width = 0;
@@ -179,6 +180,11 @@ namespace Aurora {
         pContext->RSSetViewports(1u, &vp);
 
         AU_CORE_INFO("Graphics : width = {0}, Height = {1}", width, height); 
+    }
+
+    void Aurora::Graphics::RenderToTex()
+    {
+
     }
 
 

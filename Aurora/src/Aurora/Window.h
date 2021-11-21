@@ -37,6 +37,8 @@ namespace Aurora {
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
 		virtual void* GetNativeWindowPtr() = 0;
 
+		virtual void makeGraphics() = 0;
+
 		static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
 	};
 
