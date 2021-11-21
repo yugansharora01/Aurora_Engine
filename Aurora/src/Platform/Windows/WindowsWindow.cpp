@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "WindowsWindow.h"
 #include "Aurora/Renderer/FrameBuffer.h"
+#include "Platform/DirectX/D3D11Graphics.h"
 
 namespace Aurora {
 
@@ -60,12 +61,17 @@ namespace Aurora {
 
 	void WindowsWindow::SetViewPort(unsigned int width, unsigned int height)
 	{
-		m_Window->SetViewPort(width, height);
+		pGfx->SetViewPort(width, height);
 	}
 
 	void WindowsWindow::makeGraphics()
 	{
-		
+		pGfx = CreateScope<Graphics>(m_Window->GetHandle());
+	}
+
+	Ref<Graphics> WindowsWindow::Gfx()
+	{
+		return pGfx;
 	}
 	
 

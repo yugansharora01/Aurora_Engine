@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "Graphics.h"
-#include "dxerr.h"
-#include "GraphicsThrowMacros.h"
-#include "WindowsThrowMacros.h"
+#include "D3D11Graphics.h"
+#include "Platform/Windows/dxerr.h"
+#include "Platform/Windows/GraphicsThrowMacros.h"
+#include "Platform/Windows/WindowsThrowMacros.h"
 
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
@@ -23,11 +23,11 @@ namespace dx = DirectX;
 
 namespace Aurora {
 
-    DirectX::XMMATRIX Graphics::projection = DirectX::XMMatrixIdentity();
+    glm::mat4 D3D11Graphics::projection = glm::imat4x4();
 
-    Graphics::Graphics(HWND hWnd)
+    D3D11Graphics::D3D11Graphics(HWND hWnd)
     {
-        AU_INFO("Initialised Graphics");
+        AU_INFO("Initialised D3D11Graphics");
 
         unsigned int WindowWidth = 800;
         unsigned int WindowHeight = 600;
@@ -124,7 +124,7 @@ namespace Aurora {
 
     }
 
-    void Graphics::EndFrame()
+    void D3D11Graphics::EndFrame()
     {
         HRESULT hr;
         #ifndef AU_DEBUG
@@ -145,29 +145,29 @@ namespace Aurora {
 
     }
 
-    void Graphics::ClearBuffer(float red, float green, float blue) noexcept
+    void D3D11Graphics::ClearBuffer(float red, float green, float blue) noexcept
     {
         const float color[] = { red, green, blue, 1.0f };
         pContext->ClearRenderTargetView(pTarget.Get(), color);
         pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
     }
 
-    void Graphics::DrawIndexed(UINT count) AU_RELEASENOEXCEPT
+    void D3D11Graphics::DrawIndexed(UINT count) AU_RELEASENOEXCEPT
     {
         GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
     }
 
-    void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+    void D3D11Graphics::SetProjection(glm::mat4 proj) noexcept
     {
         projection = proj;
     }
 
-    DirectX::XMMATRIX Graphics::GetProjection() noexcept
+    glm::mat4 D3D11Graphics::GetProjection() noexcept
     {
         return projection;
     }
 
-    void Graphics::SetViewPort(unsigned int width, unsigned int height)
+    void D3D11Graphics::SetViewPort(unsigned int width, unsigned int height)
     {
         // configure viewport
         D3D11_VIEWPORT vp;
@@ -179,17 +179,17 @@ namespace Aurora {
         vp.TopLeftY = 0.0f;
         pContext->RSSetViewports(1u, &vp);
 
-        AU_CORE_INFO("Graphics : width = {0}, Height = {1}", width, height); 
+        AU_CORE_INFO("D3D11Graphics : width = {0}, Height = {1}", width, height); 
     }
 
-    void Aurora::Graphics::RenderToTex()
+    void Aurora::D3D11Graphics::RenderToTex()
     {
 
     }
 
 
 
-    Graphics::HrException::HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
+    D3D11Graphics::HrException::HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
         :Exception(line, file), hr(hr)
     {
         // join all info messages with newlines into single string
@@ -207,7 +207,7 @@ namespace Aurora {
         }
     }
 
-    const char* Graphics::HrException::what() const noexcept
+    const char* D3D11Graphics::HrException::what() const noexcept
     {
         std::ostringstream oss;
         oss << GetType() << std::endl
@@ -224,39 +224,39 @@ namespace Aurora {
         return whatBuffer.c_str();
     }
 
-    const char* Graphics::HrException::GetType() const noexcept
+    const char* D3D11Graphics::HrException::GetType() const noexcept
     {
-        return "Aurora Graphics Exception";
+        return "Aurora D3D11Graphics Exception";
     }
 
-    HRESULT Graphics::HrException::GetErrorCode() const noexcept
+    HRESULT D3D11Graphics::HrException::GetErrorCode() const noexcept
     {
         return hr;
     }
 
-    std::string Graphics::HrException::GetErrorString() const noexcept
+    std::string D3D11Graphics::HrException::GetErrorString() const noexcept
     {
         return DXGetErrorString(hr);
     }
 
-    std::string Graphics::HrException::GetErrorDescription() const noexcept
+    std::string D3D11Graphics::HrException::GetErrorDescription() const noexcept
     {
         char buf[512];
         DXGetErrorDescription(hr, buf, sizeof(buf));
         return buf;
     }
 
-    std::string Graphics::HrException::GetErrorInfo() const noexcept
+    std::string D3D11Graphics::HrException::GetErrorInfo() const noexcept
     {
         return info;
     }
 
-    const char* Graphics::DeviceRemovedException::GetType() const noexcept
+    const char* D3D11Graphics::DeviceRemovedException::GetType() const noexcept
     {
-        return "Aurora Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
+        return "Aurora D3D11Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
     }
 
-    Graphics::InfoException::InfoException(int line, const char* file, std::vector<std::string> infoMsgs) noexcept
+    D3D11Graphics::InfoException::InfoException(int line, const char* file, std::vector<std::string> infoMsgs) noexcept
         :
         Exception(line, file)
     {
@@ -274,7 +274,7 @@ namespace Aurora {
     }
 
 
-    const char* Graphics::InfoException::what() const noexcept
+    const char* D3D11Graphics::InfoException::what() const noexcept
     {
         std::ostringstream oss;
         oss << GetType() << std::endl
@@ -284,12 +284,12 @@ namespace Aurora {
         return whatBuffer.c_str();
     }
 
-    const char* Graphics::InfoException::GetType() const noexcept
+    const char* D3D11Graphics::InfoException::GetType() const noexcept
     {
-        return "Aurora Graphics Info Exception";
+        return "Aurora D3D11Graphics Info Exception";
     }
 
-    std::string Graphics::InfoException::GetErrorInfo() const noexcept
+    std::string D3D11Graphics::InfoException::GetErrorInfo() const noexcept
     {
         return info;
     }

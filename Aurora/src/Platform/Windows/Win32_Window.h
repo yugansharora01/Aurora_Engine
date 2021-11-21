@@ -5,7 +5,7 @@
 #include "AuroraException.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "Graphics.h"
+#include "Platform/DirectX/D3D11Graphics.h"
 
 namespace Aurora {
 
@@ -65,10 +65,8 @@ namespace Aurora {
         void SetTitle(const std::string& title);
         static std::optional<int> ProcessMessages();
         void Destroy();
-        Graphics& Gfx();
         inline HWND GetHandle() noexcept { return hWnd; }
         void GetWindowSize(unsigned int& width, unsigned int& height) noexcept;
-        void SetViewPort(unsigned int width, unsigned int height) { pGfx->SetViewPort(width,height); }
         void Resize(unsigned int width,unsigned int height);
 
     private:
@@ -79,8 +77,7 @@ namespace Aurora {
     public:
         Keyboard kbd;
         Mouse mouse;
-        std::unique_ptr<Graphics> pGfx;
-
+        
     private:
         int width;
         int height;

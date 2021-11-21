@@ -136,6 +136,7 @@
     <ClInclude Include="src\Aurora\AuroraMath.h" />
     <ClInclude Include="src\Aurora\Core.h" />
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
+    <ClInclude Include="src\Aurora\Core\Graphics.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h" />
@@ -155,7 +156,6 @@
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
-    <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h" />
     <ClInclude Include="src\Aurora\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Aurora\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Aurora\Renderer\Renderer.h" />
@@ -186,7 +186,7 @@
     <ClInclude Include="src\Platform\Windows\DXGetErrorString.inl" />
     <ClInclude Include="src\Platform\Windows\DXTrace.inl" />
     <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h" />
-    <ClInclude Include="src\Platform\Windows\Graphics.h" />
+    <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h" />
     <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h" />
     <ClInclude Include="src\Platform\Windows\Keyboard.h" />
     <ClInclude Include="src\Platform\Windows\Mouse.h" />
@@ -200,6 +200,7 @@
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
+    <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
@@ -208,7 +209,6 @@
     <ClCompile Include="src\Aurora\Log.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp" />
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Aurora\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp" />
@@ -233,7 +233,7 @@
     <ClCompile Include="src\Platform\DirectX\D3D11VertexShader.cpp" />
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp" />
     <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp" />
-    <ClCompile Include="src\Platform\Windows\Graphics.cpp" />
+    <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp" />
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
     <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
     <ClCompile Include="src\Platform\Windows\Utility.cpp" />

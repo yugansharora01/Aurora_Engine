@@ -5,6 +5,8 @@
 
 
 namespace Aurora {
+	class D3D11Graphics;
+
 	class WindowsWindow : public Window
 	{
 	public:
@@ -24,6 +26,8 @@ namespace Aurora {
 		virtual void* GetNativeWindowPtr() override { return m_Window; }
 		virtual void SetViewPort(unsigned int width,unsigned int height) override;
 		virtual void makeGraphics() override;
+		virtual Ref<Graphics> Gfx() override;
+
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Close();
@@ -38,6 +42,7 @@ namespace Aurora {
 		};
 
 		WindowsData m_Data;
+		Ref<Graphics> pGfx;
 
 		Win32_Window* m_Window;
 	};

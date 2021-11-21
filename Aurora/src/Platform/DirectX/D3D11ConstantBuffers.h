@@ -2,7 +2,6 @@
 
 #include "Aurora/Renderer/Bindables.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
-#include "Aurora/Renderer/ConstantBuffers.h"
 
 namespace Aurora {
 
@@ -61,7 +60,6 @@ namespace Aurora {
 			csd.pSysMem = &consts;
 			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
-
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
 	};
@@ -73,11 +71,11 @@ namespace Aurora {
 		using D3D11ConstantBuffer::pConstantBuffer;
 		using D3D11ConstantBuffer::D3D11ConstantBuffer;
 	public:
-		void Bind() noexcept override
+		void Bind() noexcept 
 		{
 			Getgfx().GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
-		void Unbind() override {}
+		void Unbind()  {}
 	};
 
 
@@ -87,11 +85,11 @@ namespace Aurora {
 		using Bindables::Getgfx;
 		using D3D11ConstantBuffer::pConstantBuffer;
 		using D3D11ConstantBuffer::D3D11ConstantBuffer;
-		void Bind() noexcept override
+		void Bind() noexcept 
 		{
 			Getgfx().GetContext()->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
-		void Unbind() override{}
+		void Unbind() {}
 	};
 
 

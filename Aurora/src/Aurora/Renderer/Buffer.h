@@ -66,7 +66,8 @@ namespace Aurora
 	{
 	public:
 		virtual ~InputLayout() = default;
-
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 		//virtual void Update() = 0;
 		
 		static std::shared_ptr<InputLayout> Create(
@@ -80,7 +81,8 @@ namespace Aurora
 
 	public:
 		virtual ~Topology() = default;
-
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 		//virtual void Update() = 0;
 
 		static std::shared_ptr<Topology> Create(TopologyType Type);

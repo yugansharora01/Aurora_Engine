@@ -13,7 +13,8 @@ namespace Aurora {
 		virtual void UploadMat3(DirectX::XMMATRIX mat3) = 0;
 		virtual void UploadMat4(DirectX::XMMATRIX mat4) = 0;
 		virtual void UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr) = 0;
-
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 	};
 
 	class PixelShader : public Shader

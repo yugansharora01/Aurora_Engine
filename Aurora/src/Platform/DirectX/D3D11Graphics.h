@@ -1,9 +1,10 @@
 #ifndef GRAPHICS_H_INCLUDED
 #define GRAPHICS_H_INCLUDED
 
-#include "AuroraWin.h"
-#include "AuroraException.h"
-#include "DxgiInfoManager.h"
+#include "Platform/Windows/AuroraWin.h"
+#include "Platform/Windows/AuroraException.h"
+#include "Platform/Windows/DxgiInfoManager.h"
+#include "Aurora/Core/Graphics.h"
 
 #include <d3d11.h>
 #include <wrl.h>
@@ -16,7 +17,7 @@ namespace Aurora {
 
     class D3D11FrameBuffer;
 
-    class Graphics
+    class D3D11Graphics : public Graphics
     {
     public:
         class Exception : public AuroraException
@@ -62,17 +63,17 @@ namespace Aurora {
         };
 
     public:
-        Graphics(HWND hWnd);
-        Graphics(const Graphics&) = delete;
-        Graphics& operator=(const Graphics&) = delete;
-        ~Graphics() = default;
-        void EndFrame();
-        void ClearBuffer(float red, float green, float blue) noexcept;
-        void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT;
-        void SetProjection(DirectX::FXMMATRIX proj) noexcept;
-        static DirectX::XMMATRIX GetProjection() noexcept;
-        void SetViewPort(unsigned int width, unsigned int height);
-        void RenderToTex();
+        D3D11Graphics(HWND hWnd);
+        D3D11Graphics(const D3D11Graphics&) = delete;
+        D3D11Graphics& operator=(const D3D11Graphics&) = delete;
+        ~D3D11Graphics() = default;
+        virtual void EndFrame() override;
+        virtual void ClearBuffer(float red, float green, float blue) noexcept override;
+        virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT override;
+        virtual void SetProjection(glm::mat4 proj) noexcept override;
+        static glm::mat4 GetProjection() noexcept;
+        virtual void SetViewPort(unsigned int width, unsigned int height) override;
+        virtual void RenderToTex() override;
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
@@ -83,7 +84,7 @@ namespace Aurora {
         inline Ref<D3D11FrameBuffer> GetFrameBuffer() { return fbuf; }
 
     private:
-        static DirectX::XMMATRIX projection;
+        static glm::mat4 projection;
 
     private:
 #ifndef AU_RELEASE

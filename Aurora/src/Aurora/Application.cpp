@@ -23,8 +23,7 @@ namespace Aurora {
 
 		auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
 
-		wnd->Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
-
+		
 	} 
 
 
@@ -43,8 +42,8 @@ namespace Aurora {
 
 			while (m_Running)
 			{
-				auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
-				wnd->Gfx().ClearBuffer(i, j,k);
+				
+				m_Window->Gfx().ClearBuffer(i, j,k);
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();

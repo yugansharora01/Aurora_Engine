@@ -6,11 +6,8 @@
 
 namespace Aurora {
 
-	Graphics& Bindables::Getgfx()
-	{
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
-		return wnd->Gfx();
-	}
+
+	
 	DxgiInfoManager& Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
 	{
 		// TODO: insert return statement here

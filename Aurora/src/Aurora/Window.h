@@ -7,6 +7,8 @@
 #include "Aurora/Log.h"
 
 namespace Aurora {
+	class Graphics;
+
 	struct WindowProps
 	{
 		std::string Title;
@@ -38,6 +40,7 @@ namespace Aurora {
 		virtual void* GetNativeWindowPtr() = 0;
 
 		virtual void makeGraphics() = 0;
+		virtual Ref<Graphics> Gfx() = 0;
 
 		static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
 	};

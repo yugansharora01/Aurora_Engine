@@ -2,7 +2,7 @@
 #include "Platform/Windows/AuroraWin.h"
 #include "DxgiInfoManager.h"
 #include "Win32_Window.h"
-#include "Graphics.h"
+#include "Platform/DirectX/D3D11Graphics.h"
 #include "WindowsThrowMacros.h"
 #include "GraphicsThrowMacros.h"
 #include <dxgidebug.h>

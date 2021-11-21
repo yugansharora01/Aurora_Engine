@@ -112,9 +112,6 @@
     <ClInclude Include="src\Aurora\Renderer\Buffer.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Renderer\ConstantBuffers.h">
-      <Filter>Aurora\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\EditorCamera.h">
       <Filter>Aurora\Renderer</Filter>
     </ClInclude>
@@ -205,7 +202,7 @@
     <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Windows\Graphics.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h">
@@ -233,6 +230,7 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Aurora\Core\Graphics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -263,9 +261,6 @@
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp">
-      <Filter>Aurora\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Renderer\ConstantBuffers.cpp">
       <Filter>Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp">
@@ -340,7 +335,7 @@
     <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\Graphics.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp">
@@ -362,6 +357,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">

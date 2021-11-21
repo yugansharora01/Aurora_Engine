@@ -124,8 +124,7 @@ namespace Aurora {
         // newly created window starts off as hidden
         ShowWindow(hWnd, SW_SHOWDEFAULT);
 
-        //create graphics object
-        pGfx = std::make_unique<Graphics>(hWnd);
+        
     }
     Win32_Window::~Win32_Window()
     {
@@ -170,11 +169,6 @@ namespace Aurora {
     void Win32_Window::Destroy()
     {
         DestroyWindow(hWnd);
-    }
-
-    Graphics& Win32_Window::Gfx()
-    {
-        return *pGfx;
     }
 
     void Win32_Window::GetWindowSize(unsigned int& width, unsigned int& height) noexcept
