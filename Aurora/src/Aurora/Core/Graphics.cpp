@@ -1,11 +1,34 @@
 #include "pch.h"
 #include "Graphics.h"
 #include "Platform/DirectX/D3D11Graphics.h"
+#include "Aurora/Renderer/RendererAPI.h"
 
 namespace Aurora
 {
-	static Ref<Graphics> Create()
+	void* Graphics::NativeGraphicsObject = nullptr;
+
+	Ref<Graphics> Graphics::Create()
 	{
-		return CreateRef<D3D11Graphics>();
+		switch (RendererAPI::GetAPI())
+		{
+		case RendererAPI::API::openGL:	
+			AU_CORE_ASSERT(false, "RendererAPI::openGL is currently not supported!"); 
+			break;
+
+		case RendererAPI::API::Direct3D:
+		{
+			Ref<D3D11Graphics> graphic = CreateRef<D3D11Graphics>();
+			NativeGraphicsObject = (void*)&(*graphic);
+			return graphic; 
+			break;
+		}
+
+		default:
+			break;
+		}
+
+		
+		AU_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
 	}
 }

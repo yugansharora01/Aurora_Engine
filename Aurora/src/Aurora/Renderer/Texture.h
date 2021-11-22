@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Aurora/Renderer/Bindables.h"
 #include "Platform/DirectX/D3D11Surface.h"
 
 namespace Aurora {
 
-	class Texture : public Bindables
+	class Texture
 	{
 	public:
 		virtual ~Texture() = default;

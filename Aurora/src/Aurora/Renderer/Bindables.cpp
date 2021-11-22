@@ -6,7 +6,11 @@
 
 namespace Aurora {
 
-
+	D3D11Graphics& Bindables::Getgfx()
+	{
+		auto gfx = (D3D11Graphics*)(Application::Get().GetWindow().Gfx()->NativeGraphicsObject);
+		return *gfx;
+	}
 	
 	DxgiInfoManager& Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
 	{

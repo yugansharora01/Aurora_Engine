@@ -12,8 +12,8 @@ namespace Aurora {
 		DepthStencil(unsigned int width, unsigned int height);
 		~DepthStencil() = default;
 		void Create(unsigned int width,unsigned int height);
-		virtual void Bind() override;
-		virtual void Unbind() override;
+		void Bind();
+		void Unbind();
 		void SetTarget();
 
 	private:

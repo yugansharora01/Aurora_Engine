@@ -6,16 +6,12 @@
 
 namespace Aurora {
 
-	class D3D11VertexShader : public VertexShader
+	class D3D11VertexShader : public VertexShader , public Bindables
 	{
-		using Bindables::Getgfx;
-		using Bindables::GetInfoManager;
-		using Bindables::Bind;
-		using Bindables::Unbind;
 	public:
 		D3D11VertexShader(const std::wstring& path);
-		void Bind() override;
-		void Unbind() override {}
+		void Bind();
+		void Unbind() {}
 		ID3DBlob* GetBytecode() const noexcept override;
 
 		virtual void UploadFloat2(DirectX::XMFLOAT2 val) override;

@@ -20,10 +20,7 @@ namespace Aurora {
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
-
-		auto wnd = (Win32_Window*)m_Window->GetNativeWindowPtr();
-
-		
+			
 	} 
 
 
@@ -43,7 +40,7 @@ namespace Aurora {
 			while (m_Running)
 			{
 				
-				m_Window->Gfx().ClearBuffer(i, j,k);
+				m_Window->Gfx()->ClearBuffer(i, j,k);
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
@@ -61,7 +58,7 @@ namespace Aurora {
 				m_Window->OnUpdate(m_Running);
 
 
-				wnd->Gfx().EndFrame();
+				m_Window->Gfx()->EndFrame();
 			}
 		}
 		catch (const AuroraException& e)

@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Bindables.h"
 
 namespace Aurora {
 
-	class FrameBuffer : public Bindables
+	class FrameBuffer
 	{
 	public:
 		virtual ~FrameBuffer() = default;

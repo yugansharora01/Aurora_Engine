@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Aurora/Renderer/Bindables.h"
+#include <DirectXMath.h>
+#include <d3d11.h>
+
 
 namespace Aurora {
 
-	class Shader : public Bindables
+	class Shader
 	{
 	public:
 		virtual void UploadFloat2(DirectX::XMFLOAT2 val) = 0;
@@ -20,12 +22,8 @@ namespace Aurora {
 	class PixelShader : public Shader
 	{
 
-		using Bindables::Getgfx;
-		using Bindables::GetInfoManager;
 	public:
 		virtual ~PixelShader() = default;
-
-
 		static std::shared_ptr<PixelShader> Create(const std::wstring& path);
 
 	};

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Aurora/Renderer/Buffer.h"
+#include "Aurora/Renderer/Bindables.h"
 
 namespace Aurora {
 
-	class D3D11IndexBuffer : public IndexBuffer
+	class D3D11IndexBuffer : public IndexBuffer , public Bindables
 	{
 	public:
 		D3D11IndexBuffer(const std::vector<unsigned short>& indices);

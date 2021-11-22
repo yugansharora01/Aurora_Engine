@@ -2,10 +2,11 @@
 
 #include "Aurora/Renderer/FrameBuffer.h"
 #include "D3D11DepthStencil.h"
+#include "Aurora/Renderer/Bindables.h"
 
 namespace Aurora {
 
-	class D3D11FrameBuffer : public FrameBuffer
+	class D3D11FrameBuffer : public FrameBuffer , public Bindables
 	{
 	public:
 		D3D11FrameBuffer();

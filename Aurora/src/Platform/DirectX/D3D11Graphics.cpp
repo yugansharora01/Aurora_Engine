@@ -27,11 +27,79 @@ namespace Aurora {
 
     D3D11Graphics::D3D11Graphics(HWND hWnd)
     {
+        SetHandle(hWnd);
+    }
+
+    void D3D11Graphics::EndFrame()
+    {
+        HRESULT hr;
+        #ifndef AU_DEBUG
+            infoManager.Set();
+        #endif // !AU_DEBUG
+
+        if (FAILED(hr = pSwap->Present(1u, 0u)))
+        {
+            if (hr == DXGI_ERROR_DEVICE_REMOVED)
+            {
+                throw GFX_DEVICE_REMOVED_EXCEPT(pDevice->GetDeviceRemovedReason());
+            }
+            else
+            {
+                throw GFX_EXCEPT(hr);
+            }
+        }
+
+    }
+
+    void D3D11Graphics::ClearBuffer(float red, float green, float blue) noexcept
+    {
+        const float color[] = { red, green, blue, 1.0f };
+        pContext->ClearRenderTargetView(pTarget.Get(), color);
+        pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+    }
+
+    void D3D11Graphics::DrawIndexed(UINT count) AU_RELEASENOEXCEPT
+    {
+        GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
+    }
+
+    void D3D11Graphics::SetProjection(glm::mat4 proj) noexcept
+    {
+        projection = proj;
+    }
+
+    glm::mat4 D3D11Graphics::GetProjection() noexcept
+    {
+        return projection;
+    }
+
+    void D3D11Graphics::SetViewPort(unsigned int width, unsigned int height)
+    {
+        // configure viewport
+        D3D11_VIEWPORT vp;
+        vp.Width = (float)width;
+        vp.Height = (float)height;
+        vp.MinDepth = 0.0f;
+        vp.MaxDepth = 1.0f;
+        vp.TopLeftX = 0.0f;
+        vp.TopLeftY = 0.0f;
+        pContext->RSSetViewports(1u, &vp);
+
+        AU_CORE_INFO("D3D11Graphics : width = {0}, Height = {1}", width, height); 
+    }
+
+    void Aurora::D3D11Graphics::RenderToTex()
+    {
+        
+    }
+
+    void Aurora::D3D11Graphics::SetHandle(HWND hWnd)
+    {
         AU_INFO("Initialised D3D11Graphics");
 
         unsigned int WindowWidth = 800;
         unsigned int WindowHeight = 600;
-        
+
 
         DXGI_SWAP_CHAIN_DESC sd = {};
         sd.BufferDesc.Width = 0;
@@ -51,9 +119,9 @@ namespace Aurora {
         sd.Flags = 0;
 
         UINT swapCreateFlags = 0u;
-        #ifdef AU_DEBUG
-            swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
-        #endif // !AU_DEBUG
+#ifdef AU_DEBUG
+        swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif // !AU_DEBUG
 
 
         //for checking results of d3d functions
@@ -121,70 +189,6 @@ namespace Aurora {
         pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
 
         SetViewPort(WindowWidth, WindowHeight);
-
-    }
-
-    void D3D11Graphics::EndFrame()
-    {
-        HRESULT hr;
-        #ifndef AU_DEBUG
-            infoManager.Set();
-        #endif // !AU_DEBUG
-
-        if (FAILED(hr = pSwap->Present(1u, 0u)))
-        {
-            if (hr == DXGI_ERROR_DEVICE_REMOVED)
-            {
-                throw GFX_DEVICE_REMOVED_EXCEPT(pDevice->GetDeviceRemovedReason());
-            }
-            else
-            {
-                throw GFX_EXCEPT(hr);
-            }
-        }
-
-    }
-
-    void D3D11Graphics::ClearBuffer(float red, float green, float blue) noexcept
-    {
-        const float color[] = { red, green, blue, 1.0f };
-        pContext->ClearRenderTargetView(pTarget.Get(), color);
-        pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
-    }
-
-    void D3D11Graphics::DrawIndexed(UINT count) AU_RELEASENOEXCEPT
-    {
-        GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
-    }
-
-    void D3D11Graphics::SetProjection(glm::mat4 proj) noexcept
-    {
-        projection = proj;
-    }
-
-    glm::mat4 D3D11Graphics::GetProjection() noexcept
-    {
-        return projection;
-    }
-
-    void D3D11Graphics::SetViewPort(unsigned int width, unsigned int height)
-    {
-        // configure viewport
-        D3D11_VIEWPORT vp;
-        vp.Width = (float)width;
-        vp.Height = (float)height;
-        vp.MinDepth = 0.0f;
-        vp.MaxDepth = 1.0f;
-        vp.TopLeftX = 0.0f;
-        vp.TopLeftY = 0.0f;
-        pContext->RSSetViewports(1u, &vp);
-
-        AU_CORE_INFO("D3D11Graphics : width = {0}, Height = {1}", width, height); 
-    }
-
-    void Aurora::D3D11Graphics::RenderToTex()
-    {
-
     }
 
 

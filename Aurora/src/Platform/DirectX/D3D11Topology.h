@@ -5,12 +5,12 @@
 
 namespace Aurora {
 
-	class D3D11Topology : public Topology
+	class D3D11Topology : public Topology , public Bindables
 	{
 	public:
 		D3D11Topology(TopologyType type);
-		void Bind() override;
-		void Unbind() override {}
+		void Bind() ;
+		void Unbind() {}
 	private:
 		D3D11_PRIMITIVE_TOPOLOGY type;
 	};

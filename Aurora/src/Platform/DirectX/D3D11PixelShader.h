@@ -3,10 +3,11 @@
 #include "Aurora/Renderer/Bindables.h"
 #include "Aurora/Renderer/Shader.h"
 #include "D3D11ConstantBuffers.h"
+#include "Aurora/Renderer/Bindables.h"
 
 namespace Aurora {
 
-	class D3D11PixelShader : public PixelShader
+	class D3D11PixelShader : public PixelShader , public Bindables
 	{
 		using Bindables::Getgfx;
 		using Bindables::GetInfoManager;

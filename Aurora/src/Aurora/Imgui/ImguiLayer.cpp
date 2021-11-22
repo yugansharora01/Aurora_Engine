@@ -49,9 +49,10 @@ namespace Aurora {
 
 		SetDarkThemeColors();
 
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
-		ImGui_ImplWin32_Init(wnd->GetHandle());
-		ImGui_ImplDX11_Init(wnd->Gfx().GetDevice().Get(), wnd->Gfx().GetContext().Get());
+		auto handle = ((Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr())->GetHandle();
+		auto gfx = (D3D11Graphics*)Application::Get().GetWindow().Gfx()->NativeGraphicsObject;
+		ImGui_ImplWin32_Init(handle);
+		ImGui_ImplDX11_Init(gfx->GetDevice().Get(), gfx->GetContext().Get());
 
 	}
 
@@ -81,9 +82,6 @@ namespace Aurora {
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 		
-
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
-		//wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), NULL);
 		std::shared_ptr<D3D11FrameBuffer> fbuf = std::make_shared<D3D11FrameBuffer>(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 		fbuf->Unbind();
 
@@ -97,7 +95,8 @@ namespace Aurora {
 			ImGui::RenderPlatformWindowsDefault();
 		}
 
-		wnd->Gfx().GetContext()->OMSetRenderTargets(1u, wnd->Gfx().GetTarget().GetAddressOf(), wnd->Gfx().GetDepthStencil().Get());
+		auto gfx = (D3D11Graphics*)Application::Get().GetWindow().Gfx()->NativeGraphicsObject;
+		gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencil().Get());
 		//fbuf->Bind();
 	}
 

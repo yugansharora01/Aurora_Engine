@@ -3,17 +3,18 @@
 //#include "Bindable.h"
 #include "Aurora/Renderer/Buffer.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
+#include "Aurora/Renderer/Bindables.h"
 
 
 namespace Aurora {
 
-	class D3D11VertexBuffer : public VertexBuffer
+	class D3D11VertexBuffer : public VertexBuffer , public Bindables
 	{
 	public:
 		D3D11VertexBuffer(const std::vector<DirectX::XMFLOAT3>& vertices);
 		
-		void Bind() override;
-		void Unbind() override{}
+		void Bind() ;
+		void Unbind() {}
 
 		virtual void SetData(void* data, unsigned int size) override;
 

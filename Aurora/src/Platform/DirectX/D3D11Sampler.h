@@ -8,8 +8,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11Sampler();
-		void Bind() override;
-		void Unbind() override {}
+		void Bind() ;
+		void Unbind() {}
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11SamplerState> pSampler;
 	};

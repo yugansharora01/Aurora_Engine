@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Aurora/Renderer/Buffer.h"
+#include "Aurora/Renderer/Bindables.h"
 
 namespace Aurora {
 
-	class D3D11InputLayout : public InputLayout
+	class D3D11InputLayout : public InputLayout , public Bindables
 	{
 	public:
 		D3D11InputLayout(

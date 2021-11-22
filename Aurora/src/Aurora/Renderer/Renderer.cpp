@@ -25,9 +25,8 @@ namespace Aurora {
 
 	void Renderer::EndScene()
 	{
-		auto wnd = (Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr();
-		auto& gfx = wnd->Gfx();
-		gfx.DrawIndexed(count);
+		auto gfx = (D3D11Graphics*)Application::Get().GetWindow().Gfx()->NativeGraphicsObject;
+		gfx->DrawIndexed(count);
 	}
 
 	void Renderer::Submit(std::shared_ptr<VertexShader> vShader, std::shared_ptr<PixelShader> pShader, std::shared_ptr<VertexBuffer> vBuffer, std::shared_ptr<IndexBuffer> iBuffer)

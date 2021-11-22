@@ -21,8 +21,4 @@ namespace Aurora {
 		static unsigned int count;
 	};
 
-	//class RenderQueue
-	//{
-
-	//};
 }

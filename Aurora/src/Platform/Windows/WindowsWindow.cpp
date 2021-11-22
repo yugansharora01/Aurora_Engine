@@ -15,6 +15,7 @@ namespace Aurora {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
 		Init(props);
+		makeGraphics();
 	}
 
 	WindowsWindow::~WindowsWindow()
@@ -66,7 +67,8 @@ namespace Aurora {
 
 	void WindowsWindow::makeGraphics()
 	{
-		pGfx = CreateScope<Graphics>(m_Window->GetHandle());
+		pGfx = Graphics::Create();
+		((D3D11Graphics*)pGfx->NativeGraphicsObject)->SetHandle(m_Window->GetHandle());
 	}
 
 	Ref<Graphics> WindowsWindow::Gfx()

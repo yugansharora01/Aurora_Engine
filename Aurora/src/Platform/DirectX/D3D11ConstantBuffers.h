@@ -60,6 +60,8 @@ namespace Aurora {
 			csd.pSysMem = &consts;
 			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
+		virtual void Bind() noexcept = 0;
+		virtual void Unbind() noexcept = 0;
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
 	};
@@ -68,14 +70,16 @@ namespace Aurora {
 	class D3D11VertexConstantBuffer : public D3D11ConstantBuffer
 	{
 		using Bindables::Getgfx;
+		using D3D11ConstantBuffer::Bind;
+		using D3D11ConstantBuffer::Unbind;
 		using D3D11ConstantBuffer::pConstantBuffer;
 		using D3D11ConstantBuffer::D3D11ConstantBuffer;
 	public:
-		void Bind() noexcept 
+		virtual void Bind() noexcept override
 		{
 			Getgfx().GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
-		void Unbind()  {}
+		virtual void Unbind() noexcept override {}
 	};
 
 
@@ -83,13 +87,16 @@ namespace Aurora {
 	{
 	public:
 		using Bindables::Getgfx;
+		using D3D11ConstantBuffer::Bind;
+		using D3D11ConstantBuffer::Unbind;
 		using D3D11ConstantBuffer::pConstantBuffer;
 		using D3D11ConstantBuffer::D3D11ConstantBuffer;
-		void Bind() noexcept 
+
+		virtual void Bind() noexcept override
 		{
 			Getgfx().GetContext()->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
-		void Unbind() {}
+		virtual void Unbind() noexcept override {}
 	};
 
 

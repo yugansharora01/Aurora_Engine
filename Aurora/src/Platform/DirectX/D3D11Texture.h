@@ -5,12 +5,12 @@
 
 namespace Aurora {
 
-	class D3D11Texture : public Texture
+	class D3D11Texture : public Texture , public Bindables
 	{
 	public:
 		D3D11Texture(const class Surface& s);
-		void Bind() override;
-		void Unbind() override {}
+		void Bind();
+		void Unbind() {}
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
 	};

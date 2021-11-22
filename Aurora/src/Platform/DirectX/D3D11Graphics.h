@@ -16,6 +16,7 @@
 namespace Aurora {
 
     class D3D11FrameBuffer;
+    class Graphics;
 
     class D3D11Graphics : public Graphics
     {
@@ -67,6 +68,7 @@ namespace Aurora {
         D3D11Graphics(const D3D11Graphics&) = delete;
         D3D11Graphics& operator=(const D3D11Graphics&) = delete;
         ~D3D11Graphics() = default;
+
         virtual void EndFrame() override;
         virtual void ClearBuffer(float red, float green, float blue) noexcept override;
         virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT override;
@@ -75,6 +77,7 @@ namespace Aurora {
         virtual void SetViewPort(unsigned int width, unsigned int height) override;
         virtual void RenderToTex() override;
 
+        void SetHandle(HWND hwnd);
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
         inline Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwap() { return pSwap; }

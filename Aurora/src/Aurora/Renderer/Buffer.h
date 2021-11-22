@@ -31,7 +31,7 @@ namespace Aurora
 		Triangle_Strip
 	};
 
-	class VertexBuffer : public Bindables
+	class VertexBuffer
 	{
 	public:
 		virtual ~VertexBuffer() = default;
@@ -46,7 +46,7 @@ namespace Aurora
 		
 	};
 
-	class IndexBuffer : public Bindables
+	class IndexBuffer
 	{
 	public:
 		virtual ~IndexBuffer() = default;
@@ -62,7 +62,7 @@ namespace Aurora
 
 	};
 
-	class InputLayout : public Bindables
+	class InputLayout
 	{
 	public:
 		virtual ~InputLayout() = default;
@@ -76,7 +76,7 @@ namespace Aurora
 		
 	};
 
-	class Topology : public Bindables
+	class Topology
 	{
 
 	public:
