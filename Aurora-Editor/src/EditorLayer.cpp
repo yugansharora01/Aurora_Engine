@@ -151,6 +151,6 @@ namespace Aurora {
 
 	void EditorLayer::OnAttach()
 	{
-		fBuffer = FrameBuffer::Create(800,600);
+		//fBuffer = FrameBuffer::Create(800,600);
 	}
 }

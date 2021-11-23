@@ -8,6 +8,6 @@ namespace Aurora {
 	{
 	public:
 		static D3D11Graphics& Getgfx();
-		static DxgiInfoManager& GetInfoManager() AU_DEBUGNOEXCEPT;
+		static DxgiInfoManager* GetInfoManager() AU_DEBUGNOEXCEPT;
 	};
 }

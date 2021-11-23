@@ -3,6 +3,9 @@
 
 
 namespace Aurora {
+
+	class D3D11Graphics;
+
 	class Graphics
 	{
 	public: 
@@ -16,6 +19,11 @@ namespace Aurora {
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
 		virtual void RenderToTex() = 0;
 
-		static Ref<Graphics> Create();
+		static Graphics* Create(void* arg);
+
+#ifdef AU_PLATFORM_WINDOWS
+		static D3D11Graphics* GraphicsObject;
+#endif // AU_PLATFORM_WINDOWS
+
 	};
 }

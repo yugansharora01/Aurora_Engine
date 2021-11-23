@@ -64,6 +64,7 @@ namespace Aurora {
         };
 
     public:
+        D3D11Graphics() = default;
         D3D11Graphics(HWND hWnd);
         D3D11Graphics(const D3D11Graphics&) = delete;
         D3D11Graphics& operator=(const D3D11Graphics&) = delete;
@@ -83,7 +84,7 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwap() { return pSwap; }
         inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
         inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencil() { return pDSV; }
-        inline DxgiInfoManager& GetInfoManager() { return infoManager; }
+        inline DxgiInfoManager* GetInfoManager() { return &infoManager; }
         inline Ref<D3D11FrameBuffer> GetFrameBuffer() { return fbuf; }
 
     private:

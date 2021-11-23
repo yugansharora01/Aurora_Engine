@@ -67,11 +67,11 @@ namespace Aurora {
 
 	void WindowsWindow::makeGraphics()
 	{
-		pGfx = Graphics::Create();
-		((D3D11Graphics*)pGfx->NativeGraphicsObject)->SetHandle(m_Window->GetHandle());
+		pGfx = Graphics::Create(m_Window->GetHandle());
+		//pGfx->GraphicsObject->SetHandle(m_Window->GetHandle());
 	}
 
-	Ref<Graphics> WindowsWindow::Gfx()
+	Graphics* WindowsWindow::Gfx()
 	{
 		return pGfx;
 	}

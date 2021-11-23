@@ -12,7 +12,7 @@ namespace Aurora {
 		return *gfx;
 	}
 	
-	DxgiInfoManager& Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
+	DxgiInfoManager* Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
 	{
 		// TODO: insert return statement here
 		#ifdef AU_DEBUG

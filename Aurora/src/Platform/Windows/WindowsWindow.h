@@ -26,7 +26,7 @@ namespace Aurora {
 		virtual void* GetNativeWindowPtr() override { return m_Window; }
 		virtual void SetViewPort(unsigned int width,unsigned int height) override;
 		virtual void makeGraphics() override;
-		virtual Ref<Graphics> Gfx() override;
+		virtual Graphics* Gfx() override;
 
 	private:
 		virtual void Init(const WindowProps& props);
@@ -42,7 +42,7 @@ namespace Aurora {
 		};
 
 		WindowsData m_Data;
-		Ref<Graphics> pGfx;
+		Graphics* pGfx;
 
 		Win32_Window* m_Window;
 	};
