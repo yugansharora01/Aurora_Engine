@@ -42,7 +42,7 @@ namespace Aurora {
 
 		ImGui::Begin("Viewport");
 
-		//ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(300, 300));
+		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(300, 300));
 
 
 		ImGui::End();
@@ -151,6 +151,6 @@ namespace Aurora {
 
 	void EditorLayer::OnAttach()
 	{
-		//fBuffer = FrameBuffer::Create(800,600);
+		fBuffer = FrameBuffer::Create(800,600);
 	}
 }

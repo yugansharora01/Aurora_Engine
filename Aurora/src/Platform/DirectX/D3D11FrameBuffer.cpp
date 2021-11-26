@@ -24,13 +24,13 @@ namespace Aurora {
 	void D3D11FrameBuffer::Bind()
 	{
 		RefreshBackBuffer();
-		m_DepthStencil->SetTarget();
+		m_DepthStencil->SetTarget(pTarget);
 		m_DepthStencil->Bind();
 	}
 	
 	void D3D11FrameBuffer::Unbind()
 	{
-		m_DepthStencil->SetTarget();
+		m_DepthStencil->SetTarget(pTarget);
 		m_DepthStencil->Unbind();
 	}
 	void D3D11FrameBuffer::Resize(unsigned int width, unsigned int height)
@@ -45,19 +45,9 @@ namespace Aurora {
 	{
 		INFOMAN;
 
-		int Width = 800;
-		int Height = 600;
-
-		/*ID3D11Texture2D* pBackBuffer;
-		GFX_THROW_INFO(Getgfx()->GetSwap()->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer));
-		ID3D11Texture2D* tex = NULL;
-		D3D11_TEXTURE2D_DESC td;
-		pBackBuffer->GetDesc(&td);
-		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateTexture2D(&td, NULL, &tex));
-		Getgfx()->GetContext()->CopyResource(tex,pBackBuffer);*/
-		
-		
-		
+		int Width = s_Width;
+		int Height = s_Height;
+			
 
 		D3D11_TEXTURE2D_DESC textureDesc;
 		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
@@ -66,11 +56,9 @@ namespace Aurora {
 		// Initialize the  texture description.
 		ZeroMemory(&textureDesc, sizeof(textureDesc));
 
-		// Setup the texture description.
-		// We will have our map be a square
-		// We will need to have this texture bound as a render target AND a shader resource
-		textureDesc.Width = Width / 2;
-		textureDesc.Height = Height / 2;
+		// Setup the render target texture description
+		textureDesc.Width = Width;
+		textureDesc.Height = Height;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
 		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -81,7 +69,7 @@ namespace Aurora {
 		textureDesc.MiscFlags = 0;
 
 		// Create the texture
-		Getgfx()->GetDevice()->CreateTexture2D(&textureDesc, NULL, &renderTargetTextureMap);
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateTexture2D(&textureDesc, NULL, &m_renderTargetTexture));
 
 		/////////////////////// Map's Render Target
 		// Setup the description of the render target view.
@@ -90,25 +78,25 @@ namespace Aurora {
 		renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 		// Create the render target view.
-		Getgfx()->GetDevice()->CreateRenderTargetView(renderTargetTextureMap.Get(), &renderTargetViewDesc, &renderTargetViewMap);
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateRenderTargetView(m_renderTargetTexture.Get(), &renderTargetViewDesc, &m_renderTargetView));
 
 		// Set our maps Render Target
-		Getgfx()->GetContext()->OMSetRenderTargets(1, &renderTargetViewMap, Getgfx()->GetDepthStencil().Get());
+		Getgfx()->GetContext()->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_DepthStencil->pDSV.Get());
 
 
-		const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+		//const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 		// Now clear the render target
-		Getgfx()->GetContext()->ClearRenderTargetView(renderTargetViewMap.Get(), bgColor);
+		//Getgfx()->GetContext()->ClearRenderTargetView(m_renderTargetView.Get(), bgColor);
 
 
-		return (void*)renderTargetTextureMap.Get();
+		return (void*)m_renderTargetTexture.Get();
 	}
 
-	void D3D11FrameBuffer::Clear(float red, float green, float blue)
+	void D3D11FrameBuffer::Clear(float red, float green, float blue , float alpha = 0.0f)
 	{
-		const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+		const float bgColor[] = { red, green, blue , alpha };
 		// Now clear the render target
-		Getgfx()->GetContext()->ClearRenderTargetView(renderTargetViewMap.Get(), bgColor);
+		Getgfx()->GetContext()->ClearRenderTargetView(m_renderTargetView.Get(), bgColor);
 	}
 
 	void D3D11FrameBuffer::RefreshBackBuffer()
@@ -129,6 +117,9 @@ namespace Aurora {
 
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pDSState;
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateDepthStencilState(&dsDesc, &pDSState));
+
+		//bind depth state
+		Getgfx()->GetContext()->OMSetDepthStencilState(pDSState.Get(), 1u);
 	}
 }
 

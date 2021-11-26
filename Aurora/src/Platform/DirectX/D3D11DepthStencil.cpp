@@ -42,7 +42,6 @@ namespace Aurora {
 	void DepthStencil::Bind()
 	{
 		//bind depth stencil view to OM
-		SetTarget();
 		Getgfx()->GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
 	}
 
@@ -51,22 +50,9 @@ namespace Aurora {
 		Getgfx()->GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), NULL);
 	}
 
-	void DepthStencil::SetTarget()
+	void DepthStencil::SetTarget(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target)
 	{
-		INFOMAN;
-		//gain access to texture subresource in swap chain (back buffer)
-
-		Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer;
-		GFX_THROW_INFO(Getgfx()->GetSwap()->GetBuffer(0, __uuidof(ID3D11Texture2D), &pBackBuffer));
-		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
-
-		//create depth stensil state
-		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
-		dsDesc.DepthEnable = TRUE;
-		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pDSState;
-		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateDepthStencilState(&dsDesc, &pDSState));
+		pTarget = target;
+		
 	}
 }

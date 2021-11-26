@@ -83,7 +83,7 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
         inline Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwap() { return pSwap; }
         inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
-        inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencil() { return pDSV; }
+        inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() { return pDSV; }
         inline DxgiInfoManager& GetInfoManager() { return infoManager; }
         inline Ref<D3D11FrameBuffer> GetFrameBuffer() { return fbuf; }
 

@@ -14,12 +14,12 @@ namespace Aurora {
 		void Create(unsigned int width,unsigned int height);
 		void Bind();
 		void Unbind();
-		void SetTarget();
+		void SetTarget(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target);
 
-	private:
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
+	private:
 		int m_width;
 		int m_height;
 	};

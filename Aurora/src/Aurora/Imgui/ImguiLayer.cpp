@@ -96,8 +96,8 @@ namespace Aurora {
 		}
 
 		auto gfx = Graphics::GraphicsObject;
-		gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencil().Get());
-		//fbuf->Bind();
+		gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencilView().Get());
+		fbuf->Bind();
 	}
 
 	void ImGuiLayer::SetDarkThemeColors()
