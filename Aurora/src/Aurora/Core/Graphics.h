@@ -22,7 +22,7 @@ namespace Aurora {
 		static Graphics* Create(void* arg);
 
 #ifdef AU_PLATFORM_WINDOWS
-		static D3D11Graphics* GraphicsObject;
+		static Ref<D3D11Graphics> GraphicsObject;
 #endif // AU_PLATFORM_WINDOWS
 
 	};

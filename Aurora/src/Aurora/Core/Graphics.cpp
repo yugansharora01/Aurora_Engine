@@ -8,7 +8,7 @@ namespace Aurora
 	void* Graphics::NativeGraphicsObject = nullptr;
 
 #ifdef AU_PLATFORM_WINDOWS
-	D3D11Graphics* Graphics::GraphicsObject = nullptr;
+	Ref<D3D11Graphics> Graphics::GraphicsObject = nullptr;
 #endif // AU_PLATFORM_WINDOWS
 
 	Graphics* Graphics::Create(void* arg)
@@ -21,7 +21,9 @@ namespace Aurora
 
 		case RendererAPI::API::Direct3D:
 		{
-			return GraphicsObject;
+			HWND hwnd = (HWND)arg;
+			GraphicsObject = std::make_shared<D3D11Graphics>(hwnd);
+			return &(*GraphicsObject);
 		}
 
 		default:

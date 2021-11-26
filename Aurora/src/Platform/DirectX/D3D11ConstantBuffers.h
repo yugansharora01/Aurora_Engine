@@ -14,13 +14,13 @@ namespace Aurora {
 		{
 			INFOMAN;
 			D3D11_MAPPED_SUBRESOURCE msr;
-			GFX_THROW_INFO(Getgfx().GetContext()->Map(
+			GFX_THROW_INFO(Getgfx()->GetContext()->Map(
 				pConstantBuffer.Get(), 0u,
 				D3D11_MAP_WRITE_DISCARD, 0u,
 				&msr
 			));
 			memcpy(msr.pData, &consts, sizeof(consts));
-			Getgfx().GetContext()->Unmap(pConstantBuffer.Get(), 0u);
+			Getgfx()->GetContext()->Unmap(pConstantBuffer.Get(), 0u);
 		}
 
 		D3D11ConstantBuffer()
@@ -41,7 +41,7 @@ namespace Aurora {
 			cbd.ByteWidth = sizeof(T);
 			cbd.StructureByteStride = 0u;
 
-			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, nullptr, &pConstantBuffer));
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, nullptr, &pConstantBuffer));
 		}
 
 		template<typename T>
@@ -58,7 +58,7 @@ namespace Aurora {
 
 			D3D11_SUBRESOURCE_DATA csd = {};
 			csd.pSysMem = &consts;
-			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
 		virtual void Bind() noexcept = 0;
 		virtual void Unbind() noexcept = 0;
@@ -77,7 +77,7 @@ namespace Aurora {
 	public:
 		virtual void Bind() noexcept override
 		{
-			Getgfx().GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+			Getgfx()->GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
 		virtual void Unbind() noexcept override {}
 	};
@@ -94,7 +94,7 @@ namespace Aurora {
 
 		virtual void Bind() noexcept override
 		{
-			Getgfx().GetContext()->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+			Getgfx()->GetContext()->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
 		virtual void Unbind() noexcept override {}
 	};
@@ -131,7 +131,7 @@ namespace Aurora {
 			cbd.ByteWidth = sizeof(DirectX::XMMATRIX);
 			cbd.StructureByteStride = 0u;
 
-			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, nullptr, &pConstantBuffer));
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, nullptr, &pConstantBuffer));
 		}
 
 		D3D11VertexConstantBuffer(const DirectX::XMMATRIX& consts)
@@ -147,25 +147,25 @@ namespace Aurora {
 
 			D3D11_SUBRESOURCE_DATA csd = {};
 			csd.pSysMem = &consts;
-			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
 
 		void Update(const DirectX::XMMATRIX& consts) override
 		{
 			INFOMAN;
 			D3D11_MAPPED_SUBRESOURCE msr;
-			GFX_THROW_INFO(Getgfx().GetContext()->Map(
+			GFX_THROW_INFO(Getgfx()->GetContext()->Map(
 				pConstantBuffer.Get(), 0u,
 				D3D11_MAP_WRITE_DISCARD, 0u,
 				&msr
 			));
 			memcpy(msr.pData, &consts, sizeof(consts));
-			Getgfx().GetContext()->Unmap(pConstantBuffer.Get(), 0u);
+			Getgfx()->GetContext()->Unmap(pConstantBuffer.Get(), 0u);
 		}
 
 		void Bind() override
 		{
-			Getgfx().GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+			Getgfx()->GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
 
 		void Unbind() override
@@ -190,7 +190,7 @@ namespace Aurora {
 			cbd.ByteWidth = sizeof(std::array<DirectX::XMFLOAT4, 8>);
 			cbd.StructureByteStride = 0u;
 
-			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, nullptr, &pConstantBuffer));
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, nullptr, &pConstantBuffer));
 		}
 
 		D3D11PixelConstantBuffer(const std::array<DirectX::XMFLOAT4, 8>& consts)
@@ -207,25 +207,25 @@ namespace Aurora {
 
 			D3D11_SUBRESOURCE_DATA csd = {};
 			csd.pSysMem = &consts;
-			GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
 
 		void Update(const std::array<DirectX::XMFLOAT4, 8>& consts) override
 		{
 			INFOMAN;
 			D3D11_MAPPED_SUBRESOURCE msr;
-			GFX_THROW_INFO(Getgfx().GetContext()->Map(
+			GFX_THROW_INFO(Getgfx()->GetContext()->Map(
 				pConstantBuffer.Get(), 0u,
 				D3D11_MAP_WRITE_DISCARD, 0u,
 				&msr
 			));
 			memcpy(msr.pData, &consts, sizeof(consts));
-			Getgfx().GetContext()->Unmap(pConstantBuffer.Get(), 0u);
+			Getgfx()->GetContext()->Unmap(pConstantBuffer.Get(), 0u);
 		}
 
 		void Bind() override
 		{
-			Getgfx().GetContext()->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+			Getgfx()->GetContext()->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 		}
 
 		void Unbind() override

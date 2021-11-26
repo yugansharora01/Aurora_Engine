@@ -14,11 +14,11 @@ namespace Aurora {
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateSamplerState(&samplerDesc, &pSampler));
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateSamplerState(&samplerDesc, &pSampler));
 	}
 
 	void D3D11Sampler::Bind() 
 	{
-		Getgfx().GetContext()->PSSetSamplers(0, 1, pSampler.GetAddressOf());
+		Getgfx()->GetContext()->PSSetSamplers(0, 1, pSampler.GetAddressOf());
 	}
 }

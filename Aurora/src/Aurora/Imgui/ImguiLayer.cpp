@@ -95,7 +95,7 @@ namespace Aurora {
 			ImGui::RenderPlatformWindowsDefault();
 		}
 
-		auto gfx = (D3D11Graphics*)Application::Get().GetWindow().Gfx()->NativeGraphicsObject;
+		auto gfx = Graphics::GraphicsObject;
 		gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencil().Get());
 		//fbuf->Bind();
 	}

@@ -26,7 +26,7 @@ namespace Aurora {
 		descDepth.Usage = D3D11_USAGE_DEFAULT;
 		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
 
 		//create view of depth stencil texture
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
@@ -34,7 +34,7 @@ namespace Aurora {
 		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		descDSV.Texture2D.MipSlice = 0u;
 
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateDepthStencilView(
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateDepthStencilView(
 			pDepthStencil.Get(), &descDSV, &pDSV
 		));
 	}
@@ -43,12 +43,12 @@ namespace Aurora {
 	{
 		//bind depth stencil view to OM
 		SetTarget();
-		Getgfx().GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
+		Getgfx()->GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
 	}
 
 	void DepthStencil::Unbind()
 	{
-		Getgfx().GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), NULL);
+		Getgfx()->GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), NULL);
 	}
 
 	void DepthStencil::SetTarget()
@@ -57,8 +57,8 @@ namespace Aurora {
 		//gain access to texture subresource in swap chain (back buffer)
 
 		Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer;
-		GFX_THROW_INFO(Getgfx().GetSwap()->GetBuffer(0, __uuidof(ID3D11Texture2D), &pBackBuffer));
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
+		GFX_THROW_INFO(Getgfx()->GetSwap()->GetBuffer(0, __uuidof(ID3D11Texture2D), &pBackBuffer));
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
 
 		//create depth stensil state
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
@@ -67,6 +67,6 @@ namespace Aurora {
 		dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
 
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pDSState;
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateDepthStencilState(&dsDesc, &pDSState));
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateDepthStencilState(&dsDesc, &pDSState));
 	}
 }

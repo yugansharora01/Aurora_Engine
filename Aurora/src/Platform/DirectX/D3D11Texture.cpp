@@ -27,7 +27,7 @@ namespace Aurora {
 		sd.pSysMem = s.GetBufferPtr();
 		sd.SysMemPitch = s.GetWidth() * sizeof(Surface::Color);
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> pTexture;
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateTexture2D(
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateTexture2D(
 			&textureDesc, &sd, &pTexture
 		));
 
@@ -37,13 +37,13 @@ namespace Aurora {
 		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MostDetailedMip = 0;
 		srvDesc.Texture2D.MipLevels = 1;
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateShaderResourceView(
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateShaderResourceView(
 			pTexture.Get(), &srvDesc, &pTextureView
 		));
 	}
 
 	void D3D11Texture::Bind() 
 	{
-		Getgfx().GetContext()->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
+		Getgfx()->GetContext()->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
 	}
 }

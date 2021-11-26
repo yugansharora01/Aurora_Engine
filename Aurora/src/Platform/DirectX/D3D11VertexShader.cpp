@@ -10,7 +10,7 @@ namespace Aurora {
 		INFOMAN;
 
 		GFX_THROW_INFO(D3DReadFileToBlob(path.c_str(), &pBytecodeBlob));
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateVertexShader(
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateVertexShader(
 			pBytecodeBlob->GetBufferPointer(),
 			pBytecodeBlob->GetBufferSize(),
 			nullptr,
@@ -20,7 +20,7 @@ namespace Aurora {
 
 	void D3D11VertexShader::Bind() 
 	{
-		Getgfx().GetContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+		Getgfx()->GetContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 		vConst->Bind();
 	}
 

@@ -23,14 +23,14 @@ namespace Aurora {
 		D3D11_SUBRESOURCE_DATA sd = {};
 		sd.pSysMem = vertices.data();
 
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
 		
 	}
 
 	void D3D11VertexBuffer::Bind() 
 	{
 		const UINT offset = 0u;
-		Getgfx().GetContext()->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+		Getgfx()->GetContext()->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 		m_layout->Bind();
 		m_topology->Bind();
 	}
@@ -51,7 +51,7 @@ namespace Aurora {
 		D3D11_SUBRESOURCE_DATA sd = {};
 		sd.pSysMem = data;
 
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
 	}
 
 	void D3D11VertexBuffer::SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<VertexShader> vShader)

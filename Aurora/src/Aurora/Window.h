@@ -42,7 +42,7 @@ namespace Aurora {
 		virtual void makeGraphics() = 0;
 		virtual Graphics* Gfx() = 0;
 
-		static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
+		static std::shared_ptr<Window> Create(const WindowProps& props = WindowProps());
 	};
 
 }

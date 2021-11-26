@@ -27,7 +27,7 @@ namespace Aurora {
 		inline Window& GetWindow() { return *m_Window; }
 
 	private:
-		std::unique_ptr<Window> m_Window;
+		std::shared_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		
 

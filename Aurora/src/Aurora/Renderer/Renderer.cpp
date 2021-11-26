@@ -25,7 +25,7 @@ namespace Aurora {
 
 	void Renderer::EndScene()
 	{
-		auto gfx = (D3D11Graphics*)Application::Get().GetWindow().Gfx()->NativeGraphicsObject;
+		auto gfx = Application::Get().GetWindow().Gfx();
 		gfx->DrawIndexed(count);
 	}
 

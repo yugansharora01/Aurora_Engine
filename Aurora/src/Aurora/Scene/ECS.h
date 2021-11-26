@@ -164,6 +164,9 @@ namespace Aurora {
 	friend class Scene;
 
 	public:
+
+		Registry() = default;
+
 		//returns the vector of Ref<Entity>
 		std::vector<Entity> GetList()
 		{
@@ -239,7 +242,6 @@ namespace Aurora {
 		}
 
 	private:
-		Registry() = default;
 
 		GroupID GetNewGroupID()
 		{

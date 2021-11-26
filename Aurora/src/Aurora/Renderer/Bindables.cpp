@@ -6,17 +6,17 @@
 
 namespace Aurora {
 
-	D3D11Graphics& Bindables::Getgfx()
+	D3D11Graphics* Bindables::Getgfx()
 	{
-		auto gfx = (D3D11Graphics*)(Application::Get().GetWindow().Gfx()->NativeGraphicsObject);
-		return *gfx;
+		auto gfx = Graphics::GraphicsObject;
+		return &(*gfx);
 	}
 	
-	DxgiInfoManager* Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
+	DxgiInfoManager& Bindables::GetInfoManager() AU_DEBUGNOEXCEPT
 	{
 		// TODO: insert return statement here
 		#ifdef AU_DEBUG
-				return Getgfx().GetInfoManager();
+				return Getgfx()->GetInfoManager();
 		#else
 				throw std::logic_error("LOL XD Tried to Access InfoManager in Release Mode");
 		#endif

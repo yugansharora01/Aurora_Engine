@@ -20,12 +20,12 @@ namespace Aurora {
         D3D11_SUBRESOURCE_DATA isd = {};
         isd.pSysMem = indices.data();
 
-        GFX_THROW_INFO(Getgfx().GetDevice()->CreateBuffer(&ibd, &isd, &pIndexBuffer));
+        GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&ibd, &isd, &pIndexBuffer));
     }
 
     void D3D11IndexBuffer::Bind()
     {
-        Getgfx().GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
+        Getgfx()->GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
     }
 
     void D3D11IndexBuffer::Unbind()

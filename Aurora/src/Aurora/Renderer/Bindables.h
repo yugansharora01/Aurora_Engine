@@ -7,7 +7,7 @@ namespace Aurora {
 	class Bindables
 	{
 	public:
-		static D3D11Graphics& Getgfx();
-		static DxgiInfoManager* GetInfoManager() AU_DEBUGNOEXCEPT;
+		static D3D11Graphics* Getgfx();
+		static DxgiInfoManager& GetInfoManager() AU_DEBUGNOEXCEPT;
 	};
 }

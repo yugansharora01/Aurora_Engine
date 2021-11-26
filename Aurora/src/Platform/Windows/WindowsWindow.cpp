@@ -7,9 +7,9 @@ namespace Aurora {
 
 	static bool WindowInitialised = false;
 
-	std::unique_ptr<Window> Window::Create(const WindowProps& props)
+	std::shared_ptr<Window> Window::Create(const WindowProps& props)
 	{
-		return std::make_unique<WindowsWindow>(props);
+		return std::make_shared<WindowsWindow>(props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -67,7 +67,8 @@ namespace Aurora {
 
 	void WindowsWindow::makeGraphics()
 	{
-		pGfx = Graphics::Create(m_Window->GetHandle());
+		auto hwnd = (void *)m_Window->GetHandle();
+		pGfx = Graphics::Create(hwnd);
 		//pGfx->GraphicsObject->SetHandle(m_Window->GetHandle());
 	}
 

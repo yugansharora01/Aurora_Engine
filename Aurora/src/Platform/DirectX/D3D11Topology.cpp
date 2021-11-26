@@ -29,6 +29,6 @@ namespace Aurora {
 
 	void D3D11Topology::Bind() 
 	{
-		Getgfx().GetContext()->IASetPrimitiveTopology(type);
+		Getgfx()->GetContext()->IASetPrimitiveTopology(type);
 	}
 }

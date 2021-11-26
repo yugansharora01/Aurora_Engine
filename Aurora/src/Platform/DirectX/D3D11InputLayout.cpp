@@ -150,7 +150,7 @@ namespace Aurora {
 		
 		
 		INFOMAN;
-		GFX_THROW_INFO(Getgfx().GetDevice()->CreateInputLayout(
+		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateInputLayout(
 			layoutdesc.data(), (UINT)layout.size(),
 			pVertexShaderBytecode->GetBufferPointer(),
 			pVertexShaderBytecode->GetBufferSize(),
@@ -160,6 +160,6 @@ namespace Aurora {
 
 	void D3D11InputLayout::Bind() 
 	{
-		Getgfx().GetContext()->IASetInputLayout(pInputLayout.Get());
+		Getgfx()->GetContext()->IASetInputLayout(pInputLayout.Get());
 	}
 }
