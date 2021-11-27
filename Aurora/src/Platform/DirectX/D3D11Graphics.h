@@ -20,6 +20,7 @@ namespace Aurora {
 
     class D3D11Graphics : public Graphics
     {
+        friend class D3D11FrameBuffer;
     public:
         class Exception : public AuroraException
         {
@@ -85,7 +86,6 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
         inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() { return pDSV; }
         inline DxgiInfoManager& GetInfoManager() { return infoManager; }
-        inline Ref<D3D11FrameBuffer> GetFrameBuffer() { return fbuf; }
 
     private:
         static glm::mat4 projection;
@@ -101,7 +101,6 @@ namespace Aurora {
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
 
-        Ref<D3D11FrameBuffer> fbuf;
     };
 }
 #endif // GRAPHICS_H_INCLUDED

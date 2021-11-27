@@ -26,6 +26,7 @@ namespace Aurora {
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> m_renderTargetTexture;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_renderTargetView;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
 	};
 
 }

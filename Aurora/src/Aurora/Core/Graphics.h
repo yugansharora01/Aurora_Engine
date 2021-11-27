@@ -5,11 +5,13 @@
 namespace Aurora {
 
 	class D3D11Graphics;
+	class FrameBuffer;
 
 	class Graphics
 	{
 	public: 
 		static void* NativeGraphicsObject;
+		static Ref<FrameBuffer> fbuf;
 
 	public:
 		virtual void EndFrame() = 0;
@@ -21,9 +23,12 @@ namespace Aurora {
 
 		static Graphics* Create(void* arg);
 
+
 #ifdef AU_PLATFORM_WINDOWS
 		static Ref<D3D11Graphics> GraphicsObject;
 #endif // AU_PLATFORM_WINDOWS
 
 	};
+
+
 }

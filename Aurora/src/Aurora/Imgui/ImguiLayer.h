@@ -16,7 +16,7 @@ namespace Aurora {
 
 		void Begin();
 		void End();
-		void DisplaySize();
+		//void DisplaySize();
 		void SetDarkThemeColors();
 
 	private:

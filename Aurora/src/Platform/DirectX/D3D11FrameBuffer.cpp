@@ -23,7 +23,7 @@ namespace Aurora {
 	
 	void D3D11FrameBuffer::Bind()
 	{
-		RefreshBackBuffer();
+		//RefreshBackBuffer();
 		m_DepthStencil->SetTarget(pTarget);
 		m_DepthStencil->Bind();
 	}
@@ -64,7 +64,7 @@ namespace Aurora {
 		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		textureDesc.SampleDesc.Count = 1;
 		textureDesc.Usage = D3D11_USAGE_DEFAULT;
-		textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET;
+		textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
 		textureDesc.CPUAccessFlags = 0;
 		textureDesc.MiscFlags = 0;
 
@@ -83,13 +83,26 @@ namespace Aurora {
 		// Set our maps Render Target
 		Getgfx()->GetContext()->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_DepthStencil->pDSV.Get());
 
-
 		//const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 		// Now clear the render target
 		//Getgfx()->GetContext()->ClearRenderTargetView(m_renderTargetView.Get(), bgColor);
 
+		D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+		ZeroMemory(&shaderResourceViewDesc, sizeof(shaderResourceViewDesc));
 
-		return (void*)m_renderTargetTexture.Get();
+		// Setup the description of the shader resource view.
+		shaderResourceViewDesc.Format = textureDesc.Format;
+		shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+		shaderResourceViewDesc.Texture2D.MipLevels = 1;
+
+		// Create the shader resource view.
+		Getgfx()->GetDevice()->CreateShaderResourceView(m_renderTargetTexture.Get(), &shaderResourceViewDesc, m_shaderResourceView.GetAddressOf());
+
+		//Graphics::GraphicsObject->
+
+
+		return (void*)m_shaderResourceView.Get();
 	}
 
 	void D3D11FrameBuffer::Clear(float red, float green, float blue , float alpha = 0.0f)

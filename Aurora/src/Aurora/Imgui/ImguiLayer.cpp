@@ -82,7 +82,7 @@ namespace Aurora {
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 		
-		std::shared_ptr<D3D11FrameBuffer> fbuf = std::make_shared<D3D11FrameBuffer>(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		Ref<FrameBuffer> fbuf = Graphics::fbuf;
 		fbuf->Unbind();
 
 		ImGui::Render();
@@ -95,8 +95,8 @@ namespace Aurora {
 			ImGui::RenderPlatformWindowsDefault();
 		}
 
-		auto gfx = Graphics::GraphicsObject;
-		gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencilView().Get());
+		//auto gfx = Graphics::GraphicsObject;
+		//gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencilView().Get());
 		fbuf->Bind();
 	}
 
