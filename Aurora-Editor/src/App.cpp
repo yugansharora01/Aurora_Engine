@@ -14,7 +14,7 @@ namespace Aurora {
 		{
 			try {
 				PushLayer(new EditorLayer());
-				PushLayer(new ExampleLayer());
+				//PushLayer(new ExampleLayer());
 
 			}
 			catch (const Aurora::AuroraException& e)

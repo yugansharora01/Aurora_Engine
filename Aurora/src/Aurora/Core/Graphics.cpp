@@ -15,8 +15,6 @@ namespace Aurora
 
 	Graphics* Graphics::Create(void* arg)
 	{
-		
-
 		switch (RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::openGL:	
@@ -26,7 +24,7 @@ namespace Aurora
 		case RendererAPI::API::Direct3D:
 		{
 			HWND hwnd = (HWND)arg;
-			GraphicsObject = std::make_shared<D3D11Graphics>(hwnd);
+			GraphicsObject = CreateRef<D3D11Graphics>(hwnd);
 			fbuf = FrameBuffer::Create(800, 600);
 			return &(*GraphicsObject);
 		}

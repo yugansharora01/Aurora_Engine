@@ -74,7 +74,7 @@ namespace Aurora {
 
 	Graphics* WindowsWindow::Gfx()
 	{
-		return pGfx;
+		return &(*Graphics::GraphicsObject);
 	}
 	
 

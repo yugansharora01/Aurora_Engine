@@ -52,26 +52,7 @@ public:
 
 	void OnImGuiRender() override
 	{
-		ImGui::Begin("box");
-
-		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
-		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
-		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
-
-		ImGui::SliderFloat("x-axis", &x1, -3.14f, 3.14f);
-		ImGui::SliderFloat("y-axis", &y1, -3.14f, 3.14f);
-		ImGui::SliderFloat("z-axis", &z1, -3.14f, 3.14f);
-
-		//ImGui::SliderFloat4("Face1", Face1, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face2", Face2, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face3", Face3, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face4", Face4, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face5", Face5, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face6", Face6, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face7", Face7, 0.0f, 1.0f);
-		//ImGui::SliderFloat4("Face8", Face8, 0.0f, 1.0f);
-
-		ImGui::End();
+		
 	}
 
 	/*std::array<DirectX::XMFLOAT4, 8> GetColor()
@@ -95,9 +76,7 @@ public:
 
 	void OnUpdate() override
 	{
-		//unsigned int width = 0, height = 0;
-		//auto wnd = (Aurora::Win32_Window*)Aurora::Application::Get().GetWindow().GetNativeWindowPtr();
-		//wnd->GetWindowSize(width, height);
+		
 		auto height = Aurora::Application::Get().GetWindow().GetHeight();
 		auto width = Aurora::Application::Get().GetWindow().GetWidth();
 		m_camera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);

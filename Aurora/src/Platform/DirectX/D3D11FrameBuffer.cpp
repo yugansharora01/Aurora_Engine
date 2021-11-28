@@ -3,7 +3,7 @@
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
 namespace Aurora {
-
+	bool IsTargetSet = false;
 	bool D3D11FrameBuffer::bound = false;
 	unsigned int D3D11FrameBuffer::s_Width = 800;
 	unsigned int D3D11FrameBuffer::s_Height = 600;
@@ -23,7 +23,6 @@ namespace Aurora {
 	
 	void D3D11FrameBuffer::Bind()
 	{
-		//RefreshBackBuffer();
 		m_DepthStencil->SetTarget(pTarget);
 		m_DepthStencil->Bind();
 	}
@@ -37,22 +36,32 @@ namespace Aurora {
 	{
 		s_Width = width;
 		s_Height = height;
-		RefreshBackBuffer();
 		m_DepthStencil->Create(width, height);
 	}
 
 	void* D3D11FrameBuffer::GetBufferAsTexture()
+	{	
+		
+		if (!IsTargetSet)
+		{
+			SetRenderTarget();
+		}
+
+		
+		return (void*)m_shaderResourceView.Get();
+	}
+
+	void D3D11FrameBuffer::SetRenderTarget()
 	{
 		INFOMAN;
 
 		int Width = s_Width;
 		int Height = s_Height;
-			
+
 
 		D3D11_TEXTURE2D_DESC textureDesc;
 		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 
-		///////////////////////// Map's Texture
 		// Initialize the  texture description.
 		ZeroMemory(&textureDesc, sizeof(textureDesc));
 
@@ -71,7 +80,6 @@ namespace Aurora {
 		// Create the texture
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateTexture2D(&textureDesc, NULL, &m_renderTargetTexture));
 
-		/////////////////////// Map's Render Target
 		// Setup the description of the render target view.
 		renderTargetViewDesc.Format = textureDesc.Format;
 		renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
@@ -80,12 +88,9 @@ namespace Aurora {
 		// Create the render target view.
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateRenderTargetView(m_renderTargetTexture.Get(), &renderTargetViewDesc, &m_renderTargetView));
 
-		// Set our maps Render Target
+		// Set the Render Target
 		Getgfx()->GetContext()->OMSetRenderTargets(1, m_renderTargetView.GetAddressOf(), m_DepthStencil->pDSV.Get());
 
-		//const float bgColor[] = { 0.0f, 0.0f, 1.0f, 1.0f };
-		// Now clear the render target
-		//Getgfx()->GetContext()->ClearRenderTargetView(m_renderTargetView.Get(), bgColor);
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
 		ZeroMemory(&shaderResourceViewDesc, sizeof(shaderResourceViewDesc));
@@ -99,13 +104,13 @@ namespace Aurora {
 		// Create the shader resource view.
 		Getgfx()->GetDevice()->CreateShaderResourceView(m_renderTargetTexture.Get(), &shaderResourceViewDesc, m_shaderResourceView.GetAddressOf());
 
-		//Graphics::GraphicsObject->
+		Graphics::GraphicsObject->pTarget = m_renderTargetView;
+		Graphics::GraphicsObject->pDSV = m_DepthStencil->pDSV;
 
-
-		return (void*)m_shaderResourceView.Get();
+		IsTargetSet = true;
 	}
 
-	void D3D11FrameBuffer::Clear(float red, float green, float blue , float alpha = 0.0f)
+	void D3D11FrameBuffer::Clear(float red = 0.0f, float green = 0.0f, float blue = 0.0f, float alpha = 1.0f)
 	{
 		const float bgColor[] = { red, green, blue , alpha };
 		// Now clear the render target
@@ -135,6 +140,3 @@ namespace Aurora {
 		Getgfx()->GetContext()->OMSetDepthStencilState(pDSState.Get(), 1u);
 	}
 }
-
-
-

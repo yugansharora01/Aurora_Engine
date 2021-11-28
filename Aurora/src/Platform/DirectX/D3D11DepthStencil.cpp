@@ -53,6 +53,5 @@ namespace Aurora {
 	void DepthStencil::SetTarget(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target)
 	{
 		pTarget = target;
-		
 	}
 }

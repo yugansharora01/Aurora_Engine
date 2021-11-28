@@ -17,29 +17,41 @@
 #include <optional>
 #include "Aurora/Layer.h"
 
+#include <glm/glm.hpp>
 #include <DirectXMath.h>
+#include "imgui.h"
 
 namespace Aurora {
 
 	class EditorLayer : public Layer
 	{
 	public:
-		EditorLayer() = default;
-		void Get(float &Red, float &Green, float &Blue);
-		void GetPos(float & x, float & y, float & z);
+		EditorLayer();
 		virtual void OnImGuiRender() override;
+		virtual void OnUpdate() override;
 		virtual void OnAttach() override;
+		DirectX::XMMATRIX GetMatrix();
 		void Panels();
 	private:
-		float red = 0.01f;
-		float green = 0.01f;
-		float blue = 0.01f;
-		float x = -4.0f;
-		float y = 0.0f;
-		float z = 20.0f;
+		glm::vec4 color;
 
-		std::vector<int> lastwindowposition;
+		glm::vec2 m_ViewportSize;
 		Ref<FrameBuffer> fBuffer;
+
+		std::shared_ptr<Aurora::VertexBuffer> vBuf;
+		std::shared_ptr<Aurora::VertexShader> vShader;
+		std::shared_ptr<Aurora::PixelShader> pShader;
+		std::shared_ptr<Aurora::IndexBuffer> iBuf;
+		std::shared_ptr<Aurora::EditorCamera> m_camera;
+
+		float x = -4.0f, y = 0.0f, z = 20.0f;
+		float x1 = 0.0f, y1 = 0.0f, z1 = 0.0f;
+
+
+		//float Face1[4], Face2[4], Face3[4], Face4[4], Face5[4], Face6[4], Face7[4], Face8[4];
+
+		DirectX::XMMATRIX mat;
+
 	};
 
 }

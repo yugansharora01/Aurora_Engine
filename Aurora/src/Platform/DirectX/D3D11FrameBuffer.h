@@ -15,13 +15,15 @@ namespace Aurora {
 		virtual void Unbind() override;//this unbinds the depth stencil only
 		virtual void Resize(unsigned int width, unsigned int height) override;
 		virtual void* GetBufferAsTexture() override;
+		virtual void Clear(float red, float green, float blue,float alpha) override;
+		void SetRenderTarget();
 		void RefreshBackBuffer();
 		static bool IsBound() { return bound; }
-		void Clear(float red, float green, float blue,float alpha);
 	private:
 		static bool bound;
 		static unsigned int s_Width;
 		static unsigned int s_Height;
+		static bool IsTargetSetToTexture;
 		std::shared_ptr<DepthStencil> m_DepthStencil;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> m_renderTargetTexture;

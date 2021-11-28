@@ -6,35 +6,75 @@
 
 namespace Aurora {
 
+
+	EditorLayer::EditorLayer()
+	{
+		color = {};
+		color.w = 1.0f;
+
+		DirectX::XMFLOAT3 pos;
+
+		const auto model = Cube::Make<DirectX::XMFLOAT3>();
+
+		vBuf = VertexBuffer::Create(model.vertices);
+
+		vShader = VertexShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
+
+		pShader = PixelShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
+
+		iBuf = IndexBuffer::Create(model.indices);
+
+		std::array<DirectX::XMFLOAT4, 8> face_colors =
+		{
+			{
+				{ 1.0f,1.0f,1.0f,1.0f },
+				{ 1.0f,0.0f,0.0f,1.0f },
+				{ 0.0f,1.0f,0.0f,1.0f },
+				{ 1.0f,1.0f,0.0f,1.0f },
+				{ 0.0f,0.0f,1.0f,1.0f },
+				{ 1.0f,0.0f,1.0f,1.0f },
+				{ 0.0f,1.0f,1.0f,1.0f },
+				{ 0.0f,0.0f,0.0f,1.0f },
+			}
+		};
+		pShader->UploadMat4X8(face_colors);
+
+		std::vector<LayoutBuffer> list;
+
+		list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
+
+
+		vBuf->SetLayout(list, vShader);
+
+		vBuf->SetTopology(TopologyType::Triangle_List);
+
+		m_camera = std::make_shared<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
+	}
+
 	void EditorLayer::Panels()
 	{
 		//To get the upper Left corner
-		lastwindowposition = GetDisplayCoord();
+		//lastwindowposition = GetDisplayCoord();
 
-		static ImVec4 color = {};
 
-		ImGui::SetNextWindowPos(ImVec2((float)lastwindowposition[0], (float)lastwindowposition[1]), ImGuiCond_Once);
+		//ImGui::SetNextWindowPos(ImVec2((float)lastwindowposition[0], (float)lastwindowposition[1]), ImGuiCond_Once);
 
-		lastwindowposition[2] -= lastwindowposition[0];       //Full screen width
-		lastwindowposition[2] /= 5;                          //20% of full width
-		lastwindowposition[3] = 150;
+		//lastwindowposition[2] -= lastwindowposition[0];       //Full screen width
+		//lastwindowposition[2] /= 5;                          //20% of full width
+		//lastwindowposition[3] = 150;
 
-		ImGui::SetNextWindowSize(ImVec2(lastwindowposition[3], lastwindowposition[3]), ImGuiCond_Once);
+		//ImGui::SetNextWindowSize(ImVec2(lastwindowposition[3], lastwindowposition[3]), ImGuiCond_Once);
+
+		
 
 		ImGui::Begin("Background Colors");
-		ImGui::SliderFloat("Red", &red, 0.0f, 1.0f);
-		ImGui::SliderFloat("Blue", &blue, 0.0f, 1.0f);
-		ImGui::SliderFloat("Green", &green, 0.0f, 1.0f);
+		ImGui::SliderFloat("Red", &color.x, 0.0f, 1.0f);
+		ImGui::SliderFloat("Green", &color.y, 0.0f, 1.0f);
+		ImGui::SliderFloat("Blue", &color.z, 0.0f, 1.0f);
+		ImGui::SliderFloat("alpha", &color.w, 0.0f, 1.0f);
 
-		color.x = red;
-		color.y = green;
-		color.z = blue;
 
-		ImGui::ColorEdit3("color", (float*)&color);
-
-		red = color.x;
-		green = color.y;
-		blue = color.z;
+		ImGui::ColorEdit4("color", &color.x);
 
 		ImGui::End();
 
@@ -42,30 +82,23 @@ namespace Aurora {
 
 		ImGui::Begin("Viewport");
 
-		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(300, 300));
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
+		Application::Get().GetWindow().Gfx()->ClearBuffer(color.x, color.y, color.z);
+		//fBuffer->Clear(color.x,color.y,color.z,color.w);
+		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		ImGui::End();
 		//-------------------------------------------------
-	}
 
-	void EditorLayer::Get(float &Red, float &Green, float &Blue)
-	{
-		Red = red;
-		Green = green;
-		Blue = blue;
-	}
-
-	void EditorLayer::GetPos(float& x, float& y, float& z)
-	{
-		x = EditorLayer::x;
-		y = EditorLayer::y;
-		z = EditorLayer::z;
+		OnUpdate();
 	}
 	
+
 	void EditorLayer::OnImGuiRender()
 	{
-		bool docking = false;
+		bool docking = true;
 		if (docking)
 		{
 			static bool dockspaceOpen = true;
@@ -149,8 +182,32 @@ namespace Aurora {
 		}
 	}
 
+	void EditorLayer::OnUpdate()
+	{
+		auto height = Application::Get().GetWindow().GetHeight();
+		auto width = Application::Get().GetWindow().GetWidth();
+		m_camera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);
+
+
+		vShader->UploadMat4(DirectX::XMMatrixTranspose(
+			GetMatrix() * m_camera->GetProjection()));
+
+		//pShader->UploadMat4X8(GetColor());
+
+		Renderer::BeginScene();
+
+		Renderer::Submit(vShader, pShader, vBuf, iBuf);
+
+		Renderer::EndScene();
+	}
+
 	void EditorLayer::OnAttach()
 	{
 		fBuffer = Graphics::fbuf;
+	}
+	DirectX::XMMATRIX EditorLayer::GetMatrix()
+	{
+		return DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
+			DirectX::XMMatrixTranslation(x, y, z);
 	}
 }
