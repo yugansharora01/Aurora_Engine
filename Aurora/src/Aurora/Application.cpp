@@ -39,10 +39,11 @@ namespace Aurora {
 
 			while (m_Running)
 			{
+				m_Window->Gfx()->ClearBuffer(i, j,k);
+
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
 
-				//m_Window->Gfx()->ClearBuffer(i, j,k);
 				m_ImGuiLayer->Begin();
 
 				for (Layer* layer : m_LayerStack)
@@ -52,28 +53,22 @@ namespace Aurora {
 
 				m_ImGuiLayer->End();
 
-				
-						
-
-
 				m_Window->OnUpdate(m_Running);
-
 
 				m_Window->Gfx()->EndFrame();
 			}
 		}
 		catch (const AuroraException& e)
 		{
-			AU_CORE_FATAL("{0}", e.what());
-			MessageBoxA(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
+			AU_CORE_FATAL("{0} \n{1}", e.GetType(), e.what());
 		}
 		catch (const std::exception& e)
 		{
-			MessageBoxA(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+			AU_CORE_FATAL("{0}\n Standard Exception", e.what());
 		}
 		catch (...)
 		{
-			MessageBoxA(nullptr, "No Details Available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
+			AU_CORE_FATAL("Unknown Exception \nNo Details Available");
 		}
 	}
 

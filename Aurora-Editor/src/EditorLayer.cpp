@@ -53,20 +53,7 @@ namespace Aurora {
 
 	void EditorLayer::Panels()
 	{
-		//To get the upper Left corner
-		//lastwindowposition = GetDisplayCoord();
-
-
-		//ImGui::SetNextWindowPos(ImVec2((float)lastwindowposition[0], (float)lastwindowposition[1]), ImGuiCond_Once);
-
-		//lastwindowposition[2] -= lastwindowposition[0];       //Full screen width
-		//lastwindowposition[2] /= 5;                          //20% of full width
-		//lastwindowposition[3] = 150;
-
-		//ImGui::SetNextWindowSize(ImVec2(lastwindowposition[3], lastwindowposition[3]), ImGuiCond_Once);
-
 		
-
 		ImGui::Begin("Background Colors");
 		ImGui::SliderFloat("Red", &color.x, 0.0f, 1.0f);
 		ImGui::SliderFloat("Green", &color.y, 0.0f, 1.0f);
@@ -78,6 +65,18 @@ namespace Aurora {
 
 		ImGui::End();
 
+		ImGui::Begin("box");
+
+		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
+		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
+		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
+
+		ImGui::SliderFloat("x-axis", &x1, -3.14f, 3.14f);
+		ImGui::SliderFloat("y-axis", &y1, -3.14f, 3.14f);
+		ImGui::SliderFloat("z-axis", &z1, -3.14f, 3.14f);
+
+		ImGui::End();
+
 		//-------------------------------------------------
 
 		ImGui::Begin("Viewport");
@@ -85,14 +84,11 @@ namespace Aurora {
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		Application::Get().GetWindow().Gfx()->ClearBuffer(color.x, color.y, color.z);
-		//fBuffer->Clear(color.x,color.y,color.z,color.w);
 		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		ImGui::End();
 		//-------------------------------------------------
 
-		OnUpdate();
 	}
 	
 
