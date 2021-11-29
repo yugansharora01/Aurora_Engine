@@ -55,6 +55,9 @@
     <ClInclude Include="src\Aurora\Core\AuTimer.h">
       <Filter>Aurora\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Core\Graphics.h">
+      <Filter>Aurora\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h">
       <Filter>Aurora\Drawables\Geometry</Filter>
     </ClInclude>
@@ -157,6 +160,9 @@
     <ClInclude Include="src\Platform\DirectX\D3D11FrameBuffer.h">
       <Filter>Platform\DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h">
+      <Filter>Platform\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11IndexBuffer.h">
       <Filter>Platform\DirectX</Filter>
     </ClInclude>
@@ -202,9 +208,6 @@
     <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h">
-      <Filter>Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -230,13 +233,15 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Aurora\Core\Graphics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
       <Filter>Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp">
+      <Filter>Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Core\Graphics.cpp">
       <Filter>Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Events\Events.cpp">
@@ -302,6 +307,9 @@
     <ClCompile Include="src\Platform\DirectX\D3D11FrameBuffer.cpp">
       <Filter>Platform\DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp">
+      <Filter>Platform\DirectX</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp">
       <Filter>Platform\DirectX</Filter>
     </ClCompile>
@@ -335,9 +343,6 @@
     <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp">
-      <Filter>Platform\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
@@ -357,7 +362,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">
