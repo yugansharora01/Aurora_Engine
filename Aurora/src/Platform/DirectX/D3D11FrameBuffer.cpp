@@ -23,7 +23,7 @@ namespace Aurora {
 	
 	void D3D11FrameBuffer::Bind()
 	{
-		m_DepthStencil->SetTarget(pTarget);
+		m_DepthStencil->SetTarget(m_renderTargetView);
 		m_DepthStencil->Bind();
 	}
 	

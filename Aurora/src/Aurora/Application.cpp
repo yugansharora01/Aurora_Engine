@@ -39,10 +39,11 @@ namespace Aurora {
 
 			while (m_Running)
 			{
+				m_Window->Gfx()->ClearBuffer(i, j,k);
+
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
 
-				//m_Window->Gfx()->ClearBuffer(i, j,k);
 				m_ImGuiLayer->Begin();
 
 				for (Layer* layer : m_LayerStack)

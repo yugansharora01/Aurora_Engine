@@ -53,20 +53,7 @@ namespace Aurora {
 
 	void EditorLayer::Panels()
 	{
-		//To get the upper Left corner
-		//lastwindowposition = GetDisplayCoord();
-
-
-		//ImGui::SetNextWindowPos(ImVec2((float)lastwindowposition[0], (float)lastwindowposition[1]), ImGuiCond_Once);
-
-		//lastwindowposition[2] -= lastwindowposition[0];       //Full screen width
-		//lastwindowposition[2] /= 5;                          //20% of full width
-		//lastwindowposition[3] = 150;
-
-		//ImGui::SetNextWindowSize(ImVec2(lastwindowposition[3], lastwindowposition[3]), ImGuiCond_Once);
-
 		
-
 		ImGui::Begin("Background Colors");
 		ImGui::SliderFloat("Red", &color.x, 0.0f, 1.0f);
 		ImGui::SliderFloat("Green", &color.y, 0.0f, 1.0f);
@@ -78,6 +65,18 @@ namespace Aurora {
 
 		ImGui::End();
 
+		ImGui::Begin("Box");
+
+		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
+		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
+		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
+
+		ImGui::SliderFloat("x-axis", &x1, -3.14f, 3.14f);
+		ImGui::SliderFloat("y-axis", &y1, -3.14f, 3.14f);
+		ImGui::SliderFloat("z-axis", &z1, -3.14f, 3.14f);
+
+		ImGui::End();
+
 		//-------------------------------------------------
 
 		ImGui::Begin("Viewport");
@@ -85,101 +84,95 @@ namespace Aurora {
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		Application::Get().GetWindow().Gfx()->ClearBuffer(color.x, color.y, color.z);
-		//fBuffer->Clear(color.x,color.y,color.z,color.w);
+		
 		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		
 
 		ImGui::End();
 		//-------------------------------------------------
 
-		OnUpdate();
 	}
 	
 
 	void EditorLayer::OnImGuiRender()
 	{
-		bool docking = true;
-		if (docking)
+		
+		static bool dockspaceOpen = true;
+
+		static bool opt_fullscreen = true;
+		static bool opt_padding = false;
+		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+
+		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
+		// because it would be confusing to have two docking targets within each others.
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		if (opt_fullscreen)
 		{
-			static bool dockspaceOpen = true;
+			const ImGuiViewport* viewport = ImGui::GetMainViewport();
+			ImGui::SetNextWindowPos(viewport->WorkPos);
+			ImGui::SetNextWindowSize(viewport->WorkSize);
+			ImGui::SetNextWindowViewport(viewport->ID);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+			window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+			window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+		}
+		else
+		{
+			dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
+		}
 
-			static bool opt_fullscreen = true;
-			static bool opt_padding = false;
-			static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
+		// and handle the pass-thru hole, so we ask Begin() to not render a background.
+		if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+			window_flags |= ImGuiWindowFlags_NoBackground;
 
-			// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
-			// because it would be confusing to have two docking targets within each others.
-			ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-			if (opt_fullscreen)
+		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
+		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
+		// all active windows docked into it will lose their parent and become undocked.
+		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
+		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
+		if (!opt_padding)
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
+		if (!opt_padding)
+			ImGui::PopStyleVar();
+
+		if (opt_fullscreen)
+			ImGui::PopStyleVar(2);
+
+		// Submit the DockSpace
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+		{
+			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+		}
+		else
+		{
+			//ShowDockingDisabledMessage();
+		}
+
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("File"))
 			{
-				const ImGuiViewport* viewport = ImGui::GetMainViewport();
-				ImGui::SetNextWindowPos(viewport->WorkPos);
-				ImGui::SetNextWindowSize(viewport->WorkSize);
-				ImGui::SetNextWindowViewport(viewport->ID);
-				ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-				window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-				window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-			}
-			else
-			{
-				dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
-			}
 
-			// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
-			// and handle the pass-thru hole, so we ask Begin() to not render a background.
-			if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
-				window_flags |= ImGuiWindowFlags_NoBackground;
-
-			// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-			// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-			// all active windows docked into it will lose their parent and become undocked.
-			// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-			// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
-			if (!opt_padding)
-				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-			ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
-			if (!opt_padding)
-				ImGui::PopStyleVar();
-
-			if (opt_fullscreen)
-				ImGui::PopStyleVar(2);
-
-			// Submit the DockSpace
-			ImGuiIO& io = ImGui::GetIO();
-			if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
-			{
-				ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-				ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
-			}
-			else
-			{
-				//ShowDockingDisabledMessage();
-			}
-
-			if (ImGui::BeginMenuBar())
-			{
-				if (ImGui::BeginMenu("File"))
+				if (ImGui::MenuItem("Exit", NULL, false, dockspaceOpen != NULL))
 				{
-
-					if (ImGui::MenuItem("Exit", NULL, false, dockspaceOpen != NULL))
-					{
-						Application::Get().Close();
-					}
-
-					ImGui::EndMenu();
+					Application::Get().Close();
 				}
-				ImGui::EndMenuBar();
-			}
 
-			Panels();
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
+
+		Panels();
 			
 
-			ImGui::End();
-		}
-		else {
-			Panels();
-		}
+		ImGui::End();
+		
 	}
 
 	void EditorLayer::OnUpdate()
