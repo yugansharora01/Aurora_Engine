@@ -38,7 +38,7 @@ namespace Aurora {
 		if (m_Data.Width != LastWidth || m_Data.Height != LastHeight)
 		{
 			auto fbuf = FrameBuffer::Create(m_Data.Width, m_Data.Height);
-			fbuf->Bind();
+			//fbuf->Bind();
 			AU_INFO("Resized");
 			AU_INFO("Resized");
 			AU_INFO("Resized");

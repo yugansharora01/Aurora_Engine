@@ -16,18 +16,20 @@ namespace Aurora {
 		virtual void Resize(unsigned int width, unsigned int height) override;
 		virtual void* GetBufferAsTexture() override;
 		virtual void Clear(float red, float green, float blue,float alpha) override;
-		void SetRenderTarget();
-		void RefreshBackBuffer();
-		static bool IsBound() { return bound; }
+		virtual void RenderToTexture() override;
+		virtual void RenderToBackBuf() override;
+
+
+		void SetTextureProperties();
 	private:
-		static bool bound;
 		static unsigned int s_Width;
 		static unsigned int s_Height;
-		static bool IsTargetSetToTexture;
+		static bool IsTexturePropertiesSet;
 		std::shared_ptr<DepthStencil> m_DepthStencil;
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> activeRDV;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_BackbufRDV;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_TextureRDV;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> m_renderTargetTexture;
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_renderTargetView;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
 	};
 

@@ -83,7 +83,8 @@ namespace Aurora {
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 		
 		Ref<FrameBuffer> fbuf = Graphics::fbuf;
-		fbuf->Unbind();
+		fbuf->RenderToBackBuf();
+		//fbuf->Unbind();
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -97,7 +98,9 @@ namespace Aurora {
 
 		//auto gfx = Graphics::GraphicsObject;
 		//gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencilView().Get());
-		fbuf->Bind();
+		//fbuf->Bind();
+
+		fbuf->RenderToTexture();
 	}
 
 	void ImGuiLayer::SetDarkThemeColors()
