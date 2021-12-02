@@ -17,7 +17,7 @@ namespace Aurora {
 			std::shared_ptr<VertexBuffer> vBuffer,
 			std::shared_ptr<IndexBuffer> iBuffer
 		);
-	public:
+	private:
 		static unsigned int count;
 	};
 

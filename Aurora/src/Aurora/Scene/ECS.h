@@ -13,7 +13,6 @@ namespace Aurora {
 
 	inline std::size_t GetNewComponentTypeID()
 	{
-
 		//TO DO: Change the way of generating ID's
 
 		//ID's start from 0
@@ -56,7 +55,7 @@ namespace Aurora {
 		{
 			for (auto& c : components)
 			{
-				c.update();
+				c->update();
 			}
 		}
 
@@ -82,24 +81,26 @@ namespace Aurora {
 
 		//Adds the component to componentArray and also sets the componentBitSet 
 		template<typename T,typename... Args>
-		Ref<T>& AddComponent(Args&&... args)
+		Ref<T> AddComponent(Args&&... args)
 		{
-			auto c = CreateRef<T>(args...);
-			c->entity = this;
-			components.emplace_back(std::move(c));
+			Ref<T> c = CreateRef<T>(args...);
+			c->entity = CreateRef<Entity>(*this);
+			components.emplace_back(c);
 			componentArray[GetComponentTypeID<T>()] = c;
 			componentBitSet[GetComponentTypeID<T>()] = true;
 
-			c->OncomponentAdd();
-			return *c;
+			c->OnComponentAdd();
+			return c;
 		}
 
-		//Returns the component passed as temlate argument
+		//Returns the component passed as template argument
 		template<typename T>
 		Ref<T> GetComponent() const
 		{
 			AU_CORE_ASSERT(HasComponent<T>(), "Entity does not have this component");
-			return componentArray[GetComponentTypeID<T>()];
+			//auto c = componentArray[GetComponentTypeID<T>()];
+			std::shared_ptr<T> RefToReturn = std::dynamic_pointer_cast<T>(componentArray[GetComponentTypeID<T>()]);
+			return RefToReturn;
 			
 		}
 
@@ -115,19 +116,27 @@ namespace Aurora {
 			return this->handle == e.handle;
 		}
 
+		/*void operator=(const Entity& e)
+		{
+			this->m_scene = e.m_scene;
+			this->m_Groups = e.m_Groups;
+			this->components = e.components;
+			this->componentBitSet = e.componentBitSet;
+			this->componentArray = e.componentArray;
+			this->active = e.active;
+		}*/
+
 	private:
 		Scene* m_scene;
 		std::vector<GroupID> m_Groups;
-		std::vector<Component> components;
+		std::vector<Ref<Component>> components;
 		std::bitset<maxComponents> componentBitSet;
-		std::array<Component, maxComponents> componentArray;
+		std::array<Ref<Component>, maxComponents> componentArray;
 		bool active;
 	};
 
 	class Group
 	{
-	public:
-		GroupID id;
 	public:
 		Group() = default;
 
@@ -137,13 +146,15 @@ namespace Aurora {
 
 		}
 
-		void add(Entity entity)
+		void add(Ref<Entity> entity)
 		{
+			//auto e = CreateRef<Entity>(entity);
 			GroupOfEntities.emplace_back(entity);
 		}
 
-		void remove(Entity entity)
+		void remove(Ref<Entity> entity)
 		{
+			//Ref<Entity> e = CreateRef<Entity>(entity);
 			GroupOfEntities.erase(std::find(GroupOfEntities.begin(), GroupOfEntities.end(), entity));
 		}
 
@@ -153,7 +164,8 @@ namespace Aurora {
 		}
 
 	private:
-		std::vector<Entity> GroupOfEntities;
+		std::vector<Ref<Entity>> GroupOfEntities;
+		GroupID id;
 	};
 
 
@@ -168,25 +180,25 @@ namespace Aurora {
 		Registry() = default;
 
 		//returns the vector of Ref<Entity>
-		std::vector<Entity> GetList()
+		std::vector<Ref<Entity>> GetList()
 		{
 			return list;
 		}
 
 		//Add the entity to the Group 
-		void AddToGroup(Entity entity, GroupID group)
+		void AddToGroup(Ref<Entity> entity, GroupID group)
 		{
 			GroupMap[group].add(entity);
-			entity.GetGroup().push_back(group);
+			entity->GetGroup().push_back(group);
 		}
 
 		//Removes the entity from the group
-		void RemoveEntityFromGroup(Entity entity, GroupID group)
+		void RemoveEntityFromGroup(Ref<Entity> entity, GroupID group)
 		{
 			GroupMap[group].remove(entity);
 		}
 
-		//returns the vector of Ref<Entity> which contains grouped entities 
+		//returns the Group which contains grouped entities 
 		Group GetGroup(GroupID group)
 		{
 			return GroupMap[group];
@@ -198,47 +210,51 @@ namespace Aurora {
 			return GetNewEntityHandle();
 		}
 
-		void add(Entity e)
+		void add(Ref<Entity> entity)
 		{
-			list.emplace_back(e);
+			//auto e = CreateRef<Entity>(entity);
+			list.emplace_back(entity);
 		}
 
-		void DestroyEntity(Entity entity)
+		void DestroyEntity(Ref<Entity> entity)
 		{
 			//Remove Entity from every group
-			for (size_t i = 0;i < entity.GetGroup().size();i++)
+			for (size_t i = 0;i < entity->GetGroup().size();i++)
 			{
-				RemoveEntityFromGroup(entity, entity.GetGroup()[i]);
+				RemoveEntityFromGroup(entity, entity->GetGroup()[i]);
 			}
+
 
 			//Remove Entity from the list of entities 
 			list.erase(std::find(list.begin(), list.end(), entity));
 
 			//Deleting the Entity
-			entity.Delete();
+			entity->Delete();
 		}
 
 
-		void GroupEntities(std::initializer_list<Entity> Entitylist)
+		void GroupEntities(std::initializer_list<Ref<Entity>> Entitylist)
 		{
 			Group newGroup(GetNewGroupID());
-			for (auto e : Entitylist)
+			for (auto& e : Entitylist)
 			{
 				newGroup.add(e);
 			}			
 		}
 
-		template<typename comp1,typename comp2,typename TypeOfComp1Field, typename TypeOfComp2Field>
-		Group group(TypeOfComp1Field feild1, TypeOfComp2Field field2)
+		//should take a lambda to filter out the entities
+		template<typename comp1,typename comp2>
+		Group group()
 		{
 			Group newGroup(GetNewGroupID());
-			for (auto e : list)
+			for (auto& e : list)
 			{
-				if (e.HasComponent<comp1>() || e.HasComponent<comp2>())
+				if (e->HasComponent<comp1>() || e->HasComponent<comp2>())
 				{
 					newGroup.add(e);
 				}
 			}
+			GroupMap.insert(newGroup.GetID(),newGroup);
 		}
 
 	private:
@@ -257,7 +273,7 @@ namespace Aurora {
 
 	private:
 		
-		std::vector<Entity> list;
+		std::vector<Ref<Entity>> list;
 		std::map<GroupID, Group> GroupMap;
 	};
 

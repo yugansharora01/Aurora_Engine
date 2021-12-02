@@ -49,11 +49,20 @@ namespace Aurora {
 		vBuf->SetTopology(TopologyType::Triangle_List);
 
 		m_camera = std::make_shared<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
+
+		m_activeScene = CreateRef<Scene>();
+
+		auto e = m_activeScene->CreateEntity();
+
+		e->AddComponent<TransformComponent>();
+		e->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
 	}
 
 	void EditorLayer::Panels()
 	{
 		
+		auto e = m_activeScene->registry->GetList()[0]->GetComponent<TransformComponent>();
+
 		ImGui::Begin("Background Colors");
 		ImGui::SliderFloat("Red", &color.x, 0.0f, 1.0f);
 		ImGui::SliderFloat("Green", &color.y, 0.0f, 1.0f);
@@ -67,13 +76,13 @@ namespace Aurora {
 
 		ImGui::Begin("box");
 
-		ImGui::SliderFloat("x", &x, -100.0f, 100.0f);
-		ImGui::SliderFloat("y", &y, -100.0f, 100.0f);
-		ImGui::SliderFloat("z", &z, -100.0f, 100.0f);
+		ImGui::SliderFloat("x", &e->transform.x, -100.0f, 100.0f);
+		ImGui::SliderFloat("y", &e->transform.y, -100.0f, 100.0f);
+		ImGui::SliderFloat("z", &e->transform.z, -100.0f, 100.0f);
 
-		ImGui::SliderFloat("x-axis", &x1, -3.14f, 3.14f);
-		ImGui::SliderFloat("y-axis", &y1, -3.14f, 3.14f);
-		ImGui::SliderFloat("z-axis", &z1, -3.14f, 3.14f);
+		ImGui::SliderFloat("x-axis", &e->rotation.x, -3.14f, 3.14f);
+		ImGui::SliderFloat("y-axis", &e->rotation.y, -3.14f, 3.14f);
+		ImGui::SliderFloat("z-axis", &e->rotation.z, -3.14f, 3.14f);
 
 		ImGui::End();
 
@@ -180,30 +189,12 @@ namespace Aurora {
 
 	void EditorLayer::OnUpdate()
 	{
-		auto height = Application::Get().GetWindow().GetHeight();
-		auto width = Application::Get().GetWindow().GetWidth();
-		m_camera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);
-
-
-		vShader->UploadMat4(DirectX::XMMatrixTranspose(
-			GetMatrix() * m_camera->GetProjection()));
-
-		//pShader->UploadMat4X8(GetColor());
-
-		Renderer::BeginScene();
-
-		Renderer::Submit(vShader, pShader, vBuf, iBuf);
-
-		Renderer::EndScene();
+		m_activeScene->Update();
 	}
 
 	void EditorLayer::OnAttach()
 	{
 		fBuffer = Graphics::fbuf;
 	}
-	DirectX::XMMATRIX EditorLayer::GetMatrix()
-	{
-		return DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
-			DirectX::XMMatrixTranslation(x, y, z);
-	}
+	
 }
