@@ -29,7 +29,6 @@ namespace Aurora {
 		std::shared_ptr<VertexShader> vShader;
 		std::shared_ptr<PixelShader> pShader;
 		std::shared_ptr<IndexBuffer> iBuf;
-		std::shared_ptr<EditorCamera> m_camera;
 
 
 	};

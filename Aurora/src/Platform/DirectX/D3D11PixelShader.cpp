@@ -50,10 +50,10 @@ namespace Aurora {
 		pConst->Create<DirectX::XMMATRIX>(mat3);
 	}
 	
-	void D3D11PixelShader::UploadMat4(DirectX::XMMATRIX mat4)
+	void D3D11PixelShader::UploadMat4(glm::mat4 mat4)
 	{
 		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<DirectX::XMMATRIX>(mat4);
+		pConst->Create<glm::mat4>(mat4);
 	}
 	void D3D11PixelShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)
 	{

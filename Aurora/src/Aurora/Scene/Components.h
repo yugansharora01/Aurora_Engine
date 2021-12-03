@@ -2,6 +2,7 @@
 #include "ECS.h"
 #include "Aurora/Renderer/BindableBase.h"
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Aurora {
 	class TagComponent : public Component
@@ -24,19 +25,27 @@ namespace Aurora {
 		glm::vec3 transform;
 		glm::vec3 rotation;
 		glm::vec3 scale;
+
+		glm::mat4 mat;             //To show combined attributes
 	public:
 		TransformComponent()
 		{
-			transform = glm::vec3({ -4.0f,0.0f,20.0f });
-			rotation = glm::vec3({ 0.0f,0.0f,0.0f });
-			scale = glm::vec3({ 1.0f,1.0f,1.0f });
+			transform = glm::vec3( -4.0f,0.0f,20.0f );
+			rotation = glm::vec3( 0.0f,0.0f,0.0f );
+			scale = glm::vec3( 1.0f,1.0f,1.0f );
 		}
 		TransformComponent(const TransformComponent&) = default;
 		TransformComponent(glm::vec3 Transform, glm::vec3 Rotation, glm::vec3 Scale)
 			:transform(Transform), rotation(Rotation), scale(Scale) {}
 		~TransformComponent() {}
-		virtual void OnComponentAdd() override {}
-		virtual void update() override {}
+		virtual void OnComponentAdd() override 
+		{
+
+		}
+		virtual void update() override 
+		{
+			
+		}
 	};
 
 	class MeshComponent : public Component
