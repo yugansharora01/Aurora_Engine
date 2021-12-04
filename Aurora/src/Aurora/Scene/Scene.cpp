@@ -13,10 +13,15 @@ namespace Aurora {
 		Camera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
 	}
 
-	Ref<Entity> Scene::CreateEntity()
+	Ref<Entity> Scene::CreateEntity(std::string Name)
 	{
 		Ref<Entity> entity = CreateRef<Entity>(registry->CreateEntity(), this);
 		registry->add(entity);
+
+		if (Name == "")
+			Name = "UnNamed";
+
+		entity->AddComponent<TagComponent>(Name);
 		return entity;
 	}
 

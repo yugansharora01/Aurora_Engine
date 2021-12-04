@@ -6,8 +6,8 @@ namespace Aurora {
 	Entity::Entity(EntityHandle Handle, Scene* scene)
 		:handle(Handle),m_scene(scene)
 	{
-		Ref<Entity> e(this);
-		m_scene->registry->add(e);
+		//Ref<Entity> e(this);
+		//m_scene->registry->add(e);
 	}
 
 }

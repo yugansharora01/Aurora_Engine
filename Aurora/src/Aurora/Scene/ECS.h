@@ -116,15 +116,7 @@ namespace Aurora {
 			return this->handle == e.handle;
 		}
 
-		/*void operator=(const Entity& e)
-		{
-			this->m_scene = e.m_scene;
-			this->m_Groups = e.m_Groups;
-			this->components = e.components;
-			this->componentBitSet = e.componentBitSet;
-			this->componentArray = e.componentArray;
-			this->active = e.active;
-		}*/
+		operator uint32_t() const { return (uint32_t)handle; }
 
 	private:
 		Scene* m_scene;

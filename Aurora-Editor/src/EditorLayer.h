@@ -1,11 +1,14 @@
 #pragma once
 #include <Aurora.h>
-
 #include "Aurora/Layer.h"
 
 #include <glm/glm.hpp>
 #include <DirectXMath.h>
+
+#include "Panels/SceneHierarchyPanel.h"
+
 #include "imgui.h"
+
 
 namespace Aurora {
 
@@ -18,12 +21,13 @@ namespace Aurora {
 		virtual void OnAttach() override;
 		void Panels();
 	private:
-		glm::vec4 color;
 
 		glm::vec2 m_ViewportSize;
 		Ref<FrameBuffer> fBuffer;
 
 		Ref<Scene> m_activeScene;
+
+		Ref<SceneHierarchyPanel> m_sceneHeirarchyPanel;
 
 		std::shared_ptr<VertexBuffer> vBuf;
 		std::shared_ptr<VertexShader> vShader;

@@ -15,7 +15,7 @@ namespace Aurora {
 
 		void OnImGuiRender();
 
-		void DrawEntityNode();
+		void DrawEntityNode(Ref<Entity> entity);
 	private:
 		Ref<Scene> m_scene;
 	};

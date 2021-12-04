@@ -9,9 +9,8 @@ namespace Aurora {
 
 	EditorLayer::EditorLayer()
 	{
-		color = {};
-		color.w = 1.0f;
-
+		
+		m_sceneHeirarchyPanel = CreateRef<SceneHierarchyPanel>();
 		DirectX::XMFLOAT3 pos;
 
 		const auto model = Cube::Make<DirectX::XMFLOAT3>();
@@ -52,7 +51,7 @@ namespace Aurora {
 
 		m_activeScene = CreateRef<Scene>();
 
-		auto e = m_activeScene->CreateEntity();
+		auto e = m_activeScene->CreateEntity("Box");
 
 		e->AddComponent<TransformComponent>();
 		e->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
@@ -63,16 +62,8 @@ namespace Aurora {
 		
 		auto e = m_activeScene->registry->GetList()[0]->GetComponent<TransformComponent>();
 
-		ImGui::Begin("Background Colors");
-		ImGui::SliderFloat("Red", &color.x, 0.0f, 1.0f);
-		ImGui::SliderFloat("Green", &color.y, 0.0f, 1.0f);
-		ImGui::SliderFloat("Blue", &color.z, 0.0f, 1.0f);
-		ImGui::SliderFloat("alpha", &color.w, 0.0f, 1.0f);
-
-
-		ImGui::ColorEdit4("color", &color.x);
-
-		ImGui::End();
+		m_sceneHeirarchyPanel->SetScene(m_activeScene);
+		m_sceneHeirarchyPanel->OnImGuiRender();
 
 		ImGui::Begin("box");
 
