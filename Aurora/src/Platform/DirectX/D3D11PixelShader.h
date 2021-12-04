@@ -20,7 +20,7 @@ namespace Aurora {
 		virtual void UploadFloat3(DirectX::XMFLOAT3 val) override;
 		virtual void UploadFloat4(DirectX::XMFLOAT4 val) override;
 		virtual void UploadMat3(DirectX::XMMATRIX mat3) override;
-		virtual void UploadMat4(glm::mat4 mat4) override;
+		virtual void UploadMat4(DirectX::XMMATRIX mat4) override;
 		virtual void UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr) override;
 	private:
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;

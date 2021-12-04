@@ -48,6 +48,8 @@ namespace Aurora {
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 
+		m_camera = std::make_shared<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
+
 		m_activeScene = CreateRef<Scene>();
 
 		auto e = m_activeScene->CreateEntity();

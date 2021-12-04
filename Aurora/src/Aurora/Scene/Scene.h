@@ -1,6 +1,5 @@
 #pragma once
 #include <DirectXMath.h>
-#include <glm/glm.hpp>
 
 namespace Aurora {
 
@@ -13,7 +12,6 @@ namespace Aurora {
 	public:
 		Ref<Registry> registry;
 		Ref<EditorCamera> Camera;
-		glm::mat4 mat;
 	public:
 		Scene();
 		Scene(Scene& other)
@@ -24,7 +22,7 @@ namespace Aurora {
 		void DestroyEntity(Ref<Entity> entity);
 		void Update();
 
-		glm::mat4 GetMatrix(Ref<Entity> entity);
+		DirectX::XMMATRIX GetMatrix(Ref<Entity> entity);
 	};
 
 }

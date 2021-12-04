@@ -41,10 +41,10 @@ namespace Aurora {
 	void D3D11VertexShader::UploadMat3(DirectX::XMMATRIX mat3)
 	{
 	}
-	void D3D11VertexShader::UploadMat4(glm::mat4 mat4)
+	void D3D11VertexShader::UploadMat4(DirectX::XMMATRIX mat4)
 	{
 		vConst = std::make_shared<D3D11VertexConstantBuffer>();
-		vConst->Create<glm::mat4>(mat4);
+		vConst->Create<DirectX::XMMATRIX>(mat4);
 	}
 
 	void D3D11VertexShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)
