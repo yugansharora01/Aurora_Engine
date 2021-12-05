@@ -18,6 +18,7 @@ namespace Aurora {
 		void DrawEntityNode(Ref<Entity> entity);
 	private:
 		Ref<Scene> m_scene;
+		Ref<Entity> m_selectedEntity;
 	};
 
 	

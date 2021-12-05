@@ -32,5 +32,38 @@ namespace Aurora {
 
 		bool opened = ImGui::TreeNodeEx((void*)(uint32_t)*entity, flags, tag.c_str());
 
+		if (opened)
+		{
+			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+
+			bool opened = ImGui::TreeNodeEx((void*)1234, flags, tag.c_str());
+
+			if (ImGui::IsItemClicked())
+			{
+				m_selectedEntity = entity;
+			}
+
+			bool EntityDeleted = false;
+			if (ImGui::BeginPopupContextItem())
+			{
+				if (ImGui::MenuItem("Delete Entity"))
+					EntityDeleted = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (opened)
+				ImGui::TreePop();
+
+			ImGui::TreePop();
+
+			if (EntityDeleted)
+			{
+				m_scene->DestroyEntity(entity);
+				if (m_selectedEntity == entity)
+					m_selectedEntity = {};
+			}
+		}
+
 	}
 }
