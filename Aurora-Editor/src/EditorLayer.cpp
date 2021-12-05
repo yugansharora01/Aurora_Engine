@@ -47,7 +47,7 @@ namespace Aurora {
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 
-		m_camera = std::make_shared<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
+
 
 		m_activeScene = CreateRef<Scene>();
 
@@ -56,12 +56,53 @@ namespace Aurora {
 		e->AddComponent<TransformComponent>();
 		e->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
 
+
+		Ref<VertexBuffer> vertexBuf;
+		Ref<VertexShader> vertexShader;
+		Ref<PixelShader> pixelShader;
+		Ref<IndexBuffer> indexBuf;
+
+		//const auto model1 = Cube::Make<DirectX::XMFLOAT3>();
+
+		vertexBuf = VertexBuffer::Create(model.vertices);
+
+		vertexShader = VertexShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
+
+		pixelShader = PixelShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
+
+		indexBuf = IndexBuffer::Create(model.indices);
+
+		/*std::array<DirectX::XMFLOAT4, 8> face_colors1 =
+		{
+			{
+				{ 1.0f,1.0f,1.0f,1.0f },
+				{ 1.0f,0.0f,0.0f,1.0f },
+				{ 0.0f,1.0f,0.0f,1.0f },
+				{ 1.0f,1.0f,0.0f,1.0f },
+				{ 0.0f,0.0f,1.0f,1.0f },
+				{ 1.0f,0.0f,1.0f,1.0f },
+				{ 0.0f,1.0f,1.0f,1.0f },
+				{ 0.0f,0.0f,0.0f,1.0f },
+			}
+		};*/
+		pixelShader->UploadMat4X8(face_colors);
+
+		//std::vector<LayoutBuffer> list;
+
+		//list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
+
+
+		vertexBuf->SetLayout(list, vertexShader);
+
+		vertexBuf->SetTopology(TopologyType::Triangle_List);
+
+
 		auto e1 = m_activeScene->CreateEntity("Box1");
 
 		auto t = DirectX::XMFLOAT3(4.0f, 0.0f, 20.0f);
 
 		e1->AddComponent<TransformComponent>(t);
-		e1->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
+		e1->AddComponent<MeshComponent>(vertexShader, pixelShader, vertexBuf, indexBuf);
 	}
 
 	void EditorLayer::Panels()

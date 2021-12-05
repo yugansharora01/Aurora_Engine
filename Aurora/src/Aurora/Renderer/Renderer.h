@@ -4,6 +4,44 @@
 
 namespace Aurora {
 
+	class RenderQueue
+	{
+		struct Binds
+		{
+		public:
+			Ref<VertexShader> vShader;
+			Ref<PixelShader> pShader;
+			Ref<VertexBuffer> vBuffer;
+			Ref<IndexBuffer> iBuffer;
+
+			Binds(
+				Ref<VertexShader> VertexShader,
+				Ref<PixelShader> PixelShader,
+				Ref<VertexBuffer> VertexBuffer,
+				Ref<IndexBuffer> IndexBuffer
+			)
+				:vShader(VertexShader), pShader(PixelShader), vBuffer(VertexBuffer), iBuffer(IndexBuffer)
+			{
+
+			}
+		};
+	public:
+
+		std::vector<Binds> Queue;
+
+	public:
+		RenderQueue() = default;
+		void Submit(
+			Ref<VertexShader> vShader,
+			Ref<PixelShader> pShader,
+			Ref<VertexBuffer> vBuffer,
+			Ref<IndexBuffer> iBuffer
+		);
+
+		void bind() {}
+	};
+	
+
 	class Renderer
 	{
 	public:
@@ -19,29 +57,9 @@ namespace Aurora {
 		);
 	private:
 		static unsigned int count;
+		static RenderQueue m_queue;
 	};
 
-	struct RenderQueue
-	{
-	public:
-		struct Binds
-		{
-			Ref<VertexShader> vShader;
-			Ref<PixelShader> pShader;
-			Ref<VertexBuffer> vBuffer;
-			Ref<IndexBuffer> iBuffer;
-
-			Binds(
-				Ref<VertexShader> vShader,
-				Ref<PixelShader> pShader,
-				Ref<VertexBuffer> vBuffer,
-				Ref<IndexBuffer> iBuffer
-			)
-			{
-
-			}
-		};
-		std::vector<Binds> Queue;
-	};
+	
 
 }
