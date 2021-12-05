@@ -21,6 +21,3 @@
 #include <assert.h>
 
 #include "Aurora/Core.h"
-
-
-#include "glm/glm.hpp"

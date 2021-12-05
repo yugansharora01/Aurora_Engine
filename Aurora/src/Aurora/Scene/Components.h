@@ -1,7 +1,7 @@
 #pragma once
 #include "ECS.h"
 #include "Aurora/Renderer/BindableBase.h"
-#include <glm/glm.hpp>
+#include <DirectXMath.h>
 
 namespace Aurora {
 	class TagComponent : public Component
@@ -21,21 +21,33 @@ namespace Aurora {
 	class TransformComponent : public Component
 	{
 	public:
-		glm::vec3 transform;
-		glm::vec3 rotation;
-		glm::vec3 scale;
+		DirectX::XMFLOAT3 transform;
+		DirectX::XMFLOAT3 rotation;
+		DirectX::XMFLOAT3 scale;
 	public:
 		TransformComponent()
 		{
-			transform = glm::vec3({ -4.0f,0.0f,20.0f });
-			rotation = glm::vec3({ 0.0f,0.0f,0.0f });
-			scale = glm::vec3({ 1.0f,1.0f,1.0f });
+			transform = DirectX::XMFLOAT3( -4.0f,0.0f,20.0f );
+			rotation = DirectX::XMFLOAT3( 0.0f,0.0f,0.0f );
+			scale = DirectX::XMFLOAT3( 1.0f,1.0f,1.0f );
 		}
+
 		TransformComponent(const TransformComponent&) = default;
-		TransformComponent(glm::vec3 Transform, glm::vec3 Rotation, glm::vec3 Scale)
+
+		TransformComponent(DirectX::XMFLOAT3 Transform)
+			:transform(Transform) 
+		{
+			rotation = DirectX::XMFLOAT3();
+			scale = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+		}
+
+		TransformComponent(DirectX::XMFLOAT3 Transform, DirectX::XMFLOAT3 Rotation, DirectX::XMFLOAT3 Scale)
 			:transform(Transform), rotation(Rotation), scale(Scale) {}
+
 		~TransformComponent() {}
+
 		virtual void OnComponentAdd() override {}
+
 		virtual void update() override {}
 	};
 

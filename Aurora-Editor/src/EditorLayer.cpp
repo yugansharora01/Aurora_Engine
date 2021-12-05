@@ -56,10 +56,12 @@ namespace Aurora {
 		e->AddComponent<TransformComponent>();
 		e->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
 
-		auto e = m_activeScene->CreateEntity("Box");
+		auto e1 = m_activeScene->CreateEntity("Box1");
 
-		e->AddComponent<TransformComponent>();
-		e->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
+		auto t = DirectX::XMFLOAT3(4.0f, 0.0f, 20.0f);
+
+		e1->AddComponent<TransformComponent>(t);
+		e1->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
 	}
 
 	void EditorLayer::Panels()

@@ -2,7 +2,6 @@
 #include <Aurora.h>
 #include "Aurora/Layer.h"
 
-#include <glm/glm.hpp>
 #include <DirectXMath.h>
 
 #include "Panels/SceneHierarchyPanel.h"
@@ -22,7 +21,7 @@ namespace Aurora {
 		void Panels();
 	private:
 
-		glm::vec2 m_ViewportSize;
+		DirectX::XMFLOAT2 m_ViewportSize;
 		Ref<FrameBuffer> fBuffer;
 
 		Ref<Scene> m_activeScene;

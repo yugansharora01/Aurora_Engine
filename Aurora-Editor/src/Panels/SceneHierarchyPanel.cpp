@@ -11,6 +11,8 @@ namespace Aurora {
 	SceneHierarchyPanel::~SceneHierarchyPanel()
 	{
 	}
+
+
 	void SceneHierarchyPanel::OnImGuiRender()
 	{
 		auto entities = m_scene->registry->GetList();
@@ -23,7 +25,15 @@ namespace Aurora {
 		}
 
 		ImGui::End();
+
+		ImGui::Begin("Properties");
+
+		
+
+		ImGui::End();
 	}
+
+
 	void SceneHierarchyPanel::DrawEntityNode(Ref<Entity> entity)
 	{
 		auto& tag = entity->GetComponent<TagComponent>()->tag;

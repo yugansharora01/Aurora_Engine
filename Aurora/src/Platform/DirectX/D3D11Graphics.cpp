@@ -23,7 +23,6 @@ namespace dx = DirectX;
 
 namespace Aurora {
 
-    glm::mat4 D3D11Graphics::projection = glm::imat4x4();
 
     D3D11Graphics::D3D11Graphics(HWND hWnd)
     {
@@ -156,15 +155,6 @@ namespace Aurora {
         GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
     }
 
-    void D3D11Graphics::SetProjection(glm::mat4 proj) noexcept
-    {
-        projection = proj;
-    }
-
-    glm::mat4 D3D11Graphics::GetProjection() noexcept
-    {
-        return projection;
-    }
 
     void D3D11Graphics::SetViewPort(unsigned int width, unsigned int height)
     {
@@ -184,11 +174,6 @@ namespace Aurora {
     void Aurora::D3D11Graphics::RenderToTex()
     {
         
-    }
-
-    void Aurora::D3D11Graphics::SetHandle(HWND hWnd)
-    {
-        //LOL
     }
 
 

@@ -74,12 +74,9 @@ namespace Aurora {
         virtual void EndFrame() override;
         virtual void ClearBuffer(float red, float green, float blue) noexcept override;
         virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT override;
-        virtual void SetProjection(glm::mat4 proj) noexcept override;
-        static glm::mat4 GetProjection() noexcept;
         virtual void SetViewPort(unsigned int width, unsigned int height) override;
         virtual void RenderToTex() override;
 
-        void SetHandle(HWND hwnd);
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
         inline Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwap() { return pSwap; }
@@ -87,8 +84,6 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() { return pDSV; }
         inline DxgiInfoManager& GetInfoManager() { return infoManager; }
 
-    private:
-        static glm::mat4 projection;
 
     private:
 #ifndef AU_RELEASE

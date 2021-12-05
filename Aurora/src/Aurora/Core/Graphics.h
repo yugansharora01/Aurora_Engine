@@ -1,5 +1,4 @@
 #pragma once
-#include <glm/glm.hpp>
 
 
 namespace Aurora {
@@ -17,7 +16,6 @@ namespace Aurora {
 		virtual void EndFrame() = 0;
 		virtual void ClearBuffer(float red, float green, float blue) noexcept = 0;
 		virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT = 0;
-		virtual void SetProjection(glm::mat4 proj) noexcept = 0;
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
 		virtual void RenderToTex() = 0;
 

@@ -21,4 +21,27 @@ namespace Aurora {
 		static unsigned int count;
 	};
 
+	struct RenderQueue
+	{
+	public:
+		struct Binds
+		{
+			Ref<VertexShader> vShader;
+			Ref<PixelShader> pShader;
+			Ref<VertexBuffer> vBuffer;
+			Ref<IndexBuffer> iBuffer;
+
+			Binds(
+				Ref<VertexShader> vShader,
+				Ref<PixelShader> pShader,
+				Ref<VertexBuffer> vBuffer,
+				Ref<IndexBuffer> iBuffer
+			)
+			{
+
+			}
+		};
+		std::vector<Binds> Queue;
+	};
+
 }
