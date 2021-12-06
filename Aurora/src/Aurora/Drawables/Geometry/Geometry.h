@@ -4,3 +4,8 @@
 #include "Plane.h"
 #include "Prism.h"
 #include "Sphere.h"
+
+namespace Aurora
+{
+	
+}

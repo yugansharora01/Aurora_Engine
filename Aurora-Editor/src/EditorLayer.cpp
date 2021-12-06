@@ -9,93 +9,17 @@ namespace Aurora {
 
 	EditorLayer::EditorLayer()
 	{
-		
 		m_sceneHeirarchyPanel = CreateRef<SceneHierarchyPanel>();
-		DirectX::XMFLOAT3 pos;
-
-		const auto model = Cube::Make<DirectX::XMFLOAT3>();
-
-		vBuf = VertexBuffer::Create(model.vertices);
-
-		vShader = VertexShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
-
-		pShader = PixelShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
-
-		iBuf = IndexBuffer::Create(model.indices);
-
-		std::array<DirectX::XMFLOAT4, 8> face_colors =
-		{
-			{
-				{ 1.0f,1.0f,1.0f,1.0f },
-				{ 1.0f,0.0f,0.0f,1.0f },
-				{ 0.0f,1.0f,0.0f,1.0f },
-				{ 1.0f,1.0f,0.0f,1.0f },
-				{ 0.0f,0.0f,1.0f,1.0f },
-				{ 1.0f,0.0f,1.0f,1.0f },
-				{ 0.0f,1.0f,1.0f,1.0f },
-				{ 0.0f,0.0f,0.0f,1.0f },
-			}
-		};
-		pShader->UploadMat4X8(face_colors);
-
-		std::vector<LayoutBuffer> list;
-
-		list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
-
-
-		vBuf->SetLayout(list, vShader);
-
-		vBuf->SetTopology(TopologyType::Triangle_List);
-
-
 
 		m_activeScene = CreateRef<Scene>();
 
-		auto e = m_activeScene->CreateEntity("Box");
+		std::wstring vShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
+		std::wstring pShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
+
+		/*auto e = m_activeScene->CreateEntity("Box");
 
 		e->AddComponent<TransformComponent>();
 		e->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
-
-
-		Ref<VertexBuffer> vertexBuf;
-		Ref<VertexShader> vertexShader;
-		Ref<PixelShader> pixelShader;
-		Ref<IndexBuffer> indexBuf;
-
-		//const auto model1 = Cube::Make<DirectX::XMFLOAT3>();
-
-		vertexBuf = VertexBuffer::Create(model.vertices);
-
-		vertexShader = VertexShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
-
-		pixelShader = PixelShader::Create(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
-
-		indexBuf = IndexBuffer::Create(model.indices);
-
-		/*std::array<DirectX::XMFLOAT4, 8> face_colors1 =
-		{
-			{
-				{ 1.0f,1.0f,1.0f,1.0f },
-				{ 1.0f,0.0f,0.0f,1.0f },
-				{ 0.0f,1.0f,0.0f,1.0f },
-				{ 1.0f,1.0f,0.0f,1.0f },
-				{ 0.0f,0.0f,1.0f,1.0f },
-				{ 1.0f,0.0f,1.0f,1.0f },
-				{ 0.0f,1.0f,1.0f,1.0f },
-				{ 0.0f,0.0f,0.0f,1.0f },
-			}
-		};*/
-		pixelShader->UploadMat4X8(face_colors);
-
-		//std::vector<LayoutBuffer> list;
-
-		//list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
-
-
-		vertexBuf->SetLayout(list, vertexShader);
-
-		vertexBuf->SetTopology(TopologyType::Triangle_List);
-
 
 		auto e1 = m_activeScene->CreateEntity("Box1");
 
@@ -103,6 +27,16 @@ namespace Aurora {
 
 		e1->AddComponent<TransformComponent>(t);
 		e1->AddComponent<MeshComponent>(vertexShader, pixelShader, vertexBuf, indexBuf);
+		*/
+		auto cube = Cube::Get(vShaderpath,pShaderpath );
+
+		auto e2 = m_activeScene->CreateEntity("Box1");
+
+		auto t1 = DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f);
+
+		e2->AddComponent<TransformComponent>(t1);
+		e2->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
+
 	}
 
 	void EditorLayer::Panels()
@@ -113,17 +47,6 @@ namespace Aurora {
 		m_sceneHeirarchyPanel->SetScene(m_activeScene);
 		m_sceneHeirarchyPanel->OnImGuiRender();
 
-		ImGui::Begin("box");
-
-		ImGui::SliderFloat("x", &e->transform.x, -100.0f, 100.0f);
-		ImGui::SliderFloat("y", &e->transform.y, -100.0f, 100.0f);
-		ImGui::SliderFloat("z", &e->transform.z, -100.0f, 100.0f);
-
-		ImGui::SliderFloat("x-axis", &e->rotation.x, -3.14f, 3.14f);
-		ImGui::SliderFloat("y-axis", &e->rotation.y, -3.14f, 3.14f);
-		ImGui::SliderFloat("z-axis", &e->rotation.z, -3.14f, 3.14f);
-
-		ImGui::End();
 
 		//-------------------------------------------------
 

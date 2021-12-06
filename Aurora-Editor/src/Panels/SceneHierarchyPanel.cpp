@@ -28,7 +28,8 @@ namespace Aurora {
 
 		ImGui::Begin("Properties");
 
-		
+		if (m_selectedEntity)
+			DrawComponents(m_selectedEntity);
 
 		ImGui::End();
 	}
@@ -42,38 +43,54 @@ namespace Aurora {
 
 		bool opened = ImGui::TreeNodeEx((void*)(uint32_t)*entity, flags, tag.c_str());
 
+		if (ImGui::IsItemClicked())
+		{
+			m_selectedEntity = entity;
+		}
+
+		bool EntityDeleted = false;
+		if (ImGui::BeginPopupContextItem())
+		{
+			if (ImGui::MenuItem("Delete Entity"))
+				EntityDeleted = true;
+
+			ImGui::EndPopup();
+		}
+
 		if (opened)
 		{
 			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 
 			bool opened = ImGui::TreeNodeEx((void*)1234, flags, tag.c_str());
 
-			if (ImGui::IsItemClicked())
-			{
-				m_selectedEntity = entity;
-			}
-
-			bool EntityDeleted = false;
-			if (ImGui::BeginPopupContextItem())
-			{
-				if (ImGui::MenuItem("Delete Entity"))
-					EntityDeleted = true;
-
-				ImGui::EndPopup();
-			}
-
 			if (opened)
 				ImGui::TreePop();
 
 			ImGui::TreePop();
-
-			if (EntityDeleted)
-			{
-				m_scene->DestroyEntity(entity);
-				if (m_selectedEntity == entity)
-					m_selectedEntity = {};
-			}
 		}
 
+		if (EntityDeleted)
+		{
+			m_scene->DestroyEntity(entity);
+			if (m_selectedEntity == entity)
+				m_selectedEntity = {};
+		}
+
+	}
+
+	void SceneHierarchyPanel::DrawComponents(Ref<Entity> entity)
+	{
+		if (entity->HasComponent<TagComponent>())
+		{
+			auto& tag = entity->GetComponent<TagComponent>()->tag;
+			char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			std::strncpy(buffer, tag.c_str(), sizeof(buffer));
+
+			if (ImGui::InputText("##Tag", buffer, sizeof(buffer)))
+			{
+				tag = std::string(buffer);
+			}
+		}
 	}
 }

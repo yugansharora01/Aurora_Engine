@@ -2,7 +2,6 @@
 #include <Aurora.h>
 #include <Aurora/EntryPoint.h>
 #include "EditorLayer.h"
-#include "Example.h"
 
 namespace Aurora {
 
@@ -14,7 +13,6 @@ namespace Aurora {
 		{
 			try {
 				PushLayer(new EditorLayer());
-				//PushLayer(new ExampleLayer());
 
 			}
 			catch (const Aurora::AuroraException& e)
