@@ -90,15 +90,25 @@ namespace Aurora {
 
 		static BindableList Get(std::wstring vShaderPath, std::wstring pShaderPath)
 		{
+			BindableList b;
+
 			const auto model = Cube::Make<DirectX::XMFLOAT3>();
 
-			Ref<VertexBuffer> vBuf = VertexBuffer::Create(model.vertices);
+			std::vector<VertexData> container;
 
-			Ref<VertexShader> vShader = VertexShader::Create(vShaderPath);
+			for (int i = 0; i < model.vertices.size(); i++)
+			{
+				container.emplace_back();
+				container[i].pos = model.vertices[i];
+			}
 
-			Ref<PixelShader> pShader = PixelShader::Create(pShaderPath);
+			b.vBuffer = VertexBuffer::Create(container);
 
-			Ref<IndexBuffer> iBuf = IndexBuffer::Create(model.indices);
+			b.vShader = VertexShader::Create(vShaderPath);
+
+			b.pShader = PixelShader::Create(pShaderPath);
+
+			b.iBuffer = IndexBuffer::Create(model.indices);
 
 			std::array<DirectX::XMFLOAT4, 8> face_colors =
 			{
@@ -113,18 +123,17 @@ namespace Aurora {
 					{ 0.0f,0.0f,0.0f,1.0f },
 				}
 			};
-			pShader->UploadMat4X8(face_colors);
+			b.pShader->UploadMat4X8(face_colors);
 
 			std::vector<LayoutBuffer> list;
 
 			list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
+			list.emplace_back("Color", 12, ShaderDataType::Unorm, false, 8);
 
+			b.vBuffer->SetLayout(list, b.vShader);
 
-			vBuf->SetLayout(list, vShader);
+			b.vBuffer->SetTopology(TopologyType::Triangle_List);
 
-			vBuf->SetTopology(TopologyType::Triangle_List);
-
-			BindableList b(vShader, pShader, vBuf, iBuf);
 			return b;
 		}
 	};

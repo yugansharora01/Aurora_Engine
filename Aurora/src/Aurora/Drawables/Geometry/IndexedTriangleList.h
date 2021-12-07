@@ -13,6 +13,8 @@ namespace Aurora {
 		Ref<VertexBuffer> vBuffer;
 		Ref<IndexBuffer> iBuffer;
 
+		BindableList() = default;
+
 		BindableList(
 			Ref<VertexShader> VertexShader,
 			Ref<PixelShader> PixelShader,

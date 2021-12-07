@@ -112,6 +112,13 @@ namespace Aurora {
 				case 32: return DXGI_FORMAT_R32G32B32A32_SINT;
 				}
 				break;
+			case ShaderDataType::Unorm:
+				switch (lay.NumberOfBits)
+				{
+				case 8:  return DXGI_FORMAT_R8G8B8A8_UNORM;
+				case 16: return DXGI_FORMAT_R16G16B16A16_UNORM;
+				}
+				break;
 			default: 
 				switch (lay.NumberOfBits)
 				{
@@ -129,11 +136,12 @@ namespace Aurora {
 		std::vector<D3D11_INPUT_ELEMENT_DESC> layoutdesc;
 		int i = 0;
 		//for (auto Layout : layout)
-		
-			D3D11_INPUT_ELEMENT_DESC desc = { layout[0].name.c_str(),0,GetFormat(layout[0]),0,layout[0].offset,D3D11_INPUT_PER_VERTEX_DATA ,0 };
+		for (auto i = 0; i < layout.size(); i++)
+		{
+			D3D11_INPUT_ELEMENT_DESC desc = { layout[i].name.c_str(),0,GetFormat(layout[i]),0,layout[i].offset,D3D11_INPUT_PER_VERTEX_DATA ,0 };
 			layoutdesc.push_back(desc);
-			i++;
 		
+		}
 		return layoutdesc;
 	}
 
@@ -143,10 +151,6 @@ namespace Aurora {
 	{
 
 		auto layoutdesc = GetLayoutDesc(layout);
-		std::vector<D3D11_INPUT_ELEMENT_DESC> lay;
-		D3D11_INPUT_ELEMENT_DESC i = { "Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 };
-		
-		lay.push_back(i);
 		
 		
 		INFOMAN;

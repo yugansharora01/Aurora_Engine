@@ -23,7 +23,8 @@ namespace Aurora {
 	void D3D11PixelShader::Bind()
 	{
 		Getgfx()->GetContext()->PSSetShader(pPixelShader.Get(), nullptr, 0u);
-		pConst->Bind();
+		if(pConst)
+			pConst->Bind();
 	}
 	
 	void D3D11PixelShader::UploadFloat2(DirectX::XMFLOAT2 val)

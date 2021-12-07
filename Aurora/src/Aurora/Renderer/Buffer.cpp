@@ -9,7 +9,7 @@
 
 namespace Aurora {
 	
-	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const std::vector<DirectX::XMFLOAT3>& vertices)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const std::vector<VertexData>& vertices)
 	{
 		switch (RendererAPI::GetAPI())
 		{

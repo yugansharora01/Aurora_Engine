@@ -5,9 +5,26 @@
 
 namespace Aurora
 {
+
+	struct VertexData
+	{
+		DirectX::XMFLOAT3 pos;
+		struct Color{
+			unsigned int r;
+			unsigned int g;
+			unsigned int b;
+			unsigned int a;
+
+			Color() = default;
+			Color(unsigned int r,unsigned int g,unsigned int b,	unsigned int a = 255)
+				:r(r),g(g),b(b),a(a){}
+		}color;
+		VertexData() = default;
+	};
+
 	enum class ShaderDataType
 	{
-		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Uint, Uint2, Uint3, Uint4, Sint, Sint2, Sint3, Sint4, Bool
+		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Uint, Uint2, Uint3, Uint4, Sint, Sint2, Sint3, Sint4, Bool,Unorm
 	};
 
 	struct LayoutBuffer
@@ -42,7 +59,7 @@ namespace Aurora
 		virtual void SetLayout(std::vector<LayoutBuffer> layout,std::shared_ptr<class VertexShader> vShader) = 0;
 		virtual void SetTopology(TopologyType type) = 0;
 		static std::shared_ptr<VertexBuffer> Create(
-			const std::vector<DirectX::XMFLOAT3>& vertices);
+			const std::vector<VertexData>& vertices);
 		
 	};
 

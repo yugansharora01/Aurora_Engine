@@ -22,12 +22,12 @@ namespace Aurora {
 			// near center
 			std::vector<V> vertices;
 			vertices.emplace_back();
-			vertices.back().pos = { 0.0f,0.0f,-1.0f };
+			vertices.back() = { 0.0f,0.0f,-1.0f };
 			const auto iCenterNear = (unsigned short)(vertices.size() - 1);
 
 			//far center
 			vertices.emplace_back();
-			vertices.back().pos = { 0.0f,0.0f,1.0f };
+			vertices.back() = { 0.0f,0.0f,1.0f };
 			const auto iCenterFar = (unsigned short)(vertices.size() - 1);
 
 			//base vertices
@@ -50,7 +50,7 @@ namespace Aurora {
 						dx::XMMatrixRotationZ(longitudeAngle * iLong)
 					);
 					v = dx::XMVectorAdd(v, offset);
-					dx::XMStoreFloat3(&vertices.back().pos, v);
+					dx::XMStoreFloat3(&vertices.back(), v);
 				}
 			}
 
@@ -85,6 +85,65 @@ namespace Aurora {
 		static IndexedTriangleList<V> Make()
 		{
 			return MakeTesselated<V>(24);
+		}
+
+		static BindableList Get(std::wstring vShaderPath, std::wstring pShaderPath,int faces)
+		{
+			BindableList b;
+
+
+			const auto model = Prism::MakeTesselated<DirectX::XMFLOAT3>(faces);
+
+			
+
+			std::vector<VertexData> container;
+
+			for (int i = 0; i < model.vertices.size(); i++)
+			{
+				container.emplace_back();
+				container[i].pos = model.vertices[i];
+			}
+
+			container[0].color = { 255,255,0 };
+			container[1].color = { 255,255,0 };
+			container[2].color = { 255,255,0 };
+			container[3].color = { 255,255,0 };
+			container[4].color = { 255,255,80 };
+			container[5].color = { 255,10,0 };
+
+			b.vBuffer = VertexBuffer::Create(container);
+
+			b.vShader = VertexShader::Create(vShaderPath);
+
+			b.pShader = PixelShader::Create(pShaderPath);
+
+			b.iBuffer = IndexBuffer::Create(model.indices);
+
+			/*std::array<DirectX::XMFLOAT4, 8> face_colors =
+			{
+				{
+					{ 1.0f,1.0f,1.0f,1.0f },
+					{ 1.0f,0.0f,0.0f,1.0f },
+					{ 0.0f,1.0f,0.0f,1.0f },
+					{ 1.0f,1.0f,0.0f,1.0f },
+					{ 0.0f,0.0f,1.0f,1.0f },
+					{ 1.0f,0.0f,1.0f,1.0f },
+					{ 0.0f,1.0f,1.0f,1.0f },
+					{ 0.0f,0.0f,0.0f,1.0f },
+				}
+			};
+			b.pShader->UploadMat4X8(face_colors);*/
+
+			std::vector<LayoutBuffer> list;
+
+			list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
+			list.emplace_back("Color", 12, ShaderDataType::Unorm, false, 8);
+
+			b.vBuffer->SetLayout(list, b.vShader);
+
+			b.vBuffer->SetTopology(TopologyType::Triangle_List);
+
+			return b;
 		}
 	};
 }

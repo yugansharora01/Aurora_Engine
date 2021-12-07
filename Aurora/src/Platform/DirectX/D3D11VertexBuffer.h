@@ -11,7 +11,7 @@ namespace Aurora {
 	class D3D11VertexBuffer : public VertexBuffer , public Bindables
 	{
 	public:
-		D3D11VertexBuffer(const std::vector<DirectX::XMFLOAT3>& vertices);
+		D3D11VertexBuffer(const std::vector<VertexData>& vertices);
 		
 		void Bind() ;
 		void Unbind() {}

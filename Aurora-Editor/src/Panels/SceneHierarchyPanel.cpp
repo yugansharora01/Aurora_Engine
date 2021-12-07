@@ -92,5 +92,20 @@ namespace Aurora {
 				tag = std::string(buffer);
 			}
 		}
+
+		if (entity->HasComponent<TransformComponent>())
+		{
+			auto c = entity->GetComponent<TransformComponent>();
+
+			ImGui::Text("Transform");
+			ImGui::DragFloat("##X", &c->transform.x, 0.1f, -50.0f, 50.0f, "%.2f");
+			ImGui::DragFloat("##Y", &c->transform.y, 0.1f, -50.0f, 50.0f, "%.2f");
+			ImGui::DragFloat("##Z", &c->transform.z, 0.1f, -50.0f, 50.0f, "%.2f");
+
+			ImGui::Text("Rotation");
+			ImGui::DragFloat("##X1", &c->rotation.x, 0.1f, -3.14f, 3.14f, "%.2f");
+			ImGui::DragFloat("##Y1", &c->rotation.y, 0.1f, -3.14f, 3.14f, "%.2f");
+			ImGui::DragFloat("##Z1", &c->rotation.z, 0.1f, -3.14f, 3.14f, "%.2f");
+		}
 	}
 }
