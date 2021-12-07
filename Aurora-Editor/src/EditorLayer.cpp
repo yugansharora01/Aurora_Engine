@@ -10,6 +10,7 @@ namespace Aurora {
 	EditorLayer::EditorLayer()
 	{
 		m_sceneHeirarchyPanel = CreateRef<SceneHierarchyPanel>();
+		m_geometryPanel = CreateRef<GeometryPanel>();
 
 		m_activeScene = CreateRef<Scene>();
 
@@ -59,11 +60,11 @@ namespace Aurora {
 	void EditorLayer::Panels()
 	{
 		
-		auto e = m_activeScene->registry->GetList()[0]->GetComponent<TransformComponent>();
-
 		m_sceneHeirarchyPanel->SetScene(m_activeScene);
 		m_sceneHeirarchyPanel->OnImGuiRender();
 
+		m_geometryPanel->SetScene(m_activeScene);
+		m_geometryPanel->OnImGuiRender();
 
 		//-------------------------------------------------
 

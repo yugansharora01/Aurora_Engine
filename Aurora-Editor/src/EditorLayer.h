@@ -5,6 +5,7 @@
 #include <DirectXMath.h>
 
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/GeometryPanel.h"
 
 #include "imgui.h"
 
@@ -28,12 +29,7 @@ namespace Aurora {
 
 		Ref<SceneHierarchyPanel> m_sceneHeirarchyPanel;
 
-		std::shared_ptr<VertexBuffer> vBuf;
-		std::shared_ptr<VertexShader> vShader;
-		std::shared_ptr<PixelShader> pShader;
-		std::shared_ptr<IndexBuffer> iBuf;
-		std::shared_ptr<EditorCamera> m_camera;
-
+		Ref<GeometryPanel> m_geometryPanel;
 
 	};
 

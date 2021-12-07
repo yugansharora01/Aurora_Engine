@@ -3,27 +3,27 @@
 #include "Aurora/Core.h"
 #include "Aurora/Scene/ECS.h"
 #include "Aurora/Scene/Scene.h"
+#include "Aurora/Drawables/Geometry/IndexedTriangleList.h"
 
-namespace Aurora {
-	class SceneHierarchyPanel
+namespace Aurora
+{
+	class GeometryPanel
 	{
 	public:
-		SceneHierarchyPanel() = default;
-		SceneHierarchyPanel(Ref<Scene> scene);
-		~SceneHierarchyPanel();
+		GeometryPanel() = default;
+		GeometryPanel(Ref<Scene> scene)
+			:m_scene(scene) {}
+		~GeometryPanel() {}
 		void SetScene(Ref<Scene> scene) { m_scene = scene; }
 
 		void OnImGuiRender();
 
-		void DrawEntityNode(Ref<Entity> entity);
-
-		void DrawComponents(Ref<Entity> entity);
+		void DrawGeometry();
 
 
 	private:
 		Ref<Scene> m_scene;
 		Ref<Entity> m_selectedEntity;
+		BindableList geometry;
 	};
-
-	
 }
