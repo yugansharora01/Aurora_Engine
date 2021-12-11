@@ -4,3 +4,6 @@
 [submodule "Aurora/vendor/imgui"]
 	path = Aurora/vendor/imgui
 	url = https://github.com/yugansharora01/imgui
+[submodule "Aurora/vendor/yaml-cpp"]
+	path = Aurora/vendor/yaml-cpp
+	url = https://github.com/yugansharora01/yaml-cpp

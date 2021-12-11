@@ -142,6 +142,9 @@
     <ClInclude Include="src\Aurora\Scene\Scene.h">
       <Filter>Aurora\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Scene\Serializer.h">
+      <Filter>Aurora\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Utils\Convertors.h">
       <Filter>Aurora\Utils</Filter>
     </ClInclude>
@@ -233,7 +236,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Aurora\Scene\Serializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -294,6 +296,9 @@
       <Filter>Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Scene\Scene.cpp">
+      <Filter>Aurora\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Scene\Serializer.cpp">
       <Filter>Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp">
@@ -363,7 +368,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Aurora\Scene\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">
