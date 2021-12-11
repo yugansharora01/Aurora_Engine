@@ -15,7 +15,7 @@ IncludeDir = {}
 
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
-IncludeDir["glm"] = "Aurora/vendor/glm"
+IncludeDir["yaml_cpp"] = "Aurora/vendor/yaml-cpp/include"
 
 project "Aurora"
 	location "Aurora"
@@ -43,12 +43,13 @@ project "Aurora"
 		"%{prj.name}/src",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
 	{
-		"ImGui"
+		"ImGui",
+		"yaml-cpp"
 	}
 
 	filter "system:windows"
@@ -187,3 +188,4 @@ project "Sandbox"
 		optimize "On"
 
 include "Aurora/vendor/imgui"
+include "Aurora/vendor/yaml-cpp"
