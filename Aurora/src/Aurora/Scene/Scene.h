@@ -12,8 +12,10 @@ namespace Aurora {
 	public:
 		Ref<Registry> registry;
 		Ref<EditorCamera> Camera;
+		std::string name;
 	public:
 		Scene();
+		Scene(std::string name);
 		Scene(Scene& other)
 		{
 			this->registry = registry;

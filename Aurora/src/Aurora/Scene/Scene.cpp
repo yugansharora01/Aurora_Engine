@@ -11,6 +11,14 @@ namespace Aurora {
 	{
 		registry = CreateRef<Registry>();
 		Camera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
+		name = "Untitled";
+	}
+
+	Scene::Scene(std::string name)
+		:name(name)
+	{
+		registry = CreateRef<Registry>();
+		Camera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
 	}
 
 	Ref<Entity> Scene::CreateEntity(std::string Name)
