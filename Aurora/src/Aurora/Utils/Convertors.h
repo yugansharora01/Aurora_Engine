@@ -3,6 +3,8 @@
 #include <locale>
 #include <codecvt>
 
-std::wstring s2ws(const std::string& str);
+namespace Aurora {
+	std::wstring s2ws(const std::string& str);
 
-std::string ws2s(const std::wstring& wstr);
+	std::string ws2s(const std::wstring& wstr);
+}

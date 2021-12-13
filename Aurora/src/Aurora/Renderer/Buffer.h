@@ -51,6 +51,10 @@ namespace Aurora
 	class VertexBuffer
 	{
 	public:
+		std::vector<LayoutBuffer> Layouts;
+		TopologyType Topologytype;
+		std::vector<VertexData> Vertexdata;
+	public:
 		virtual ~VertexBuffer() = default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;

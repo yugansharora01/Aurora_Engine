@@ -16,6 +16,21 @@ namespace Aurora
 		return out;
 	}
 
+	YAML::Emitter& operator<<(YAML::Emitter& out, const DirectX::XMFLOAT4& v)
+	{
+		out << YAML::Flow;
+		out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+		return out;
+	}
+	
+	YAML::Emitter& operator<<(YAML::Emitter& out, const std::vector<DirectX::XMFLOAT4>& v)
+	{
+		out << YAML::Flow;
+		out << YAML::BeginSeq;
+		for(auto& node : v)
+			out << node << YAML::EndSeq;
+		return out;
+	}
 
 	Serializer::Serializer(Ref<Scene> scene)
 		:m_scene(scene)
@@ -54,6 +69,49 @@ namespace Aurora
 				out << YAML::Key << "Transform" << YAML::Value << component->transform;
 				out << YAML::Key << "Rotation" << YAML::Value << component->rotation;
 				out << YAML::Key << "Scale" << YAML::Value << component->scale;
+		});
+
+		auto component = entity->GetComponent<MeshComponent>();
+		//out << YAML::Key << "Vertex Shader";
+		//out << YAML::BeginMap;
+		//out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+		//out << YAML::EndMap;
+		//out << YAML::Key << "Pixel Shader";
+		//out << YAML::BeginMap; // Pixel Shader
+		//out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+		//out << YAML::Key << "Data For Shader";
+		//out << YAML::BeginMap; //Data For Shader
+		//for (int i = 0; i < component->vShader->UploadData.size(); i++)
+		//{
+		//	out << YAML::Key << component->vShader->UploadData[i].name << YAML::Value << component->vShader->UploadData[i].data;
+		//}
+		//out << YAML::EndMap; //Data For Shader
+		//out << YAML::EndMap; // Pixel Shader
+		//out << YAML::Key << "Vertex Buffer" << YAML::Value << component->vShader->path;
+		//out << YAML::Key << "Index Buffer" << YAML::Value << component->vShader->path;
+		//
+
+		SerializeComponent<MeshComponent>(out, entity, "MeshComponent", [](auto& out, auto& component)
+		{
+				out << YAML::Key << "Vertex Shader";
+				out << YAML::BeginMap;
+				out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+				out << YAML::EndMap;
+				out << YAML::Key << "Pixel Shader";
+				out << YAML::BeginMap; // Pixel Shader
+				out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+				out << YAML::Key << "Data For Shader";
+				out << YAML::BeginMap; //Data For Shader
+				for (int i = 0; i < component->vShader->UploadData.size(); i++)
+				{
+					out << YAML::Key << component->vShader->UploadData[i].name << YAML::Value << component->vShader->UploadData[i].data;
+				}
+				out << YAML::EndMap; //Data For Shader
+				out << YAML::EndMap; // Pixel Shader
+				out << YAML::Key << "Vertex Buffer" << YAML::Value << component->vShader->path;
+				out << YAML::Key << "Index Buffer" << YAML::Value << component->vShader->path;
+
+				
 		});
 
 		out << YAML::EndMap;

@@ -5,6 +5,8 @@
 
 namespace Aurora {
 
+
+
 	D3D11PixelShader::D3D11PixelShader(const std::wstring& path)
 	{
 		INFOMAN;
@@ -59,6 +61,14 @@ namespace Aurora {
 	void D3D11PixelShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)
 	{
 		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<std::array<DirectX::XMFLOAT4, 8>>(arr);
+		pConst->Create(arr);
+
+		Data tmpdata;
+		tmpdata.name = "Unnamed Data";
+		for (int i = 0; i < arr.size(); i++)
+		{
+			tmpdata.data.push_back(arr[i]);
+		}
+		UploadData.push_back(tmpdata);
 	}
 }

@@ -7,17 +7,44 @@ Entities:
       Transform: [2, 0, 20]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    MeshComponent:
+      Vertex Shader:
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+      Pixel Shader:
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Data For Shader:
+          {}
+      Vertex Buffer: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+      Index Buffer: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
   - Entity: 1
     TagComponent:
       Tag: sphere1
     TransformComponent:
-      Transform: [8.89999962, 0, 12.3999996]
-      Rotation: [-3.1400001, 0, 0]
+      Transform: [0, 0, 20]
+      Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    MeshComponent:
+      Vertex Shader:
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+      Pixel Shader:
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Data For Shader:
+          {}
+      Vertex Buffer: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+      Index Buffer: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
   - Entity: 2
     TagComponent:
       Tag: plane1
     TransformComponent:
       Transform: [-4, 0, 20]
-      Rotation: [-0.460000008, -1.10000002, 0]
+      Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    MeshComponent:
+      Vertex Shader:
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+      Pixel Shader:
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Data For Shader:
+          {}
+      Vertex Buffer: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+      Index Buffer: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso

@@ -25,6 +25,7 @@ namespace Aurora {
 
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
 		
+		Vertexdata = vertices;
 	}
 
 	void D3D11VertexBuffer::Bind() 
@@ -56,13 +57,14 @@ namespace Aurora {
 
 	void D3D11VertexBuffer::SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<VertexShader> vShader)
 	{
-		//ID3DBlob* blob = std::dynamic_pointer_cast<D3D11VertexShader>(vShader)->GetBytecode();
 		m_layout = std::make_shared<D3D11InputLayout>(layout,vShader->GetBytecode());
+		Layouts = layout;
 	}
 
 	void D3D11VertexBuffer::SetTopology(TopologyType type)
 	{
 		m_topology = std::make_shared<D3D11Topology>(type);
+		Topologytype = type;
 	}
 
 

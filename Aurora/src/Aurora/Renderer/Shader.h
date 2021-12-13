@@ -6,6 +6,13 @@
 
 namespace Aurora {
 
+	struct Data
+	{
+		std::string name;
+		std::vector<DirectX::XMFLOAT4> data;
+		Data() = default;
+	};
+
 	class Shader
 	{
 	public:
@@ -22,9 +29,9 @@ namespace Aurora {
 	class PixelShader : public Shader
 	{
 	public:
-		static std::wstring path;
+		static std::string path;
 
-		std::vector<DirectX::XMFLOAT4> UploadData;
+		static std::vector<Data> UploadData;
 	public:
 		virtual ~PixelShader() = default;
 		static std::shared_ptr<PixelShader> Create(const std::wstring& path);
@@ -34,9 +41,9 @@ namespace Aurora {
 	class VertexShader : public Shader
 	{
 	public:
-		static std::wstring path;
+		static std::string path;
 
-		std::vector<DirectX::XMFLOAT4> UploadData;
+		static std::vector<Data> UploadData;
 	public:
 		virtual ~VertexShader() = default;
 

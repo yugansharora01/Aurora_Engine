@@ -146,6 +146,7 @@ namespace Aurora {
 					{ 0.0f,0.0f,0.0f,1.0f },
 				}
 			};
+
 			b.pShader->UploadMat4X8(face_colors);
 
 			std::vector<LayoutBuffer> list;
