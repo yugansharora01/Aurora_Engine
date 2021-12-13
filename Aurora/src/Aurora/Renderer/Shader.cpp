@@ -5,9 +5,13 @@
 #include "Platform/DirectX/D3D11VertexShader.h"
 
 namespace Aurora {
+
+	std::wstring PixelShader::path = L"";
+	std::wstring VertexShader::path = L"";
 	
-	std::shared_ptr<PixelShader> PixelShader::Create(const std::wstring& path)
+	std::shared_ptr<PixelShader> PixelShader::Create(const std::wstring& Path)
 	{
+		path = Path;
 		switch (RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::openGL:	AU_CORE_ASSERT(false, "RendererAPI::openGL is currently not supported!"); break;
@@ -21,8 +25,9 @@ namespace Aurora {
 		return nullptr;
 		
 	}
-	std::shared_ptr<VertexShader> VertexShader::Create(const std::wstring& path)
+	std::shared_ptr<VertexShader> VertexShader::Create(const std::wstring& Path)
 	{
+		path = Path;
 		switch (RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::openGL:	AU_CORE_ASSERT(false, "RendererAPI::openGL is currently not supported!"); break;

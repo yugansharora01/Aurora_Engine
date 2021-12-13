@@ -58,6 +58,8 @@ namespace Aurora {
 		Ref<PixelShader> pShader;
 		Ref<VertexBuffer> vBuf;
 		Ref<IndexBuffer> iBuf;
+
+		std::vector<DirectX::XMFLOAT4> colors;
 	public:
 		MeshComponent() = default;
 		MeshComponent(const MeshComponent&) = default;

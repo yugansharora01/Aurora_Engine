@@ -3,6 +3,7 @@
 #include "EditorLayer.h"
 #include "imgui.h"
 #include "Aurora/Utils/Util.h"
+#include "Aurora/Scene/Serializer.h"
 
 namespace Aurora {
 
@@ -146,6 +147,13 @@ namespace Aurora {
 			{
 				if (ImGui::BeginMenu("File"))
 				{
+					if (ImGui::MenuItem("Serialize", NULL, false, dockspaceOpen != NULL))
+					{
+						Serializer serializer(m_activeScene);
+						serializer.Serialize("assets/scene/LOL.au_scene");
+					}
+
+
 
 					if (ImGui::MenuItem("Exit", NULL, false, dockspaceOpen != NULL))
 					{
