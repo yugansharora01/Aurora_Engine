@@ -53,10 +53,13 @@ namespace Aurora {
 			auto& vBuf = entities[i]->GetComponent<MeshComponent>()->vBuf;
 			auto& iBuf = entities[i]->GetComponent<MeshComponent>()->iBuf;
 
+			vShader->UploadData.clear();
+
 			vShader->UploadMat4(DirectX::XMMatrixTranspose(
 				GetMatrix(entities[i]) * Camera->GetProjection()));
 
 			Renderer::Submit(vShader, pShader, vBuf, iBuf);
+
 		}
 		Renderer::EndScene();
 	}

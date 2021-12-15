@@ -25,10 +25,14 @@ namespace Aurora
 	
 	YAML::Emitter& operator<<(YAML::Emitter& out, const std::vector<DirectX::XMFLOAT4>& v)
 	{
-		out << YAML::Flow;
-		out << YAML::BeginSeq;
-		for(auto& node : v)
-			out << node << YAML::EndSeq;
+		std::string str;
+		out << YAML::BeginMap;
+		for (auto i = 0;i < v.size();i++)
+		{
+			str = "Row " + std::to_string(i);
+			out<<YAML::Key << str << YAML::Value << v[i];
+		}
+		out << YAML::EndMap;
 		return out;
 	}
 
@@ -59,57 +63,78 @@ namespace Aurora
 		out << YAML::BeginMap;
 		out << YAML::Key << "Entity" << YAML::Value << entity->handle;
 
-		SerializeComponent<TagComponent>(out, entity,"TagComponent", [](auto& out, auto& component)
+		SerializeComponent<TagComponent>(out, entity,"TagComponent", [](YAML::Emitter& out, Ref<TagComponent>& component)
 		{
-				out << YAML::Key << "Tag" << YAML::Value << component->tag;
+			out << YAML::Key << "Tag" << YAML::Value << component->tag;
 		});
 
-		SerializeComponent<TransformComponent>(out, entity, "TransformComponent", [](auto& out, auto& component)
+		SerializeComponent<TransformComponent>(out, entity, "TransformComponent", [](YAML::Emitter& out, Ref<TransformComponent>& component)
 		{
-				out << YAML::Key << "Transform" << YAML::Value << component->transform;
-				out << YAML::Key << "Rotation" << YAML::Value << component->rotation;
-				out << YAML::Key << "Scale" << YAML::Value << component->scale;
+			out << YAML::Key << "Transform" << YAML::Value << component->transform;
+			out << YAML::Key << "Rotation" << YAML::Value << component->rotation;
+			out << YAML::Key << "Scale" << YAML::Value << component->scale;
 		});
 
-		auto component = entity->GetComponent<MeshComponent>();
-		//out << YAML::Key << "Vertex Shader";
-		//out << YAML::BeginMap;
-		//out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
-		//out << YAML::EndMap;
-		//out << YAML::Key << "Pixel Shader";
-		//out << YAML::BeginMap; // Pixel Shader
-		//out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
-		//out << YAML::Key << "Data For Shader";
-		//out << YAML::BeginMap; //Data For Shader
-		//for (int i = 0; i < component->vShader->UploadData.size(); i++)
-		//{
-		//	out << YAML::Key << component->vShader->UploadData[i].name << YAML::Value << component->vShader->UploadData[i].data;
-		//}
-		//out << YAML::EndMap; //Data For Shader
-		//out << YAML::EndMap; // Pixel Shader
-		//out << YAML::Key << "Vertex Buffer" << YAML::Value << component->vShader->path;
-		//out << YAML::Key << "Index Buffer" << YAML::Value << component->vShader->path;
-		//
-
-		SerializeComponent<MeshComponent>(out, entity, "MeshComponent", [](auto& out, auto& component)
+		
+		SerializeComponent<MeshComponent>(out, entity, "MeshComponent", [](YAML::Emitter& out, Ref<MeshComponent>& component)
 		{
-				out << YAML::Key << "Vertex Shader";
-				out << YAML::BeginMap;
-				out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
-				out << YAML::EndMap;
-				out << YAML::Key << "Pixel Shader";
-				out << YAML::BeginMap; // Pixel Shader
-				out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
-				out << YAML::Key << "Data For Shader";
-				out << YAML::BeginMap; //Data For Shader
-				for (int i = 0; i < component->vShader->UploadData.size(); i++)
-				{
-					out << YAML::Key << component->vShader->UploadData[i].name << YAML::Value << component->vShader->UploadData[i].data;
-				}
-				out << YAML::EndMap; //Data For Shader
-				out << YAML::EndMap; // Pixel Shader
-				out << YAML::Key << "Vertex Buffer" << YAML::Value << component->vShader->path;
-				out << YAML::Key << "Index Buffer" << YAML::Value << component->vShader->path;
+			std::string str;
+
+			out << YAML::Key << "Vertex Shader";
+			out << YAML::BeginMap; //Vertex Shader
+			out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+			out << YAML::Key << "Data For Shader";
+			out << YAML::BeginMap; //Data For Shader
+			for (int i = 0; i < component->vShader->UploadData.size(); i++)
+			{
+				out << YAML::Key << component->vShader->UploadData[i].name << YAML::Value << component->vShader->UploadData[i].data;
+			}
+			out << YAML::EndMap; //Data For Shader
+			out << YAML::EndMap; //Vertex Shader
+
+			out << YAML::Key << "Pixel Shader";
+			out << YAML::BeginMap; // Pixel Shader
+			out << YAML::Key << "Path" << YAML::Value << component->pShader->path;
+			out << YAML::Key << "Data For Shader";
+			out << YAML::BeginMap; //Data For Shader
+			for (int i = 0; i < component->pShader->UploadData.size(); i++)
+			{
+				out << YAML::Key << component->pShader->UploadData[i].name << YAML::Value << component->pShader->UploadData[i].data;
+			}
+			out << YAML::EndMap; //Data For Shader
+			out << YAML::EndMap; // Pixel Shader
+
+			out << YAML::Key << "Vertex Buffer" << YAML::Value << YAML::BeginMap; // Vertex Buffer
+			out << YAML::Key << "Vertex Data" << YAML::BeginMap; // Vertex Data
+			for (auto i = 0; i < component->vBuf->Vertexdata.size(); i++)
+			{
+				str = "Vertex " + std::to_string(i);
+				out << YAML::Key << str << YAML::Value << component->vBuf->Vertexdata[i];
+			}
+			out << YAML::EndMap;  // Vertex Data
+			out << YAML::Key << "Topology" << YAML::Value << static_cast<int>(component->vBuf->Topologytype);
+			out << YAML::Key << "Layout" << YAML::Value;
+			out << YAML::BeginMap;
+			for (auto i = 0; i < component->vBuf->Layouts.size(); i++)
+			{
+				auto& layout = component->vBuf->Layouts[i];
+				str = "Layout " + std::to_string(i);
+				out << YAML::Key << str << YAML::Value << YAML::Flow;
+				out << YAML::BeginSeq << layout.name << layout.offset << static_cast<int>(layout.type) << layout.Is_Normalised << layout.NumberOfBits;
+				out << YAML::EndSeq;
+			}
+			out << YAML::EndMap;
+			out << YAML::EndMap; // Vertex Buffer
+
+			out << YAML::Key << "Index Buffer" ;
+			out << YAML::BeginMap; //index Buffer
+			out << YAML::Key << "Indices" << YAML::Flow << YAML::BeginSeq;
+			for (auto& node : component->iBuf->Indices)
+			{
+				out << node;
+			}
+			out << YAML::EndSeq;
+			out << YAML::EndMap; //index Buffer
 
 				
 		});

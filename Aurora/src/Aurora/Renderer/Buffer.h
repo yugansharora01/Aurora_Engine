@@ -2,6 +2,8 @@
 
 #include "Bindables.h"
 
+#include <yaml-cpp/yaml.h>
+
 
 namespace Aurora
 {
@@ -20,6 +22,15 @@ namespace Aurora
 				:r(r),g(g),b(b),a(a){}
 		}color;
 		VertexData() = default;
+
+		friend YAML::Emitter& operator<<(YAML::Emitter& out, const VertexData& d)
+		{
+			out << YAML::BeginMap;
+			out << YAML::Key << "Position" << YAML::Flow << YAML::BeginSeq << d.pos.x << d.pos.y << d.pos.z << YAML::EndSeq;
+			out << YAML::Key << "Color" << YAML::Flow << YAML::BeginSeq << d.color.r << d.color.g << d.color.b << d.color.a << YAML::EndSeq;
+			out << YAML::EndMap;
+			return out;
+		}
 	};
 
 	enum class ShaderDataType
@@ -69,6 +80,8 @@ namespace Aurora
 
 	class IndexBuffer
 	{
+	public:
+		std::vector<unsigned short> Indices;
 	public:
 		virtual ~IndexBuffer() = default;
 		virtual void Bind() = 0;

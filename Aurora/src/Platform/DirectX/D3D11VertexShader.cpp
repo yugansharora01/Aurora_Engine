@@ -1,15 +1,18 @@
 #include "pch.h"
 #include "D3D11VertexShader.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
+#include "Aurora/Utils/Convertors.h"
+
 #include <d3dcompiler.h>
 
 namespace Aurora {
 
-	D3D11VertexShader::D3D11VertexShader(const std::wstring& path)
+	D3D11VertexShader::D3D11VertexShader(const std::wstring& Path)
 	{
+		path = ws2s(Path);
 		INFOMAN;
 
-		GFX_THROW_INFO(D3DReadFileToBlob(path.c_str(), &pBytecodeBlob));
+		GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateVertexShader(
 			pBytecodeBlob->GetBufferPointer(),
 			pBytecodeBlob->GetBufferSize(),
@@ -45,6 +48,14 @@ namespace Aurora {
 	{
 		vConst = std::make_shared<D3D11VertexConstantBuffer>();
 		vConst->Create<DirectX::XMMATRIX>(mat4);
+		DirectX::XMFLOAT4X4 dest;
+		DirectX::XMStoreFloat4x4(&dest, mat4);
+		Data d;
+		d.name = "Unnamed Data";
+		for (int i = 0; i < 4; i++)
+			d.data.emplace_back(dest.m[i]);
+
+		UploadData.push_back(d);
 	}
 
 	void D3D11VertexShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)

@@ -8,6 +8,7 @@
 
 
 namespace Aurora {
+
 	
 	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const std::vector<VertexData>& vertices)
 	{

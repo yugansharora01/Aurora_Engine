@@ -102,7 +102,7 @@ project "Aurora-Editor"
 		"Aurora/src",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links

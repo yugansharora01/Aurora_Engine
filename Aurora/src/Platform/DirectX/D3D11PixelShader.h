@@ -12,7 +12,7 @@ namespace Aurora {
 		using Bindables::Getgfx;
 		using Bindables::GetInfoManager;
 	public:
-		D3D11PixelShader(const std::wstring& path);
+		D3D11PixelShader(const std::wstring& Path);
 		void Bind() override;
 		void Unbind() override {}
 

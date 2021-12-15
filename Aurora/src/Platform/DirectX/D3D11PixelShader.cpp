@@ -2,17 +2,19 @@
 #include "D3D11PixelShader.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 #include "d3dcompiler.h"
+#include "Aurora/Utils/Convertors.h"
 
 namespace Aurora {
 
 
 
-	D3D11PixelShader::D3D11PixelShader(const std::wstring& path)
+	D3D11PixelShader::D3D11PixelShader(const std::wstring& Path)
 	{
+		path = ws2s(Path);
 		INFOMAN;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
-		GFX_THROW_INFO(D3DReadFileToBlob(path.c_str(), &pBytecodeBlob));
+		GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
 
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreatePixelShader(
 			pBytecodeBlob->GetBufferPointer(),

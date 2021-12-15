@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>Editorpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\Aurora\src;..\Aurora\vendor\spdlog\include;..\Aurora\vendor\imgui;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\Aurora\src;..\Aurora\vendor\spdlog\include;..\Aurora\vendor\imgui;..;E:\Yash\Aurora\Aurora\vendor\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>

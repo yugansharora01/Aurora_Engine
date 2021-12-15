@@ -7,6 +7,7 @@ namespace Aurora {
     D3D11IndexBuffer::D3D11IndexBuffer(const std::vector<unsigned short>& indices)
         :count((UINT)indices.size())
     {
+        Indices = indices;
         INFOMAN;
 
         D3D11_BUFFER_DESC ibd = {};
