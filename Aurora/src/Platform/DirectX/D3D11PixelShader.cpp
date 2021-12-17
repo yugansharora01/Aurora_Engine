@@ -65,12 +65,13 @@ namespace Aurora {
 		pConst = std::make_shared<D3D11PixelConstantBuffer>();
 		pConst->Create(arr);
 
-		Data tmpdata;
-		tmpdata.name = "Unnamed Data";
+		//Data tmpdata;
+		//tmpdata.name = "Unnamed Data";
+		std::vector<DirectX::XMFLOAT4> vec;
 		for (int i = 0; i < arr.size(); i++)
 		{
-			tmpdata.data.push_back(arr[i]);
+			vec.push_back(arr[i]);
 		}
-		UploadData.push_back(tmpdata);
+		UploadData.push_back(vec);
 	}
 }

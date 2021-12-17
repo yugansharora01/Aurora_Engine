@@ -20,7 +20,7 @@ namespace Aurora {
 		{
 			this->registry = registry;
 		}
-		Ref<Entity> CreateEntity(std::string Name = "");
+		Ref<Entity> CreateEntity(std::string Name = "",EntityHandle handle = NULL);
 		void DestroyEntity(Ref<Entity> entity);
 		void Update();
 

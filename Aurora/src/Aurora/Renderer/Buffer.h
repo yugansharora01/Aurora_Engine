@@ -46,6 +46,7 @@ namespace Aurora
 		ShaderDataType type;
 		bool Is_Normalised;
 		int NumberOfBits;
+		LayoutBuffer() = default;
 		LayoutBuffer(std::string name, unsigned int offset, ShaderDataType type, bool Is_Normalised,int NumberOfBits)
 			:name(name),offset(offset),type(type),Is_Normalised(Is_Normalised),NumberOfBits(NumberOfBits){}
 	};

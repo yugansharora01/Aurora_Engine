@@ -13,7 +13,7 @@ namespace Aurora {
 		m_sceneHeirarchyPanel = CreateRef<SceneHierarchyPanel>();
 		m_geometryPanel = CreateRef<GeometryPanel>();
 
-		m_activeScene = CreateRef<Scene>();
+		m_activeScene = CreateRef<Scene>("Test Scene");
 
 		std::wstring vShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
 		std::wstring pShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
@@ -149,7 +149,14 @@ namespace Aurora {
 				if (ImGui::MenuItem("Serialize", NULL, false, dockspaceOpen != NULL))
 				{
 					Serializer serializer(m_activeScene);
-					serializer.Serialize("assets/scene/LOL.Aurora");
+					serializer.Serialize();
+				}
+				
+				if (ImGui::MenuItem("Deserialize", NULL, false, dockspaceOpen != NULL))
+				{
+					m_activeScene = CreateRef<Scene>();
+					Serializer serializer(m_activeScene);
+					serializer.Deserialize("assets/scene/Test Scene.Aurora");
 				}
 
 

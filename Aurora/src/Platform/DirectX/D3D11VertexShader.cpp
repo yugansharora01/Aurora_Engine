@@ -50,12 +50,18 @@ namespace Aurora {
 		vConst->Create<DirectX::XMMATRIX>(mat4);
 		DirectX::XMFLOAT4X4 dest;
 		DirectX::XMStoreFloat4x4(&dest, mat4);
-		Data d;
-		d.name = "Unnamed Data";
+		//Data d;
+		//d.name = "Unnamed Data";
+		std::vector<DirectX::XMFLOAT4> vec;
 		for (int i = 0; i < 4; i++)
-			d.data.emplace_back(dest.m[i]);
+		{
+			vec.emplace_back(dest.m[i]);
+		}
 
-		UploadData.push_back(d);
+		/*for (int i = 0; i < 4; i++)
+			d.data.emplace_back(dest.m[i]);*/
+
+		UploadData.push_back(vec);
 	}
 
 	void D3D11VertexShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)
