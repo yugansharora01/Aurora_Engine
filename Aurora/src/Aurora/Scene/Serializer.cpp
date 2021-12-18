@@ -300,46 +300,23 @@ namespace Aurora
 
 				if (meshComponent)
 				{
-					auto component = deserializedEntity->AddComponent<MeshComponent>();
-
+					
 					auto vetexshader = meshComponent["Vertex Shader"];
-					std::wstring path = s2ws(vetexshader["Path"].as<std::string>());
+					std::wstring path = vetexshader["Path"].as<std::wstring>();
 
 					auto vShader = VertexShader::Create(path);
 
 					auto ShaderData = vetexshader["Data for Shader"];
 
-					//int size = ShaderData["Size"].as<int>();
+					int size = ShaderData["Size"].as<int>();
 
 					auto matrixSeq = ShaderData["Data"];
 
 					std::vector<DirectX::XMVECTOR> DataTOPass;
 
-					for (int i = 0;i < 4; i++)
+					for (int i = 0;i < size; i++)
 					{
-						//auto rows = matrixSeq[0];
-						//while (!rows[i].IsSequence())
-						//{
-						//	
-						//	switch (rows.Type())
-						//	{
-						//		case YAML::NodeType::Null: // ...
-						//			std::cout << "NULL";
-						//			break;
-						//		case YAML::NodeType::Scalar: // ...
-						//			std::cout << "Scalar";
-						//			break;
-						//		case YAML::NodeType::Sequence: // ...
-						//			std::cout << "Sequence";
-						//			break;
-						//		case YAML::NodeType::Map: // ...
-						//			std::cout << "Map";
-						//			break;
-						//		case YAML::NodeType::Undefined: // ...
-						//			std::cout << "Undefined";
-						//			break;
-						//	}
-						//}
+						
 						DirectX::XMFLOAT4 temp = matrixSeq[i].as<DirectX::XMFLOAT4>();
 						DataTOPass.push_back(DirectX::XMLoadFloat4(&temp));
 					}
@@ -356,13 +333,13 @@ namespace Aurora
 
 					ShaderData = pixelshader["Data for Shader"];
 
-					//size = ShaderData["Size"].as<int>();
+					size = ShaderData["Size"].as<int>();
 
 					matrixSeq = ShaderData["Data"];
 
 					std::array<DirectX::XMFLOAT4,8> Mat;
 
-					for (int i = 0; i < 8; i++)
+					for (int i = 0; i < size; i++)
 					{
 						Mat[i] = matrixSeq[i].as<DirectX::XMFLOAT4>();
 					}
@@ -374,13 +351,11 @@ namespace Aurora
 
 					std::vector<VertexData> vertices;
 
-					for (auto vertex : vertexdata)
+					for (auto i = 0;i <  vertexdata.size();i++)
 					{
-						VertexData d;
-						/// Got till here
-						// wstring in vshader
-						// Size wth
-						d.pos = vertex["Position"].as<DirectX::XMFLOAT3>();
+						VertexData d;						
+
+						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
 						vertices.push_back(d);
 					}
 
@@ -390,8 +365,9 @@ namespace Aurora
 
 					auto layout = vertexbuffer["Layout"];
 					std::vector<LayoutBuffer> layouts;
-					for (auto lay : layout)
+					for (auto i = 0;i < layout.size();i++)
 					{
+						auto lay = layout[i];
 						LayoutBuffer l;
 						l.name =  lay[0].as<std::string>();
 						l.offset =  lay[1].as<unsigned int>();
@@ -417,6 +393,8 @@ namespace Aurora
 					}
 
 					auto iBuf = IndexBuffer::Create(Indices);
+
+					auto component = deserializedEntity->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
 
 				}
 			}

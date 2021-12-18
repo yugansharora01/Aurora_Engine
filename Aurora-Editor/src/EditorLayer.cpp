@@ -146,21 +146,27 @@ namespace Aurora {
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				if (ImGui::MenuItem("Serialize", NULL, false, dockspaceOpen != NULL))
+
+				if (ImGui::MenuItem("New", NULL, false, dockspaceOpen != NULL))
 				{
-					Serializer serializer(m_activeScene);
-					serializer.Serialize();
+					m_activeScene = CreateRef<Scene>();
+					
 				}
-				
-				if (ImGui::MenuItem("Deserialize", NULL, false, dockspaceOpen != NULL))
+
+				if (ImGui::MenuItem("Open", NULL, false, dockspaceOpen != NULL))
 				{
 					m_activeScene = CreateRef<Scene>();
 					Serializer serializer(m_activeScene);
 					serializer.Deserialize("assets/scene/Test Scene.Aurora");
 				}
 
-
-
+				if (ImGui::MenuItem("Save", NULL, false, dockspaceOpen != NULL))
+				{
+					Serializer serializer(m_activeScene);
+					serializer.Serialize();
+				}
+				
+				
 				if (ImGui::MenuItem("Exit", NULL, false, dockspaceOpen != NULL))
 				{
 					Application::Get().Close();
