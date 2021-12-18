@@ -112,7 +112,11 @@ namespace Aurora {
         m_finalWidth = wr.right - wr.left;
         m_finalHeight = wr.bottom - wr.top;
 
-        hWnd = CreateWindowA(WindowClass::GetName(), name, WS_SIZEBOX| WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+        /*hWnd = CreateWindow(WindowClass::GetName(), name, WS_SIZEBOX| WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+            CW_USEDEFAULT, CW_USEDEFAULT, m_finalWidth, m_finalHeight,
+            nullptr, nullptr, WindowClass::GetInstance(), this);*/
+
+        hWnd = CreateWindowEx(0,WindowClass::GetName(), name, WS_SIZEBOX | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
             CW_USEDEFAULT, CW_USEDEFAULT, m_finalWidth, m_finalHeight,
             nullptr, nullptr, WindowClass::GetInstance(), this);
 

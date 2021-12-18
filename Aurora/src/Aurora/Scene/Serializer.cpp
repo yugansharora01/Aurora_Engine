@@ -356,6 +356,7 @@ namespace Aurora
 						VertexData d;						
 
 						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
+						d.color = VertexData::Color(0, 0, 0, 0);
 						vertices.push_back(d);
 					}
 

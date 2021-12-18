@@ -25,6 +25,7 @@ namespace Aurora {
 
 		static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		inline std::shared_ptr<Window> GetWindowptr() { return m_Window; }
 
 	private:
 		std::shared_ptr<Window> m_Window;

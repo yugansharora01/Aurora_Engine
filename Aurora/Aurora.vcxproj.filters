@@ -148,9 +148,6 @@
     <ClInclude Include="src\Aurora\Utils\Convertors.h">
       <Filter>Aurora\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Utils\Util.h">
-      <Filter>Aurora\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\Aurora\Window.h">
       <Filter>Aurora</Filter>
     </ClInclude>
@@ -220,7 +217,7 @@
     <ClInclude Include="src\Platform\Windows\Mouse.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Windows\Utility.h">
+    <ClInclude Include="src\Platform\Windows\WindowsUtility.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\Win32_Window.h">
@@ -236,6 +233,7 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Aurora\Utils\PlatformUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -304,9 +302,6 @@
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp">
       <Filter>Aurora\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Utils\Util.cpp">
-      <Filter>Aurora\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp">
       <Filter>Platform\DirectX</Filter>
     </ClCompile>
@@ -355,7 +350,7 @@
     <ClCompile Include="src\Platform\Windows\Mouse.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\Utility.cpp">
+    <ClCompile Include="src\Platform\Windows\WindowsUtility.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp">

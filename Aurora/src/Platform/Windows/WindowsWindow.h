@@ -23,11 +23,11 @@ namespace Aurora {
 		}
 		virtual void SetVSync(bool enabled) override;
 		virtual bool IsVSync() const override;
-		virtual void* GetNativeWindowPtr() override { return m_Window; }
 		virtual void SetViewPort(unsigned int width,unsigned int height) override;
 		virtual void makeGraphics() override;
 		virtual Graphics* Gfx() override;
 
+		Win32_Window* GetWin32WindowPtr() { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Close();

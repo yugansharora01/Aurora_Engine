@@ -37,7 +37,6 @@ namespace Aurora {
 		virtual bool IsVSync() const = 0;
 		
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
-		virtual void* GetNativeWindowPtr() = 0;
 
 		virtual void makeGraphics() = 0;
 		virtual Graphics* Gfx() = 0;

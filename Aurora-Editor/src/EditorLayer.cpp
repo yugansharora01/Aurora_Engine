@@ -2,8 +2,9 @@
 #include <Aurora.h>
 #include "EditorLayer.h"
 #include "imgui.h"
-#include "Aurora/Utils/Util.h"
+#include "Aurora/Utils/PlatformUtil.h"
 #include "Aurora/Scene/Serializer.h"
+#include "Aurora/Utils/PlatformUtil.h"
 
 namespace Aurora {
 
@@ -153,17 +154,28 @@ namespace Aurora {
 					
 				}
 
-				if (ImGui::MenuItem("Open", NULL, false, dockspaceOpen != NULL))
+				if (ImGui::MenuItem("Open...", NULL, false, dockspaceOpen != NULL))
 				{
-					m_activeScene = CreateRef<Scene>();
-					Serializer serializer(m_activeScene);
-					serializer.Deserialize("assets/scene/Test Scene.Aurora");
+					std::string filePath = FileDialog::OpenFile("Aurora Scene (*.Aurora)\0*.Aurora\0");
+
+					if (!filePath.empty())
+					{
+						m_activeScene = CreateRef<Scene>();
+						Serializer serializer(m_activeScene);
+						serializer.Deserialize(filePath);
+					}
+					
 				}
 
-				if (ImGui::MenuItem("Save", NULL, false, dockspaceOpen != NULL))
+				if (ImGui::MenuItem("Save As...", NULL, false, dockspaceOpen != NULL))
 				{
-					Serializer serializer(m_activeScene);
-					serializer.Serialize();
+					std::string filePath = FileDialog::SaveFile("Aurora Scene (*.Aurora)\0*.Aurora\0");
+
+					if (!filePath.empty())
+					{
+						Serializer serializer(m_activeScene);
+						serializer.Serialize(filePath);
+					}
 				}
 				
 				

@@ -49,7 +49,7 @@ namespace Aurora {
 
 		SetDarkThemeColors();
 
-		auto handle = ((Win32_Window*)Application::Get().GetWindow().GetNativeWindowPtr())->GetHandle();
+		auto handle = std::dynamic_pointer_cast<WindowsWindow>(Application::Get().GetWindowptr())->GetWin32WindowPtr()->GetHandle();
 		auto gfx = Application::Get().GetWindow().Gfx()->GraphicsObject;
 		ImGui_ImplWin32_Init(handle);
 		ImGui_ImplDX11_Init(gfx->GetDevice().Get(), gfx->GetContext().Get());

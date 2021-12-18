@@ -167,7 +167,7 @@
     <ClInclude Include="src\Aurora\Scene\Scene.h" />
     <ClInclude Include="src\Aurora\Scene\Serializer.h" />
     <ClInclude Include="src\Aurora\Utils\Convertors.h" />
-    <ClInclude Include="src\Aurora\Utils\Util.h" />
+    <ClInclude Include="src\Aurora\Utils\PlatformUtil.h" />
     <ClInclude Include="src\Aurora\Window.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11ConstantBuffers.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h" />
@@ -191,7 +191,7 @@
     <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h" />
     <ClInclude Include="src\Platform\Windows\Keyboard.h" />
     <ClInclude Include="src\Platform\Windows\Mouse.h" />
-    <ClInclude Include="src\Platform\Windows\Utility.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsUtility.h" />
     <ClInclude Include="src\Platform\Windows\Win32_Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsThrowMacros.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -221,7 +221,6 @@
     <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
     <ClCompile Include="src\Aurora\Scene\Serializer.cpp" />
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp" />
-    <ClCompile Include="src\Aurora\Utils\Util.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11FrameBuffer.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp" />
@@ -238,7 +237,7 @@
     <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp" />
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
     <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
-    <ClCompile Include="src\Platform\Windows\Utility.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsUtility.cpp" />
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Platform\Windows\dxerr.cpp" />
