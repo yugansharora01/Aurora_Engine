@@ -54,7 +54,7 @@ namespace Aurora {
 		INFOMAN;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
-		GFX_THROW_INFO(CompileShader(Path, "main", "ps_4_0_level_9_1", &pBytecodeBlob));
+		GFX_THROW_INFO(CompileShader(Path, "main", "ps_4_0", &pBytecodeBlob));
 
 		//GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
 

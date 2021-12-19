@@ -9,7 +9,7 @@ Entities:
       Scale: [1, 1, 1]
     MeshComponent:
       Vertex Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl
         Data for Shader:
           Size: 4
           Data:
@@ -18,7 +18,7 @@ Entities:
             - [0, 0, 1.01265824, 19.7468357]
             - [0, 0, 1, 20]
       Pixel Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl
         Data for Shader:
           Size: 8
           Data:
@@ -71,7 +71,7 @@ Entities:
       Scale: [1, 1, 1]
     MeshComponent:
       Vertex Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl
         Data for Shader:
           Size: 4
           Data:
@@ -80,7 +80,7 @@ Entities:
             - [0, 0, 1.01265824, 19.7468357]
             - [0, 0, 1, 20]
       Pixel Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl
         Data for Shader:
           Size: 8
           Data:
@@ -385,7 +385,7 @@ Entities:
       Scale: [1, 1, 1]
     MeshComponent:
       Vertex Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl
         Data for Shader:
           Size: 4
           Data:
@@ -394,7 +394,7 @@ Entities:
             - [0, 0, 1.01265824, 19.7468357]
             - [0, 0, 1, 20]
       Pixel Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl
         Data for Shader:
           Size: 8
           Data:
@@ -786,7 +786,7 @@ Entities:
       Scale: [1, 1, 1]
     MeshComponent:
       Vertex Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl
         Data for Shader:
           Size: 4
           Data:
@@ -795,7 +795,7 @@ Entities:
             - [0, -0.684013367, -0.746728063, 19.7468357]
             - [0, -0.6754632, -0.737393975, 20]
       Pixel Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl
         Data for Shader:
           Size: 8
           Data:
@@ -1100,7 +1100,7 @@ Entities:
       Scale: [1, 1, 1]
     MeshComponent:
       Vertex Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl
         Data for Shader:
           Size: 4
           Data:
@@ -1109,7 +1109,7 @@ Entities:
             - [0, 0, 1.01265824, 19.7468357]
             - [0, 0, 1, 20]
       Pixel Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl
         Data for Shader:
           Size: 8
           Data:
@@ -1414,7 +1414,7 @@ Entities:
       Scale: [1, 1, 1]
     MeshComponent:
       Vertex Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl
         Data for Shader:
           Size: 4
           Data:
@@ -1423,7 +1423,7 @@ Entities:
             - [0, 0, 1.01265824, 15.0886068]
             - [0, 0, 1, 15.3999996]
       Pixel Shader:
-        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso
+        Path: ../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl
         Data for Shader:
           Size: 8
           Data:

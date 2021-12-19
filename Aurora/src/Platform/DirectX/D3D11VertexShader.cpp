@@ -9,11 +9,8 @@
 
 namespace Aurora {
 
-	HRESULT CompileShaderps(std::wstring srcFile, std::string entryPoint, std::string profile, ID3DBlob** blob)
+	HRESULT CompileShadervs(std::wstring srcFile, std::string entryPoint, std::string profile, ID3DBlob** blob)
 	{
-		//if (srcFile.empty() || entryPoint.empty() || profile.empty() || blob)
-			//return E_INVALIDARG;
-
 		*blob = nullptr;
 
 		UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -56,8 +53,7 @@ namespace Aurora {
 		path = ws2s(Path);
 		INFOMAN;
 
-		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob1;
-		GFX_THROW_INFO(CompileShaderps(Path, "main", "vs_4_0_level_9_1", &pBytecodeBlob));
+		GFX_THROW_INFO(CompileShadervs(Path, "main", "vs_4_0", &pBytecodeBlob));
 
 		//GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateVertexShader(
