@@ -333,18 +333,24 @@ namespace Aurora
 
 					ShaderData = pixelshader["Data for Shader"];
 
-					size = ShaderData["Size"].as<int>();
-
-					matrixSeq = ShaderData["Data"];
-
-					std::array<DirectX::XMFLOAT4,8> Mat;
-
-					for (int i = 0; i < size; i++)
+					//////////////////////////////////////////////////
+					/////////////////////////////
+					if (ShaderData.size() > 0)
 					{
-						Mat[i] = matrixSeq[i].as<DirectX::XMFLOAT4>();
+						size = ShaderData["Size"].as<int>();
+
+						matrixSeq = ShaderData["Data"];
+
+						std::array<DirectX::XMFLOAT4, 8> Mat;
+
+						for (int i = 0; i < size; i++)
+						{
+							Mat[i] = matrixSeq[i].as<DirectX::XMFLOAT4>();
+						}
+
+						pShader->UploadMat4X8(Mat);
 					}
 
-					pShader->UploadMat4X8(Mat);
 
 					auto vertexbuffer = meshComponent["Vertex Buffer"];
 					auto vertexdata = vertexbuffer["Vertex Data"];
@@ -356,7 +362,10 @@ namespace Aurora
 						VertexData d;						
 
 						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
-						d.color = VertexData::Color(0, 0, 0, 0);
+						d.color.r = vertexdata[i]["Color"][0].as<unsigned int>();
+						d.color.g = vertexdata[i]["Color"][1].as<unsigned int>();
+						d.color.b = vertexdata[i]["Color"][2].as<unsigned int>();
+						d.color.a = vertexdata[i]["Color"][3].as<unsigned int>();
 						vertices.push_back(d);
 					}
 

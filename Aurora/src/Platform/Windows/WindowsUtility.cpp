@@ -7,140 +7,170 @@
 #include "Aurora/Utils/Convertors.h"
 
 #include <commdlg.h>
-#include <shobjidl.h>
 
 namespace Aurora {
 
 	std::string FileDialog::OpenFile(const char* filter)
 	{
-		/*OPENFILENAME ofn;
-		char szFile[260] = { 0 };
-		ZeroMemory(&ofn,sizeof(OPENFILENAME));
+		//std::string str;
 
-		ofn.lStructSize = sizeof(OPENFILENAME);
+		//HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
+		//	COINIT_DISABLE_OLE1DDE);
+		//if (SUCCEEDED(hr))
+		//{
+		//	IFileOpenDialog* pFileOpen;
+
+		//	// Create the FileOpenDialog object.
+		//	hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL,
+		//		IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
+
+		//	if (SUCCEEDED(hr))
+		//	{
+		//		// Show the Open dialog box.
+		//		hr = pFileOpen->Show(NULL);
+
+		//		// Get the file name from the dialog box.
+		//		if (SUCCEEDED(hr))
+		//		{
+		//			IShellItem* pItem;
+		//			hr = pFileOpen->GetResult(&pItem);
+		//			if (SUCCEEDED(hr))
+		//			{
+		//				PWSTR pszFilePath;
+		//				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+
+		//				// Display the file name to the user.
+		//				if (SUCCEEDED(hr))
+		//				{
+		//					std::wstring ws(pszFilePath);
+		//					str = ws2s(ws);
+		//					MessageBoxW(NULL, pszFilePath, L"File Path", MB_OK);
+		//					CoTaskMemFree(pszFilePath);
+		//				}
+		//				pItem->Release();
+		//			}
+		//		}
+		//		pFileOpen->Release();
+		//	}
+		//	CoUninitialize();
+		//}
+		//return str;
+
+		OPENFILENAME ofn;
+
+		CHAR szFile[260] = { 0 };
+
+		CHAR currentDir[256] = { 0 };
+
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+		ofn.lStructSize = sizeof(OPENFILENAME); 
 		ofn.hwndOwner = std::dynamic_pointer_cast<WindowsWindow>(Application::Get().GetWindowptr())->GetWin32WindowPtr()->GetHandle();
-		ofn.lpstrFile = szFile;
+
+		ofn.lpstrFile = szFile; 
+		ofn.nMaxFile = sizeof(szFile);
+
+		if (GetCurrentDirectoryA(256, currentDir)) 
+			ofn.lpstrInitialDir = currentDir;
+
 		ofn.lpstrFilter = filter;
+
 		ofn.nFilterIndex = 1;
-		ofn.lpstrFileTitle = NULL;
-		ofn.nMaxFileTitle = 0;
-		ofn.lpstrInitialDir = 0;
-		ofn.Flags = OFN_PATHMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
-		if (GetOpenFileName(&ofn) == TRUE)
-		{
+
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+		if (GetOpenFileName(&ofn) == TRUE) 
 			return ofn.lpstrFile;
-		}
 
-		return std::string();*/
+		return std::string();
 
-		std::string str;
-
-		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
-			COINIT_DISABLE_OLE1DDE);
-		if (SUCCEEDED(hr))
-		{
-			IFileOpenDialog* pFileOpen;
-
-			// Create the FileOpenDialog object.
-			hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL,
-				IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
-
-			if (SUCCEEDED(hr))
-			{
-				// Show the Open dialog box.
-				hr = pFileOpen->Show(NULL);
-
-				// Get the file name from the dialog box.
-				if (SUCCEEDED(hr))
-				{
-					IShellItem* pItem;
-					hr = pFileOpen->GetResult(&pItem);
-					if (SUCCEEDED(hr))
-					{
-						PWSTR pszFilePath;
-						hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
-
-						// Display the file name to the user.
-						if (SUCCEEDED(hr))
-						{
-							std::wstring ws(pszFilePath);
-							str = ws2s(ws);
-							MessageBoxW(NULL, pszFilePath, L"File Path", MB_OK);
-							CoTaskMemFree(pszFilePath);
-						}
-						pItem->Release();
-					}
-				}
-				pFileOpen->Release();
-			}
-			CoUninitialize();
-		}
-		return str;
 	}
 
 	std::string FileDialog::SaveFile(const char* filter)
 	{
-		/*OPENFILENAME ofn;
-		char szFile[260] = { 0 };
+		OPENFILENAME ofn;
+
+		CHAR szFile[260] = { 0 };
+
+		CHAR currentDir[256] = { 0 };
+
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 
 		ofn.lStructSize = sizeof(OPENFILENAME);
 		ofn.hwndOwner = std::dynamic_pointer_cast<WindowsWindow>(Application::Get().GetWindowptr())->GetWin32WindowPtr()->GetHandle();
+
 		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+
+		if (GetCurrentDirectoryA(256, currentDir))
+			ofn.lpstrInitialDir = currentDir;
+
 		ofn.lpstrFilter = filter;
+
 		ofn.nFilterIndex = 1;
-		ofn.Flags = OFN_PATHMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
 		if (GetSaveFileName(&ofn) == TRUE)
 		{
-			return ofn.lpstrFile;
+			std::string Retstr(ofn.lpstrFile);
+			return Retstr + ".Aurora";
 		}
 
-		return std::string();*/
+		return std::string();
 
 
-		std::string str;
+		//std::string str;
 
-		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
-			COINIT_DISABLE_OLE1DDE);
-		if (SUCCEEDED(hr))
-		{
-			IFileSaveDialog* pFileSave;
+		//HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
+		//	COINIT_DISABLE_OLE1DDE);
+		//if (SUCCEEDED(hr))
+		//{
+		//	IFileSaveDialog* pFileSave;
 
-			// Create the FileOpenDialog object.
-			hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL,
-				IID_IFileSaveDialog, reinterpret_cast<void**>(&pFileSave));
+		//	COMDLG_FILTERSPEC rgSpec[] =
+		//	{
+		//		{L"Aurora file",L"*.Aurora"}
+		//	};
 
-			if (SUCCEEDED(hr))
-			{
-				// Show the Open dialog box.
-				hr = pFileSave->Show(NULL);
 
-				// Get the file name from the dialog box.
-				if (SUCCEEDED(hr))
-				{
-					IShellItem* pItem;
-					hr = pFileSave->GetResult(&pItem);
-					if (SUCCEEDED(hr))
-					{
-						PWSTR pszFilePath;
-						hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+		//	// Create the FileOpenDialog object.
+		//	hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL,
+		//		IID_IFileSaveDialog, reinterpret_cast<void**>(&pFileSave));
 
-						// Display the file name to the user.
-						if (SUCCEEDED(hr))
-						{
-							std::wstring ws(pszFilePath);
-							str = ws2s(ws);
-							MessageBoxW(NULL, pszFilePath, L"File Path", MB_OK);
-							CoTaskMemFree(pszFilePath);
-						}
-						pItem->Release();
-					}
-				}
-				pFileSave->Release();
-			}
-			CoUninitialize();
-		}
-		return str;
+		//	pFileSave->SetFileTypes(1, rgSpec);
+
+		//	if (SUCCEEDED(hr))
+		//	{
+		//		// Show the Open dialog box.
+		//		hr = pFileSave->Show(NULL);
+
+		//		// Get the file name from the dialog box.
+		//		if (SUCCEEDED(hr))
+		//		{
+		//			IShellItem* pItem;
+		//			hr = pFileSave->GetResult(&pItem);
+		//			if (SUCCEEDED(hr))
+		//			{
+		//				PWSTR pszFilePath;
+		//				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+
+		//				// Display the file name to the user.
+		//				if (SUCCEEDED(hr))
+		//				{
+		//					std::wstring ws(pszFilePath);
+		//					str = ws2s(ws);
+		//					MessageBoxW(NULL, pszFilePath, L"File Path", MB_OK);
+		//					CoTaskMemFree(pszFilePath);
+		//				}
+		//				pItem->Release();
+		//			}
+		//		}
+		//		pFileSave->Release();
+		//	}
+		//	CoUninitialize();
+		//}
+		//return str;
 	}
 
 
