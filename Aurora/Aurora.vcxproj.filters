@@ -364,24 +364,4 @@
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendPS.hlsl">
-      <Filter>Platform\DirectX\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="src\Platform\DirectX\shaders\ColorBlendVS.hlsl">
-      <Filter>Platform\DirectX\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="src\Platform\DirectX\shaders\ColorIndexPS.hlsl">
-      <Filter>Platform\DirectX\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="src\Platform\DirectX\shaders\ColorIndexVS.hlsl">
-      <Filter>Platform\DirectX\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="src\Platform\DirectX\shaders\TexturePS.hlsl">
-      <Filter>Platform\DirectX\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="src\Platform\DirectX\shaders\TextureVS.hlsl">
-      <Filter>Platform\DirectX\shaders</Filter>
-    </FxCompile>
-  </ItemGroup>
 </Project>

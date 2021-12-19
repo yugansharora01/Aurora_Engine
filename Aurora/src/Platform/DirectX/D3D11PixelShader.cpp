@@ -1,12 +1,52 @@
 #include "pch.h"
 #include "D3D11PixelShader.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
-#include "d3dcompiler.h"
+#include <d3dcompiler.h>
 #include "Aurora/Utils/Convertors.h"
 
 namespace Aurora {
 
+	HRESULT CompileShader(std::wstring srcFile, std::string entryPoint, std::string profile, ID3DBlob** blob)
+	{
+		//if (srcFile.empty() || entryPoint.empty() || profile.empty() || blob)
+			//return E_INVALIDARG;
 
+		*blob = nullptr;
+
+		UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
+#if defined( AU_DEBUG )
+		flags |= D3DCOMPILE_DEBUG;
+#endif
+
+		const D3D_SHADER_MACRO defines[] =
+		{
+			"EXAMPLE_DEFINE", "1",
+			NULL, NULL
+		};
+
+		ID3DBlob* shaderBlob = nullptr;
+		ID3DBlob* errorBlob = nullptr;
+		HRESULT hr = D3DCompileFromFile(srcFile.c_str(), defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+			entryPoint.c_str(), profile.c_str(),
+			flags, 0, &shaderBlob, &errorBlob);
+		if (FAILED(hr))
+		{
+			if (errorBlob)
+			{
+				OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+				errorBlob->Release();
+			}
+
+			if (shaderBlob)
+				shaderBlob->Release();
+
+			return hr;
+		}
+
+		*blob = shaderBlob;
+
+		return hr;
+	}
 
 	D3D11PixelShader::D3D11PixelShader(const std::wstring& Path)
 	{
@@ -14,7 +54,9 @@ namespace Aurora {
 		INFOMAN;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
-		GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
+		GFX_THROW_INFO(CompileShader(Path, "main", "ps_4_0_level_9_1", &pBytecodeBlob));
+
+		//GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
 
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreatePixelShader(
 			pBytecodeBlob->GetBufferPointer(),
@@ -65,8 +107,6 @@ namespace Aurora {
 		pConst = std::make_shared<D3D11PixelConstantBuffer>();
 		pConst->Create(arr);
 
-		//Data tmpdata;
-		//tmpdata.name = "Unnamed Data";
 		std::vector<DirectX::XMFLOAT4> vec;
 		for (int i = 0; i < arr.size(); i++)
 		{

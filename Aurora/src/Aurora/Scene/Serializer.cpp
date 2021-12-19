@@ -333,8 +333,6 @@ namespace Aurora
 
 					ShaderData = pixelshader["Data for Shader"];
 
-					//////////////////////////////////////////////////
-					/////////////////////////////
 					if (ShaderData.size() > 0)
 					{
 						size = ShaderData["Size"].as<int>();
