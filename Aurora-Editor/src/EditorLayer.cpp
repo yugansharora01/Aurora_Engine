@@ -17,47 +17,7 @@ namespace Aurora {
 
 		m_activeScene = CreateRef<Scene>("Test Scene");
 
-		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
-		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
-
-		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendVS.hlsl");
-		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendPS.hlsl");
-
-		//-------------------------------------------------------------------------------
 		
-		auto cube = Cube::Get(vShaderpath,pShaderpath );
-
-		auto e1 = m_activeScene->CreateEntity("Box1");	
-
-		e1->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		e1->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
-
-		//-------------------------------------------------------------------------------
-
-		/*auto cone = Cone::Get(vShaderpath1,pShaderpath1,4);
-
-		auto e2 = m_activeScene->CreateEntity("Prism1");
-
-		e2->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
-		e2->AddComponent<MeshComponent>(cone.vShader, cone.pShader, cone.vBuffer, cone.iBuffer);*/
-		
-		//-------------------------------------------------------------------------------
-
-		auto sphere = Sphere::Get(vShaderpath,pShaderpath,10,10);
-
-		auto e3 = m_activeScene->CreateEntity("sphere1");
-
-		e3->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
-		e3->AddComponent<MeshComponent>(sphere.vShader, sphere.pShader, sphere.vBuffer, sphere.iBuffer);
-
-		//-------------------------------------------------------------------------------
-
-		auto plane = Plane::Get(vShaderpath, pShaderpath, 10, 10);
-
-		auto e4 = m_activeScene->CreateEntity("plane1");
-
-		e4->AddComponent<TransformComponent>(DirectX::XMFLOAT3(-4.0f, 0.0f, 20.0f));
-		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);
 	}
 
 	void EditorLayer::Panels()
@@ -76,6 +36,7 @@ namespace Aurora {
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
+		fBuffer = Application::Get().GetWindow().Gfx()->fbuf;
 		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		ImGui::End();
@@ -204,7 +165,52 @@ namespace Aurora {
 
 	void EditorLayer::OnAttach()
 	{
-		fBuffer = Graphics::fbuf;
+		
+	}
+
+	void EditorLayer::Init()
+	{
+		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
+		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
+
+		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendVS.hlsl");
+		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendPS.hlsl");
+
+		//-------------------------------------------------------------------------------
+
+		auto cube = Cube::Get(vShaderpath, pShaderpath);
+
+		auto e1 = m_activeScene->CreateEntity("Box1");
+
+		e1->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
+		e1->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
+
+		//-------------------------------------------------------------------------------
+
+		/*auto cone = Cone::Get(vShaderpath1,pShaderpath1,4);
+
+		auto e2 = m_activeScene->CreateEntity("Prism1");
+
+		e2->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
+		e2->AddComponent<MeshComponent>(cone.vShader, cone.pShader, cone.vBuffer, cone.iBuffer);*/
+
+		//-------------------------------------------------------------------------------
+
+		auto sphere = Sphere::Get(vShaderpath, pShaderpath, 10, 10);
+
+		auto e3 = m_activeScene->CreateEntity("sphere1");
+
+		e3->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
+		e3->AddComponent<MeshComponent>(sphere.vShader, sphere.pShader, sphere.vBuffer, sphere.iBuffer);
+
+		//-------------------------------------------------------------------------------
+
+		auto plane = Plane::Get(vShaderpath, pShaderpath, 10, 10);
+
+		auto e4 = m_activeScene->CreateEntity("plane1");
+
+		e4->AddComponent<TransformComponent>(DirectX::XMFLOAT3(-4.0f, 0.0f, 20.0f));
+		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);
 	}
 	
 }

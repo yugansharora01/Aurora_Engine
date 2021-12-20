@@ -19,6 +19,7 @@ namespace Aurora {
 		virtual void OnImGuiRender() override;
 		virtual void OnUpdate() override;
 		virtual void OnAttach() override;
+		virtual void Init() override;
 		void Panels();
 	private:
 

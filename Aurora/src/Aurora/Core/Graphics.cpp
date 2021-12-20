@@ -6,14 +6,10 @@
 
 namespace Aurora
 {
-	void* Graphics::NativeGraphicsObject = nullptr;
 	Ref<FrameBuffer> Graphics::fbuf = nullptr;
 
-#ifdef AU_PLATFORM_WINDOWS
-	Ref<D3D11Graphics> Graphics::GraphicsObject = nullptr;
-#endif // AU_PLATFORM_WINDOWS
 
-	Graphics* Graphics::Create(void* arg)
+	Ref<Graphics> Graphics::Create(void* arg)
 	{
 		switch (RendererAPI::GetAPI())
 		{
@@ -24,9 +20,8 @@ namespace Aurora
 		case RendererAPI::API::Direct3D:
 		{
 			HWND hwnd = (HWND)arg;
-			GraphicsObject = CreateRef<D3D11Graphics>(hwnd);
-			fbuf = FrameBuffer::Create(800, 600);
-			return &(*GraphicsObject);
+			auto GraphicsObject = CreateRef<D3D11Graphics>(hwnd);
+			return GraphicsObject;
 		}
 
 		default:

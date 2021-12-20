@@ -9,7 +9,6 @@ namespace Aurora {
 	class Graphics
 	{
 	public: 
-		static void* NativeGraphicsObject;
 		static Ref<FrameBuffer> fbuf;
 
 	public:
@@ -19,12 +18,8 @@ namespace Aurora {
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
 		virtual void RenderToTex() = 0;
 
-		static Graphics* Create(void* arg);
+		static Ref<Graphics> Create(void* arg);
 
-
-#ifdef AU_PLATFORM_WINDOWS
-		static Ref<D3D11Graphics> GraphicsObject;
-#endif // AU_PLATFORM_WINDOWS
 
 	};
 

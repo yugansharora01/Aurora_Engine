@@ -25,7 +25,7 @@ namespace Aurora {
 		virtual bool IsVSync() const override;
 		virtual void SetViewPort(unsigned int width,unsigned int height) override;
 		virtual void makeGraphics() override;
-		virtual Graphics* Gfx() override;
+		virtual Ref<Graphics> Gfx() override;
 
 		Win32_Window* GetWin32WindowPtr() { return m_Window; }
 	private:
@@ -42,7 +42,7 @@ namespace Aurora {
 		};
 
 		WindowsData m_Data;
-		Graphics* pGfx;
+		Ref<Graphics> pGfx;
 
 		Win32_Window* m_Window;
 	};

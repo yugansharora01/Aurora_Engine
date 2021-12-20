@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "Bindables.h"
 #include "Aurora/Application.h"
-#include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
 
 namespace Aurora {
 
-	D3D11Graphics* Bindables::Getgfx()
+	Ref<D3D11Graphics> Bindables::Getgfx()
 	{
-		auto gfx = Graphics::GraphicsObject;
-		return &(*gfx);
+		//auto gfx = Graphics::GraphicsObject;
+		auto gfx = std::dynamic_pointer_cast<D3D11Graphics>(Application::Get().GetWindow().Gfx());
+		
+		return gfx;
 	}
 	
 	DxgiInfoManager& Bindables::GetInfoManager() AU_DEBUGNOEXCEPT

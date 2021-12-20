@@ -69,12 +69,11 @@ namespace Aurora {
 	{
 		auto hwnd = (void *)m_Window->GetHandle();
 		pGfx = Graphics::Create(hwnd);
-		//pGfx->GraphicsObject->SetHandle(m_Window->GetHandle());
 	}
 
-	Graphics* WindowsWindow::Gfx()
+	Ref<Graphics> WindowsWindow::Gfx()
 	{
-		return &(*Graphics::GraphicsObject);
+		return pGfx;
 	}
 	
 

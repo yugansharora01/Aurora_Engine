@@ -4,6 +4,7 @@
 #include "Aurora/Log.h"
 #include "Platform/Windows/Win32_Window.h"
 #include "Platform/Windows/AuroraException.h"
+#include "Aurora/Renderer/FrameBuffer.h"
 
 #include "imgui.h"
 
@@ -31,6 +32,11 @@ namespace Aurora {
 
 	void Application::Run()
 	{
+		m_Window->Gfx()->fbuf = FrameBuffer::Create(800, 600);
+
+		for (Layer* layer : m_LayerStack)
+			layer->Init();
+
 		try
 		{
 			float i = 0.0f;

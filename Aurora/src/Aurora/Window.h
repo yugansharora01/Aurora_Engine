@@ -39,7 +39,7 @@ namespace Aurora {
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
 
 		virtual void makeGraphics() = 0;
-		virtual Graphics* Gfx() = 0;
+		virtual Ref<Graphics> Gfx() = 0;
 
 		static std::shared_ptr<Window> Create(const WindowProps& props = WindowProps());
 	};

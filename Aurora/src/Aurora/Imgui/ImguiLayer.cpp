@@ -48,12 +48,7 @@ namespace Aurora {
 		}
 
 		SetDarkThemeColors();
-
-		auto handle = std::dynamic_pointer_cast<WindowsWindow>(Application::Get().GetWindowptr())->GetWin32WindowPtr()->GetHandle();
-		auto gfx = Application::Get().GetWindow().Gfx()->GraphicsObject;
-		ImGui_ImplWin32_Init(handle);
-		ImGui_ImplDX11_Init(gfx->GetDevice().Get(), gfx->GetContext().Get());
-
+		
 	}
 
 	void ImGuiLayer::OnDetach()
@@ -67,6 +62,15 @@ namespace Aurora {
 	{
 		/*static bool show = true;
 		ImGui::ShowDemoWindow(&show);*/
+	}
+
+	void ImGuiLayer::Init()
+	{
+		auto handle = std::dynamic_pointer_cast<WindowsWindow>(Application::Get().GetWindowptr())->GetWin32WindowPtr()->GetHandle();
+
+		auto gfx = std::dynamic_pointer_cast<D3D11Graphics>(Application::Get().GetWindow().Gfx());
+		ImGui_ImplWin32_Init(handle);
+		ImGui_ImplDX11_Init(gfx->GetDevice().Get(), gfx->GetContext().Get());
 	}
 
 	void ImGuiLayer::Begin()
@@ -95,10 +99,6 @@ namespace Aurora {
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
 		}
-
-		//auto gfx = Graphics::GraphicsObject;
-		//gfx->GetContext()->OMSetRenderTargets(1u, gfx->GetTarget().GetAddressOf(), gfx->GetDepthStencilView().Get());
-		//fbuf->Bind();
 
 		fbuf->RenderToTexture();
 	}

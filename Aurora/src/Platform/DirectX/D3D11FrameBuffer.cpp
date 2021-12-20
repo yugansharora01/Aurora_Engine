@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "D3D11FrameBuffer.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
+#include "Aurora/Application.h"
+#include "Platform/Windows/WindowsWindow.h"
 
 namespace Aurora {
 	bool D3D11FrameBuffer::IsTexturePropertiesSet = false;
@@ -70,9 +72,9 @@ namespace Aurora {
 		activeRDV = m_BackbufRDV;
 
 		Bind();
-
-		Graphics::GraphicsObject->pTarget = activeRDV;
-		Graphics::GraphicsObject->pDSV = m_DepthStencil->pDSV;
+		auto gfx = std::dynamic_pointer_cast<D3D11Graphics>(Application::Get().GetWindow().Gfx());
+		gfx->pTarget = activeRDV;
+		gfx->pDSV = m_DepthStencil->pDSV;
 	}
 
 	void D3D11FrameBuffer::SetTextureProperties()
@@ -129,8 +131,10 @@ namespace Aurora {
 
 		Bind();
 
-		Graphics::GraphicsObject->pTarget = activeRDV;
-		Graphics::GraphicsObject->pDSV = m_DepthStencil->pDSV;
+		auto gfx = std::dynamic_pointer_cast<D3D11Graphics>(Application::Get().GetWindow().Gfx());
+		gfx->pTarget = activeRDV;
+		gfx->pDSV = m_DepthStencil->pDSV;
+
 
 		IsTexturePropertiesSet = true;
 	}
