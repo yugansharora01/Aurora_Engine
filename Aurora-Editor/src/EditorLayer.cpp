@@ -5,6 +5,7 @@
 #include "Aurora/Utils/PlatformUtil.h"
 #include "Aurora/Scene/Serializer.h"
 #include "Aurora/Utils/PlatformUtil.h"
+#include "Aurora/Utils/FileOperations.h"
 
 namespace Aurora {
 
@@ -16,14 +17,14 @@ namespace Aurora {
 
 		m_activeScene = CreateRef<Scene>("Test Scene");
 
-		std::wstring vShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.hlsl");
-		std::wstring pShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.hlsl");
+		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
+		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
 
-		std::wstring vShaderpath1(L"../bin/Debug-windows-x86_64/Aurora/ColorBlendVS.hlsl");
-		std::wstring pShaderpath1(L"../bin/Debug-windows-x86_64/Aurora/ColorBlendPS.hlsl");
+		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendVS.hlsl");
+		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendPS.hlsl");
 
 		//-------------------------------------------------------------------------------
-
+		
 		auto cube = Cube::Get(vShaderpath,pShaderpath );
 
 		auto e1 = m_activeScene->CreateEntity("Box1");	

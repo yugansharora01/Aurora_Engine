@@ -34,7 +34,6 @@ project "Aurora"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/src/**.hlsl",
 		"%{prj.name}/src/Platform/Windows/**.inl"
 	}
 

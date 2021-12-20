@@ -8,11 +8,11 @@ namespace Aurora
 {
 	void GeometryPanel::OnImGuiRender()
 	{
-		std::wstring vShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexVS.cso");
-		std::wstring pShaderpath(L"../bin/Debug-windows-x86_64/Aurora/ColorIndexPS.cso");
+		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
+		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
 
-		std::wstring vShaderpath1(L"../bin/Debug-windows-x86_64/Aurora/ColorBlendVS.cso");
-		std::wstring pShaderpath1(L"../bin/Debug-windows-x86_64/Aurora/ColorBlendPS.cso");
+		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendVS.hlsl");
+		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendPS.hlsl");
 
 		bool clicked = false;
 
