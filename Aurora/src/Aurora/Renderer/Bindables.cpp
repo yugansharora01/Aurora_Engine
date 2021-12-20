@@ -19,7 +19,7 @@ namespace Aurora {
 		#ifdef AU_DEBUG
 				return Getgfx()->GetInfoManager();
 		#else
-				throw std::logic_error("LOL XD Tried to Access InfoManager in Release Mode");
+				throw std::logic_error("Tried to Access InfoManager in Release Mode");
 		#endif
 	}
 }

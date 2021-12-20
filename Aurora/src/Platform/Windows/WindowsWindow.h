@@ -23,6 +23,7 @@ namespace Aurora {
 		}
 		virtual void SetVSync(bool enabled) override;
 		virtual bool IsVSync() const override;
+		//NO Need Now
 		virtual void SetViewPort(unsigned int width,unsigned int height) override;
 		virtual void makeGraphics() override;
 		virtual Ref<Graphics> Gfx() override;

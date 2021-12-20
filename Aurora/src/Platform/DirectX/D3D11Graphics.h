@@ -66,7 +66,7 @@ namespace Aurora {
 
     public:
         D3D11Graphics() = default;
-        D3D11Graphics(HWND hWnd);
+        D3D11Graphics(HWND hWnd,unsigned int width = 800u,unsigned int height = 600u);
         D3D11Graphics(const D3D11Graphics&) = delete;
         D3D11Graphics& operator=(const D3D11Graphics&) = delete;
         ~D3D11Graphics() = default;

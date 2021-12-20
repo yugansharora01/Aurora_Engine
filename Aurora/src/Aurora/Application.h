@@ -25,13 +25,13 @@ namespace Aurora {
 
 		static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
-		inline std::shared_ptr<Window> GetWindowptr() { return m_Window; }
+		inline Ref<Window> GetWindowptr() { return m_Window; }
 
+		bool IsSetupDone = false;
 	private:
-		std::shared_ptr<Window> m_Window;
+		Ref<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		
-
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;

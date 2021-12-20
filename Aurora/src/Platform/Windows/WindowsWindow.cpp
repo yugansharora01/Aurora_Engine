@@ -32,20 +32,6 @@ namespace Aurora {
 			//return *ecode;
 			m_Running = false;
 		}
-		auto LastWidth = m_Data.Width;
-		auto LastHeight = m_Data.Height;
-		m_Window->GetWindowSize(m_Data.Width, m_Data.Height);
-		if (m_Data.Width != LastWidth || m_Data.Height != LastHeight)
-		{
-			auto fbuf = FrameBuffer::Create(m_Data.Width, m_Data.Height);
-			//fbuf->Bind();
-			AU_INFO("Resized");
-			AU_INFO("Resized");
-			AU_INFO("Resized");
-			AU_INFO("Resized");
-			AU_INFO("Resized");
-			SetViewPort(m_Data.Width, m_Data.Height);
-		}
 		
 		
 	}

@@ -19,6 +19,8 @@ namespace Aurora {
 		virtual void RenderToTex() = 0;
 
 		static Ref<Graphics> Create(void* arg);
+		
+		static Ref<Graphics> Create(void* arg,unsigned int width,unsigned int height);
 
 
 	};

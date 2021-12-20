@@ -21,15 +21,15 @@ namespace dx = DirectX;
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
-namespace Aurora {
+namespace Aurora 
+{
 
-
-    D3D11Graphics::D3D11Graphics(HWND hWnd)
+    D3D11Graphics::D3D11Graphics(HWND hWnd, unsigned int width, unsigned int height)
     {
         AU_INFO("Initialised D3D11Graphics");
 
-        unsigned int WindowWidth = 800;
-        unsigned int WindowHeight = 600;
+        unsigned int WindowWidth = width;
+        unsigned int WindowHeight = height;
 
 
         DXGI_SWAP_CHAIN_DESC sd = {};
@@ -84,14 +84,14 @@ namespace Aurora {
         dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
         dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
 
-        wrl::ComPtr<ID3D11DepthStencilState> pDSState;
+        Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pDSState;
         GFX_THROW_INFO(pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
 
         //bind depth state
         pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
 
         //create depth stencil texture
-        wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
+        Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
         D3D11_TEXTURE2D_DESC descDepth = {};
         descDepth.Width = WindowWidth;
         descDepth.Height = WindowHeight;
