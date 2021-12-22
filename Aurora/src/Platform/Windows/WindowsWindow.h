@@ -16,6 +16,7 @@ namespace Aurora {
 
 		virtual inline unsigned int GetWidth() const override { return m_Data.Width; };
 		virtual inline unsigned int GetHeight() const override { return m_Data.Height; };
+		virtual void SetWindowData( unsigned int Width, unsigned int Height, std::string Title = "");
 
 		virtual inline void SetEventCallback(const EventCallbackFn& callback) override
 		{

@@ -9,12 +9,14 @@ namespace Aurora {
 	{
 	public:
 		D3D11IndexBuffer(const std::vector<unsigned short>& indices);
-		void Bind() override;
-		void Unbind() override;
+		virtual void Bind() override;
+		virtual void Unbind() override;
 		UINT GetCount() const noexcept;
 
 	private:
 		UINT count;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;
+		D3D11_BUFFER_DESC ibd;
+		D3D11_SUBRESOURCE_DATA isd;
 	};
 }

@@ -48,7 +48,7 @@ namespace Aurora {
 		void Create(const T& consts)
 		{
 			INFOMAN;
-			D3D11_BUFFER_DESC cbd;
+			cbd = {};
 			cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 			cbd.Usage = D3D11_USAGE_DYNAMIC;
 			cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -56,14 +56,18 @@ namespace Aurora {
 			cbd.ByteWidth = sizeof(consts);
 			cbd.StructureByteStride = 0u;
 
-			D3D11_SUBRESOURCE_DATA csd = {};
+			csd = {};
 			csd.pSysMem = &consts;
 			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 		}
+
+
 		virtual void Bind() noexcept = 0;
 		virtual void Unbind() noexcept = 0;
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
+		D3D11_BUFFER_DESC cbd;
+		D3D11_SUBRESOURCE_DATA csd;
 	};
 
 

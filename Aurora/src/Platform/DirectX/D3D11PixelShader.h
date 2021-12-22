@@ -24,7 +24,7 @@ namespace Aurora {
 		virtual void UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr) override;
 	private:
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
-		
+		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
 		std::shared_ptr<D3D11ConstantBuffer> pConst;
 	};
 

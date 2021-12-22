@@ -10,7 +10,7 @@ namespace Aurora {
 	{
 		INFOMAN;
 
-		D3D11_BUFFER_DESC bd = {};
+		bd = {};
 		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bd.Usage = D3D11_USAGE_DEFAULT;
 		bd.CPUAccessFlags = 0u;
@@ -20,7 +20,7 @@ namespace Aurora {
 
 		stride = sizeof(VertexData);
 
-		D3D11_SUBRESOURCE_DATA sd = {};
+		sd = {};
 		sd.pSysMem = vertices.data();
 
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
@@ -35,6 +35,7 @@ namespace Aurora {
 		m_layout->Bind();
 		m_topology->Bind();
 	}
+
 	void D3D11VertexBuffer::SetData(void* data, unsigned int size)
 	{
 		INFOMAN;
@@ -58,6 +59,7 @@ namespace Aurora {
 	void D3D11VertexBuffer::SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<VertexShader> vShader)
 	{
 		m_layout = std::make_shared<D3D11InputLayout>(layout,vShader->GetBytecode());
+		vertexshader = vShader;
 		Layouts = layout;
 	}
 

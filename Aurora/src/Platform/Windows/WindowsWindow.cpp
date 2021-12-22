@@ -36,6 +36,14 @@ namespace Aurora {
 		
 	}
 
+	void WindowsWindow::SetWindowData( unsigned int Width, unsigned int Height, std::string Title)
+	{
+		if(Title != "")
+			m_Data.Title = Title;
+		m_Data.Width = Width;
+		m_Data.Height = Height;
+	}
+
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		
@@ -78,8 +86,6 @@ namespace Aurora {
 		}
 
 		m_Window = Win32_Window::Create(m_Data.Width, m_Data.Height, m_Data.Title.c_str());
-
-
 	}
 	void WindowsWindow::Close()
 	{

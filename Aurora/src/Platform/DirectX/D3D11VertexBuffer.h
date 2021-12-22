@@ -13,8 +13,9 @@ namespace Aurora {
 	public:
 		D3D11VertexBuffer(const std::vector<VertexData>& vertices);
 		
-		void Bind() ;
-		void Unbind() {}
+		virtual void Bind() override;
+		virtual void Unbind() override{}
+
 
 		virtual void SetData(void* data, unsigned int size) override;
 
@@ -27,5 +28,9 @@ namespace Aurora {
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
 		std::shared_ptr<class D3D11InputLayout> m_layout;
 		std::shared_ptr<class D3D11Topology> m_topology;
+		Ref<class VertexShader> vertexshader;
+
+		D3D11_BUFFER_DESC bd;
+		D3D11_SUBRESOURCE_DATA sd;
 	};
 }

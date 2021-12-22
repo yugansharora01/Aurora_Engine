@@ -10,8 +10,8 @@ namespace Aurora {
 	{
 	public:
 		D3D11VertexShader(const std::wstring& Path);
-		void Bind();
-		void Unbind() {}
+		void Bind() override;
+		void Unbind() override {}
 		ID3DBlob* GetBytecode() const noexcept override;
 
 		virtual void UploadFloat2(DirectX::XMFLOAT2 val) override;

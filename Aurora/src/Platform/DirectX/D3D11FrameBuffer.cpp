@@ -13,6 +13,7 @@ namespace Aurora {
 	{
 		RenderToBackBuf();
 		m_DepthStencil = std::make_shared<DepthStencil>(s_Width, s_Height);
+		IsTexturePropertiesSet = false;
 	}
 	D3D11FrameBuffer::D3D11FrameBuffer(unsigned int width, unsigned int height)
 	{
@@ -20,6 +21,7 @@ namespace Aurora {
 		s_Height = height;
 		RenderToBackBuf();
 		m_DepthStencil = std::make_shared<DepthStencil>(width, height);
+		IsTexturePropertiesSet = false;
 	}
 	
 	void D3D11FrameBuffer::Bind()

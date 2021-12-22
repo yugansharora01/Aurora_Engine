@@ -42,6 +42,8 @@ namespace Aurora {
 		virtual Ref<Graphics> Gfx() = 0;
 
 		static std::shared_ptr<Window> Create(const WindowProps& props = WindowProps());
+	public:
+		bool IsResized = false;
 	};
 
 }

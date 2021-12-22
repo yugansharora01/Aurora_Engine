@@ -7,7 +7,8 @@
 
 #pragma comment(lib,"d3dcompiler.lib")
 
-namespace Aurora {
+namespace Aurora 
+{
 
 	HRESULT CompileShadervs(std::wstring srcFile, std::string entryPoint, std::string profile, ID3DBlob** blob)
 	{
@@ -55,7 +56,6 @@ namespace Aurora {
 
 		GFX_THROW_INFO(CompileShadervs(Path, "main", "vs_4_0", &pBytecodeBlob));
 
-		//GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateVertexShader(
 			pBytecodeBlob->GetBufferPointer(),
 			pBytecodeBlob->GetBufferSize(),
@@ -70,7 +70,7 @@ namespace Aurora {
 		vConst->Bind();
 	}
 
-	ID3DBlob* D3D11VertexShader::GetBytecode() const noexcept 
+	ID3DBlob* D3D11VertexShader::GetBytecode() const noexcept
 	{
 		return pBytecodeBlob.Get();
 	}

@@ -57,6 +57,7 @@ namespace Aurora {
 			auto& iBuf = entities[i]->GetComponent<MeshComponent>()->iBuf;
 
 			vShader->UploadData.clear();
+			
 
 			vShader->UploadMat4(DirectX::XMMatrixTranspose(
 				GetMatrix(entities[i]) * Camera->GetProjection()));

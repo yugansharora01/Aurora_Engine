@@ -10,7 +10,7 @@ namespace Aurora {
         Indices = indices;
         INFOMAN;
 
-        D3D11_BUFFER_DESC ibd = {};
+        ibd = {};
         ibd.ByteWidth = count * sizeof(unsigned short);
         ibd.Usage = D3D11_USAGE_DEFAULT;
         ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
@@ -18,7 +18,7 @@ namespace Aurora {
         ibd.MiscFlags = 0u;
         ibd.StructureByteStride = sizeof(unsigned short);
 
-        D3D11_SUBRESOURCE_DATA isd = {};
+        isd = {};
         isd.pSysMem = indices.data();
 
         GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&ibd, &isd, &pIndexBuffer));
@@ -32,6 +32,7 @@ namespace Aurora {
     void D3D11IndexBuffer::Unbind()
     {
     }
+
 
     UINT D3D11IndexBuffer::GetCount() const noexcept
     {

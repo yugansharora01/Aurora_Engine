@@ -14,17 +14,20 @@
 
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <dxgi.h>
 
 namespace wrl = Microsoft::WRL;
 namespace dx = DirectX;
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
+#pragma comment(lib,"DXGI.lib")
 
 namespace Aurora 
 {
 
     D3D11Graphics::D3D11Graphics(HWND hWnd, unsigned int width, unsigned int height)
+        :hwnd(hWnd)
     {
         AU_INFO("Initialised D3D11Graphics");
 
@@ -125,9 +128,9 @@ namespace Aurora
     void D3D11Graphics::EndFrame()
     {
         HRESULT hr;
-        #ifndef AU_DEBUG
+        #ifdef AU_DEBUG
             infoManager.Set();
-        #endif // !AU_DEBUG
+        #endif // !AU_DEBUG     
 
         if (FAILED(hr = pSwap->Present(1u, 0u)))
         {
@@ -173,10 +176,53 @@ namespace Aurora
 
     void Aurora::D3D11Graphics::RenderToTex()
     {
-        
+        //TO DO 
     }
 
+    void Aurora::D3D11Graphics::Recreate(HWND hWnd, unsigned int width, unsigned int height)
+    {
+        AU_CORE_INFO("Recreated SwapChain");
 
+        unsigned int WindowWidth = width;
+        unsigned int WindowHeight = height;
+
+
+        DXGI_SWAP_CHAIN_DESC sd = {};
+        sd.BufferDesc.Width = 0;
+        sd.BufferDesc.Height = 0;
+        sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+        sd.BufferDesc.RefreshRate.Numerator = 0;
+        sd.BufferDesc.RefreshRate.Denominator = 0;
+        sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+        sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+        sd.SampleDesc.Count = 1;
+        sd.SampleDesc.Quality = 0;
+        sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+        sd.BufferCount = 1;
+        sd.OutputWindow = hWnd;
+        sd.Windowed = TRUE;
+        sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+        sd.Flags = 0;
+
+        UINT swapCreateFlags = 0u;
+#ifdef AU_DEBUG
+        swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif // !AU_DEBUG
+
+
+        //for checking results of d3d functions
+        HRESULT hr;
+
+        Microsoft::WRL::ComPtr<IDXGIFactory> factory;
+
+        GFX_THROW_INFO(CreateDXGIFactory(__uuidof(IDXGIFactory), &factory));
+        
+        //Create swap chain
+        GFX_THROW_INFO(factory->CreateSwapChain(pDevice.Get(),&sd,&pSwap));
+
+        SetViewPort(WindowWidth, WindowHeight);
+        
+    }
 
     D3D11Graphics::HrException::HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
         :Exception(line, file), hr(hr)

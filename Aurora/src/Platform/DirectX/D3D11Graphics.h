@@ -76,6 +76,7 @@ namespace Aurora {
         virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT override;
         virtual void SetViewPort(unsigned int width, unsigned int height) override;
         virtual void RenderToTex() override;
+        virtual void Recreate(HWND hWnd, unsigned int width = 800u, unsigned int height = 600u);
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
@@ -88,7 +89,7 @@ namespace Aurora {
     private:
 #ifndef AU_RELEASE
         DxgiInfoManager infoManager;
-#endif // !NDEBUG
+#endif // AU_RELEASE
 
         Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
         Microsoft::WRL::ComPtr<IDXGISwapChain> pSwap;
@@ -96,6 +97,7 @@ namespace Aurora {
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
 
+        HWND hwnd;
     };
 }
 #endif // GRAPHICS_H_INCLUDED
