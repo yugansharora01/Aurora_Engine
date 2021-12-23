@@ -137,6 +137,8 @@
     <ClInclude Include="src\Aurora\Core.h" />
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
     <ClInclude Include="src\Aurora\Core\Graphics.h" />
+    <ClInclude Include="src\Aurora\Core\Input.h" />
+    <ClInclude Include="src\Aurora\Core\Keycode.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h" />
@@ -240,6 +242,7 @@
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp" />
     <ClCompile Include="src\Platform\Windows\Mouse.cpp" />
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsUtility.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Platform\Windows\dxerr.cpp" />

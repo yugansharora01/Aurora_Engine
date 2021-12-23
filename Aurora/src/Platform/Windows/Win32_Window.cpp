@@ -7,6 +7,9 @@
 #include "Platform/Windows/WindowsWindow.h"
 
 #include "Aurora/Renderer/FrameBuffer.h"
+#include "Aurora/Events/ApplicationEvents.h"
+#include "Aurora/Events/KeyboardEvents.h"
+#include "Aurora/Events/MouseEvents.h"
 
 #include <backends/imgui_impl_win32.h>
 
@@ -187,13 +190,12 @@ namespace Aurora {
 
     void Win32_Window::Resize(unsigned int width, unsigned int height)
     {
-        if (Application::Get().IsSetupDone)
+        /*if (Application::Get().IsSetupDone)
         {
-            Application::Get().GetWindow().IsResized = true;
             dynamic_cast<WindowsWindow*>(&Application::Get().GetWindow())->SetWindowData(width, height);
             std::dynamic_pointer_cast<D3D11Graphics>(Application::Get().GetWindow().Gfx())->Recreate(hWnd, width, height);
             Application::Get().GetWindow().Gfx()->fbuf = FrameBuffer::Create(width, height);
-        }
+        }*/
     }
 
     LRESULT CALLBACK Win32_Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -232,6 +234,8 @@ namespace Aurora {
             return true;
         }
 
+        
+
         switch (msg)
         {
         case WM_SIZE:
@@ -240,36 +244,53 @@ namespace Aurora {
             {
                 width = LOWORD(lParam);
                 height = HIWORD(lParam);
-               
+                WindowResizeEvent event(width,height);
+                Application::Get().OnEvent(event);
                 Resize(width, height);
             }
-            
+            break;
         }
-        break;
-
         case WM_CLOSE:
+        {
+            WindowCloseEvent WinCloseEvent;
+            Application::Get().OnEvent(WinCloseEvent);
             PostQuitMessage(0);
             return 0;
+        }            
         case WM_KILLFOCUS:
+        {
             kbd.ClearState();
             break;
-
+        }
             /************* Keyboard Messages *******************/
         case WM_KEYDOWN:
             // syskey commands need to be handled to track ALT key (VK_MENU) and F10
         case WM_SYSKEYDOWN:
-            if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled())
+        {
+            if (!(lParam & 0x40000000) || kbd.IsAutorepeatEnabled())
                 kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
-            break;
 
+            KeyPressedEvent KeyPressEvent(static_cast<int>(wParam), 0);
+            Application::Get().OnEvent(KeyPressEvent);
+            break;
+        }
         case WM_KEYUP:
         case WM_SYSKEYUP:
+        {
             kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
-            break;
-        case WM_CHAR:
-            kbd.OnChar(static_cast<unsigned char>(wParam));
-            break;
 
+            KeyReleasedEvent KeyRelEvent(static_cast<int>(wParam));
+            Application::Get().OnEvent(KeyRelEvent);
+            break;
+        }
+        case WM_CHAR:
+        {
+            kbd.OnChar(static_cast<unsigned char>(wParam));
+
+            KeyTypedEvent KeyTypeEvent(static_cast<int>(wParam));
+            Application::Get().OnEvent(KeyTypeEvent);
+            break;
+        }
             /************* End of Keyboard Messages ******************/
             /*************** Mouse Messages ********************/
         case WM_MOUSEMOVE:
@@ -279,6 +300,8 @@ namespace Aurora {
             if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
             {
                 mouse.OnMouseMove(pt.x, pt.y);
+                MouseMovedEvent MouseMoveEvent(pt.x, pt.y);
+                Application::Get().OnEvent(MouseMoveEvent);
                 if (!mouse.IsInWindow())
                 {
                     SetCapture(hWnd);
@@ -291,6 +314,8 @@ namespace Aurora {
                 if (wParam & (MK_LBUTTON | MK_RBUTTON))
                 {
                     mouse.OnMouseMove(pt.x, pt.y);
+                    MouseMovedEvent MouseMoveEvent(pt.x, pt.y);
+                    Application::Get().OnEvent(MouseMoveEvent);
                 }
                 // button up -> release capture / log event for leaving
                 else
@@ -305,24 +330,32 @@ namespace Aurora {
         {
             const POINTS pt = MAKEPOINTS(lParam);
             mouse.OnLeftPressed(pt.x, pt.y);
+            MouseButtonPressedEvent MouseLButtonPressEvent(MouseButtonEvent::MouseButtons::LeftButton);
+            Application::Get().OnEvent(MouseLButtonPressEvent);
             break;
         }
         case WM_RBUTTONDOWN:
         {
             const POINTS pt = MAKEPOINTS(lParam);
             mouse.OnRightPressed(pt.x, pt.y);
+            MouseButtonPressedEvent MouseRButtonPressEvent(MouseButtonEvent::MouseButtons::RightButton);
+            Application::Get().OnEvent(MouseRButtonPressEvent);
             break;
         }
         case WM_LBUTTONUP:
         {
             const POINTS pt = MAKEPOINTS(lParam);
             mouse.OnLeftReleased(pt.x, pt.y);
+            MouseButtonReleasedEvent MouseLButtonReleaseEvent(MouseButtonEvent::MouseButtons::LeftButton);
+            Application::Get().OnEvent(MouseLButtonReleaseEvent);
             break;
         }
         case WM_RBUTTONUP:
         {
             const POINTS pt = MAKEPOINTS(lParam);
             mouse.OnRightReleased(pt.x, pt.y);
+            MouseButtonReleasedEvent MouseRButtonReleaseEvent(MouseButtonEvent::MouseButtons::RightButton);
+            Application::Get().OnEvent(MouseRButtonReleaseEvent);
             break;
         }
         case WM_MOUSEWHEEL:
@@ -330,6 +363,8 @@ namespace Aurora {
             const POINTS pt = MAKEPOINTS(lParam);
             const int delta = GET_WHEEL_DELTA_WPARAM(wParam);
             mouse.OnWheelDelta(pt.x, pt.y, delta);
+            MouseScrolledEvent event((float)delta,(float)delta);
+            Application::Get().OnEvent(event);
         }
         }
         return DefWindowProc(hWnd, msg, wParam, lParam);

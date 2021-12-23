@@ -179,13 +179,13 @@ namespace Aurora
         //TO DO 
     }
 
-    void Aurora::D3D11Graphics::Recreate(HWND hWnd, unsigned int width, unsigned int height)
+    void Aurora::D3D11Graphics::Resize(unsigned int width, unsigned int height)
     {
         AU_CORE_INFO("Recreated SwapChain");
 
         unsigned int WindowWidth = width;
         unsigned int WindowHeight = height;
-
+        HWND hWnd = hwnd;
 
         DXGI_SWAP_CHAIN_DESC sd = {};
         sd.BufferDesc.Width = 0;

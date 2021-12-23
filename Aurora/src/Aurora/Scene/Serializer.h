@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Aurora.h"
 
 namespace Aurora
 {
+	class Scene;
+
 	class Serializer
 	{
 	public:

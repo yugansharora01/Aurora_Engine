@@ -3,7 +3,8 @@
 #include "Core.h"
 #include "Window.h"
 #include "Aurora/LayerStack.h"
-#include "Events/Events.h"
+#include "Aurora/Events/Events.h"
+#include "Aurora/Events/ApplicationEvents.h"
 #include "Aurora/Imgui/ImguiLayer.h"
 
 
@@ -16,7 +17,6 @@ namespace Aurora {
 		virtual ~Application();
 
 		void Run();
-		void Close();
 
 		void OnEvent(Event& e);
 
@@ -28,6 +28,9 @@ namespace Aurora {
 		inline Ref<Window> GetWindowptr() { return m_Window; }
 
 		bool IsSetupDone = false;
+	public:
+		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnWindowClose(WindowCloseEvent& e);
 	private:
 		Ref<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;

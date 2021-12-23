@@ -43,7 +43,6 @@ namespace Aurora {
 		//-------------------------------------------------
 
 	}
-	
 
 	void EditorLayer::OnImGuiRender()
 	{
@@ -110,40 +109,28 @@ namespace Aurora {
 			if (ImGui::BeginMenu("File"))
 			{
 
-				if (ImGui::MenuItem("New", NULL, false, dockspaceOpen != NULL))
+				if (ImGui::MenuItem("New", "Ctrl+N", false, dockspaceOpen != NULL))
 				{
-					m_activeScene = CreateRef<Scene>();
+					NewScene();
 					
 				}
 
-				if (ImGui::MenuItem("Open...", NULL, false, dockspaceOpen != NULL))
+				if (ImGui::MenuItem("Open...", "Ctrl+O", false, dockspaceOpen != NULL))
 				{
-					std::string filePath = FileDialog::OpenFile("Aurora Scene (*.Aurora)\0*.Aurora\0");
-
-					if (!filePath.empty())
-					{
-						m_activeScene = CreateRef<Scene>();
-						Serializer serializer(m_activeScene);
-						serializer.Deserialize(filePath);
-					}
+					OpenScene();
 					
 				}
 
-				if (ImGui::MenuItem("Save As...", NULL, false, dockspaceOpen != NULL))
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S", false, dockspaceOpen != NULL))
 				{
-					std::string filePath = FileDialog::SaveFile("Aurora Scene (*.Aurora)\0*.Aurora\0");
-
-					if (!filePath.empty())
-					{
-						Serializer serializer(m_activeScene);
-						serializer.Serialize(filePath);
-					}
+					SaveSceneAs();
 				}
 				
 				
-				if (ImGui::MenuItem("Exit", NULL, false, dockspaceOpen != NULL))
+				if (ImGui::MenuItem("Exit", "Esc", false, dockspaceOpen != NULL))
 				{
-					Application::Get().Close();
+					WindowCloseEvent e;
+					Application::Get().OnWindowClose(e);
 				}
 
 				ImGui::EndMenu();
@@ -166,6 +153,12 @@ namespace Aurora {
 	void EditorLayer::OnAttach()
 	{
 		
+	}
+
+	void EditorLayer::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(AURORA_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 	}
 
 	void EditorLayer::Init()
@@ -212,5 +205,78 @@ namespace Aurora {
 		e4->AddComponent<TransformComponent>(DirectX::XMFLOAT3(-4.0f, 0.0f, 20.0f));
 		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);
 	}
-	
+
+	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+	{
+		bool control = Input::IsKeyPressed(Key::Control);
+		bool shift = Input::IsKeyPressed(Key::Shift);
+
+		switch (e.GetKeyCode())
+		{
+		case Key::N:
+		{
+			if (control)
+				NewScene();
+			break;
+		}
+
+		case Key::O:
+		{
+			if (control)
+				OpenScene();
+			break;
+		}
+
+		case Key::S:
+		{
+			if (control && shift)
+				SaveSceneAs();
+			break;
+		}
+
+		case Key::Escape:
+		{
+			WindowCloseEvent e;
+			Application::Get().OnWindowClose(e);
+			break;
+		}
+
+		default:
+			break;
+		}
+		return false;
+	}
+
+
+	void EditorLayer::NewScene()
+	{
+		m_activeScene = CreateRef<Scene>();
+	}
+
+	void EditorLayer::OpenScene()
+	{
+		std::string filePath = FileDialog::OpenFile("Aurora Scene (*.Aurora)\0*.Aurora\0");
+		if (!filePath.empty())
+		{
+			OpenScene(filePath);
+		}
+	}
+
+	void EditorLayer::OpenScene(const std::filesystem::path& filePath)
+	{
+		m_activeScene = CreateRef<Scene>();
+		Serializer serializer(m_activeScene);
+		serializer.Deserialize(filePath.string());
+	}
+
+	void EditorLayer::SaveSceneAs()
+	{
+		std::string filePath = FileDialog::SaveFile("Aurora Scene (*.Aurora)\0*.Aurora\0");
+
+		if (!filePath.empty())
+		{
+			Serializer serializer(m_activeScene);
+			serializer.Serialize(filePath);
+		}
+	}
 }

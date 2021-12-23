@@ -18,6 +18,10 @@
 #include "Aurora/Scene/Components.h"
 #include "Aurora/Scene/Scene.h"
 
-// ------Entry Point--------------
-//#include "Aurora/EntryPoint.h"
-//--------------------------------
+#include "Aurora/Events/Events.h"
+#include "Aurora/Events/ApplicationEvents.h"
+#include "Aurora/Events/KeyboardEvents.h"
+#include "Aurora/Events/MouseEvents.h"
+
+#include "Aurora/Core/Input.h"
+

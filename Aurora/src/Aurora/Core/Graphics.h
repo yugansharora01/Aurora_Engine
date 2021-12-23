@@ -17,6 +17,7 @@ namespace Aurora {
 		virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT = 0;
 		virtual void SetViewPort(unsigned int width, unsigned int height) = 0;
 		virtual void RenderToTex() = 0;
+		virtual void Resize(unsigned int width = 800u, unsigned int height = 600u) = 0;
 
 		static Ref<Graphics> Create(void* arg);
 		

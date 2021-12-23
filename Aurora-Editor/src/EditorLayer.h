@@ -1,13 +1,13 @@
 #pragma once
 #include <Aurora.h>
-#include "Aurora/Layer.h"
-
-#include <DirectXMath.h>
 
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/GeometryPanel.h"
 
 #include "imgui.h"
+#include <DirectXMath.h>
+
+#include <filesystem>
 
 
 namespace Aurora {
@@ -19,8 +19,16 @@ namespace Aurora {
 		virtual void OnImGuiRender() override;
 		virtual void OnUpdate() override;
 		virtual void OnAttach() override;
+		virtual void OnEvent(Event& e) override;
 		virtual void Init() override;
 		void Panels();
+		void NewScene();
+		void OpenScene();
+		void OpenScene(const std::filesystem::path& path);
+		void SaveSceneAs();
+
+	public:
+		bool OnKeyPressed(KeyPressedEvent& e);
 	private:
 
 		DirectX::XMFLOAT2 m_ViewportSize;

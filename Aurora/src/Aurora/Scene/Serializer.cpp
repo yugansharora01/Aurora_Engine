@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "Serializer.h"
 #include "Aurora/Utils/Convertors.h"
+#include "Aurora/Scene/Scene.h"
+#include "Aurora/Scene/ECS.h"
+#include "Aurora/Scene/Components.h"
+#include "Aurora/Log.h"
 
 #include <yaml-cpp/yaml.h>
 

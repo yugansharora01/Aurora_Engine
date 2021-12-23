@@ -46,9 +46,7 @@ namespace Aurora {
 
 			while (m_Running)
 			{
-				m_Window->OnUpdate(m_Running);
-
-
+				
 				m_Window->Gfx()->ClearBuffer(i, j,k);
 
 				for (Layer* layer : m_LayerStack)
@@ -63,7 +61,7 @@ namespace Aurora {
 
 				m_ImGuiLayer->End();
 
-				
+				m_Window->OnUpdate(m_Running);
 
 				m_Window->Gfx()->EndFrame();
 			}
@@ -82,18 +80,18 @@ namespace Aurora {
 		}
 	}
 
-	void Application::Close()
-	{
-		m_Running = false;
-	}
-
 	void Application::OnEvent(Event& e)
 	{
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); it++)
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(AURORA_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(AURORA_BIND_EVENT_FN(Application::OnWindowResize));
+
+
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
 		{
-			(*--it)->OnEvent(e);
-			if (e.m_handled)
+			if (e.Handled)
 				break;
+			(*it)->OnEvent(e);
 		}
 	}
 
@@ -107,6 +105,25 @@ namespace Aurora {
 	{
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		
+		if (Application::Get().IsSetupDone)
+		{
+			m_Window->SetWindowData(e.GetWidth(), e.GetHeight());
+			m_Window->Gfx()->Resize(e.GetWidth(), e.GetHeight());
+			m_Window->Gfx()->fbuf = FrameBuffer::Create(e.GetWidth(), e.GetHeight());
+			return true;
+		}
+		return false;
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+		return true;
 	}
 
 }

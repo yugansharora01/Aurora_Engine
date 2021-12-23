@@ -57,20 +57,26 @@ namespace Aurora
 	class AURORA_API MouseButtonEvent : public Event
 	{
 	public:
+		enum MouseButtons
+		{
+			LeftButton,
+			RightButton
+		}MouseButton;
+	public:
 		int GetMouseEvent() const { return m_Button; }
 		
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
 
 	protected:
-		MouseButtonEvent(const int button)
+		MouseButtonEvent(MouseButtons button)
 			:m_Button(button){}
-		float m_Button;
+		int m_Button;
 	};
 
 	class AURORA_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(const int button)
+		MouseButtonPressedEvent(MouseButtons button)
 			:MouseButtonEvent(button) {}
 
 
@@ -88,7 +94,7 @@ namespace Aurora
 	class AURORA_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(const int button)
+		MouseButtonReleasedEvent(MouseButtons button)
 			:MouseButtonEvent(button) {}
 
 

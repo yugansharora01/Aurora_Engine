@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Events.h"
+#include "Aurora/Core/Keycode.h"
 
 namespace Aurora
 {
 	class AURORA_API KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
@@ -15,7 +16,7 @@ namespace Aurora
 		KeyEvent(int Keycode)
 			:m_KeyCode(Keycode){}
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
 	class AURORA_API KeyPressedEvent : public KeyEvent
@@ -37,16 +38,16 @@ namespace Aurora
 		int m_RepeatCount;
 	};
 
-	class AURORA_API KeyReleasededEvent : public KeyEvent
+	class AURORA_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasededEvent(int keycode)
+		KeyReleasedEvent(int keycode)
 			:KeyEvent(keycode) {}
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleasededEvent" << m_KeyCode;
+			ss << "KeyReleasedEvent" << m_KeyCode;
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(KeyReleased)

@@ -76,7 +76,7 @@ namespace Aurora {
         virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT override;
         virtual void SetViewPort(unsigned int width, unsigned int height) override;
         virtual void RenderToTex() override;
-        virtual void Recreate(HWND hWnd, unsigned int width = 800u, unsigned int height = 600u);
+        virtual void Resize(unsigned int width = 800u, unsigned int height = 600u) override;
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }
         inline Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return pContext; }
