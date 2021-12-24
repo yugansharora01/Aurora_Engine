@@ -21,7 +21,8 @@ namespace Aurora {
 		{
 			this->registry = registry;
 		}
-		Ref<Entity> CreateEntity(std::string Name = "",EntityHandle handle = NULL);
+		Ref<Entity> CreateEntityWithUUID(UUID& id,std::string Name = "");
+		Ref<Entity> CreateEntity(std::string Name = "");
 		void DestroyEntity(Ref<Entity> entity);
 		void Update();
 

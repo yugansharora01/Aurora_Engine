@@ -55,6 +55,15 @@
     <ClInclude Include="src\Aurora\Core\Graphics.h">
       <Filter>Aurora\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Core\Input.h">
+      <Filter>Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\Keycode.h">
+      <Filter>Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\UUID.h">
+      <Filter>Aurora\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h">
       <Filter>Aurora\Drawables\Geometry</Filter>
     </ClInclude>
@@ -236,8 +245,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Aurora\Core\Input.h" />
-    <ClInclude Include="src\Aurora\Core\Keycode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -247,6 +254,9 @@
       <Filter>Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\Graphics.cpp">
+      <Filter>Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Core\UUID.cpp">
       <Filter>Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Events\Events.cpp">
@@ -360,6 +370,9 @@
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsUtility.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
@@ -370,6 +383,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

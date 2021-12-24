@@ -138,7 +138,7 @@ namespace Aurora
 	static void SerializeEntity(YAML::Emitter& out,Ref<Entity> entity)
 	{
 		out << YAML::BeginMap;
-		out << YAML::Key << "Entity" << YAML::Value << entity->handle;
+		out << YAML::Key << "Entity" << YAML::Value << entity->GetUUID();
 
 		SerializeComponent<TagComponent>(out, entity,"TagComponent", [](YAML::Emitter& out, Ref<TagComponent>& component)
 		{
@@ -277,16 +277,16 @@ namespace Aurora
 		{
 			for (auto entity : entities)
 			{
-				EntityHandle handle = entity["Entity"].as<EntityHandle>();
+				UUID id = entity["Entity"].as<uint64_t>();
 
 				std::string name;
 				auto tagComponent = entity["TagComponent"];
 				if (tagComponent)
 					name = tagComponent["Tag"].as<std::string>();
 
-				AU_CORE_TRACE("Deserialized Entity with id = {0} and name = {1}", handle, name);
+				AU_CORE_TRACE("Deserialized Entity with id = {0} and name = {1}", id, name);
 
-				Ref<Entity> deserializedEntity = m_scene->CreateEntity(name,handle);
+				Ref<Entity> deserializedEntity = m_scene->CreateEntityWithUUID(id,name);
 
 				auto transformComponent = entity["TransformComponent"];
 

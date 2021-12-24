@@ -21,19 +21,24 @@ namespace Aurora {
 		Camera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
 	}
 
-	Ref<Entity> Scene::CreateEntity(std::string Name, EntityHandle handle)
+	Ref<Entity> Scene::CreateEntityWithUUID(UUID& id, std::string Name)
 	{
-		if (!handle)
-			handle = registry->CreateEntity();
 
-		Ref<Entity> entity = CreateRef<Entity>(handle, this);
+		Ref<Entity> entity = CreateRef<Entity>(registry->CreateEntity(), this);
 		registry->add(entity);
 
 		if (Name == "")
 			Name = "UnNamed";
 
+		entity->AddComponent<IDComponent>(id);
 		entity->AddComponent<TagComponent>(Name);
 		return entity;
+	}
+
+	Ref<Entity> Scene::CreateEntity(std::string Name)
+	{
+		auto id = UUID();
+		return CreateEntityWithUUID(id,Name);
 	}
 
 	void Scene::DestroyEntity(Ref<Entity> entity)

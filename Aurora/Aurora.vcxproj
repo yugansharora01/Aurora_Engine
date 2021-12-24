@@ -139,6 +139,7 @@
     <ClInclude Include="src\Aurora\Core\Graphics.h" />
     <ClInclude Include="src\Aurora\Core\Input.h" />
     <ClInclude Include="src\Aurora\Core\Keycode.h" />
+    <ClInclude Include="src\Aurora\Core\UUID.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="src\Aurora\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
     <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
+    <ClCompile Include="src\Aurora\Core\UUID.cpp" />
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />

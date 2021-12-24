@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Aurora/Core/UUID.h"
+
 namespace Aurora {
 	class Component;
 	class Entity;
@@ -113,13 +115,15 @@ namespace Aurora {
 		//compares the Entity handle 
 		bool operator==(const Entity& e)
 		{
-			return this->handle == e.handle;
+			return this->handle == e.handle && m_scene == e.m_scene;
 		}
 
 		operator uint32_t() const { return (uint32_t)handle; }
 
+		UUID GetUUID();
+
 	private:
-		Scene* m_scene;
+		Scene* m_scene = nullptr;
 		std::vector<GroupID> m_Groups;
 		std::vector<Ref<Component>> components;
 		std::bitset<maxComponents> componentBitSet;
@@ -259,7 +263,7 @@ namespace Aurora {
 
 		EntityHandle GetNewEntityHandle()
 		{
-			static GroupID lastID = 0;
+			static EntityHandle lastID = 0;
 			return lastID++;
 		}
 

@@ -4,6 +4,19 @@
 #include <DirectXMath.h>
 
 namespace Aurora {
+
+	class IDComponent : public Component
+	{
+	public:
+		UUID ID;
+	public:
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+		IDComponent(const uint64_t id)
+			:ID(id) {}
+		~IDComponent() {}
+	};
+
 	class TagComponent : public Component
 	{
 	public:
