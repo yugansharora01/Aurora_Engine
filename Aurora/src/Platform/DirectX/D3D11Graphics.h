@@ -84,7 +84,7 @@ namespace Aurora {
         inline Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget() { return pTarget; }
         inline Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() { return pDSV; }
         
-#ifndef AU_RELEASE
+#ifndef AU_RELEASE 
         inline DxgiInfoManager& GetInfoManager() { return infoManager; }
 #endif // AU_RELEASE
 

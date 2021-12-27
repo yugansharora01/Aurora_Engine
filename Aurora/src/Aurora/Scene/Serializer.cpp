@@ -147,7 +147,7 @@ namespace Aurora
 
 		SerializeComponent<TransformComponent>(out, entity, "TransformComponent", [](YAML::Emitter& out, Ref<TransformComponent>& component)
 		{
-			out << YAML::Key << "Transform" << YAML::Value << component->transform;
+			out << YAML::Key << "Translate" << YAML::Value << component->translate;
 			out << YAML::Key << "Rotation" << YAML::Value << component->rotation;
 			out << YAML::Key << "Scale" << YAML::Value << component->scale;
 		});
@@ -294,7 +294,7 @@ namespace Aurora
 				{
 					auto component = deserializedEntity->AddComponent<TransformComponent>();
 
-					component->transform = transformComponent["Transform"].as<DirectX::XMFLOAT3>();
+					component->translate = transformComponent["Translate"].as<DirectX::XMFLOAT3>();
 					component->rotation = transformComponent["Rotation"].as<DirectX::XMFLOAT3>();
 					component->scale = transformComponent["Scale"].as<DirectX::XMFLOAT3>();
 

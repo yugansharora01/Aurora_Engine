@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
 IncludeDir["yaml_cpp"] = "Aurora/vendor/yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "Aurora/vendor/ImGuizmo"
 
 project "Aurora"
 	location "Aurora"
@@ -34,7 +35,9 @@ project "Aurora"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/src/Platform/Windows/**.inl"
+		"%{prj.name}/src/Platform/Windows/**.inl",
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
 	}
 
 	includedirs
@@ -42,7 +45,8 @@ project "Aurora"
 		"%{prj.name}/src",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.yaml_cpp}"
+		"%{IncludeDir.yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links
@@ -50,6 +54,9 @@ project "Aurora"
 		"ImGui",
 		"yaml-cpp"
 	}
+
+	filter "files:Aurora/vendor/ImGuizmo/**.cpp"
+		flags { "NoPCH" }
 
 	filter "system:windows"
 		systemversion "latest"
@@ -101,7 +108,8 @@ project "Aurora-Editor"
 		"Aurora/src",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.yaml_cpp}"
+		"%{IncludeDir.yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links

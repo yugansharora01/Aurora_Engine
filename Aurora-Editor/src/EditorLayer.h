@@ -30,11 +30,13 @@ namespace Aurora {
 	public:
 		bool OnKeyPressed(KeyPressedEvent& e);
 	private:
+		int m_GuizmoType = -1;
 
 		DirectX::XMFLOAT2 m_ViewportSize;
 		Ref<FrameBuffer> fBuffer;
 
 		Ref<Scene> m_activeScene;
+		Ref<EditorCamera> m_editorCamera;
 
 		Ref<SceneHierarchyPanel> m_sceneHeirarchyPanel;
 

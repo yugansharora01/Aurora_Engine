@@ -12,7 +12,6 @@ namespace Aurora {
 	{
 	public:
 		Ref<Registry> registry;
-		Ref<EditorCamera> Camera;
 		std::string name;
 	public:
 		Scene();
@@ -24,7 +23,7 @@ namespace Aurora {
 		Ref<Entity> CreateEntityWithUUID(UUID& id,std::string Name = "");
 		Ref<Entity> CreateEntity(std::string Name = "");
 		void DestroyEntity(Ref<Entity> entity);
-		void Update();
+		void Update(Ref<EditorCamera> Editorcamera);
 
 		DirectX::XMMATRIX GetMatrix(Ref<Entity> entity);
 	};

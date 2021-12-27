@@ -2,19 +2,6 @@
 
 #include <memory>
 
-#if AU_DEBUG
-#define AU_RELEASE FALSE
-#undef AU_DEBUG
-#define AU_DEBUG TRUE
-#else
-#ifdef AU_RELEASE
-#define AU_DEBUG FALSE
-#undef AU_RELEASE
-#define AU_RELEASE TRUE
-#endif
-#endif
-
-
 
 #ifdef AU_PLATFORM_WINDOWS
 #if AU_DYNAMIC_LINK

@@ -1,11 +1,13 @@
 #include "Editorpch.h"
 #include <Aurora.h>
 #include "EditorLayer.h"
-#include "imgui.h"
 #include "Aurora/Utils/PlatformUtil.h"
 #include "Aurora/Scene/Serializer.h"
 #include "Aurora/Utils/PlatformUtil.h"
 #include "Aurora/Utils/FileOperations.h"
+#include "ImGuizmo.h"
+
+#include <imgui.h>
 
 namespace Aurora {
 
@@ -16,7 +18,7 @@ namespace Aurora {
 		m_geometryPanel = CreateRef<GeometryPanel>();
 
 		m_activeScene = CreateRef<Scene>("Test Scene");
-
+		m_editorCamera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
 		
 	}
 
@@ -38,6 +40,49 @@ namespace Aurora {
 
 		fBuffer = Application::Get().GetWindow().Gfx()->fbuf;
 		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+
+		//Guizmo
+		Ref<Entity> selectedEntity = m_sceneHeirarchyPanel->GetSelectedEntity();
+		if (selectedEntity && m_GuizmoType != -1)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			float windowWidth = ImGui::GetWindowWidth();
+			float windowHeight = ImGui::GetWindowHeight();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			//auto camera = m_activeScene->Camera;
+			auto viewMat = DirectX::XMMatrixInverse(NULL,m_editorCamera->GetTransform());
+			auto projMat = m_editorCamera->GetProjection();
+
+			auto component = selectedEntity->GetComponent<TransformComponent>();
+			auto transformMat = component->GetTransform();
+
+			DirectX::XMFLOAT4X4 viewfloat; 
+			DirectX::XMStoreFloat4x4(&viewfloat, viewMat);
+			
+			DirectX::XMFLOAT4X4 projfloat; 
+			DirectX::XMStoreFloat4x4(&projfloat, projMat);
+			
+			DirectX::XMFLOAT4X4 transformfloat; 
+			DirectX::XMStoreFloat4x4(&transformfloat, transformMat);
+
+			//const float view[16] = { viewfloat._11, viewfloat._12 ,viewfloat._13 ,viewfloat._14 ,viewfloat._21 ,viewfloat._22 ,viewfloat._23, viewfloat._24, viewfloat._31 , viewfloat._32 , viewfloat._33 , viewfloat._34 , viewfloat._41 , viewfloat._42 , viewfloat._43 , viewfloat._44 };
+			//const float proj[16] = { projfloat._11, projfloat._12 ,projfloat._13 ,projfloat._14 ,projfloat._21 ,projfloat._22 ,projfloat._23, projfloat._24, projfloat._31 , projfloat._32 , projfloat._33 , projfloat._34 , projfloat._41 , projfloat._42 , projfloat._43 , projfloat._44 };
+			//float transform[16] = { transformfloat._11, transformfloat._12 ,transformfloat._13 ,transformfloat._14 ,transformfloat._21 ,transformfloat._22 ,transformfloat._23, transformfloat._24, transformfloat._31 , transformfloat._32 , transformfloat._33 , transformfloat._34 , transformfloat._41 , transformfloat._42 , transformfloat._43 , transformfloat._44 };
+
+			ImGuizmo::Manipulate(&viewfloat._11, &projfloat._11, (ImGuizmo::OPERATION)m_GuizmoType, ImGuizmo::MODE::LOCAL, &transformfloat._11);
+			
+			if (ImGuizmo::IsUsing())
+			{
+				transformMat = DirectX::XMLoadFloat4x4(&transformfloat);
+
+				component->UpdateData(transformMat);
+				
+			}
+		
+		
+		}
 
 		ImGui::End();
 		//-------------------------------------------------
@@ -147,7 +192,7 @@ namespace Aurora {
 
 	void EditorLayer::OnUpdate()
 	{
-		m_activeScene->Update();
+		m_activeScene->Update(m_editorCamera);
 	}
 
 	void EditorLayer::OnAttach()
@@ -157,6 +202,7 @@ namespace Aurora {
 
 	void EditorLayer::OnEvent(Event& e)
 	{
+		m_editorCamera->OnEvent(e);
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(AURORA_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 	}
@@ -238,6 +284,35 @@ namespace Aurora {
 		{
 			WindowCloseEvent e;
 			Application::Get().OnWindowClose(e);
+			break;
+		}
+
+		//Guizmo
+		case Key::Q:
+		{
+			if (!ImGuizmo::IsUsing())
+				m_GuizmoType = -1;
+			break;
+		}
+		
+		case Key::W:
+		{
+			if (!ImGuizmo::IsUsing())
+				m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			break;
+		}
+		
+		case Key::E:
+		{
+			if (!ImGuizmo::IsUsing())
+				m_GuizmoType = ImGuizmo::OPERATION::ROTATE;
+			break;
+		}
+		
+		case Key::R:
+		{
+			if (!ImGuizmo::IsUsing())
+				m_GuizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}
 

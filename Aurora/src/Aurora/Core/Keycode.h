@@ -9,10 +9,20 @@ namespace Aurora
 	{
 		enum : KeyCode
 		{
+			Backspace = 8,
+			Tab = 9,
+			Enter = 13,
 			Shift = 16,
 			Control = 17,
+			Alt = 18,
+			CapsLock = 20,
 			Escape = 27,
 			Space = 32,
+			PageUp = 33,
+			PageDn = 34,
+			End = 35,
+			Home = 36,
+			Delete = 46,
 			//Apostrophe = 39, /* ' */
 			//Comma = 44, /* , */
 			//Minus = 45, /* - */
@@ -32,6 +42,11 @@ namespace Aurora
 
 			//Semicolon = 59, /* ; */
 			//Equal = 61, /* = */
+
+			LeftArrow = 37,
+			UpArrow = 38,
+			RightArrow = 39,
+			DownArrow = 40,
 
 			A = 65,
 			B = 66,
@@ -60,7 +75,7 @@ namespace Aurora
 			Y = 89,
 			Z = 90,
 			
-
+			Num0 = 96,
 			//LeftBracket = 91,  /* [ */
 			//Backslash = 92,  /* \ */
 			//RightBracket = 93,  /* ] */
@@ -70,50 +85,37 @@ namespace Aurora
 			//World2 = 162, /* non-US #2 */
 
 			///* Function keys */
-			//Escape = 256,
-			//Enter = 257,
-			//Tab = 258,
-			//Backspace = 259,
+			
 			//Insert = 260,
-			//Delete = 261,
-			//Right = 262,
-			//Left = 263,
-			//Down = 264,
-			//Up = 265,
-			//PageUp = 266,
-			//PageDown = 267,
-			//Home = 268,
-			//End = 269,
-			//CapsLock = 280,
-			//ScrollLock = 281,
-			//NumLock = 282,
 			//PrintScreen = 283,
 			//Pause = 284,
-			//F1 = 290,
-			//F2 = 291,
-			//F3 = 292,
-			//F4 = 293,
-			//F5 = 294,
-			//F6 = 295,
-			//F7 = 296,
-			//F8 = 297,
-			//F9 = 298,
-			//F10 = 299,
-			//F11 = 300,
-			//F12 = 301,
-			//F13 = 302,
-			//F14 = 303,
-			//F15 = 304,
-			//F16 = 305,
-			//F17 = 306,
-			//F18 = 307,
-			//F19 = 308,
-			//F20 = 309,
-			//F21 = 310,
-			//F22 = 311,
-			//F23 = 312,
-			//F24 = 313,
-			//F25 = 314,
+			F1 = 112,
+			F2 = 113,
+			F3 = 114,
+			F4 = 115,
+			F5 = 116,
+			F6 = 117,
+			F7 = 118,
+			F8 = 118,
+			F9 = 120,
+			F10 = 121,
+			F11 = 122,
+			F12 = 123,
+			F13 = 124,
+			F14 = 125,
+			F15 = 126,
+			F16 = 127,
+			F17 = 128,
+			F18 = 129,
+			F19 = 130,
+			F20 = 131,
+			F21 = 132,
+			F22 = 133,
+			F23 = 134,
+			F24 = 135,
+
+			NumLock = 144,
+			ScrollLock = 145,
 
 			///* Keypad */
 			//KP0 = 320,
@@ -134,15 +136,11 @@ namespace Aurora
 			//KPEnter = 335,
 			//KPEqual = 336,
 
-			//LeftShift = 340,
-			//LeftControl = 341,
-			//LeftAlt = 342,
-			//LeftSuper = 343,
-			//RightShift = 344,
-			//RightControl = 345,
-			//RightAlt = 346,
-			//RightSuper = 347,
-			//Menu = 348
+			LeftShift = 160,
+			RightShift = 161,
+			LeftControl = 162,
+			RightControl = 163,
+			
 		};
 	}
 }

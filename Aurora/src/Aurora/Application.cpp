@@ -34,7 +34,7 @@ namespace Aurora {
 	void Application::Run()
 	{
 		m_Window->Gfx()->fbuf = FrameBuffer::Create(800, 600);
-
+		
 		for (Layer* layer : m_LayerStack)
 			layer->Init();
 

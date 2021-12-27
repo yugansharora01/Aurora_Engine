@@ -1,14 +1,16 @@
 #include "pch.h"
 #include "ImguiLayer.h"
 
-#include "imgui.h"
 #include "backends/imgui_impl_dx11.h"
 #include "backends/imgui_impl_win32.h"
+#include "ImGuizmo.h"
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
-
 #include "Platform/DirectX/D3D11FrameBuffer.h"
+
+#include <imgui.h>
+
 
 namespace Aurora {
 
@@ -78,6 +80,7 @@ namespace Aurora {
 		ImGui_ImplWin32_NewFrame();
 		ImGui_ImplDX11_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 	}
 
 	void ImGuiLayer::End()

@@ -1,387 +1,408 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Aurora">
-      <UniqueIdentifier>{0FF303A8-FB94-2E7E-E44F-42D2D090B5CE}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Core">
-      <UniqueIdentifier>{C758EA1D-330E-6313-BC02-5DEA28B75917}</UniqueIdentifier>
+    <Filter Include="src\Aurora">
+      <UniqueIdentifier>{46CC6205-3284-A452-9B8B-7DAE87623F43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Drawables">
-      <UniqueIdentifier>{338E07C4-1F87-2616-48B9-0B9B34110622}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Core">
+      <UniqueIdentifier>{5E8CC435-CA17-32FA-D328-B5EE3F338EFA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Drawables\Geometry">
-      <UniqueIdentifier>{EE643139-5A27-65C3-A3D7-F34F0FD93DA1}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Drawables">
+      <UniqueIdentifier>{2A98742B-1627-FEF4-BF45-12F0ABB30E9B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Events">
-      <UniqueIdentifier>{13B80547-7F78-817D-48B3-CAFAB432C659}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Drawables\Geometry">
+      <UniqueIdentifier>{C5948A90-31AD-71BA-FA59-015466310654}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Imgui">
-      <UniqueIdentifier>{99BFA0DB-8522-3080-2EA8-68361AEAFB02}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Events">
+      <UniqueIdentifier>{6A2D3BBE-D643-3954-1FBB-C4758B100ADC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Renderer">
-      <UniqueIdentifier>{95174F16-01A3-BCDA-0AB4-3FCF76BE18DB}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Imgui">
+      <UniqueIdentifier>{1066C1EE-FC5E-E040-2591-C5C511E9BF4C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Scene">
-      <UniqueIdentifier>{6C2F50DC-5892-DF80-0118-1837ED59AB03}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Renderer">
+      <UniqueIdentifier>{AC3EB730-18A0-943E-A10D-DBF00D6ECBFD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Aurora\Utils">
-      <UniqueIdentifier>{AFC37DDC-9B26-0D81-44AC-453730EED803}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Scene">
+      <UniqueIdentifier>{E3D570EF-CFCE-8F41-F800-75C6E4586F4D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform">
-      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    <Filter Include="src\Aurora\Utils">
+      <UniqueIdentifier>{266A9EEF-1263-BD41-3B95-A2C627ED9C4D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform\DirectX">
-      <UniqueIdentifier>{EC338E64-D82C-ADB6-015F-923BEDB68CC2}</UniqueIdentifier>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform\Windows">
-      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    <Filter Include="src\Platform\DirectX">
+      <UniqueIdentifier>{E33DFBCB-CFCC-8495-78EB-98906459953B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\Windows">
+      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\ImGuizmo">
+      <UniqueIdentifier>{73BF7F4C-DF4A-ED10-E85B-700554664911}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Aurora.h" />
+    <ClInclude Include="src\Aurora.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Application.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\AuroraMath.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\AuTimer.h">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\Graphics.h">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\Input.h">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\Keycode.h">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\UUID.h">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\IndexedTriangleList.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Prism.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h">
-      <Filter>Aurora\Drawables\Geometry</Filter>
+      <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\EntryPoint.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Events\ApplicationEvents.h">
-      <Filter>Aurora\Events</Filter>
+      <Filter>src\Aurora\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Events\Events.h">
-      <Filter>Aurora\Events</Filter>
+      <Filter>src\Aurora\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Events\KeyboardEvents.h">
-      <Filter>Aurora\Events</Filter>
+      <Filter>src\Aurora\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Events\MouseEvents.h">
-      <Filter>Aurora\Events</Filter>
+      <Filter>src\Aurora\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h">
-      <Filter>Aurora\Imgui</Filter>
+      <Filter>src\Aurora\Imgui</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Layer.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\LayerStack.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Log.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Bindables.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Buffer.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\EditorCamera.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\FrameBuffer.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Renderer.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\RendererAPI.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Shader.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Texture.h">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Scene\Components.h">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Scene\ECS.h">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Scene\Scene.h">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Scene\Serializer.h">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Utils\Convertors.h">
-      <Filter>Aurora\Utils</Filter>
+      <Filter>src\Aurora\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Utils\FileOperations.h">
-      <Filter>Aurora\Utils</Filter>
+      <Filter>src\Aurora\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Utils\PlatformUtil.h">
-      <Filter>Aurora\Utils</Filter>
+      <Filter>src\Aurora\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Window.h">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11ConstantBuffers.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11FrameBuffer.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11IndexBuffer.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11InputLayout.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11PixelShader.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Sampler.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Surface.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Texture.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Topology.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11VertexBuffer.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11VertexShader.h">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraException.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraWin.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\DXGetErrorDescription.inl">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\DXGetErrorString.inl">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\DXTrace.inl">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\DxgiInfoManager.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\GraphicsThrowMacros.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\Keyboard.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\Mouse.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\Win32_Window.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsThrowMacros.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsUtility.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\dxerr.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\pch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
+      <Filter>vendor\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\Graphics.cpp">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\UUID.cpp">
-      <Filter>Aurora\Core</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Events\Events.cpp">
-      <Filter>Aurora\Events</Filter>
+      <Filter>src\Aurora\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp">
-      <Filter>Aurora\Imgui</Filter>
+      <Filter>src\Aurora\Imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp">
-      <Filter>Aurora\Imgui</Filter>
+      <Filter>src\Aurora\Imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Layer.cpp">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\LayerStack.cpp">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Log.cpp">
-      <Filter>Aurora</Filter>
+      <Filter>src\Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\FrameBuffer.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\RendererAPI.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Shader.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Texture.cpp">
-      <Filter>Aurora\Renderer</Filter>
+      <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Scene\Components.cpp">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Scene\ECS.cpp">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Scene\Scene.cpp">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Scene\Serializer.cpp">
-      <Filter>Aurora\Scene</Filter>
+      <Filter>src\Aurora\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp">
-      <Filter>Aurora\Utils</Filter>
+      <Filter>src\Aurora\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Utils\FileOperations.cpp">
-      <Filter>Aurora\Utils</Filter>
+      <Filter>src\Aurora\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11FrameBuffer.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11InputLayout.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11PixelShader.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Sampler.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Surface.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Texture.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Topology.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11VertexBuffer.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11VertexShader.cpp">
-      <Filter>Platform\DirectX</Filter>
+      <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\DxgiInfoManager.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\Keyboard.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\Mouse.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\Win32_Window.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsUtility.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\dxerr.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
+      <Filter>vendor\ImGuizmo</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

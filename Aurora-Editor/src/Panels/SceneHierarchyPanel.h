@@ -19,6 +19,8 @@ namespace Aurora {
 
 		void DrawComponents(Ref<Entity> entity);
 
+		Ref<Entity> GetSelectedEntity() { return m_selectedEntity; }
+
 
 	private:
 		Ref<Scene> m_scene;

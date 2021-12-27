@@ -10,7 +10,6 @@ namespace Aurora {
 	Scene::Scene()
 	{
 		registry = CreateRef<Registry>();
-		Camera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
 		name = "Untitled";
 	}
 
@@ -18,7 +17,6 @@ namespace Aurora {
 		:name(name)
 	{
 		registry = CreateRef<Registry>();
-		Camera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
 	}
 
 	Ref<Entity> Scene::CreateEntityWithUUID(UUID& id, std::string Name)
@@ -46,11 +44,11 @@ namespace Aurora {
 		registry->DestroyEntity(entity);
 	}
 
-	void Scene::Update()
+	void Scene::Update(Ref<EditorCamera> Editorcamera)
 	{
 		auto height = Application::Get().GetWindow().GetHeight();
 		auto width = Application::Get().GetWindow().GetWidth();
-		Camera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);
+		Editorcamera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);
 
 		Renderer::BeginScene();
 		auto entities = registry->GetList();
@@ -63,9 +61,10 @@ namespace Aurora {
 
 			vShader->UploadData.clear();
 			
+			auto ViewMat = DirectX::XMMatrixInverse(NULL,Editorcamera->GetTransform());
 
 			vShader->UploadMat4(DirectX::XMMatrixTranspose(
-				GetMatrix(entities[i]) * Camera->GetProjection()));
+				GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
 
 			Renderer::Submit(vShader, pShader, vBuf, iBuf);
 
@@ -75,15 +74,32 @@ namespace Aurora {
 
 	DirectX::XMMATRIX Scene::GetMatrix(Ref<Entity> entity)
 	{
-		auto x = entity->GetComponent<TransformComponent>()->transform.x;
-		auto y = entity->GetComponent<TransformComponent>()->transform.y;
-		auto z = entity->GetComponent<TransformComponent>()->transform.z;
-		auto x1 = entity->GetComponent<TransformComponent>()->rotation.x;
-		auto y1 = entity->GetComponent<TransformComponent>()->rotation.y;
-		auto z1 = entity->GetComponent<TransformComponent>()->rotation.z;
+		auto translate = entity->GetComponent<TransformComponent>()->translate;
+		auto rotation = entity->GetComponent<TransformComponent>()->rotation;
+		auto scale = entity->GetComponent<TransformComponent>()->scale;
+		auto x = translate.x;
+		auto y = translate.y;
+		auto z = translate.z;
+		auto x1 = rotation.x;
+		auto y1 = rotation.y;
+		auto z1 = rotation.z;
+		auto x2 = scale.x;
+		auto y2 = scale.y;
+		auto z2 = scale.z;
 
-		return DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
-			DirectX::XMMatrixTranslation(x, y, z);
+		DirectX::XMFLOAT3 identity(1.0f, 1.0f, 1.0f);
+		auto translateVec = DirectX::XMLoadFloat3(&translate);
+		auto rotationVec = DirectX::XMLoadFloat3(&rotation);
+		auto scaleVec = DirectX::XMLoadFloat3(&scale);
+		auto identityVec = DirectX::XMLoadFloat3(&identity);
+
+		auto mat = DirectX::XMMatrixTransformation(translateVec, identityVec, scaleVec, translateVec, rotationVec, translateVec);
+
+		mat = DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
+			DirectX::XMMatrixTranslation(x, y, z) *
+			DirectX::XMMatrixScaling(x2,y2,z2);
+
+		return mat;
 	}
 	
 }

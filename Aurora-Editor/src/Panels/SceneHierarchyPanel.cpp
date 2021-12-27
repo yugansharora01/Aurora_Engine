@@ -98,14 +98,19 @@ namespace Aurora {
 			auto c = entity->GetComponent<TransformComponent>();
 
 			ImGui::Text("Transform");
-			ImGui::DragFloat("##X", &c->transform.x, 0.1f, -50.0f, 50.0f, "%.2f");
-			ImGui::DragFloat("##Y", &c->transform.y, 0.1f, -50.0f, 50.0f, "%.2f");
-			ImGui::DragFloat("##Z", &c->transform.z, 0.1f, -50.0f, 50.0f, "%.2f");
+			ImGui::DragFloat("##X", &c->translate.x, 0.1f, -50.0f, 50.0f, "%.2f");
+			ImGui::DragFloat("##Y", &c->translate.y, 0.1f, -50.0f, 50.0f, "%.2f");
+			ImGui::DragFloat("##Z", &c->translate.z, 0.1f, -50.0f, 50.0f, "%.2f");
 
 			ImGui::Text("Rotation");
 			ImGui::DragFloat("##X1", &c->rotation.x, 0.1f, -3.14f, 3.14f, "%.2f");
 			ImGui::DragFloat("##Y1", &c->rotation.y, 0.1f, -3.14f, 3.14f, "%.2f");
 			ImGui::DragFloat("##Z1", &c->rotation.z, 0.1f, -3.14f, 3.14f, "%.2f");
+			
+			ImGui::Text("Scale");
+			ImGui::DragFloat("##X2", &c->scale.x, 0.1f, -10.0f, 10.0f, "%.2f");
+			ImGui::DragFloat("##Y2", &c->scale.y, 0.1f, -10.0f, 10.0f, "%.2f");
+			ImGui::DragFloat("##Z2", &c->scale.z, 0.1f, -10.0f, 10.0f, "%.2f");
 		}
 	}
 }
