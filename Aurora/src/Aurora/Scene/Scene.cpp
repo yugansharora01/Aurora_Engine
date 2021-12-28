@@ -77,29 +77,16 @@ namespace Aurora {
 		auto translate = entity->GetComponent<TransformComponent>()->translate;
 		auto rotation = entity->GetComponent<TransformComponent>()->rotation;
 		auto scale = entity->GetComponent<TransformComponent>()->scale;
-		auto x = translate.x;
-		auto y = translate.y;
-		auto z = translate.z;
-		auto x1 = rotation.x;
-		auto y1 = rotation.y;
-		auto z1 = rotation.z;
-		auto x2 = scale.x;
-		auto y2 = scale.y;
-		auto z2 = scale.z;
 
-		DirectX::XMFLOAT3 identity(1.0f, 1.0f, 1.0f);
+		DirectX::XMFLOAT4 zero(0.0f, 0.0f, 0.0f,0.0f);
+		DirectX::XMFLOAT4 identity(1.0f, 0.0f, 0.0f,0.0f);
+		auto zeroVec = DirectX::XMLoadFloat4(&zero);
 		auto translateVec = DirectX::XMLoadFloat3(&translate);
 		auto rotationVec = DirectX::XMLoadFloat3(&rotation);
 		auto scaleVec = DirectX::XMLoadFloat3(&scale);
-		auto identityVec = DirectX::XMLoadFloat3(&identity);
+		auto identityQuat = DirectX::XMLoadFloat4(&identity);
 
-		auto mat = DirectX::XMMatrixTransformation(translateVec, identityVec, scaleVec, translateVec, rotationVec, translateVec);
-
-		mat = DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
-			DirectX::XMMatrixTranslation(x, y, z) *
-			DirectX::XMMatrixScaling(x2,y2,z2);
-
-		return mat;
+		return DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
 	}
 	
 }

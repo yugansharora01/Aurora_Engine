@@ -12,10 +12,17 @@ namespace Aurora {
 
 		translate = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 		rotation = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+		scale = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
 
-		transform = DirectX::XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f) *
-			DirectX::XMMatrixTranslation(0.0f, 0.0f, 0.0f);
+		DirectX::XMFLOAT4 zerofloat( 0.0f,0.0f,0.0f,0.0f );
+		auto zeroVec = DirectX::XMLoadFloat4(&zerofloat);
+		DirectX::XMFLOAT4 identityQuatFloat( 1.0f,0.0f,0.0f,0.0f );
+		auto identityQuat = DirectX::XMLoadFloat4(&identityQuatFloat);
+		auto scaleVec = DirectX::XMLoadFloat3(&scale);
+		auto translateVec = DirectX::XMLoadFloat3(&translate);
+		auto rotationVec = DirectX::XMLoadFloat3(&rotation);
 
+		transform = DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
 	}
 
 	DirectX::XMMATRIX EditorCamera::GetProjection() noexcept
@@ -69,7 +76,17 @@ namespace Aurora {
 			break;
 		}
 
-		auto x = translate.x;
+		DirectX::XMFLOAT4 zerofloat(0.0f, 0.0f, 0.0f, 0.0f);
+		auto zeroVec = DirectX::XMLoadFloat4(&zerofloat);
+		DirectX::XMFLOAT4 identityQuatFloat(1.0f, 0.0f, 0.0f, 0.0f);
+		auto identityQuat = DirectX::XMLoadFloat4(&identityQuatFloat);
+		auto scaleVec = DirectX::XMLoadFloat3(&scale);
+		auto translateVec = DirectX::XMLoadFloat3(&translate);
+		auto rotationVec = DirectX::XMLoadFloat3(&rotation);
+
+		transform = DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
+
+		/*auto x = translate.x;
 		auto y = translate.y;
 		auto z = translate.z;
 		auto x1 = rotation.x;
@@ -77,7 +94,7 @@ namespace Aurora {
 		auto z1 = rotation.z;
 
 		transform = DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
-			DirectX::XMMatrixTranslation(x, y, z);
+			DirectX::XMMatrixTranslation(x, y, z);*/
 
 		return false;
 	}

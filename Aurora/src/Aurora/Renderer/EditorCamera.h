@@ -11,6 +11,7 @@ namespace Aurora {
 	public:
 		DirectX::XMFLOAT3 translate;
 		DirectX::XMFLOAT3 rotation;
+		DirectX::XMFLOAT3 scale;
 	public:
 		EditorCamera(float fov, float aspectRatio, float nearClip, float farClip);
 		void UpdateProjection(float fov, float aspectRatio, float nearClip, float farClip);

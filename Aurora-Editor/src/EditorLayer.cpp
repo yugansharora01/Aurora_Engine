@@ -32,7 +32,7 @@ namespace Aurora {
 		m_geometryPanel->OnImGuiRender();
 
 		//-------------------------------------------------
-
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
 		ImGui::Begin("Viewport");
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
@@ -67,24 +67,20 @@ namespace Aurora {
 			DirectX::XMFLOAT4X4 transformfloat; 
 			DirectX::XMStoreFloat4x4(&transformfloat, transformMat);
 
-			//const float view[16] = { viewfloat._11, viewfloat._12 ,viewfloat._13 ,viewfloat._14 ,viewfloat._21 ,viewfloat._22 ,viewfloat._23, viewfloat._24, viewfloat._31 , viewfloat._32 , viewfloat._33 , viewfloat._34 , viewfloat._41 , viewfloat._42 , viewfloat._43 , viewfloat._44 };
-			//const float proj[16] = { projfloat._11, projfloat._12 ,projfloat._13 ,projfloat._14 ,projfloat._21 ,projfloat._22 ,projfloat._23, projfloat._24, projfloat._31 , projfloat._32 , projfloat._33 , projfloat._34 , projfloat._41 , projfloat._42 , projfloat._43 , projfloat._44 };
-			//float transform[16] = { transformfloat._11, transformfloat._12 ,transformfloat._13 ,transformfloat._14 ,transformfloat._21 ,transformfloat._22 ,transformfloat._23, transformfloat._24, transformfloat._31 , transformfloat._32 , transformfloat._33 , transformfloat._34 , transformfloat._41 , transformfloat._42 , transformfloat._43 , transformfloat._44 };
-
 			ImGuizmo::Manipulate(&viewfloat._11, &projfloat._11, (ImGuizmo::OPERATION)m_GuizmoType, ImGuizmo::MODE::LOCAL, &transformfloat._11);
 			
 			if (ImGuizmo::IsUsing())
 			{
 				transformMat = DirectX::XMLoadFloat4x4(&transformfloat);
-
 				component->UpdateData(transformMat);
-				
+				auto l = 0;
 			}
 		
 		
 		}
 
 		ImGui::End();
+		ImGui::PopStyleVar();
 		//-------------------------------------------------
 
 	}
