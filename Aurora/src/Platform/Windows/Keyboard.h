@@ -14,6 +14,7 @@ namespace Aurora {
 
         //Key Event stuff
         bool IsKeyPressed(unsigned char keycode) const noexcept;
+        bool IsAnotherKeyPressed(unsigned char keycode) const noexcept;
 
         //Autorepeat control
         void EnableAutorepeat() noexcept;
@@ -28,7 +29,6 @@ namespace Aurora {
 
     private:
         static constexpr unsigned int nKeys = 256u;
-        static constexpr unsigned int bufferSize = 16u;
         bool autorepeatEnabled = false;
         std::bitset<nKeys> keyStates;
     };

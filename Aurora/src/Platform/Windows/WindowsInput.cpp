@@ -11,6 +11,12 @@ namespace Aurora
 		return dynamic_cast<WindowsWindow*>(&Application::Get().GetWindow())->GetWin32WindowPtr()->kbd.IsKeyPressed(key);
 	}
 
+
+	bool IsAnotherKeyPressed(KeyCode key)
+	{
+		return dynamic_cast<WindowsWindow*>(&Application::Get().GetWindow())->GetWin32WindowPtr()->kbd.IsAnotherKeyPressed(key);
+	}
+
 	bool Input::IsMouseButtonPressed()
 	{
 		auto wnd = dynamic_cast<WindowsWindow*>(&Application::Get().GetWindow())->GetWin32WindowPtr();

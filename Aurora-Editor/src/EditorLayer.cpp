@@ -67,16 +67,31 @@ namespace Aurora {
 			DirectX::XMFLOAT4X4 transformfloat; 
 			DirectX::XMStoreFloat4x4(&transformfloat, transformMat);
 
+			auto Translate = component->translate;
+			auto Rotation = component->rotation;
+			auto Scale = component->scale;
+
+			ImGuizmo::RecomposeMatrixFromComponents(&Translate.x, &Rotation.x, &Scale.x, &transformfloat._11);
+
 			ImGuizmo::Manipulate(&viewfloat._11, &projfloat._11, (ImGuizmo::OPERATION)m_GuizmoType, ImGuizmo::MODE::LOCAL, &transformfloat._11);
 			
 			if (ImGuizmo::IsUsing())
 			{
 				transformMat = DirectX::XMLoadFloat4x4(&transformfloat);
-				component->UpdateData(transformMat);
-				auto l = 0;
+
+				ImGuizmo::DecomposeMatrixToComponents(&transformfloat._11, &component->translate.x, &Rotation.x, &component->scale.x);
+				
+				DirectX::XMFLOAT4 delta;
+
+				delta.x = Rotation.x - component->rotation.x;
+				delta.y = Rotation.y - component->rotation.y;
+				delta.z = Rotation.z - component->rotation.z;
+
+				component->rotation.x += delta.x;
+				component->rotation.y += delta.y;
+				component->rotation.z += delta.z;
+
 			}
-		
-		
 		}
 
 		ImGui::End();
@@ -293,21 +308,21 @@ namespace Aurora {
 		
 		case Key::W:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && control)
 				m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
 		}
 		
 		case Key::E:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && control)
 				m_GuizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
 		}
 		
 		case Key::R:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && control)
 				m_GuizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}

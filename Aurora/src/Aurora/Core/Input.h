@@ -8,6 +8,7 @@ namespace Aurora
 	{
 	public:
 		static bool IsKeyPressed(KeyCode key);
+		static bool IsAnotherKeyPressed(KeyCode key);
 		static bool IsMouseButtonPressed();
 		static bool IsRightMouseButtonPressed();
 		static bool IsLeftMouseButtonPressed();

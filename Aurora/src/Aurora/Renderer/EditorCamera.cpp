@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "EditorCamera.h"
 #include "Aurora/Log.h"
+#include "Aurora/Core/Input.h"
 
 namespace Aurora {
 
@@ -46,32 +47,44 @@ namespace Aurora {
 	bool EditorCamera::OnKeyPressed(KeyPressedEvent& e)
 	{
 		AU_INFO("KeyPressed : {0}", (int)e.GetKeyCode());
+
+		bool control = Input::IsKeyPressed(Key::Control);
+		bool shift = Input::IsKeyPressed(Key::Shift);
+
 		switch (e.GetKeyCode())
 		{
 		case Key::W :
-			rotation.x += RotationSpeed;
+			if(!control && !shift)
+				rotation.x += RotationSpeed;
 			break;
 		case Key::A :
-			rotation.y += RotationSpeed;
+			if (!control && !shift)
+				rotation.y += RotationSpeed;
 			break;
 		case Key::S :
-			rotation.x -= RotationSpeed;
+			if (!control && !shift)
+				rotation.x -= RotationSpeed;
 			break;
 		case Key::D :
-			rotation.y -= RotationSpeed;
+			if (!control && !shift)
+				rotation.y -= RotationSpeed;
 			break;
 		case Key::UpArrow :
-			translate.z += MoveSpeed;
-				break;
+			if (!control && !shift)
+				translate.z += MoveSpeed;
+			break;
 		case Key::DownArrow :
-			translate.z -= MoveSpeed;
-				break;
+			if (!control && !shift)
+				translate.z -= MoveSpeed;
+			break;
 		case Key::LeftArrow :
-			translate.x -= MoveSpeed;
-				break;
+			if (!control && !shift)
+				translate.x -= MoveSpeed;
+			break;
 		case Key::RightArrow :
-			translate.x += MoveSpeed;
-				break;
+			if (!control && !shift)
+				translate.x += MoveSpeed;
+			break;
 		default:
 			break;
 		}
@@ -85,16 +98,6 @@ namespace Aurora {
 		auto rotationVec = DirectX::XMLoadFloat3(&rotation);
 
 		transform = DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
-
-		/*auto x = translate.x;
-		auto y = translate.y;
-		auto z = translate.z;
-		auto x1 = rotation.x;
-		auto y1 = rotation.y;
-		auto z1 = rotation.z;
-
-		transform = DirectX::XMMatrixRotationRollPitchYaw(x1, y1, z1) *
-			DirectX::XMMatrixTranslation(x, y, z);*/
 
 		return false;
 	}

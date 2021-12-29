@@ -74,7 +74,7 @@ namespace Aurora {
 
 		DirectX::XMMATRIX GetTransform()
 		{
-			DirectX::XMFLOAT4 zero(0.0f, 0.0f, 0.0f, 0.0f);
+			DirectX::XMFLOAT4 zero(0.0f, 0.0f, 0.0f, 1.0f);
 			DirectX::XMFLOAT4 identity(1.0f, 0.0f, 0.0f, 0.0f);
 			auto zeroVec = DirectX::XMLoadFloat4(&zero);
 			auto translateVec = DirectX::XMLoadFloat3(&translate);
@@ -82,7 +82,7 @@ namespace Aurora {
 			auto scaleVec = DirectX::XMLoadFloat3(&scale);
 			auto identityQuat = DirectX::XMLoadFloat4(&identity);
 
-			transform = DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, translateVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
+			transform = DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
 
 			return transform;
 		}
@@ -96,10 +96,18 @@ namespace Aurora {
 
 			DirectX::XMFLOAT4 newRotation,deltaRotation;
 			DirectX::XMStoreFloat3(&scale, scaleVec);
-			DirectX::XMStoreFloat3(&rotation, rotationVec);
+			DirectX::XMStoreFloat4(&newRotation, rotationVec);
 			DirectX::XMStoreFloat3(&translate, translationVec);
 
 			AU_INFO(" New Rotation {0},{1},{2}", rotation.x, rotation.y, rotation.z);
+
+			deltaRotation.x = DirectX::XMConvertToRadians(newRotation.x) - rotation.x;
+			deltaRotation.y = DirectX::XMConvertToRadians(newRotation.y) - rotation.y;
+			deltaRotation.z = DirectX::XMConvertToRadians(newRotation.z) - rotation.z;
+
+			rotation.x += deltaRotation.x;
+			rotation.y += deltaRotation.y;
+			rotation.z += deltaRotation.z;
 
 		}
 		

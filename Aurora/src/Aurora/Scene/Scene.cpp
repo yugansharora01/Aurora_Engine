@@ -48,7 +48,7 @@ namespace Aurora {
 	{
 		auto height = Application::Get().GetWindow().GetHeight();
 		auto width = Application::Get().GetWindow().GetWidth();
-		Editorcamera->UpdateProjection(1, (float)height / (float)width, 0.5f, 40.0f);
+		Editorcamera->UpdateProjection( 1, (float)height/ (float)width, 0.5f, 40.0f);
 
 		Renderer::BeginScene();
 		auto entities = registry->GetList();

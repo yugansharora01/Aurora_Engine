@@ -9,6 +9,16 @@ namespace Aurora {
         return keyStates[keycode];
     }
 
+    bool Keyboard::IsAnotherKeyPressed(unsigned char keycode) const noexcept
+    {
+        for (auto i = 0;i < nKeys;i++)
+        {
+            if (keyStates[i] == 1 && i != keycode)
+                return true;
+        }
+        return false;
+    }
+
     void Keyboard::EnableAutorepeat() noexcept
     {
         autorepeatEnabled = true;
