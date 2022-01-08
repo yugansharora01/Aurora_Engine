@@ -12,7 +12,7 @@ namespace Aurora
 	}
 
 
-	bool IsAnotherKeyPressed(KeyCode key)
+	bool Input::IsAnotherKeyPressed(KeyCode key)
 	{
 		return dynamic_cast<WindowsWindow*>(&Application::Get().GetWindow())->GetWin32WindowPtr()->kbd.IsAnotherKeyPressed(key);
 	}

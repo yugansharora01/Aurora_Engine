@@ -16,14 +16,22 @@ namespace Aurora {
 	class Shader
 	{
 	public:
-		virtual void UploadFloat2(DirectX::XMFLOAT2 val) = 0;
-		virtual void UploadFloat3(DirectX::XMFLOAT3 val) = 0;
-		virtual void UploadFloat4(DirectX::XMFLOAT4 val) = 0;
-		virtual void UploadMat3(DirectX::XMMATRIX mat3) = 0;
-		virtual void UploadMat4(DirectX::XMMATRIX mat4) = 0;
-		virtual void UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr) = 0;
+
+		virtual void UploadData(void* val, size_t SizeOfEle, size_t SizeOfData,bool StoreData = true ,int slot = -1) = 0;
+
+		virtual void UploadFloat(std::vector<float> vec, bool StoreData = true, int slot = -1) = 0;
+
+		virtual void UploadFloat2(std::vector<DirectX::XMFLOAT2> vec2, bool StoreData = true, int slot = -1) = 0;
+
+		virtual void UploadFloat3(std::vector<DirectX::XMFLOAT3> vec3, bool StoreData = true, int slot = -1) = 0;
+
+		virtual void UploadFloat4(std::vector<DirectX::XMFLOAT4> vec4, bool StoreData = true, int slot = -1) = 0;
+
 		virtual void Bind() = 0;
+
 		virtual void Unbind() = 0;
+
+		virtual void Refresh() = 0;
 	};
 
 	class PixelShader : public Shader
@@ -31,11 +39,12 @@ namespace Aurora {
 	public:
 		std::string path;
 
-		std::vector<std::vector<DirectX::XMFLOAT4>> UploadData;
+		std::vector<std::vector<DirectX::XMFLOAT4>> UploadedData;
 	public:
 		virtual ~PixelShader() = default;
 		static std::shared_ptr<PixelShader> Create(const std::wstring& path);
-
+		virtual void SetDataToAppend(unsigned int Elements, unsigned int EleSize, void* data) = 0;
+		virtual void* GetAppendedData() = 0;
 	};
 
 	class VertexShader : public Shader
@@ -43,7 +52,7 @@ namespace Aurora {
 	public:
 		std::string path;
 
-		std::vector<std::vector<DirectX::XMFLOAT4>> UploadData;
+		std::vector<std::vector<DirectX::XMFLOAT4>> UploadedData;
 	public:
 		virtual ~VertexShader() = default;
 

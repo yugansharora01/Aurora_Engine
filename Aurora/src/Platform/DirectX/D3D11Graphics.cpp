@@ -10,7 +10,7 @@
 
 
 #include "Aurora/Log.h"
-#include "Platform/DirectX/D3D11FrameBuffer.h"
+#include "Platform/DirectX/D3D11RenderTargetManager.h"
 
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -30,10 +30,6 @@ namespace Aurora
         :hwnd(hWnd)
     {
         AU_INFO("Initialised D3D11Graphics");
-
-        unsigned int WindowWidth = width;
-        unsigned int WindowHeight = height;
-
 
         DXGI_SWAP_CHAIN_DESC sd = {};
         sd.BufferDesc.Width = 0;
@@ -75,54 +71,8 @@ namespace Aurora
             &pDevice,
             nullptr,
             &pContext));
-
-        //gain access to texture subresource in swap chain (back buffer)
-        Microsoft::WRL::ComPtr <ID3D11Resource> pBackBuffer;
-        GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Texture2D), &pBackBuffer));
-        GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
-
-        //create depth stensil state
-        D3D11_DEPTH_STENCIL_DESC dsDesc = {};
-        dsDesc.DepthEnable = TRUE;
-        dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-        dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
-        Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pDSState;
-        GFX_THROW_INFO(pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
-
-        //bind depth state
-        pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
-
-        //create depth stencil texture
-        Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
-        D3D11_TEXTURE2D_DESC descDepth = {};
-        descDepth.Width = WindowWidth;
-        descDepth.Height = WindowHeight;
-        descDepth.MipLevels = 1u;
-        descDepth.ArraySize = 1u;
-        descDepth.Format = DXGI_FORMAT_D32_FLOAT;
-        descDepth.SampleDesc.Count = 1u;
-        descDepth.SampleDesc.Quality = 0u;
-        descDepth.Usage = D3D11_USAGE_DEFAULT;
-        descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-
-        GFX_THROW_INFO(pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
-
-
-        //create view of depth stencil texture
-        D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
-        descDSV.Format = DXGI_FORMAT_D32_FLOAT;
-        descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-        descDSV.Texture2D.MipSlice = 0u;
-
-        GFX_THROW_INFO(pDevice->CreateDepthStencilView(
-            pDepthStencil.Get(), &descDSV, &pDSV
-        ));
-
-        //bind depth stencil view to OM
-        pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
-
-        SetViewPort(WindowWidth, WindowHeight);
+                
+        SetViewPort(width, height);
     }
 
     void D3D11Graphics::EndFrame()
@@ -174,17 +124,12 @@ namespace Aurora
         AU_CORE_INFO("D3D11Graphics : width = {0}, Height = {1}", width, height); 
     }
 
-    void Aurora::D3D11Graphics::RenderToTex()
-    {
-        //TO DO 
-    }
+    
 
     void Aurora::D3D11Graphics::Resize(unsigned int width, unsigned int height)
     {
         AU_CORE_INFO("Recreated SwapChain");
 
-        unsigned int WindowWidth = width;
-        unsigned int WindowHeight = height;
         HWND hWnd = hwnd;
 
         DXGI_SWAP_CHAIN_DESC sd = {};
@@ -220,7 +165,7 @@ namespace Aurora
         //Create swap chain
         GFX_THROW_INFO(factory->CreateSwapChain(pDevice.Get(),&sd,&pSwap));
 
-        SetViewPort(WindowWidth, WindowHeight);
+        SetViewPort(width, height);
         
     }
 
@@ -286,9 +231,21 @@ namespace Aurora
         return info;
     }
 
+    Aurora::D3D11Graphics::DeviceRemovedException::DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
+        :HrException(line,file,hr,infoMsgs)
+    {
+        //((D3D11Graphics*)&Application::Get().GetWindow().Gfx())->GetDevice()->GetDeviceRemovedReason();
+        //((D3D11Graphics*)&Application::Get().GetWindow().Gfx())->GetDevice()->CreateNewDevice();
+    }
+
     const char* D3D11Graphics::DeviceRemovedException::GetType() const noexcept
     {
         return "Aurora D3D11Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
+    }
+
+    const char* Aurora::D3D11Graphics::DeviceRemovedException::what() const noexcept
+    {
+        return nullptr;
     }
 
     D3D11Graphics::InfoException::InfoException(int line, const char* file, std::vector<std::string> infoMsgs) noexcept

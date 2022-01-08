@@ -67,6 +67,9 @@ namespace Aurora {
         void Destroy();
         inline HWND GetHandle() noexcept { return hWnd; }
         void GetWindowSize(unsigned int& width, unsigned int& height) noexcept;
+        std::pair<unsigned int, unsigned int> GetWindowPos();
+        std::pair<unsigned int, unsigned int> GetClientPos();
+
         void Resize(unsigned int width,unsigned int height);
 
     private:

@@ -18,23 +18,20 @@ namespace Aurora {
 			catch (const Aurora::AuroraException& e)
 			{
 				AU_CORE_FATAL("{0}", e.what());
-				MessageBoxA(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
 			}
 			catch (const std::exception& e)
 			{
-				MessageBoxA(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+				AU_CORE_FATAL("{0}", e.what());
 			}
 			catch (...)
 			{
-				MessageBoxA(nullptr, "No Details Available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
+				AU_CORE_FATAL("No Details Available,Unknown Exception");
 			}
 		}
 		~Editor()
 		{
 
 		}
-
-	private:
 
 	};
 

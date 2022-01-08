@@ -6,7 +6,7 @@
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
 
-#include "Aurora/Renderer/FrameBuffer.h"
+#include "Aurora/Renderer/RenderTargetManager.h"
 #include "Aurora/Events/ApplicationEvents.h"
 #include "Aurora/Events/KeyboardEvents.h"
 #include "Aurora/Events/MouseEvents.h"
@@ -188,13 +188,27 @@ namespace Aurora {
 
     }
 
+    std::pair<unsigned int, unsigned int> Win32_Window::GetWindowPos()
+    {
+        RECT rect;
+        GetWindowRect(hWnd, &rect);
+        return { rect.left ,rect.top };
+    }
+
+    std::pair<unsigned int, unsigned int> Win32_Window::GetClientPos()
+    {
+        RECT rect;
+        GetClientRect(hWnd, &rect);
+        return { rect.left ,rect.top };
+    }
+
     void Win32_Window::Resize(unsigned int width, unsigned int height)
     {
         /*if (Application::Get().IsSetupDone)
         {
             dynamic_cast<WindowsWindow*>(&Application::Get().GetWindow())->SetWindowData(width, height);
             std::dynamic_pointer_cast<D3D11Graphics>(Application::Get().GetWindow().Gfx())->Recreate(hWnd, width, height);
-            Application::Get().GetWindow().Gfx()->fbuf = FrameBuffer::Create(width, height);
+            Application::Get().GetWindow().Gfx()->TargetManager = RenderTargetManager::Create(width, height);
         }*/
     }
 

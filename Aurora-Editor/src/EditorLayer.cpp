@@ -38,8 +38,11 @@ namespace Aurora {
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		fBuffer = Application::Get().GetWindow().Gfx()->fbuf;
-		ImGui::Image(fBuffer->GetBufferAsTexture(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		ImVec2 viewportPanelPos = ImGui::GetWindowPos();
+		auto [xpos, ypos] = Application::Get().GetWindow().GetPos();
+		m_ViewportPos = { viewportPanelPos.x - xpos, viewportPanelPos.y - ypos };
+		
+		ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		//Guizmo
 		Ref<Entity> selectedEntity = m_sceneHeirarchyPanel->GetSelectedEntity();
@@ -203,7 +206,10 @@ namespace Aurora {
 
 	void EditorLayer::OnUpdate()
 	{
-		m_activeScene->Update(m_editorCamera);
+		viewportInfo v;
+		v.viewportSize = m_ViewportSize;
+		v.viewportPos = m_ViewportPos;
+		m_activeScene->Update(m_editorCamera,v);
 	}
 
 	void EditorLayer::OnAttach()
@@ -220,6 +226,25 @@ namespace Aurora {
 
 	void EditorLayer::Init()
 	{
+		TargetManager = Application::Get().GetWindow().Gfx()->TargetManager;
+
+		RenderTargetProperties property;
+		property.Width = 0;
+		property.Height = 0;
+		property.IsCPUAccessable = false;
+		property.NumberOfTargets = 1;
+		property.Format.IsNormalised = false;
+		property.Format.NumberOfBits = 32;
+		property.Format.type = PropertiesDataType::Float4;
+		property.IsDataAccessable = true;
+
+		TargetManager->AddRenderTarget("viewport", property);
+
+		property.Format.type = PropertiesDataType::Float;
+		property.Format.NumberOfBits = 32;
+
+		TargetManager->AddRenderTarget("Mouse-Pick", property);
+
 		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
 		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
 

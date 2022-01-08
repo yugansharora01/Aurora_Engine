@@ -162,10 +162,10 @@ namespace Aurora
 			out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
 			out << YAML::Key << "Data for Shader";
 			out << YAML::BeginMap; //Data For Shader
-			for (int i = 0; i < component->vShader->UploadData.size(); i++)
+			for (int i = 0; i < component->vShader->UploadedData.size(); i++)
 			{
-				out << YAML::Key << "Size" << YAML::Value << component->vShader->UploadData[i].size();
-				out << YAML::Key << "Data" << component->vShader->UploadData[i];
+				out << YAML::Key << "Size" << YAML::Value << component->vShader->UploadedData[i].size();
+				out << YAML::Key << "Data" << component->vShader->UploadedData[i];
 			}
 			out << YAML::EndMap; //Data For Shader
 			out << YAML::EndMap; //Vertex Shader
@@ -175,10 +175,10 @@ namespace Aurora
 			out << YAML::Key << "Path" << YAML::Value << component->pShader->path;
 			out << YAML::Key << "Data for Shader";
 			out << YAML::BeginMap; //Data For Shader
-			for (int i = 0; i < component->pShader->UploadData.size(); i++)
+			for (int i = 0; i < component->pShader->UploadedData.size(); i++)
 			{
-				out << YAML::Key << "Size" << YAML::Value << component->pShader->UploadData[i].size();
-				out << YAML::Key << "Data" << component->pShader->UploadData[i];
+				out << YAML::Key << "Size" << YAML::Value << component->pShader->UploadedData[i].size();
+				out << YAML::Key << "Data" << component->pShader->UploadedData[i];
 			}
 			out << YAML::EndMap; //Data For Shader
 			out << YAML::EndMap; // Pixel Shader
@@ -316,18 +316,15 @@ namespace Aurora
 
 					auto matrixSeq = ShaderData["Data"];
 
-					std::vector<DirectX::XMVECTOR> DataTOPass;
+					std::vector<DirectX::XMFLOAT4> DataToPass;
 
 					for (int i = 0;i < size; i++)
 					{
 						
-						DirectX::XMFLOAT4 temp = matrixSeq[i].as<DirectX::XMFLOAT4>();
-						DataTOPass.push_back(DirectX::XMLoadFloat4(&temp));
+						DataToPass.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
 					}
 
-					DirectX::XMMATRIX mat(DataTOPass[0], DataTOPass[1], DataTOPass[2], DataTOPass[3] );
-
-					vShader->UploadMat4(mat);
+					vShader->UploadFloat4(DataToPass,true);
 
 
 					auto pixelshader = meshComponent["Pixel Shader"];
@@ -343,14 +340,14 @@ namespace Aurora
 
 						matrixSeq = ShaderData["Data"];
 
-						std::array<DirectX::XMFLOAT4, 8> Mat;
+						std::vector<DirectX::XMFLOAT4> vec4;
 
 						for (int i = 0; i < size; i++)
 						{
-							Mat[i] = matrixSeq[i].as<DirectX::XMFLOAT4>();
+							vec4.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
 						}
 
-						pShader->UploadMat4X8(Mat);
+						pShader->UploadFloat4(vec4);
 					}
 
 
@@ -383,7 +380,7 @@ namespace Aurora
 						LayoutBuffer l;
 						l.name =  lay[0].as<std::string>();
 						l.offset =  lay[1].as<unsigned int>();
-						l.type =  (ShaderDataType)lay[2].as<int>();
+						l.type =  (PropertiesDataType)lay[2].as<int>();
 						l.Is_Normalised =  lay[3].as<bool>();
 						l.NumberOfBits =  lay[4].as<int>();
 

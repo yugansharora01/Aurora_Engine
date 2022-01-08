@@ -33,7 +33,8 @@ namespace Aurora {
 		int m_GuizmoType = -1;
 
 		DirectX::XMFLOAT2 m_ViewportSize;
-		Ref<FrameBuffer> fBuffer;
+		DirectX::XMFLOAT2 m_ViewportPos;
+		Ref<RenderTargetManager> TargetManager;
 
 		Ref<Scene> m_activeScene;
 		Ref<EditorCamera> m_editorCamera;

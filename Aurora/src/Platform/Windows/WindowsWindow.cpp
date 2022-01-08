@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "WindowsWindow.h"
-#include "Aurora/Renderer/FrameBuffer.h"
+#include "Aurora/Renderer/RenderTargetManager.h"
 #include "Platform/DirectX/D3D11Graphics.h"
 
 namespace Aurora {
@@ -52,11 +52,6 @@ namespace Aurora {
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
-	}
-
-	void WindowsWindow::SetViewPort(unsigned int width, unsigned int height)
-	{
-		pGfx->SetViewPort(width, height);
 	}
 
 	void WindowsWindow::makeGraphics()

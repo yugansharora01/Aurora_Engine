@@ -4,7 +4,7 @@
 #include "Aurora/Log.h"
 #include "Platform/Windows/Win32_Window.h"
 #include "Platform/Windows/AuroraException.h"
-#include "Aurora/Renderer/FrameBuffer.h"
+#include "Aurora/Renderer/RenderTargetManager.h"
 
 #include "imgui.h"
 
@@ -33,21 +33,21 @@ namespace Aurora {
 
 	void Application::Run()
 	{
-		m_Window->Gfx()->fbuf = FrameBuffer::Create(800, 600);
+		m_Window->Gfx()->TargetManager = RenderTargetManager::Create(800, 600);
 		
 		for (Layer* layer : m_LayerStack)
 			layer->Init();
 
 		try
 		{
-			float i = 0.0f;
-			float j = 0.0f;
-			float k = 0.0f;
-
 			while (m_Running)
 			{
 				
-				m_Window->Gfx()->ClearBuffer(i, j,k);
+				m_Window->Gfx()->TargetManager->Clear(0.0f, 0.0f, 0.0f);
+				if (m_Window->Gfx()->TargetManager->GetNumberOfTargets() != 0)
+				{
+					m_Window->Gfx()->TargetManager->BindTargets();
+				}
 
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate();
@@ -114,7 +114,7 @@ namespace Aurora {
 		{
 			m_Window->SetWindowData(e.GetWidth(), e.GetHeight());
 			m_Window->Gfx()->Resize(e.GetWidth(), e.GetHeight());
-			m_Window->Gfx()->fbuf = FrameBuffer::Create(e.GetWidth(), e.GetHeight());
+			m_Window->Gfx()->TargetManager->Resize(e.GetWidth(), e.GetHeight());
 			return true;
 		}
 		return false;

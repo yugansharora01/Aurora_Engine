@@ -135,7 +135,7 @@
     <ClInclude Include="src\Aurora\Renderer\EditorCamera.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Renderer\FrameBuffer.h">
+    <ClInclude Include="src\Aurora\Renderer\RenderTargetManager.h">
       <Filter>src\Aurora\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\Renderer.h">
@@ -174,13 +174,13 @@
     <ClInclude Include="src\Aurora\Window.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\D3D11ConstantBuffers.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11Buffers.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\D3D11FrameBuffer.h">
+    <ClInclude Include="src\Platform\DirectX\D3D11RenderTargetManager.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h">
@@ -261,6 +261,7 @@
     <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
       <Filter>vendor\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\DirectX\DirectXHelperFunc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -302,7 +303,7 @@
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Renderer\FrameBuffer.cpp">
+    <ClCompile Include="src\Aurora\Renderer\RenderTargetManager.cpp">
       <Filter>src\Aurora\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Renderer.cpp">
@@ -338,7 +339,7 @@
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\D3D11FrameBuffer.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11RenderTargetManager.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp">
@@ -404,5 +405,7 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\DirectX\DirectXHelperFunc.cpp" />
+    <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp" />
   </ItemGroup>
 </Project>

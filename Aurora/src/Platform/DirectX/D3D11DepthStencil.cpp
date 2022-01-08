@@ -51,19 +51,4 @@ namespace Aurora {
 		));
 	}
 
-	void DepthStencil::Bind()
-	{
-		//bind depth stencil view to OM
-		Getgfx()->GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
-	}
-
-	void DepthStencil::Unbind()
-	{
-		Getgfx()->GetContext()->OMSetRenderTargets(1u, pTarget.GetAddressOf(), NULL);
-	}
-
-	void DepthStencil::SetTarget(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target)
-	{
-		pTarget = target;
-	}
 }

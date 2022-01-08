@@ -14,18 +14,16 @@ namespace Aurora {
 		virtual ~WindowsWindow();
 		virtual void OnUpdate(bool &m_Running) override;
 
+		virtual inline std::pair<unsigned int, unsigned int> GetPos() override { return m_Window->GetWindowPos(); }
+		virtual inline std::pair<unsigned int, unsigned int> GetClientPos() override { return m_Window->GetClientPos();};
 		virtual inline unsigned int GetWidth() const override { return m_Data.Width; };
 		virtual inline unsigned int GetHeight() const override { return m_Data.Height; };
 		virtual void SetWindowData( unsigned int Width, unsigned int Height, std::string Title = "") override;
 
-		virtual inline void SetEventCallback(const EventCallbackFn& callback) override
-		{
-			m_Data.EventCallback = callback;
-		}
+		
 		virtual void SetVSync(bool enabled) override;
 		virtual bool IsVSync() const override;
-		//NO Need Now
-		virtual void SetViewPort(unsigned int width,unsigned int height) override;
+
 		virtual void makeGraphics() override;
 		virtual Ref<Graphics> Gfx() override;
 
@@ -39,8 +37,6 @@ namespace Aurora {
 			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
-
-			EventCallbackFn EventCallback;
 		};
 
 		WindowsData m_Data;

@@ -110,7 +110,7 @@ namespace Aurora {
 
 			b.iBuffer = IndexBuffer::Create(model.indices);
 
-			std::array<DirectX::XMFLOAT4, 8> face_colors =
+			std::vector<DirectX::XMFLOAT4> face_colors =
 			{
 				{
 					{ 1.0f,1.0f,1.0f,1.0f },
@@ -123,12 +123,12 @@ namespace Aurora {
 					{ 0.0f,0.0f,0.0f,1.0f },
 				}
 			};
-			b.pShader->UploadMat4X8(face_colors);
+			b.pShader->UploadFloat4(face_colors);
 
 			std::vector<LayoutBuffer> list;
 
-			list.emplace_back("Position", 0u, ShaderDataType::Float3, false, 32);
-			list.emplace_back("Color", 12, ShaderDataType::Unorm, false, 8);
+			list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("Color", 12, PropertiesDataType::Unorm, false, 8);
 
 			b.vBuffer->SetLayout(list, b.vShader);
 

@@ -33,18 +33,10 @@ namespace Aurora {
 	{
 		return rightIsPressed;
 	}
-
-	
-
-	
-
-	
-
 	void Mouse::OnMouseMove(int x, int y) noexcept
 	{
 		Mouse::x = x;
 		Mouse::y = y;
-
 	}
 
 	void Mouse::OnMouseLeave() noexcept
@@ -66,19 +58,16 @@ namespace Aurora {
 	void Mouse::OnLeftReleased(int x, int y) noexcept
 	{
 		leftIsPressed = false;
-
 	}
 
 	void Mouse::OnRightPressed(int x, int y) noexcept
 	{
 		rightIsPressed = true;
-
 	}
 
 	void Mouse::OnRightReleased(int x, int y) noexcept
 	{
 		rightIsPressed = false;
-
 	}
 
 	void Mouse::OnWheelUp(int x, int y) noexcept
@@ -88,7 +77,6 @@ namespace Aurora {
 	void Mouse::OnWheelDown(int x, int y) noexcept
 	{
 	}
-
 
 	void Mouse::OnWheelDelta(int x, int y, int delta) noexcept
 	{

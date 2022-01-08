@@ -3,50 +3,9 @@
 #include "Platform/Windows/GraphicsThrowMacros.h"
 #include <d3dcompiler.h>
 #include "Aurora/Utils/Convertors.h"
+#include "DirectXHelperFunc.h"
 
 namespace Aurora {
-
-	HRESULT CompileShader(std::wstring srcFile, std::string entryPoint, std::string profile, ID3DBlob** blob)
-	{
-		//if (srcFile.empty() || entryPoint.empty() || profile.empty() || blob)
-			//return E_INVALIDARG;
-
-		*blob = nullptr;
-
-		UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
-#if defined( AU_DEBUG )
-		flags |= D3DCOMPILE_DEBUG;
-#endif
-
-		const D3D_SHADER_MACRO defines[] =
-		{
-			"EXAMPLE_DEFINE", "1",
-			NULL, NULL
-		};
-
-		ID3DBlob* shaderBlob = nullptr;
-		ID3DBlob* errorBlob = nullptr;
-		HRESULT hr = D3DCompileFromFile(srcFile.c_str(), defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-			entryPoint.c_str(), profile.c_str(),
-			flags, 0, &shaderBlob, &errorBlob);
-		if (FAILED(hr))
-		{
-			if (errorBlob)
-			{
-				OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-				errorBlob->Release();
-			}
-
-			if (shaderBlob)
-				shaderBlob->Release();
-
-			return hr;
-		}
-
-		*blob = shaderBlob;
-
-		return hr;
-	}
 
 	D3D11PixelShader::D3D11PixelShader(const std::wstring& Path)
 	{
@@ -54,9 +13,7 @@ namespace Aurora {
 		INFOMAN;
 
 		
-		GFX_THROW_INFO(CompileShader(Path, "main", "ps_4_0", &pBytecodeBlob));
-
-		//GFX_THROW_INFO(D3DReadFileToBlob(Path.c_str(), &pBytecodeBlob));
+		GFX_THROW_INFO(CompileShader(Path, "main", "ps_5_0", &pBytecodeBlob));
 
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreatePixelShader(
 			pBytecodeBlob->GetBufferPointer(),
@@ -64,54 +21,67 @@ namespace Aurora {
 			nullptr,
 			&pPixelShader
 		));
+		pConst = CreateRef<D3D11PixelConstantBuffer>();
+		pStructured = CreateRef<D3D11PixelStructuredBuffer>();
 	}
 
 	void D3D11PixelShader::Bind()
 	{
 		Getgfx()->GetContext()->PSSetShader(pPixelShader.Get(), nullptr, 0u);
-		if(pConst)
+		
+		if (pConst->HaveData)
 			pConst->Bind();
-	}
-	
-	void D3D11PixelShader::UploadFloat2(DirectX::XMFLOAT2 val)
-	{
-		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<DirectX::XMFLOAT2>(val);
-	}
-	
-	void D3D11PixelShader::UploadFloat3(DirectX::XMFLOAT3 val)
-	{
-		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<DirectX::XMFLOAT3>(val);
-	}
-	
-	void D3D11PixelShader::UploadFloat4(DirectX::XMFLOAT4 val)
-	{
-		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<DirectX::XMFLOAT4>(val);
-	}
-
-	void D3D11PixelShader::UploadMat3(DirectX::XMMATRIX mat3)
-	{
-		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<DirectX::XMMATRIX>(mat3);
-	}
-	
-	void D3D11PixelShader::UploadMat4(DirectX::XMMATRIX mat4)
-	{
-		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create<DirectX::XMMATRIX>(mat4);
-	}
-	void D3D11PixelShader::UploadMat4X8(std::array<DirectX::XMFLOAT4, 8> arr)
-	{
-		pConst = std::make_shared<D3D11PixelConstantBuffer>();
-		pConst->Create(arr);
-
-		std::vector<DirectX::XMFLOAT4> vec;
-		for (int i = 0; i < arr.size(); i++)
+		
+		if (pStructured->HaveData)
 		{
-			vec.push_back(arr[i]);
+			pStructured->Bind();
 		}
-		UploadData.push_back(vec);
+		
 	}
+
+	void D3D11PixelShader::Refresh()
+	{
+		pConst = CreateRef<D3D11PixelConstantBuffer>();
+		pStructured = CreateRef<D3D11PixelStructuredBuffer>();
+	}
+
+	void D3D11PixelShader::UploadData(void* val, size_t SizeOfEle, size_t SizeOfData, bool StoreData, int slot)
+	{
+		pConst->Create((unsigned int)SizeOfData, val,slot);
+	}
+
+	void D3D11PixelShader::UploadFloat(std::vector<float> vec, bool StoreData, int slot)
+	{
+		pConst->Create((unsigned int)(vec.size() * sizeof(float)), vec.data(), slot);
+	}
+
+	void D3D11PixelShader::UploadFloat2(std::vector<DirectX::XMFLOAT2> vec2, bool StoreData, int slot)
+	{
+		pConst->Create((unsigned int)(vec2.size() * sizeof(DirectX::XMFLOAT2)), vec2.data(), slot);
+	}
+
+	void D3D11PixelShader::UploadFloat3(std::vector<DirectX::XMFLOAT3> vec3, bool StoreData, int slot)
+	{
+		pConst->Create((unsigned int)(vec3.size() * sizeof(DirectX::XMFLOAT3)), vec3.data(), slot);
+	}
+
+	void D3D11PixelShader::UploadFloat4(std::vector<DirectX::XMFLOAT4> vec4, bool StoreData, int slot)
+	{
+		pConst->Create((unsigned int)(vec4.size() * sizeof(DirectX::XMFLOAT4)),vec4.data(), slot);
+
+		if(StoreData)
+			UploadedData.push_back(vec4);
+	}
+
+	void D3D11PixelShader::SetDataToAppend(unsigned int Elements, unsigned int EleSize,void* data)
+	{
+		pStructured->Create(Elements, EleSize, data);
+	}
+
+	void* D3D11PixelShader::GetAppendedData()
+	{
+		return pStructured->GetData();
+	}
+	
+	
 }

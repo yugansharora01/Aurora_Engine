@@ -12,9 +12,6 @@ namespace Aurora {
 		DepthStencil(unsigned int width, unsigned int height);
 		~DepthStencil() = default;
 		void Create(unsigned int width,unsigned int height);
-		void Bind();
-		void Unbind();
-		void SetTarget(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target);
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;

@@ -3,7 +3,21 @@ cbuffer CBuf
 	matrix transform;
 };
 
-float4 main(float3 pos : Position) : SV_Position
+cbuffer cbuf
 {
-	return mul(float4(pos, 1.0f), transform);
+	float id;
+};
+
+struct VSOut
+{
+	float4 pos : SV_Position;
+	float EntityId : ID;
+};
+
+VSOut main(float3 pos : Position)
+{
+	VSOut vso;
+	vso.pos = mul(float4(pos, 1.0f), transform);
+	vso.EntityId = id;
+	return vso;
 }

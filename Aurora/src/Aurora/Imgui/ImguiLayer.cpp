@@ -7,7 +7,7 @@
 #include "Aurora/Application.h"
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
-#include "Platform/DirectX/D3D11FrameBuffer.h"
+#include "Platform/DirectX/D3D11RenderTargetManager.h"
 
 #include <imgui.h>
 
@@ -89,9 +89,8 @@ namespace Aurora {
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 		
-		Ref<FrameBuffer> fbuf = Graphics::fbuf;
-		fbuf->RenderToBackBuf();
-		//fbuf->Unbind();
+		Ref<RenderTargetManager> TargetManager = Graphics::TargetManager;
+		TargetManager->RenderToBackBuf();
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -103,7 +102,7 @@ namespace Aurora {
 			ImGui::RenderPlatformWindowsDefault();
 		}
 
-		fbuf->RenderToTexture();
+		TargetManager->BindTargets();
 	}
 
 	void ImGuiLayer::SetDarkThemeColors()
