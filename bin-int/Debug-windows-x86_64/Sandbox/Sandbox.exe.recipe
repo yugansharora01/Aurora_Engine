@@ -5,7 +5,14 @@
       <FullPath>E:\Yash\Aurora\bin\Debug-windows-x86_64\Sandbox\Sandbox.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
-  <ContentFiles />
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>E:\Yash\Aurora\bin\Debug-windows-x86_64\Aurora\PhongPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>E:\Yash\Aurora\bin\Debug-windows-x86_64\Aurora\PhongVS.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />
 </Project>

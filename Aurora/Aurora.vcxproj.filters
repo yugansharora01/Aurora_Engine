@@ -408,4 +408,8 @@
     <ClCompile Include="src\Platform\DirectX\DirectXHelperFunc.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Aurora\Shaders\PhongPS.hlsl" />
+    <FxCompile Include="src\Aurora\Shaders\PhongVS.hlsl" />
+  </ItemGroup>
 </Project>

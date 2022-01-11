@@ -243,10 +243,6 @@ namespace Aurora
         return "Aurora D3D11Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
     }
 
-    const char* Aurora::D3D11Graphics::DeviceRemovedException::what() const noexcept
-    {
-        return nullptr;
-    }
 
     D3D11Graphics::InfoException::InfoException(int line, const char* file, std::vector<std::string> infoMsgs) noexcept
         :

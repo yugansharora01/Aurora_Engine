@@ -361,10 +361,10 @@ namespace Aurora
 						VertexData d;						
 
 						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
-						d.color.r = vertexdata[i]["Color"][0].as<unsigned int>();
+						/*d.color.r = vertexdata[i]["Color"][0].as<unsigned int>();
 						d.color.g = vertexdata[i]["Color"][1].as<unsigned int>();
 						d.color.b = vertexdata[i]["Color"][2].as<unsigned int>();
-						d.color.a = vertexdata[i]["Color"][3].as<unsigned int>();
+						d.color.a = vertexdata[i]["Color"][3].as<unsigned int>();*/
 						vertices.push_back(d);
 					}
 

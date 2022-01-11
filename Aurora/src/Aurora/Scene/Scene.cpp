@@ -15,15 +15,19 @@ namespace Aurora {
 		float id;
 	};
 
-	std::vector<DirectX::XMFLOAT4> GetVec(DirectX::XMMATRIX mat)
+	std::vector<DirectX::XMFLOAT4> GetVec(std::vector<DirectX::XMMATRIX> matVec)
 	{
 		std::vector<DirectX::XMFLOAT4> vec;
 		DirectX::XMFLOAT4X4 dest;
-		DirectX::XMStoreFloat4x4(&dest, mat);
-		vec.emplace_back(dest._11, dest._12, dest._13, dest._14);
-		vec.emplace_back(dest._21, dest._22, dest._23, dest._24);
-		vec.emplace_back(dest._31, dest._32, dest._33, dest._34);
-		vec.emplace_back(dest._41, dest._42, dest._43, dest._44);
+		for (size_t i = 0; i < matVec.size(); i++)
+		{
+			DirectX::XMStoreFloat4x4(&dest, matVec[i]);
+			vec.emplace_back(dest._11, dest._12, dest._13, dest._14);
+			vec.emplace_back(dest._21, dest._22, dest._23, dest._24);
+			vec.emplace_back(dest._31, dest._32, dest._33, dest._34);
+			vec.emplace_back(dest._41, dest._42, dest._43, dest._44);
+		}
+		
 		return vec;
 	}
 
@@ -73,78 +77,77 @@ namespace Aurora {
 
 		Renderer::BeginScene();
 		auto entities = registry->GetList();
+		std::vector<DirectX::XMFLOAT4> Light;
+		DirectX::XMFLOAT4 LightConstants;
+
 		for (size_t i = 0; i < entities.size(); i++)
 		{
-			auto& vShader = entities[i]->GetComponent<MeshComponent>()->vShader;
-			auto& pShader = entities[i]->GetComponent<MeshComponent>()->pShader;
-			auto& vBuf = entities[i]->GetComponent<MeshComponent>()->vBuf;
-			auto& iBuf = entities[i]->GetComponent<MeshComponent>()->iBuf;
+			if (entities[i]->HasComponent<LightComponent>())
+			{
+				Light.emplace_back(
+					entities[i]->GetComponent<TransformComponent>()->translate.x, 
+					entities[i]->GetComponent<TransformComponent>()->translate.y, 
+					entities[i]->GetComponent<TransformComponent>()->translate.z,
+					0.0f
+				);
+				LightConstants.x = entities[i]->GetComponent<MeshComponent>()->diffuseIntensity;
+				LightConstants.y = entities[i]->GetComponent<LightComponent>()->attConst;
+				LightConstants.z = entities[i]->GetComponent<LightComponent>()->attLin;
+				LightConstants.w = entities[i]->GetComponent<LightComponent>()->attQuad;
+			}
+		}
 
-			vShader->UploadedData.clear();
-			vShader->Refresh();
-			pShader->Refresh();
+		for (size_t i = 0; i < entities.size(); i++)
+		{
+			if (entities[i]->HasComponent<MeshComponent>())
+			{
+				auto& vShader = entities[i]->GetComponent<MeshComponent>()->vShader;
+				auto& pShader = entities[i]->GetComponent<MeshComponent>()->pShader;
+				auto& vBuf = entities[i]->GetComponent<MeshComponent>()->vBuf;
+				auto& iBuf = entities[i]->GetComponent<MeshComponent>()->iBuf;
+
+				vShader->UploadedData.clear();
+				vShader->Refresh();
+				pShader->Refresh();
+
+
+				auto ViewMat = DirectX::XMMatrixInverse(NULL, Editorcamera->GetTransform());
+
+				std::vector<DirectX::XMMATRIX> mat;
+
+				
+
+				if (pShader->path == "../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl")
+				{
+					pShader->UploadFloat4(pShader->UploadedData[0], false,0);
+					mat.push_back(DirectX::XMMatrixTranspose(
+						GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
+				}
+				else
+				{
+					Light.push_back(entities[i]->GetComponent<MeshComponent>()->color);
+					Light.push_back(entities[i]->GetComponent<MeshComponent>()->diffuseColor);
+
+					Light.push_back(LightConstants);
+
+					pShader->UploadFloat4(Light, false);
+					mat.push_back(DirectX::XMMatrixTranspose(GetMatrix(entities[i]) * ViewMat));
+					mat.push_back(DirectX::XMMatrixTranspose(
+						GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
+
+					Light.pop_back();
+					Light.pop_back();
+					Light.pop_back();
+				}
+				vShader->UploadFloat4(GetVec(mat));
+
+
+				Renderer::Submit(vShader, pShader, vBuf, iBuf);
+			}
 			
-			pShader->UploadFloat4(pShader->UploadedData[0],false);
-			
-			auto ViewMat = DirectX::XMMatrixInverse(NULL,Editorcamera->GetTransform());
-
-			auto mat = DirectX::XMMatrixTranspose(
-				GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection());
-
-			vShader->UploadFloat4(GetVec(mat));
-			std::vector<float> vec;
-			vec.push_back((float)i);
-			vShader->UploadFloat(vec,false);
-			
-			//------------------------------------------------------------------------------------
-
-			//DirectX::XMFLOAT4 u = { 4.0f,4.0f,4.0f,4.0f };
-			//pShader->SetDataToAppend(1u, 16u, &u);
-			//std::vector<DirectX::XMINT2> mousecoord = { DirectX::XMINT2((int)x,(int)y) };
-			//pShader->UploadData(mousecoord.data(),sizeof(DirectX::XMINT2),mousecoord.size() * sizeof(DirectX::XMINT2), false, 0);
-			
-
-			Renderer::Submit(vShader, pShader, vBuf, iBuf);
-
 		}
 		Renderer::EndScene();
-
-		if (Input::IsMouseButtonPressed())
-			click = true;
-		if (!Input::IsMouseButtonPressed())
-			click = false;
-		float x = -1.0f, y = -1.0f;
-		auto w = Application::Get().GetWindow().GetWidth();
-		auto h = Application::Get().GetWindow().GetHeight();
-		/*if (Input::IsMouseButtonPressed())
-		{
-			auto [x_, y_] = Input::GetMouseCoord();
-			x = x_ - viewport.viewportPos.x;
-			y = y_ - viewport.viewportPos.y;
-			AU_INFO("mouse coord in viewport space = {0},{1}", x, y);
-			x = x / viewport.viewportSize.x;
-			y = y / viewport.viewportSize.y;
-			AU_INFO(" normalised mouse coord in viewport space = {0},{1}", x, y);
-			x = (int)(x * w);
-			y = (int)(y * h);
-			AU_INFO(" reorganised mouse coord in screen space = {0},{1}", x, y);
-
-			void* data = Application::Get().GetWindow().Gfx()->TargetManager->GetTextureData("Mouse-Pick");
-			float* ptr = (float*)data;
-			int index = x * y;
-			
-			float value = ptr[index];
-			AU_INFO("value = {0},index = {1}", value, index);
-		}*/
 		
-
-		/*for (size_t i = 0; i < entities.size(); i++)
-		{
-			auto& pShader = entities[i]->GetComponent<MeshComponent>()->pShader;
-			auto l = pShader->GetAppendedData();
-			EntityID f = *(EntityID*)&l;
-			AU_INFO("id : {0}", f.id);
-		}*/
 		
 	}
 

@@ -59,6 +59,7 @@ namespace Aurora {
             using HrException::HrException;
 
         public:
+            DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept;
             const char* GetType() const noexcept override;
         private:
             std::string reason;
@@ -75,7 +76,6 @@ namespace Aurora {
         virtual void ClearBuffer(float red, float green, float blue) noexcept override;
         virtual void DrawIndexed(unsigned int count) AU_RELEASENOEXCEPT override;
         virtual void SetViewPort(unsigned int width, unsigned int height) override;
-        virtual void RenderToTex() override;
         virtual void Resize(unsigned int width = 800u, unsigned int height = 600u) override;
 
         inline Microsoft::WRL::ComPtr<ID3D11Device> GetDevice() { return pDevice; }

@@ -104,12 +104,12 @@ namespace Aurora {
 				container[i].pos = model.vertices[i];
 			}
 
-			container[0].color = { 255,255,0 };
+			/*container[0].color = { 255,255,0 };
 			container[1].color = { 255,255,0 };
 			container[2].color = { 255,255,0 };
 			container[3].color = { 255,255,0 };
 			container[4].color = { 255,255,80 };
-			container[5].color = { 255,10,0 };
+			container[5].color = { 255,10,0 };*/
 
 			b.vBuffer = VertexBuffer::Create(container);
 

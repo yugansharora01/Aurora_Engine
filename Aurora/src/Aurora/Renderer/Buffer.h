@@ -11,7 +11,7 @@ namespace Aurora
 	struct VertexData
 	{
 		DirectX::XMFLOAT3 pos;
-		struct Color{
+		/*struct Color{
 			unsigned int r;
 			unsigned int g;
 			unsigned int b;
@@ -20,20 +20,22 @@ namespace Aurora
 			Color() = default;
 			Color(unsigned int r,unsigned int g,unsigned int b,	unsigned int a = 255)
 				:r(r),g(g),b(b),a(a){}
-		}color;
+		}color;*/
+		DirectX::XMFLOAT3 normal;
 		VertexData() = default;
 
 		friend YAML::Emitter& operator<<(YAML::Emitter& out, const VertexData& d)
 		{
 			out << YAML::BeginMap;
 			out << YAML::Key << "Position" << YAML::Flow << YAML::BeginSeq << d.pos.x << d.pos.y << d.pos.z << YAML::EndSeq;
-			out << YAML::Key << "Color" << YAML::Flow << YAML::BeginSeq << d.color.r << d.color.g << d.color.b << d.color.a << YAML::EndSeq;
+			//out << YAML::Key << "Color" << YAML::Flow << YAML::BeginSeq << d.color.r << d.color.g << d.color.b << d.color.a << YAML::EndSeq;
+			out << YAML::Key << "Normal" << YAML::Flow << YAML::BeginSeq << d.normal.x << d.normal.y << d.normal.z << YAML::EndSeq;
 			out << YAML::EndMap;
 			return out;
 		}
 	};
 
-	enum class ShaderDataType
+	enum class PropertiesDataType
 	{
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Uint, Uint2, Uint3, Uint4, Sint, Sint2, Sint3, Sint4, Bool,Unorm
 	};
@@ -43,11 +45,11 @@ namespace Aurora
 	public:
 		std::string name;
 		unsigned int offset;
-		ShaderDataType type;
+		PropertiesDataType type;
 		bool Is_Normalised;
 		int NumberOfBits;
 		LayoutBuffer() = default;
-		LayoutBuffer(std::string name, unsigned int offset, ShaderDataType type, bool Is_Normalised,int NumberOfBits)
+		LayoutBuffer(std::string name, unsigned int offset, PropertiesDataType type, bool Is_Normalised,int NumberOfBits)
 			:name(name),offset(offset),type(type),Is_Normalised(Is_Normalised),NumberOfBits(NumberOfBits){}
 	};
 

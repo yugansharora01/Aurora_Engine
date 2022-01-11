@@ -98,7 +98,7 @@ namespace Aurora {
 		{
 			auto c = entity->GetComponent<TransformComponent>();
 
-			ImGui::Text("Transform");
+			ImGui::Text("Translate");
 			ImGui::DragFloat("##X", &c->translate.x, 0.1f, -50.0f, 50.0f, "%.2f");
 			ImGui::DragFloat("##Y", &c->translate.y, 0.1f, -50.0f, 50.0f, "%.2f");
 			ImGui::DragFloat("##Z", &c->translate.z, 0.1f, -50.0f, 50.0f, "%.2f");
@@ -112,6 +112,37 @@ namespace Aurora {
 			ImGui::DragFloat("##X2", &c->scale.x, 0.1f, -10.0f, 10.0f, "%.2f");
 			ImGui::DragFloat("##Y2", &c->scale.y, 0.1f, -10.0f, 10.0f, "%.2f");
 			ImGui::DragFloat("##Z2", &c->scale.z, 0.1f, -10.0f, 10.0f, "%.2f");
+		}
+
+		if (entity->HasComponent<MeshComponent>())
+		{
+			auto c = entity->GetComponent<MeshComponent>();
+			ImGui::Text("Color");
+			ImGui::DragFloat("##X3", &c->color.x, 0.01f, 0.0f, 1.0f, "%.2f");
+			ImGui::DragFloat("##Y3", &c->color.y, 0.01f, 0.0f, 1.0f, "%.2f");
+			ImGui::DragFloat("##Z3", &c->color.z, 0.01f, 0.0f, 1.0f, "%.2f");
+			
+			ImGui::Text("Diffuse Color");
+			ImGui::DragFloat("##X4", &c->diffuseColor.x, 0.01f, 0.0f, 1.0f, "%.2f");
+			ImGui::DragFloat("##Y4", &c->diffuseColor.y, 0.01f, 0.0f, 1.0f, "%.2f");
+			ImGui::DragFloat("##Z4", &c->diffuseColor.z, 0.01f, 0.0f, 1.0f, "%.2f");
+			
+			ImGui::Text("Diffuse Intensity");
+			ImGui::DragFloat("##X5", &c->diffuseIntensity, 0.01f, 0.0f, 1.0f, "%.2f");
+		}
+
+		if (entity->HasComponent<LightComponent>())
+		{
+			auto c = entity->GetComponent<LightComponent>();
+
+			ImGui::Text("attConst");
+			ImGui::DragFloat("##X6", &c->attConst, 0.01f, 0.0f, 1.0f, "%.2f");
+			
+			ImGui::Text("attLin");
+			ImGui::DragFloat("##X7", &c->attLin, 0.005f, 0.0f, 1.0f, "%.3f");
+			
+			ImGui::Text("attQuad");
+			ImGui::DragFloat("##X8", &c->attQuad, 0.0005f, 0.0f, 1.0f, "%.4f");
 		}
 	}
 }

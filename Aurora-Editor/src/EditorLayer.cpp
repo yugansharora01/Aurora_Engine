@@ -18,7 +18,7 @@ namespace Aurora {
 		m_geometryPanel = CreateRef<GeometryPanel>();
 
 		m_activeScene = CreateRef<Scene>("Test Scene");
-		m_editorCamera = CreateRef<EditorCamera>(1, 3.0f / 4.0f, 0.5f, 40.0f);
+		m_editorCamera = CreateRef<EditorCamera>(1.0f, 3.0f / 4.0f, 0.5f, 40.0f);
 		
 	}
 
@@ -240,25 +240,33 @@ namespace Aurora {
 
 		TargetManager->AddRenderTarget("viewport", property);
 
-		property.Format.type = PropertiesDataType::Float;
+		/*property.Format.type = PropertiesDataType::Float;
 		property.Format.NumberOfBits = 32;
 
-		TargetManager->AddRenderTarget("Mouse-Pick", property);
+		TargetManager->AddRenderTarget("Mouse-Pick", property);*/
 
-		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
-		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
+		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/PhongVS.hlsl");
+		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/PhongPS.hlsl");
 
-		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendVS.hlsl");
-		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorBlendPS.hlsl");
+		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
+		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
 
 		//-------------------------------------------------------------------------------
 
-		auto cube = Cube::Get(vShaderpath, pShaderpath);
+		
 
-		auto e1 = m_activeScene->CreateEntity("Box1");
+		for (int i = 0; i < 2; i++)
+		{
+			auto cube = Cube::Get(vShaderpath, pShaderpath);
 
-		e1->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		e1->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
+			auto e1 = m_activeScene->CreateEntity("Box1");
+
+			e1->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
+			e1->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
+			auto c = e1->GetComponent<MeshComponent>();
+			c->color = { 0.3f * (i+1),0.0f,0.3f * (i + 1),1.0f };
+		}
+		
 
 		//-------------------------------------------------------------------------------
 
@@ -271,21 +279,30 @@ namespace Aurora {
 
 		//-------------------------------------------------------------------------------
 
-		auto sphere = Sphere::Get(vShaderpath, pShaderpath, 10, 10);
+		/*auto sphere = Sphere::Get(vShaderpath, pShaderpath, 10, 10);
 
 		auto e3 = m_activeScene->CreateEntity("sphere1");
 
 		e3->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
-		e3->AddComponent<MeshComponent>(sphere.vShader, sphere.pShader, sphere.vBuffer, sphere.iBuffer);
+		e3->AddComponent<MeshComponent>(sphere.vShader, sphere.pShader, sphere.vBuffer, sphere.iBuffer);*/
 
 		//-------------------------------------------------------------------------------
 
-		auto plane = Plane::Get(vShaderpath, pShaderpath, 10, 10);
+		/*auto plane = Plane::Get(vShaderpath, pShaderpath, 10, 10);
 
 		auto e4 = m_activeScene->CreateEntity("plane1");
 
 		e4->AddComponent<TransformComponent>(DirectX::XMFLOAT3(-4.0f, 0.0f, 20.0f));
-		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);
+		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);*/
+
+		//-------------------------------------------------------------------------------
+		auto Lightsphere = Sphere::Get(vShaderpath1, pShaderpath1, 10, 10);
+
+		auto e5 = m_activeScene->CreateEntity("Light1");
+
+		e5->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
+		e5->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
+		e5->AddComponent<LightComponent>();
 	}
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
