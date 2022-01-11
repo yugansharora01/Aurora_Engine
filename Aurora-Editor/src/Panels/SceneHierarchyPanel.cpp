@@ -104,36 +104,44 @@ namespace Aurora {
 			ImGui::DragFloat("##Z", &c->translate.z, 0.1f, -50.0f, 50.0f, "%.2f");
 
 			ImGui::Text("Rotation");
-			ImGui::DragFloat("##X1", &c->rotation.x, 0.1f, -3.14f, 3.14f, "%.2f");
-			ImGui::DragFloat("##Y1", &c->rotation.y, 0.1f, -3.14f, 3.14f, "%.2f");
-			ImGui::DragFloat("##Z1", &c->rotation.z, 0.1f, -3.14f, 3.14f, "%.2f");
+			ImGui::DragFloat("##ROT-X", &c->rotation.x, 0.1f, -3.14f, 3.14f, "%.2f");
+			ImGui::DragFloat("##ROT-Y", &c->rotation.y, 0.1f, -3.14f, 3.14f, "%.2f");
+			ImGui::DragFloat("##ROT-Z", &c->rotation.z, 0.1f, -3.14f, 3.14f, "%.2f");
 			
 			ImGui::Text("Scale");
-			ImGui::DragFloat("##X2", &c->scale.x, 0.1f, -10.0f, 10.0f, "%.2f");
-			ImGui::DragFloat("##Y2", &c->scale.y, 0.1f, -10.0f, 10.0f, "%.2f");
-			ImGui::DragFloat("##Z2", &c->scale.z, 0.1f, -10.0f, 10.0f, "%.2f");
+			ImGui::DragFloat("##SCA-X", &c->scale.x, 0.1f, -10.0f, 10.0f, "%.2f");
+			ImGui::DragFloat("##SCA-Y", &c->scale.y, 0.1f, -10.0f, 10.0f, "%.2f");
+			ImGui::DragFloat("##SCA-Z", &c->scale.z, 0.1f, -10.0f, 10.0f, "%.2f");
 		}
 
 		if (entity->HasComponent<MeshComponent>())
 		{
 			auto c = entity->GetComponent<MeshComponent>();
 			ImGui::Text("Color");
-			ImGui::DragFloat("##X3", &c->color.x, 0.01f, 0.0f, 1.0f, "%.2f");
-			ImGui::DragFloat("##Y3", &c->color.y, 0.01f, 0.0f, 1.0f, "%.2f");
-			ImGui::DragFloat("##Z3", &c->color.z, 0.01f, 0.0f, 1.0f, "%.2f");
+			ImGui::ColorEdit4("##Color", &c->color.x);
+
+			ImGui::Text("Specular Intensity");
+			ImGui::DragFloat("##SpecularIntensity", &c->specularIntensity, 0.01f, 0.0f, 1.0f, "%.2f");
+
+			ImGui::Text("Specular Power");
+			ImGui::DragFloat("##SpecularPower", &c->specularPower, 1.0f, 0.0f, 100.0f, "%.2f");
+
+			//ImGui::DragInt
 			
-			ImGui::Text("Diffuse Color");
-			ImGui::DragFloat("##X4", &c->diffuseColor.x, 0.01f, 0.0f, 1.0f, "%.2f");
-			ImGui::DragFloat("##Y4", &c->diffuseColor.y, 0.01f, 0.0f, 1.0f, "%.2f");
-			ImGui::DragFloat("##Z4", &c->diffuseColor.z, 0.01f, 0.0f, 1.0f, "%.2f");
-			
-			ImGui::Text("Diffuse Intensity");
-			ImGui::DragFloat("##X5", &c->diffuseIntensity, 0.01f, 0.0f, 1.0f, "%.2f");
 		}
 
 		if (entity->HasComponent<LightComponent>())
 		{
 			auto c = entity->GetComponent<LightComponent>();
+
+			ImGui::Text("Ambient");
+			ImGui::ColorEdit4("##AmbientColor", &c->ambient.x);
+
+			ImGui::Text("Diffuse Color");
+			ImGui::ColorEdit4("##DiffuseColor", &c->diffuseColor.x);
+
+			ImGui::Text("Diffuse Intensity");
+			ImGui::DragFloat("##X5", &c->diffuseIntensity, 0.01f, 0.0f, 1.0f, "%.2f");
 
 			ImGui::Text("attConst");
 			ImGui::DragFloat("##X6", &c->attConst, 0.01f, 0.0f, 1.0f, "%.2f");

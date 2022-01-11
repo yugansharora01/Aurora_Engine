@@ -81,9 +81,8 @@ namespace Aurora {
 		Ref<IndexBuffer> iBuf;
 
 		DirectX::XMFLOAT4 color;
-		DirectX::XMFLOAT4 ambient;
-		DirectX::XMFLOAT4 diffuseColor;
-		float diffuseIntensity;
+		float specularIntensity;
+		float specularPower;
 
 	public:
 		MeshComponent();
@@ -97,7 +96,9 @@ namespace Aurora {
 	class LightComponent : public Component
 	{
 	public:
-		
+		DirectX::XMFLOAT4 ambient;
+		DirectX::XMFLOAT4 diffuseColor;
+		float diffuseIntensity;
 		float attConst;
 		float attLin;
 		float attQuad;

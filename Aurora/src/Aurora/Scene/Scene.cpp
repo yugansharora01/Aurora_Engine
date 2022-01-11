@@ -78,22 +78,26 @@ namespace Aurora {
 		Renderer::BeginScene();
 		auto entities = registry->GetList();
 		std::vector<DirectX::XMFLOAT4> Light;
-		DirectX::XMFLOAT4 LightConstants;
+		
+		auto ViewMat = DirectX::XMMatrixInverse(NULL, Editorcamera->GetTransform());
 
 		for (size_t i = 0; i < entities.size(); i++)
 		{
 			if (entities[i]->HasComponent<LightComponent>())
 			{
-				Light.emplace_back(
-					entities[i]->GetComponent<TransformComponent>()->translate.x, 
-					entities[i]->GetComponent<TransformComponent>()->translate.y, 
-					entities[i]->GetComponent<TransformComponent>()->translate.z,
-					0.0f
-				);
-				LightConstants.x = entities[i]->GetComponent<MeshComponent>()->diffuseIntensity;
+				DirectX::XMFLOAT4 temp;
+				auto LOL = DirectX::XMLoadFloat3(&entities[i]->GetComponent<TransformComponent>()->translate);
+				DirectX::XMStoreFloat4(&temp, DirectX::XMVector4Transform(LOL, ViewMat));
+				
+				Light.push_back(temp);
+				Light.push_back(entities[i]->GetComponent<LightComponent>()->ambient);
+				Light.push_back(entities[i]->GetComponent<LightComponent>()->diffuseColor);
+				DirectX::XMFLOAT4 LightConstants;
+				LightConstants.x = entities[i]->GetComponent<LightComponent>()->diffuseIntensity;
 				LightConstants.y = entities[i]->GetComponent<LightComponent>()->attConst;
 				LightConstants.z = entities[i]->GetComponent<LightComponent>()->attLin;
 				LightConstants.w = entities[i]->GetComponent<LightComponent>()->attQuad;
+				Light.push_back(LightConstants);
 			}
 		}
 
@@ -111,11 +115,9 @@ namespace Aurora {
 				pShader->Refresh();
 
 
-				auto ViewMat = DirectX::XMMatrixInverse(NULL, Editorcamera->GetTransform());
+				
 
 				std::vector<DirectX::XMMATRIX> mat;
-
-				
 
 				if (pShader->path == "../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl")
 				{
@@ -125,22 +127,21 @@ namespace Aurora {
 				}
 				else
 				{
-					Light.push_back(entities[i]->GetComponent<MeshComponent>()->color);
-					Light.push_back(entities[i]->GetComponent<MeshComponent>()->diffuseColor);
-
-					Light.push_back(LightConstants);
-
-					pShader->UploadFloat4(Light, false);
+					pShader->UploadFloat4(Light, false,0);
 					mat.push_back(DirectX::XMMatrixTranspose(GetMatrix(entities[i]) * ViewMat));
 					mat.push_back(DirectX::XMMatrixTranspose(
 						GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
 
-					Light.pop_back();
-					Light.pop_back();
-					Light.pop_back();
+
+					std::vector<DirectX::XMFLOAT4> material;
+					material.push_back(entities[i]->GetComponent<MeshComponent>()->color);
+					DirectX::XMFLOAT4 temp;
+					temp.x = entities[i]->GetComponent<MeshComponent>()->specularIntensity;
+					temp.y = entities[i]->GetComponent<MeshComponent>()->specularPower;
+					material.push_back(temp);
+					pShader->UploadFloat4(material, false,1);
 				}
 				vShader->UploadFloat4(GetVec(mat));
-
 
 				Renderer::Submit(vShader, pShader, vBuf, iBuf);
 			}

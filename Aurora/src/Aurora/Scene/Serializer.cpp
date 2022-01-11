@@ -211,8 +211,23 @@ namespace Aurora
 				out << node;
 			}
 			out << YAML::EndSeq;
-			out << YAML::EndMap; //index Buffer
 
+			out << YAML::EndMap; //index Buffer
+			out << YAML::Key << "Color" << YAML::Value << component->color;
+			out << YAML::Key << "Specular Intensity" << YAML::Value << component->specularIntensity;
+			out << YAML::Key << "Specular Power" << YAML::Value << component->specularPower;
+
+				
+		});
+
+		SerializeComponent<LightComponent>(out, entity, "LightComponent", [](YAML::Emitter& out, Ref<LightComponent>& component)
+		{
+			out << YAML::Key << "Ambient" << YAML::Value << component->ambient;
+			out << YAML::Key << "Diffuse Color" << YAML::Value << component->diffuseColor;
+			out << YAML::Key << "Diffuse Intensity" << YAML::Value << component->diffuseIntensity;
+			out << YAML::Key << "Attenuation Constant" << YAML::Value << component->attConst;
+			out << YAML::Key << "Attenuation Linear" << YAML::Value << component->attLin;
+			out << YAML::Key << "Attenuation Quadratic" << YAML::Value << component->attQuad;
 				
 		});
 
@@ -361,10 +376,6 @@ namespace Aurora
 						VertexData d;						
 
 						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
-						/*d.color.r = vertexdata[i]["Color"][0].as<unsigned int>();
-						d.color.g = vertexdata[i]["Color"][1].as<unsigned int>();
-						d.color.b = vertexdata[i]["Color"][2].as<unsigned int>();
-						d.color.a = vertexdata[i]["Color"][3].as<unsigned int>();*/
 						vertices.push_back(d);
 					}
 
@@ -404,6 +415,26 @@ namespace Aurora
 					auto iBuf = IndexBuffer::Create(Indices);
 
 					auto component = deserializedEntity->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
+
+					component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
+
+					component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
+
+					component->specularPower = meshComponent["Specular Power"].as<float>();
+				}
+
+				auto lightComponent = entity["LightComponent"];
+
+				if (lightComponent)
+				{
+					auto component = deserializedEntity->AddComponent<LightComponent>();
+
+					component->ambient = lightComponent["Ambient"].as<DirectX::XMFLOAT4>();
+					component->diffuseColor = lightComponent["Diffuse Color"].as<DirectX::XMFLOAT4>();
+					component->diffuseIntensity = lightComponent["Diffuse Intensity"].as<float>();
+					component->attConst = lightComponent["Attenuation Constant"].as<float>();
+					component->attLin = lightComponent["Attenuation Linear"].as<float>();
+					component->attQuad = lightComponent["Attenuation Quadratic"].as<float>();
 
 				}
 			}

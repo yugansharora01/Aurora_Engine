@@ -57,6 +57,9 @@ namespace Aurora {
 	}
 	LightComponent::LightComponent()
 	{
+		ambient = { 0.05f, 0.05f, 0.05f,1.0f };
+		diffuseColor = { 1.0f,1.0f,1.0f,1.0f };
+		diffuseIntensity = 1.0f;
 		attConst = 1.0f;
 		attLin = 0.045f;
 		attQuad = 0.0075f;
@@ -64,16 +67,14 @@ namespace Aurora {
 	MeshComponent::MeshComponent()
 	{
 		color = { 0.0f, 0.0f, 0.0f, 1.0f };
-		ambient = { 0.05f, 0.05f, 0.05f,1.0f };
-		diffuseColor = { 1.0f,1.0f,1.0f,1.0f };
-		diffuseIntensity = 1.0f;
+		specularIntensity = 0.6f;
+		specularPower = 30.0f;
 	}
 	MeshComponent::MeshComponent(Ref<VertexShader> VertexShader, Ref<PixelShader> PixelShader, Ref<VertexBuffer> VertexBuffer, Ref<IndexBuffer> IndexBuffer)
 		: vShader(VertexShader), pShader(PixelShader), vBuf(VertexBuffer), iBuf(IndexBuffer)
 	{
 		color = { 0.0f, 0.0f, 0.0f, 1.0f };
-		ambient = { 0.05f, 0.05f, 0.05f,1.0f };
-		diffuseColor = { 1.0f,1.0f,1.0f,1.0f };
-		diffuseIntensity = 1.0f;
+		specularIntensity = 0.6f;
+		specularPower = 30.0f;
 	}
 }
