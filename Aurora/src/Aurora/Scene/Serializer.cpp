@@ -376,6 +376,7 @@ namespace Aurora
 						VertexData d;						
 
 						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
+						d.normal = vertexdata[i]["Normal"].as<DirectX::XMFLOAT3>();
 						vertices.push_back(d);
 					}
 
