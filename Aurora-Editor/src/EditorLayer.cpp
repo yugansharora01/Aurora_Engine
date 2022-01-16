@@ -7,10 +7,6 @@
 #include "Aurora/Utils/FileOperations.h"
 #include "ImGuizmo.h"
 
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
-
 #include <imgui.h>
 
 namespace Aurora {
@@ -254,6 +250,9 @@ namespace Aurora {
 
 		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
 		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
+		
+		std::wstring vShaderpath2(L"../Aurora/src/Aurora/Shaders/SolidVS.hlsl");
+		std::wstring pShaderpath2(L"../Aurora/src/Aurora/Shaders/SolidPS.hlsl");
 
 		//-------------------------------------------------------------------------------
 
@@ -300,7 +299,7 @@ namespace Aurora {
 		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);*/
 
 		//-------------------------------------------------------------------------------
-		auto Lightsphere = Sphere::Get(vShaderpath1, pShaderpath1, 10, 10);
+		auto Lightsphere = Sphere::Get(vShaderpath2, pShaderpath2, 10, 10);
 
 		auto e5 = m_activeScene->CreateEntity("Light1");
 

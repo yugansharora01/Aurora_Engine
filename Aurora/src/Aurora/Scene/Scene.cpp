@@ -91,7 +91,7 @@ namespace Aurora {
 				
 				Light.push_back(temp);
 				Light.push_back(entities[i]->GetComponent<LightComponent>()->ambient);
-				Light.push_back(entities[i]->GetComponent<LightComponent>()->diffuseColor);
+				Light.push_back(entities[i]->GetComponent<MeshComponent>()->color);
 				DirectX::XMFLOAT4 LightConstants;
 				LightConstants.x = entities[i]->GetComponent<LightComponent>()->diffuseIntensity;
 				LightConstants.y = entities[i]->GetComponent<LightComponent>()->attConst;
@@ -127,19 +127,30 @@ namespace Aurora {
 				}
 				else
 				{
-					pShader->UploadFloat4(Light, false,0);
-					mat.push_back(DirectX::XMMatrixTranspose(GetMatrix(entities[i]) * ViewMat));
-					mat.push_back(DirectX::XMMatrixTranspose(
-						GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
+					if (pShader->path == "../Aurora/src/Aurora/Shaders/SolidPS.hlsl")
+					{
+						std::vector<DirectX::XMFLOAT4> color;
+						color.push_back(entities[i]->GetComponent<MeshComponent>()->color);
+						pShader->UploadFloat4(color, false, 0);
+						mat.push_back(DirectX::XMMatrixTranspose(
+							GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
+					}
+					else {
+						pShader->UploadFloat4(Light, false, 0);
+						mat.push_back(DirectX::XMMatrixTranspose(GetMatrix(entities[i]) * ViewMat));
+						mat.push_back(DirectX::XMMatrixTranspose(
+							GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
 
 
-					std::vector<DirectX::XMFLOAT4> material;
-					material.push_back(entities[i]->GetComponent<MeshComponent>()->color);
-					DirectX::XMFLOAT4 temp;
-					temp.x = entities[i]->GetComponent<MeshComponent>()->specularIntensity;
-					temp.y = entities[i]->GetComponent<MeshComponent>()->specularPower;
-					material.push_back(temp);
-					pShader->UploadFloat4(material, false,1);
+						std::vector<DirectX::XMFLOAT4> material;
+						material.push_back(entities[i]->GetComponent<MeshComponent>()->color);
+						DirectX::XMFLOAT4 temp;
+						temp.x = entities[i]->GetComponent<MeshComponent>()->specularIntensity;
+						temp.y = entities[i]->GetComponent<MeshComponent>()->specularPower;
+						material.push_back(temp);
+						pShader->UploadFloat4(material, false, 1);
+					}
+					
 				}
 				vShader->UploadFloat4(GetVec(mat));
 
