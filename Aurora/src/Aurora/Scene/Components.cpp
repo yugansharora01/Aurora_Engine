@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Components.h"
+#include "Aurora/High Level/Mesh.h"
 
 namespace Aurora {
 	TransformComponent::TransformComponent()
@@ -73,6 +74,18 @@ namespace Aurora {
 	MeshComponent::MeshComponent(Ref<VertexShader> VertexShader, Ref<PixelShader> PixelShader, Ref<VertexBuffer> VertexBuffer, Ref<IndexBuffer> IndexBuffer)
 		: vShader(VertexShader), pShader(PixelShader), vBuf(VertexBuffer), iBuf(IndexBuffer)
 	{
+		color = { 0.146f, 0.574f, 0.578f, 1.0f };
+		specularIntensity = 0.6f;
+		specularPower = 30.0f;
+	}
+
+	MeshComponent::MeshComponent(std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath)
+	{
+		vShader = VertexShader::Create(vShaderPath);
+		pShader = PixelShader::Create(pShaderPath);
+		Mesh m(MeshName,vShaderPath,pShaderPath);
+		vBuf = m.vBuf;
+		iBuf = m.iBuf;
 		color = { 0.146f, 0.574f, 0.578f, 1.0f };
 		specularIntensity = 0.6f;
 		specularPower = 30.0f;

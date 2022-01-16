@@ -7,6 +7,10 @@
 #include "Aurora/Utils/FileOperations.h"
 #include "ImGuizmo.h"
 
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
 #include <imgui.h>
 
 namespace Aurora {
@@ -303,6 +307,12 @@ namespace Aurora {
 		e5->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
 		e5->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
 		e5->AddComponent<LightComponent>();
+		
+		auto e6 = m_activeScene->CreateEntity("Mesh1");
+
+		e6->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
+		e6->AddComponent<MeshComponent>("assets\\models\\suzanne.obj", vShaderpath, pShaderpath);
+	
 	}
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)

@@ -88,6 +88,7 @@ namespace Aurora {
 		MeshComponent();
 		MeshComponent(const MeshComponent&) = default;
 		MeshComponent(Ref<VertexShader> VertexShader, Ref<PixelShader> PixelShader, Ref<VertexBuffer> VertexBuffer, Ref<IndexBuffer> IndexBuffer);
+		MeshComponent(std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
 		~MeshComponent() {}
 		virtual void OnComponentAdd() override {}
 		virtual void update() override {}

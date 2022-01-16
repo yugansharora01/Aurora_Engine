@@ -262,6 +262,7 @@
       <Filter>vendor\ImGuizmo</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\DirectXHelperFunc.h" />
+    <ClInclude Include="src\Aurora\High Level\Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Application.cpp">
@@ -407,6 +408,7 @@
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\DirectXHelperFunc.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp" />
+    <ClCompile Include="src\Aurora\High Level\Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Aurora\Shaders\PhongPS.hlsl" />
