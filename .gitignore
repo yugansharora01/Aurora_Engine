@@ -3,8 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-/bin-int
-/bin-int/*
+bin-int
+bin-int/**
 
 # User-specific files
 *.rsuser
@@ -79,6 +79,7 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
+!Aurora-Editor/assets/models/**/*.obj
 *.iobj
 *.pch
 *.pdb
