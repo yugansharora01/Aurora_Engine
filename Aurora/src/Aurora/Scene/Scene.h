@@ -1,6 +1,5 @@
 #pragma once
 #include <DirectXMath.h>
-#include "Aurora/Scene/ECS.h"
 
 namespace Aurora {
 
@@ -14,6 +13,7 @@ namespace Aurora {
 	class Entity;
 	class Registry;
 	class EditorCamera;
+	class UUID;
 
 	class Scene
 	{

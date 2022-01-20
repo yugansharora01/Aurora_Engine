@@ -34,7 +34,7 @@ namespace Aurora {
 	public:
 		Ref<Entity> entity;
 
-		virtual void OnComponentAdd() {}
+		virtual void OnComponentAdd(Entity* e);
 		virtual void update() {}
 
 		virtual ~Component() {}
@@ -87,13 +87,12 @@ namespace Aurora {
 		Ref<T> AddComponent(Args&&... args)
 		{
 			Ref<T> c = CreateRef<T>(args...);
-			Ref<Entity> e{ this };
-			c->entity = e;
+			
 			components.emplace_back(c);
 			componentArray[GetComponentTypeID<T>()] = c;
 			componentBitSet[GetComponentTypeID<T>()] = true;
 
-			c->OnComponentAdd();
+			c->OnComponentAdd(this);
 			return c;
 		}
 

@@ -14,5 +14,17 @@ namespace Aurora {
 		return GetComponent<IDComponent>()->ID;
 	}
 
+	void Component::OnComponentAdd(Entity* e)
+	{
+		auto list = e->GetScene()->registry->GetList();
+		for (size_t i = 0; i < list.size(); i++)
+		{
+			if (list[i]->handle == e->handle)
+			{
+				this->entity = list[i];
+			}
+		}
+	}
+
 }
 

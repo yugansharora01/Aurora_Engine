@@ -31,7 +31,6 @@ namespace Aurora {
 		TagComponent(const std::string& str)
 			:tag(str){}
 		~TagComponent() = default;
-		virtual void OnComponentAdd() override {}
 		virtual void update() override {}
 	};
 
@@ -60,7 +59,6 @@ namespace Aurora {
 
 		~TransformComponent() = default;
 
-		virtual void OnComponentAdd() override {}
 
 		virtual void update() override;
 
@@ -101,7 +99,6 @@ namespace Aurora {
 		MeshComponent(std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
 		MeshComponent(bool compress,std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
 		~MeshComponent() = default;
-		virtual void OnComponentAdd() override {}
 		virtual void update() override;
 	
 	};
@@ -119,7 +116,6 @@ namespace Aurora {
 		LightComponent();
 		LightComponent(const LightComponent&) = default;
 		~LightComponent() = default;
-		virtual void OnComponentAdd() override {}
 		virtual void update() override {}
 	};
 }

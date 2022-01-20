@@ -28,7 +28,7 @@ namespace Aurora {
 		m_sceneHeirarchyPanel->SetScene(m_activeScene);
 		m_sceneHeirarchyPanel->OnImGuiRender();
 
-		//m_geometryPanel->SetScene(m_activeScene);
+		m_geometryPanel->SetScene(m_activeScene);
 		m_geometryPanel->OnImGuiRender();
 
 		//-------------------------------------------------
@@ -256,8 +256,6 @@ namespace Aurora {
 
 		//-------------------------------------------------------------------------------
 
-		
-
 		for (int i = 0; i < 2; i++)
 		{
 			auto cube = Cube::Get(vShaderpath, pShaderpath);
@@ -270,36 +268,6 @@ namespace Aurora {
 			c->color = { 0.3f * (i+1),0.0f,0.3f * (i + 1),1.0f };
 		}
 		
-
-		//-------------------------------------------------------------------------------
-
-		/*auto cone = Cone::Get(vShaderpath1,pShaderpath1,4);
-
-		auto e2 = m_activeScene->CreateEntity("Prism1");
-
-		e2->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
-		e2->AddComponent<MeshComponent>(cone.vShader, cone.pShader, cone.vBuffer, cone.iBuffer);*/
-
-		//-------------------------------------------------------------------------------
-
-		/*auto sphere = Sphere::Get(vShaderpath, pShaderpath, 10, 10);
-
-		auto e3 = m_activeScene->CreateEntity("sphere1");
-
-		e3->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
-		e3->AddComponent<MeshComponent>(sphere.vShader, sphere.pShader, sphere.vBuffer, sphere.iBuffer);*/
-
-		//-------------------------------------------------------------------------------
-
-		/*auto plane = Plane::Get(vShaderpath, pShaderpath, 10, 10);
-
-		auto e4 = m_activeScene->CreateEntity("plane1");
-
-		e4->AddComponent<TransformComponent>(DirectX::XMFLOAT3(-4.0f, 0.0f, 20.0f));
-		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);*/
-
-		//-------------------------------------------------------------------------------
-
 		auto e6 = m_activeScene->CreateEntity("Mesh1");
 
 		e6->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));

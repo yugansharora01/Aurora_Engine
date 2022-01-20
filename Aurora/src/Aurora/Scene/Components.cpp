@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Components.h"
-#include "Aurora/High-Level/Model.h"
+#include "Aurora/Models/Model.h"
 
 namespace Aurora {
 	TransformComponent::TransformComponent()
