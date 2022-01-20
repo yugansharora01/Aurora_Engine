@@ -3,9 +3,11 @@
 #include "Aurora/Renderer/BindableBase.h"
 #include "Aurora/AuroraMath.h"
 #include "Aurora/Log.h"
+
 #include <DirectXMath.h>
 
 namespace Aurora {
+	class Model;
 
 	class IDComponent : public Component
 	{
@@ -28,7 +30,7 @@ namespace Aurora {
 		TagComponent(const TagComponent&) = default;
 		TagComponent(const std::string& str)
 			:tag(str){}
-		~TagComponent(){}
+		~TagComponent() = default;
 		virtual void OnComponentAdd() override {}
 		virtual void update() override {}
 	};
@@ -56,7 +58,7 @@ namespace Aurora {
 		TransformComponent(DirectX::XMFLOAT3 Translate, DirectX::XMFLOAT3 Rotation, DirectX::XMFLOAT3 Scale)
 			:translate(Translate), rotation(Rotation), scale(Scale) {}
 
-		~TransformComponent() {}
+		~TransformComponent() = default;
 
 		virtual void OnComponentAdd() override {}
 
@@ -84,14 +86,24 @@ namespace Aurora {
 		float specularIntensity;
 		float specularPower;
 
+		std::string MeshName;
+		std::wstring vShaderPath;
+		std::wstring pShaderPath;
+
+		bool IsModel = false;
+		bool IsEmptyParent = false;
+
+		Ref<Model> model;
 	public:
 		MeshComponent();
 		MeshComponent(const MeshComponent&) = default;
 		MeshComponent(Ref<VertexShader> VertexShader, Ref<PixelShader> PixelShader, Ref<VertexBuffer> VertexBuffer, Ref<IndexBuffer> IndexBuffer);
 		MeshComponent(std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
-		~MeshComponent() {}
+		MeshComponent(bool compress,std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
+		~MeshComponent() = default;
 		virtual void OnComponentAdd() override {}
-		virtual void update() override {}
+		virtual void update() override;
+	
 	};
 
 	class LightComponent : public Component
@@ -106,7 +118,7 @@ namespace Aurora {
 	public:
 		LightComponent();
 		LightComponent(const LightComponent&) = default;
-		~LightComponent() {}
+		~LightComponent() = default;
 		virtual void OnComponentAdd() override {}
 		virtual void update() override {}
 	};

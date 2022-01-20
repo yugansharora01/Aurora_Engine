@@ -45,8 +45,8 @@ namespace Aurora {
 
 	Ref<Entity> Scene::CreateEntityWithUUID(UUID& id, std::string Name)
 	{
-
-		Ref<Entity> entity = CreateRef<Entity>(registry->CreateEntity(), this);
+		Ref<Scene> ptr{ this };
+		Ref<Entity> entity = CreateRef<Entity>(registry->CreateEntity(), ptr);
 		registry->add(entity);
 
 		if (Name == "")
@@ -63,6 +63,28 @@ namespace Aurora {
 		return CreateEntityWithUUID(id,Name);
 	}
 
+	Ref<Entity> Scene::CreateChildEntityWithUUID(UUID& id, Ref<Entity> Parent, std::string Name)
+	{
+		Ref<Scene> ptr = CreateRef<Scene>(*this);
+		Ref<Scene> ptr1{this};
+		Ref<Entity> entity = CreateRef<Entity>(registry->CreateEntity(), ptr1);
+		entity->Parent = Parent;
+		Parent->AddChild(entity);
+
+		if (Name == "")
+			Name = "UnNamed";
+
+		entity->AddComponent<IDComponent>(id);
+		entity->AddComponent<TagComponent>(Name);
+		return entity;
+	}
+
+	Ref<Entity> Scene::CreateChildEntity(Ref<Entity> Parent, std::string Name)
+	{
+		auto id = UUID();
+		return CreateChildEntityWithUUID(id,Parent, Name);
+	}
+
 	void Scene::DestroyEntity(Ref<Entity> entity)
 	{
 		registry->DestroyEntity(entity);
@@ -77,12 +99,15 @@ namespace Aurora {
 
 		Renderer::BeginScene();
 		auto entities = registry->GetList();
-		std::vector<DirectX::XMFLOAT4> Light;
+		
 		
 		auto ViewMat = DirectX::XMMatrixInverse(NULL, Editorcamera->GetTransform());
+		Light.clear();
 
 		for (size_t i = 0; i < entities.size(); i++)
 		{
+			entities[i]->Update();
+
 			if (entities[i]->HasComponent<LightComponent>())
 			{
 				DirectX::XMFLOAT4 temp;
@@ -105,58 +130,18 @@ namespace Aurora {
 		{
 			if (entities[i]->HasComponent<MeshComponent>())
 			{
-				auto& vShader = entities[i]->GetComponent<MeshComponent>()->vShader;
-				auto& pShader = entities[i]->GetComponent<MeshComponent>()->pShader;
-				auto& vBuf = entities[i]->GetComponent<MeshComponent>()->vBuf;
-				auto& iBuf = entities[i]->GetComponent<MeshComponent>()->iBuf;
-
-				vShader->UploadedData.clear();
-				vShader->Refresh();
-				pShader->Refresh();
-
-
-				
-
-				std::vector<DirectX::XMMATRIX> mat;
-
-				if (pShader->path == "../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl")
-				{
-					pShader->UploadFloat4(pShader->UploadedData[0], false,0);
-					mat.push_back(DirectX::XMMatrixTranspose(
-						GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
-				}
-				else
-				{
-					if (pShader->path == "../Aurora/src/Aurora/Shaders/SolidPS.hlsl")
-					{
-						std::vector<DirectX::XMFLOAT4> color;
-						color.push_back(entities[i]->GetComponent<MeshComponent>()->color);
-						pShader->UploadFloat4(color, false, 0);
-						mat.push_back(DirectX::XMMatrixTranspose(
-							GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
-					}
-					else {
-						pShader->UploadFloat4(Light, false, 0);
-						mat.push_back(DirectX::XMMatrixTranspose(GetMatrix(entities[i]) * ViewMat));
-						mat.push_back(DirectX::XMMatrixTranspose(
-							GetMatrix(entities[i]) * ViewMat * Editorcamera->GetProjection()));
-
-
-						std::vector<DirectX::XMFLOAT4> material;
-						material.push_back(entities[i]->GetComponent<MeshComponent>()->color);
-						DirectX::XMFLOAT4 temp;
-						temp.x = entities[i]->GetComponent<MeshComponent>()->specularIntensity;
-						temp.y = entities[i]->GetComponent<MeshComponent>()->specularPower;
-						material.push_back(temp);
-						pShader->UploadFloat4(material, false, 1);
-					}
-					
-				}
-				vShader->UploadFloat4(GetVec(mat));
-
-				Renderer::Submit(vShader, pShader, vBuf, iBuf);
+				if(!entities[i]->GetComponent<MeshComponent>()->IsEmptyParent)
+					SubmitEntity(entities[i],Editorcamera,ViewMat);
 			}
-			
+			if (entities[i]->GetChildrenList().size() != 0)
+			{
+				auto childrens = entities[i]->GetChildrenList();
+				for (size_t j = 0; j < childrens.size(); j++)
+				{
+					SubmitEntity(childrens[j], Editorcamera, ViewMat);
+				}
+				
+			}
 		}
 		Renderer::EndScene();
 		
@@ -178,6 +163,57 @@ namespace Aurora {
 		auto identityQuat = DirectX::XMLoadFloat4(&identity);
 
 		return DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
+	}
+
+	void Scene::SubmitEntity(Ref<Entity> entity, Ref<EditorCamera> Editorcamera, DirectX::XMMATRIX ViewMat)
+	{
+		auto& vShader = entity->GetComponent<MeshComponent>()->vShader;
+		auto& pShader = entity->GetComponent<MeshComponent>()->pShader;
+		auto& vBuf = entity->GetComponent<MeshComponent>()->vBuf;
+		auto& iBuf = entity->GetComponent<MeshComponent>()->iBuf;
+
+		vShader->UploadedData.clear();
+		vShader->Refresh();
+		pShader->Refresh();
+
+		std::vector<DirectX::XMMATRIX> mat;
+
+		if (pShader->path == "../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl")
+		{
+			pShader->UploadFloat4(pShader->UploadedData[0], false, 0);
+			mat.push_back(DirectX::XMMatrixTranspose(
+				GetMatrix(entity) * ViewMat * Editorcamera->GetProjection()));
+		}
+		else
+		{
+			if (pShader->path == "../Aurora/src/Aurora/Shaders/SolidPS.hlsl")
+			{
+				std::vector<DirectX::XMFLOAT4> color;
+				color.push_back(entity->GetComponent<MeshComponent>()->color);
+				pShader->UploadFloat4(color, false, 0);
+				mat.push_back(DirectX::XMMatrixTranspose(
+					GetMatrix(entity) * ViewMat * Editorcamera->GetProjection()));
+			}
+			else {
+				pShader->UploadFloat4(Light, false, 0);
+				mat.push_back(DirectX::XMMatrixTranspose(GetMatrix(entity) * ViewMat));
+				mat.push_back(DirectX::XMMatrixTranspose(
+					GetMatrix(entity) * ViewMat * Editorcamera->GetProjection()));
+
+
+				std::vector<DirectX::XMFLOAT4> material;
+				material.push_back(entity->GetComponent<MeshComponent>()->color);
+				DirectX::XMFLOAT4 temp;
+				temp.x = entity->GetComponent<MeshComponent>()->specularIntensity;
+				temp.y = entity->GetComponent<MeshComponent>()->specularPower;
+				material.push_back(temp);
+				pShader->UploadFloat4(material, false, 1);
+			}
+
+		}
+		vShader->UploadFloat4(GetVec(mat));
+
+		Renderer::Submit(vShader, pShader, vBuf, iBuf);
 	}
 	
 }

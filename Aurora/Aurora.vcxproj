@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Aurora\High Level\Mesh.h" />
+    <ClInclude Include="src\Aurora\Models\Model.h" />
     <ClInclude Include="src\Aurora.h" />
     <ClInclude Include="src\Aurora\Application.h" />
     <ClInclude Include="src\Aurora\AuroraMath.h" />
@@ -217,7 +217,7 @@
     <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
     <ClCompile Include="src\Aurora\Core\UUID.cpp" />
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
-    <ClCompile Include="src\Aurora\High Level\Mesh.cpp" />
+    <ClCompile Include="src\Aurora\Models\Model.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
     <ClCompile Include="src\Aurora\Layer.cpp" />

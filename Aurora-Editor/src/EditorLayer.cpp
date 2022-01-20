@@ -28,7 +28,7 @@ namespace Aurora {
 		m_sceneHeirarchyPanel->SetScene(m_activeScene);
 		m_sceneHeirarchyPanel->OnImGuiRender();
 
-		m_geometryPanel->SetScene(m_activeScene);
+		//m_geometryPanel->SetScene(m_activeScene);
 		m_geometryPanel->OnImGuiRender();
 
 		//-------------------------------------------------
@@ -299,19 +299,21 @@ namespace Aurora {
 		e4->AddComponent<MeshComponent>(plane.vShader, plane.pShader, plane.vBuffer, plane.iBuffer);*/
 
 		//-------------------------------------------------------------------------------
+
+		auto e6 = m_activeScene->CreateEntity("Mesh1");
+
+		e6->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
+		e6->AddComponent<MeshComponent>(true,"assets\\models\\nano_textured\\nanosuit.obj", vShaderpath, pShaderpath);
+
+
 		auto Lightsphere = Sphere::Get(vShaderpath2, pShaderpath2, 10, 10);
 
 		auto e5 = m_activeScene->CreateEntity("Light1");
 
-		e5->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
+		e5->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
 		e5->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
 		e5->AddComponent<LightComponent>();
 		
-		auto e6 = m_activeScene->CreateEntity("Mesh1");
-
-		e6->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
-		e6->AddComponent<MeshComponent>("assets\\models\\suzanne.obj", vShaderpath, pShaderpath);
-	
 	}
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)

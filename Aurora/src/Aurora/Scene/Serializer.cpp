@@ -5,6 +5,7 @@
 #include "Aurora/Scene/ECS.h"
 #include "Aurora/Scene/Components.h"
 #include "Aurora/Log.h"
+#include "Aurora/High-Level/Model.h"
 
 #include <yaml-cpp/yaml.h>
 
@@ -87,6 +88,13 @@ namespace YAML
 
 namespace Aurora
 {
+	YAML::Emitter& operator<<(YAML::Emitter& out, const std::wstring ws)
+	{
+		std::string s = ws2s(ws);
+		out << s;
+		return out;
+	}
+	
 	YAML::Emitter& operator<<(YAML::Emitter& out, const DirectX::XMFLOAT3& v)
 	{
 		out << YAML::Flow;
@@ -157,67 +165,76 @@ namespace Aurora
 		{
 			std::string str;
 
-			out << YAML::Key << "Vertex Shader";
-			out << YAML::BeginMap; //Vertex Shader
-			out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
-			out << YAML::Key << "Data for Shader";
-			out << YAML::BeginMap; //Data For Shader
-			for (int i = 0; i < component->vShader->UploadedData.size(); i++)
+			if (component->IsModel)
 			{
-				out << YAML::Key << "Size" << YAML::Value << component->vShader->UploadedData[i].size();
-				out << YAML::Key << "Data" << component->vShader->UploadedData[i];
+				out << YAML::Key << "IsCompressed" << YAML::Value << component->model->IsCompressed;
+				out << YAML::Key << "Model Name" << YAML::Value << component->MeshName;
+				out << YAML::Key << "Vertex Shader Path" << YAML::Value << component->vShaderPath;
+				out << YAML::Key << "Pixel Shader Path" << YAML::Value << component->pShaderPath;
 			}
-			out << YAML::EndMap; //Data For Shader
-			out << YAML::EndMap; //Vertex Shader
+			else
+			{
+				out << YAML::Key << "Vertex Shader";
+				out << YAML::BeginMap; //Vertex Shader
+				out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+				out << YAML::Key << "Data for Shader";
+				out << YAML::BeginMap; //Data For Shader
+				for (int i = 0; i < component->vShader->UploadedData.size(); i++)
+				{
+					out << YAML::Key << "Size" << YAML::Value << component->vShader->UploadedData[i].size();
+					out << YAML::Key << "Data" << component->vShader->UploadedData[i];
+				}
+				out << YAML::EndMap; //Data For Shader
+				out << YAML::EndMap; //Vertex Shader
 
-			out << YAML::Key << "Pixel Shader";
-			out << YAML::BeginMap; // Pixel Shader
-			out << YAML::Key << "Path" << YAML::Value << component->pShader->path;
-			out << YAML::Key << "Data for Shader";
-			out << YAML::BeginMap; //Data For Shader
-			for (int i = 0; i < component->pShader->UploadedData.size(); i++)
-			{
-				out << YAML::Key << "Size" << YAML::Value << component->pShader->UploadedData[i].size();
-				out << YAML::Key << "Data" << component->pShader->UploadedData[i];
-			}
-			out << YAML::EndMap; //Data For Shader
-			out << YAML::EndMap; // Pixel Shader
+				out << YAML::Key << "Pixel Shader";
+				out << YAML::BeginMap; // Pixel Shader
+				out << YAML::Key << "Path" << YAML::Value << component->pShader->path;
+				out << YAML::Key << "Data for Shader";
+				out << YAML::BeginMap; //Data For Shader
+				for (int i = 0; i < component->pShader->UploadedData.size(); i++)
+				{
+					out << YAML::Key << "Size" << YAML::Value << component->pShader->UploadedData[i].size();
+					out << YAML::Key << "Data" << component->pShader->UploadedData[i];
+				}
+				out << YAML::EndMap; //Data For Shader
+				out << YAML::EndMap; // Pixel Shader
 
-			out << YAML::Key << "Vertex Buffer" << YAML::Value << YAML::BeginMap; // Vertex Buffer
-			out << YAML::Key << "Vertex Data" << YAML::BeginMap; // Vertex Data
-			for (auto i = 0; i < component->vBuf->Vertexdata.size(); i++)
-			{
-				out << YAML::Key << i << YAML::Value << component->vBuf->Vertexdata[i];
-			}
-			out << YAML::EndMap;  // Vertex Data
-			out << YAML::Key << "Topology" << YAML::Value << static_cast<int>(component->vBuf->Topologytype);
-			out << YAML::Key << "Layout" << YAML::Value;
-			out << YAML::BeginMap;
-			for (auto i = 0; i < component->vBuf->Layouts.size(); i++)
-			{
-				auto& layout = component->vBuf->Layouts[i];
-				out << YAML::Key << i << YAML::Value << YAML::Flow;
-				out << YAML::BeginSeq << layout.name << layout.offset << static_cast<int>(layout.type) << layout.Is_Normalised << layout.NumberOfBits;
+				out << YAML::Key << "Vertex Buffer" << YAML::Value << YAML::BeginMap; // Vertex Buffer
+				out << YAML::Key << "Vertex Data" << YAML::BeginMap; // Vertex Data
+				for (auto i = 0; i < component->vBuf->Vertexdata.size(); i++)
+				{
+					out << YAML::Key << i << YAML::Value << component->vBuf->Vertexdata[i];
+				}
+				out << YAML::EndMap;  // Vertex Data
+				out << YAML::Key << "Topology" << YAML::Value << static_cast<int>(component->vBuf->Topologytype);
+				out << YAML::Key << "Layout" << YAML::Value;
+				out << YAML::BeginMap;
+				for (auto i = 0; i < component->vBuf->Layouts.size(); i++)
+				{
+					auto& layout = component->vBuf->Layouts[i];
+					out << YAML::Key << i << YAML::Value << YAML::Flow;
+					out << YAML::BeginSeq << layout.name << layout.offset << static_cast<int>(layout.type) << layout.Is_Normalised << layout.NumberOfBits;
+					out << YAML::EndSeq;
+				}
+				out << YAML::EndMap;
+				out << YAML::EndMap; // Vertex Buffer
+
+				out << YAML::Key << "Index Buffer";
+				out << YAML::BeginMap; //index Buffer
+				out << YAML::Key << "Indices" << YAML::Flow << YAML::BeginSeq;
+				for (auto& node : component->iBuf->Indices)
+				{
+					out << node;
+				}
 				out << YAML::EndSeq;
-			}
-			out << YAML::EndMap;
-			out << YAML::EndMap; // Vertex Buffer
 
-			out << YAML::Key << "Index Buffer" ;
-			out << YAML::BeginMap; //index Buffer
-			out << YAML::Key << "Indices" << YAML::Flow << YAML::BeginSeq;
-			for (auto& node : component->iBuf->Indices)
-			{
-				out << node;
+				out << YAML::EndMap; //index Buffer
 			}
-			out << YAML::EndSeq;
-
-			out << YAML::EndMap; //index Buffer
 			out << YAML::Key << "Color" << YAML::Value << component->color;
 			out << YAML::Key << "Specular Intensity" << YAML::Value << component->specularIntensity;
 			out << YAML::Key << "Specular Power" << YAML::Value << component->specularPower;
 
-				
 		});
 
 		SerializeComponent<LightComponent>(out, entity, "LightComponent", [](YAML::Emitter& out, Ref<LightComponent>& component)
@@ -319,109 +336,127 @@ namespace Aurora
 
 				if (meshComponent)
 				{
-					
-					auto vetexshader = meshComponent["Vertex Shader"];
-					std::wstring path = vetexshader["Path"].as<std::wstring>();
-
-					auto vShader = VertexShader::Create(path);
-
-					auto ShaderData = vetexshader["Data for Shader"];
-
-					int size = ShaderData["Size"].as<int>();
-
-					auto matrixSeq = ShaderData["Data"];
-
-					std::vector<DirectX::XMFLOAT4> DataToPass;
-
-					for (int i = 0;i < size; i++)
+					auto modelName = meshComponent["Model Name"];
+					if (modelName)
 					{
-						
-						DataToPass.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
+						bool compressed = meshComponent["IsCompressed"].as<bool>();
+						std::string model = modelName.as<std::string>();
+						std::wstring vshader = meshComponent["Vertex Shader Path"].as<std::wstring>();
+						std::wstring pshader = meshComponent["Pixel Shader Path"].as<std::wstring>();
+						auto component = deserializedEntity->AddComponent<MeshComponent>(compressed,model,vshader,pshader);
+
+						component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
+
+						component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
+
+						component->specularPower = meshComponent["Specular Power"].as<float>();
 					}
-
-					vShader->UploadFloat4(DataToPass,true);
-
-
-					auto pixelshader = meshComponent["Pixel Shader"];
-					path = pixelshader["Path"].as<std::wstring>();
-
-					auto pShader = PixelShader::Create(path);
-
-					ShaderData = pixelshader["Data for Shader"];
-
-					if (ShaderData.size() > 0)
+					else
 					{
-						size = ShaderData["Size"].as<int>();
+						auto vetexshader = meshComponent["Vertex Shader"];
+						std::wstring path = vetexshader["Path"].as<std::wstring>();
 
-						matrixSeq = ShaderData["Data"];
+						auto vShader = VertexShader::Create(path);
 
-						std::vector<DirectX::XMFLOAT4> vec4;
+						auto ShaderData = vetexshader["Data for Shader"];
+
+						int size = ShaderData["Size"].as<int>();
+
+						auto matrixSeq = ShaderData["Data"];
+
+						std::vector<DirectX::XMFLOAT4> DataToPass;
 
 						for (int i = 0; i < size; i++)
 						{
-							vec4.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
+
+							DataToPass.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
 						}
 
-						pShader->UploadFloat4(vec4);
+						vShader->UploadFloat4(DataToPass, true);
+
+
+						auto pixelshader = meshComponent["Pixel Shader"];
+						path = pixelshader["Path"].as<std::wstring>();
+
+						auto pShader = PixelShader::Create(path);
+
+						ShaderData = pixelshader["Data for Shader"];
+
+						if (ShaderData.size() > 0)
+						{
+							size = ShaderData["Size"].as<int>();
+
+							matrixSeq = ShaderData["Data"];
+
+							std::vector<DirectX::XMFLOAT4> vec4;
+
+							for (int i = 0; i < size; i++)
+							{
+								vec4.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
+							}
+
+							pShader->UploadFloat4(vec4);
+						}
+
+
+						auto vertexbuffer = meshComponent["Vertex Buffer"];
+						auto vertexdata = vertexbuffer["Vertex Data"];
+
+						std::vector<VertexData> vertices;
+
+						for (auto i = 0; i < vertexdata.size(); i++)
+						{
+							VertexData d;
+
+							d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
+							d.normal = vertexdata[i]["Normal"].as<DirectX::XMFLOAT3>();
+							vertices.push_back(d);
+						}
+
+						auto vBuf = VertexBuffer::Create(vertices);
+
+						vBuf->SetTopology((TopologyType)vertexbuffer["Topology"].as<int>());
+
+						auto layout = vertexbuffer["Layout"];
+						std::vector<LayoutBuffer> layouts;
+						for (auto i = 0; i < layout.size(); i++)
+						{
+							auto lay = layout[i];
+							LayoutBuffer l;
+							l.name = lay[0].as<std::string>();
+							l.offset = lay[1].as<unsigned int>();
+							l.type = (PropertiesDataType)lay[2].as<int>();
+							l.Is_Normalised = lay[3].as<bool>();
+							l.NumberOfBits = lay[4].as<int>();
+
+							layouts.push_back(l);
+						}
+
+						vBuf->SetLayout(layouts, vShader);
+
+						auto indexbuffer = meshComponent["Index Buffer"];
+
+						std::vector<unsigned short> Indices;
+
+						auto indices = indexbuffer["Indices"];
+
+						for (auto i = 0; i < indices.size(); i++)
+						{
+							Indices.push_back(indices[i].as<unsigned short>());
+
+						}
+
+						auto iBuf = IndexBuffer::Create(Indices);
+
+						auto component = deserializedEntity->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
+
+						component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
+
+						component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
+
+						component->specularPower = meshComponent["Specular Power"].as<float>();
 					}
-
-
-					auto vertexbuffer = meshComponent["Vertex Buffer"];
-					auto vertexdata = vertexbuffer["Vertex Data"];
-
-					std::vector<VertexData> vertices;
-
-					for (auto i = 0;i <  vertexdata.size();i++)
-					{
-						VertexData d;						
-
-						d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
-						d.normal = vertexdata[i]["Normal"].as<DirectX::XMFLOAT3>();
-						vertices.push_back(d);
-					}
-
-					auto vBuf = VertexBuffer::Create(vertices);
-
-					vBuf->SetTopology((TopologyType)vertexbuffer["Topology"].as<int>());
-
-					auto layout = vertexbuffer["Layout"];
-					std::vector<LayoutBuffer> layouts;
-					for (auto i = 0;i < layout.size();i++)
-					{
-						auto lay = layout[i];
-						LayoutBuffer l;
-						l.name =  lay[0].as<std::string>();
-						l.offset =  lay[1].as<unsigned int>();
-						l.type =  (PropertiesDataType)lay[2].as<int>();
-						l.Is_Normalised =  lay[3].as<bool>();
-						l.NumberOfBits =  lay[4].as<int>();
-
-						layouts.push_back(l);
-					}
-
-					vBuf->SetLayout(layouts, vShader);
-
-					auto indexbuffer = meshComponent["Index Buffer"];
-
-					std::vector<unsigned short> Indices;
-
-					auto indices = indexbuffer["Indices"];
-
-					for (auto i = 0;i<indices.size(); i++)
-					{
-						Indices.push_back(indices[i].as<unsigned short>());
-
-					}
-
-					auto iBuf = IndexBuffer::Create(Indices);
-
-					auto component = deserializedEntity->AddComponent<MeshComponent>(vShader,pShader,vBuf,iBuf);
-
-					component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
-
-					component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
-
-					component->specularPower = meshComponent["Specular Power"].as<float>();
+					
 				}
 
 				auto lightComponent = entity["LightComponent"];

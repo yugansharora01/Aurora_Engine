@@ -44,13 +44,14 @@ namespace Aurora {
 	class Entity
 	{
 	public:
+		Ref<Entity> Parent;
 		EntityHandle handle;
 	public:
-		Entity(EntityHandle Handle, Scene* scene);
+		Entity(EntityHandle Handle, Ref<Scene> scene);
 
 		Entity(const Entity& other) = default;
 
-		~Entity(){}
+		~Entity() = default;
 
 		//Updates every component
 		void Update()
@@ -86,7 +87,8 @@ namespace Aurora {
 		Ref<T> AddComponent(Args&&... args)
 		{
 			Ref<T> c = CreateRef<T>(args...);
-			c->entity = CreateRef<Entity>(*this);
+			Ref<Entity> e{ this };
+			c->entity = e;
 			components.emplace_back(c);
 			componentArray[GetComponentTypeID<T>()] = c;
 			componentBitSet[GetComponentTypeID<T>()] = true;
@@ -100,7 +102,6 @@ namespace Aurora {
 		Ref<T> GetComponent() const
 		{
 			AU_CORE_ASSERT(HasComponent<T>(), "Entity does not have this component");
-			//auto c = componentArray[GetComponentTypeID<T>()];
 			std::shared_ptr<T> RefToReturn = std::dynamic_pointer_cast<T>(componentArray[GetComponentTypeID<T>()]);
 			return RefToReturn;
 			
@@ -120,10 +121,36 @@ namespace Aurora {
 
 		operator uint32_t() const { return (uint32_t)handle; }
 
+		Ref<Scene> GetScene()
+		{
+			return m_scene;
+		}
+
 		UUID GetUUID();
 
+		Ref<Entity> GetParent()
+		{
+			return Parent;
+		}
+
+		std::vector<Ref<Entity>> GetChildrenList()
+		{
+			return children;
+		}
+
+		void AddChild(Ref<Entity> child)
+		{
+			children.push_back(child);
+		}
+
+		void RemoveChild(Ref<Entity> child)
+		{
+			children.erase(std::find(children.begin(), children.end(), child));
+		}
+
 	private:
-		Scene* m_scene = nullptr;
+		Ref<Scene> m_scene;
+		std::vector<Ref<Entity>> children;
 		std::vector<GroupID> m_Groups;
 		std::vector<Ref<Component>> components;
 		std::bitset<maxComponents> componentBitSet;
@@ -144,13 +171,11 @@ namespace Aurora {
 
 		void add(Ref<Entity> entity)
 		{
-			//auto e = CreateRef<Entity>(entity);
 			GroupOfEntities.emplace_back(entity);
 		}
 
 		void remove(Ref<Entity> entity)
 		{
-			//Ref<Entity> e = CreateRef<Entity>(entity);
 			GroupOfEntities.erase(std::find(GroupOfEntities.begin(), GroupOfEntities.end(), entity));
 		}
 
@@ -251,6 +276,7 @@ namespace Aurora {
 				}
 			}
 			GroupMap.insert(newGroup.GetID(),newGroup);
+			return newGroup;
 		}
 
 	private:

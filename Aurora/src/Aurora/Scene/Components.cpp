@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Components.h"
-#include "Aurora/High Level/Mesh.h"
+#include "Aurora/High-Level/Model.h"
 
 namespace Aurora {
 	TransformComponent::TransformComponent()
@@ -79,15 +79,44 @@ namespace Aurora {
 		specularPower = 30.0f;
 	}
 
-	MeshComponent::MeshComponent(std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath)
+	MeshComponent::MeshComponent(std::string name, std::wstring vertexShaderPath, std::wstring pixelShaderPath)
+		:MeshName(name), vShaderPath(vertexShaderPath), pShaderPath(pixelShaderPath)
 	{
-		vShader = VertexShader::Create(vShaderPath);
-		pShader = PixelShader::Create(pShaderPath);
-		Mesh m(MeshName,vShaderPath,pShaderPath);
-		vBuf = m.vBuf;
-		iBuf = m.iBuf;
+		model = CreateRef<Model>(MeshName, vShaderPath, pShaderPath);
+		IsModel = true;
 		color = { 0.146f, 0.574f, 0.578f, 1.0f };
 		specularIntensity = 0.6f;
 		specularPower = 30.0f;
+	}
+
+	MeshComponent::MeshComponent(bool compress, std::string name, std::wstring vertexShaderPath, std::wstring pixelShaderPath)
+		:MeshName(name), vShaderPath(vertexShaderPath), pShaderPath(pixelShaderPath)
+	{
+		model = CreateRef<Model>(MeshName, vShaderPath, pShaderPath,compress);
+		IsModel = true;
+		color = { 0.146f, 0.574f, 0.578f, 1.0f };
+		specularIntensity = 0.6f;
+		specularPower = 30.0f;
+	}
+
+	void MeshComponent::update()
+	{
+		if (IsModel)
+		{
+			auto mesh = model->LoadModel(entity, entity->GetScene());
+
+			if(!mesh->IsEmpty)
+			{
+				vShader = mesh->vShader;
+				pShader = mesh->pShader;
+				vBuf = mesh->vBuf;
+				iBuf = mesh->iBuf;
+			}
+			else
+			{
+				IsEmptyParent = true;
+			}
+		}
+		
 	}
 }
