@@ -1,13 +1,17 @@
 #include "pch.h"
 #include "D3D11Texture.h"
 #include "D3D11Surface.h"
+#include "D3D11Sampler.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
 
 namespace Aurora {
 
-	D3D11Texture::D3D11Texture(const Surface& s)
+	D3D11Texture::D3D11Texture(const std::string path)
 	{
 		INFOMAN;
+
+		Surface s = Surface::FromFile(path);
+		IsEmpty = false;
 
 		//create texture resource
 		D3D11_TEXTURE2D_DESC textureDesc = {};
@@ -44,6 +48,8 @@ namespace Aurora {
 
 	void D3D11Texture::Bind() 
 	{
+		D3D11Sampler sampler;
+		sampler.Bind();
 		Getgfx()->GetContext()->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
 	}
 }

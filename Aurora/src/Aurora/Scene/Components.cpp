@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Components.h"
 #include "Aurora/Models/Model.h"
+#include "Aurora/Utils/FileOperations.h"
 
 namespace Aurora {
 	TransformComponent::TransformComponent()
@@ -82,7 +83,7 @@ namespace Aurora {
 	MeshComponent::MeshComponent(std::string name, std::wstring vertexShaderPath, std::wstring pixelShaderPath)
 		:MeshName(name), vShaderPath(vertexShaderPath), pShaderPath(pixelShaderPath)
 	{
-		model = CreateRef<Model>(MeshName, vShaderPath, pShaderPath);
+		model = CreateRef<Model>(MeshName, vShaderPath, pShaderPath,this);
 		IsModel = true;
 		color = { 0.146f, 0.574f, 0.578f, 1.0f };
 		specularIntensity = 0.6f;
@@ -92,7 +93,7 @@ namespace Aurora {
 	MeshComponent::MeshComponent(bool compress, std::string name, std::wstring vertexShaderPath, std::wstring pixelShaderPath)
 		:MeshName(name), vShaderPath(vertexShaderPath), pShaderPath(pixelShaderPath)
 	{
-		model = CreateRef<Model>(MeshName, vShaderPath, pShaderPath,compress);
+		model = CreateRef<Model>(MeshName, vShaderPath, pShaderPath,this,compress);
 		IsModel = true;
 		color = { 0.146f, 0.574f, 0.578f, 1.0f };
 		specularIntensity = 0.6f;
@@ -118,5 +119,12 @@ namespace Aurora {
 			}
 		}
 		
+	}
+	void MeshComponent::SetTexture(std::string Path)
+	{
+		auto str = Files::GetPath(Path);
+		IsTextured = true;
+		this->path = Path;
+		texture = Texture::Create(str);
 	}
 }

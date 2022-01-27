@@ -254,33 +254,50 @@ namespace Aurora {
 		std::wstring vShaderpath2(L"../Aurora/src/Aurora/Shaders/SolidVS.hlsl");
 		std::wstring pShaderpath2(L"../Aurora/src/Aurora/Shaders/SolidPS.hlsl");
 
+		std::wstring vShaderpath3(L"../Aurora/src/Aurora/Shaders/PhongVSTextured.hlsl");
+		std::wstring pShaderpath3(L"../Aurora/src/Aurora/Shaders/PhongPSTextured.hlsl");
+
 		//-------------------------------------------------------------------------------
-
-		for (int i = 0; i < 2; i++)
-		{
-			auto cube = Cube::Get(vShaderpath, pShaderpath);
-
-			auto e1 = m_activeScene->CreateEntity("Box1");
-
-			e1->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-			e1->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
-			auto c = e1->GetComponent<MeshComponent>();
-			c->color = { 0.3f * (i+1),0.0f,0.3f * (i + 1),1.0f };
-		}
 		
-		auto e6 = m_activeScene->CreateEntity("Mesh1");
+		auto cube = Cube::Get(vShaderpath, pShaderpath);
 
-		e6->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-		e6->AddComponent<MeshComponent>(true,"assets\\models\\nano_textured\\nanosuit.obj", vShaderpath, pShaderpath);
+		auto Box = m_activeScene->CreateEntity("Box1");
 
+		Box->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
+		Box->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
+		auto c = Box->GetComponent<MeshComponent>();
+		c->color = { 0.3f,0.0f,0.3f,1.0f };
+
+		//-----------------------------------------------------------------------------------------
+		
+		auto texcube = Cube::GetTextured(vShaderpath3, pShaderpath3);
+
+		auto TexturedBox = m_activeScene->CreateEntity("TexturedBox");
+
+		TexturedBox->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
+		TexturedBox->AddComponent<MeshComponent>(texcube.vShader, texcube.pShader, texcube.vBuffer, texcube.iBuffer);
+		auto c1 = TexturedBox->GetComponent<MeshComponent>();
+		c1->color = { 0.3f,0.0f,0.3f,1.0f };
+		c1->SetTexture("E:\\Yash\\Aurora\\Aurora-Editor\\assets\\images\\kappa50.png");
+		
+		//-----------------------------------------------------------------------------------------
+		
+		
+		auto NanoSuit = m_activeScene->CreateEntity("Mesh1");
+
+		NanoSuit->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
+		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj", vShaderpath3, pShaderpath3);
+		auto c2 = NanoSuit->GetComponent<MeshComponent>();
+		c2->color = { 0.3f,0.0f,0.3f,1.0f };
+		//c2->SetTexture(c2->path);
 
 		auto Lightsphere = Sphere::Get(vShaderpath2, pShaderpath2, 10, 10);
 
-		auto e5 = m_activeScene->CreateEntity("Light1");
+		auto Light = m_activeScene->CreateEntity("Light1");
 
-		e5->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
-		e5->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
-		e5->AddComponent<LightComponent>();
+		Light->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
+		Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
+		Light->AddComponent<LightComponent>();
 		
 	}
 

@@ -131,6 +131,39 @@ namespace Aurora {
 			};
 		}
 
+		template<class V>
+		static IndexedTriangleList<V> MakeIndependentTextured()
+		{
+			auto itl = MakeIndependent<V>();
+
+			itl.vertices[0].tc = { 0.0f,0.0f };
+			itl.vertices[1].tc = { 1.0f,0.0f };
+			itl.vertices[2].tc = { 0.0f,1.0f };
+			itl.vertices[3].tc = { 1.0f,1.0f };
+			itl.vertices[4].tc = { 0.0f,0.0f };
+			itl.vertices[5].tc = { 1.0f,0.0f };
+			itl.vertices[6].tc = { 0.0f,1.0f };
+			itl.vertices[7].tc = { 1.0f,1.0f };
+			itl.vertices[8].tc = { 0.0f,0.0f };
+			itl.vertices[9].tc = { 1.0f,0.0f };
+			itl.vertices[10].tc = { 0.0f,1.0f };
+			itl.vertices[11].tc = { 1.0f,1.0f };
+			itl.vertices[12].tc = { 0.0f,0.0f };
+			itl.vertices[13].tc = { 1.0f,0.0f };
+			itl.vertices[14].tc = { 0.0f,1.0f };
+			itl.vertices[15].tc = { 1.0f,1.0f };
+			itl.vertices[16].tc = { 0.0f,0.0f };
+			itl.vertices[17].tc = { 1.0f,0.0f };
+			itl.vertices[18].tc = { 0.0f,1.0f };
+			itl.vertices[19].tc = { 1.0f,1.0f };
+			itl.vertices[20].tc = { 0.0f,0.0f };
+			itl.vertices[21].tc = { 1.0f,0.0f };
+			itl.vertices[22].tc = { 0.0f,1.0f };
+			itl.vertices[23].tc = { 1.0f,1.0f };
+
+			return itl;
+		}
+
 		static BindableList Get(std::wstring vShaderPath, std::wstring pShaderPath)
 		{
 			BindableList b;
@@ -180,6 +213,51 @@ namespace Aurora {
 
 			list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
 			list.emplace_back("Normal", 12, PropertiesDataType::Float3, false, 32);
+
+			b.vBuffer->SetLayout(list, b.vShader);
+
+			b.vBuffer->SetTopology(TopologyType::Triangle_List);
+
+			return b;
+		}
+		
+		static BindableList GetTextured(std::wstring vShaderPath, std::wstring pShaderPath)
+		{
+			BindableList b;
+
+			struct Vertex
+			{
+				DirectX::XMFLOAT3 pos;
+				DirectX::XMFLOAT3 n;
+				DirectX::XMFLOAT2 tc;
+			};
+
+			auto model = Cube::MakeIndependentTextured<Vertex>();
+			model.SetNormalsIndependentFlat();
+
+			std::vector<VertexData> container;
+
+			for (int i = 0; i < model.vertices.size(); i++)
+			{
+				container.emplace_back();
+				container[i].pos = model.vertices[i].pos;
+				container[i].normal = model.vertices[i].n;
+				container[i].texCoord = model.vertices[i].tc;
+			}
+
+			b.vBuffer = VertexBuffer::Create(container);
+
+			b.vShader = VertexShader::Create(vShaderPath);
+
+			b.pShader = PixelShader::Create(pShaderPath);
+
+			b.iBuffer = IndexBuffer::Create(model.indices);
+
+			std::vector<LayoutBuffer> list;
+
+			list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
 
 			b.vBuffer->SetLayout(list, b.vShader);
 

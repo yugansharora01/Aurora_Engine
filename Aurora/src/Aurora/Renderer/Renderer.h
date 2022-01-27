@@ -13,6 +13,7 @@ namespace Aurora {
 			Ref<PixelShader> pShader;
 			Ref<VertexBuffer> vBuffer;
 			Ref<IndexBuffer> iBuffer;
+			Ref<Texture> tex;
 
 			Binds(
 				Ref<VertexShader> VertexShader,
@@ -37,6 +38,14 @@ namespace Aurora {
 			Ref<VertexBuffer> vBuffer,
 			Ref<IndexBuffer> iBuffer
 		);
+		
+		void Submit(
+			Ref<VertexShader> vShader,
+			Ref<PixelShader> pShader,
+			Ref<VertexBuffer> vBuffer,
+			Ref<IndexBuffer> iBuffer,
+			Ref<Texture> tex
+		);
 
 		void bind() {}
 	};
@@ -50,10 +59,18 @@ namespace Aurora {
 		static void BeginScene();
 		static void EndScene();
 		static void Submit(
-			std::shared_ptr<VertexShader> vShader, 
-			std::shared_ptr<PixelShader> pShader,
-			std::shared_ptr<VertexBuffer> vBuffer,
-			std::shared_ptr<IndexBuffer> iBuffer
+			Ref<VertexShader> vShader, 
+			Ref<PixelShader> pShader,
+			Ref<VertexBuffer> vBuffer,
+			Ref<IndexBuffer> iBuffer
+		);
+		
+		static void Submit(
+			Ref<VertexShader> vShader,
+			Ref<PixelShader> pShader,
+			Ref<VertexBuffer> vBuffer,
+			Ref<IndexBuffer> iBuffer,
+			Ref<Texture> texture
 		);
 	private:
 		static unsigned int count;

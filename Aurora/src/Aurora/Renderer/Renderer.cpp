@@ -4,6 +4,7 @@
 #include "Aurora/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
 
+
 namespace Aurora {
 
 	unsigned int Renderer::count = 0u;
@@ -34,22 +35,23 @@ namespace Aurora {
 			e.vShader->Bind();
 			e.pShader->Bind();
 			e.iBuffer->Bind();
+			if(e.tex)
+				e.tex->Bind();
 			count = e.iBuffer->GetCount();
 			gfx->DrawIndexed(count);
 		}
 
 		m_queue.Queue.clear();
-		//gfx->DrawIndexed(count);
 	}
 
-	void Renderer::Submit(std::shared_ptr<VertexShader> vShader, std::shared_ptr<PixelShader> pShader, std::shared_ptr<VertexBuffer> vBuffer, std::shared_ptr<IndexBuffer> iBuffer)
+	void Renderer::Submit(Ref<VertexShader> vShader, Ref<PixelShader> pShader, Ref<VertexBuffer> vBuffer, Ref<IndexBuffer> iBuffer)
 	{
 		m_queue.Submit(vShader, pShader, vBuffer, iBuffer);
-		/*vBuffer->Bind(); 
-		vShader->Bind();
-		pShader->Bind();
-		iBuffer->Bind();
-		count = iBuffer->GetCount();*/
+	}
+
+	void Renderer::Submit(Ref<VertexShader> vShader, Ref<PixelShader> pShader, Ref<VertexBuffer> vBuffer, Ref<IndexBuffer> iBuffer, Ref<Texture> texture)
+	{
+		m_queue.Submit(vShader, pShader, vBuffer, iBuffer,texture);
 	}
 
 	void RenderQueue::Submit(Ref<VertexShader> vShader, Ref<PixelShader> pShader, Ref<VertexBuffer> vBuffer, Ref<IndexBuffer> iBuffer)
@@ -57,5 +59,13 @@ namespace Aurora {
 		Binds b(vShader, pShader, vBuffer, iBuffer);
 		Queue.emplace_back(b);
 	}
+
+	void RenderQueue::Submit(Ref<VertexShader> vShader, Ref<PixelShader> pShader, Ref<VertexBuffer> vBuffer, Ref<IndexBuffer> iBuffer, Ref<Texture> tex)
+	{
+		Binds b(vShader, pShader, vBuffer, iBuffer);
+		b.tex = tex;
+		Queue.emplace_back(b);
+	}
+
 
 }

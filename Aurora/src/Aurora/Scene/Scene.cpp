@@ -6,6 +6,7 @@
 #include "Aurora/Renderer/EditorCamera.h"
 #include "Aurora/Application.h"
 #include "Aurora/Core/Input.h"
+#include "Aurora/Renderer/Texture.h"
 
 #include "imgui.h"
 
@@ -116,7 +117,10 @@ namespace Aurora {
 				
 				Light.push_back(temp);
 				Light.push_back(entities[i]->GetComponent<LightComponent>()->ambient);
-				Light.push_back(entities[i]->GetComponent<MeshComponent>()->color);
+				if(entities[i]->HasComponent<MeshComponent>())
+					Light.push_back(entities[i]->GetComponent<MeshComponent>()->color);
+				else
+					Light.push_back(entities[i]->GetComponent<LightComponent>()->diffuseColor);
 				DirectX::XMFLOAT4 LightConstants;
 				LightConstants.x = entities[i]->GetComponent<LightComponent>()->diffuseIntensity;
 				LightConstants.y = entities[i]->GetComponent<LightComponent>()->attConst;
@@ -213,7 +217,15 @@ namespace Aurora {
 		}
 		vShader->UploadFloat4(GetVec(mat));
 
-		Renderer::Submit(vShader, pShader, vBuf, iBuf);
+		if (entity->GetComponent<MeshComponent>()->IsTextured)
+		{
+			auto& texture = entity->GetComponent<MeshComponent>()->texture;
+			Renderer::Submit(vShader, pShader, vBuf, iBuf, texture);
+		}
+		else 
+		{
+			Renderer::Submit(vShader, pShader, vBuf, iBuf);
+		}
 	}
 	
 }

@@ -5,12 +5,12 @@
 
 namespace Aurora {
 	
-	std::shared_ptr<Texture> Texture::Create(const Surface& s)
+	std::shared_ptr<Texture> Texture::Create(const std::string path)
 	{
 		switch (RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::openGL:	AU_CORE_ASSERT(false, "RendererAPI::openGL is currently not supported!"); break;
-		case RendererAPI::API::Direct3D: return std::make_shared<D3D11Texture>(s); break;
+		case RendererAPI::API::Direct3D: return std::make_shared<D3D11Texture>(path); break;
 
 		default:
 			break;

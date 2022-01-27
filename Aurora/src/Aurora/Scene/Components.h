@@ -3,6 +3,7 @@
 #include "Aurora/Renderer/BindableBase.h"
 #include "Aurora/AuroraMath.h"
 #include "Aurora/Log.h"
+#include "Aurora/Renderer/Texture.h"
 
 #include <DirectXMath.h>
 
@@ -79,6 +80,7 @@ namespace Aurora {
 		Ref<PixelShader> pShader;
 		Ref<VertexBuffer> vBuf;
 		Ref<IndexBuffer> iBuf;
+		Ref<Texture> texture;
 
 		DirectX::XMFLOAT4 color;
 		float specularIntensity;
@@ -90,6 +92,9 @@ namespace Aurora {
 
 		bool IsModel = false;
 		bool IsEmptyParent = false;
+		bool IsTextured = false;
+
+		std::string path;
 
 		Ref<Model> model;
 	public:
@@ -100,7 +105,7 @@ namespace Aurora {
 		MeshComponent(bool compress,std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
 		~MeshComponent() = default;
 		virtual void update() override;
-	
+		void SetTexture(std::string path);
 	};
 
 	class LightComponent : public Component

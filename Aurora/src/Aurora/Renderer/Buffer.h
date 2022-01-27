@@ -11,25 +11,16 @@ namespace Aurora
 	struct VertexData
 	{
 		DirectX::XMFLOAT3 pos;
-		/*struct Color{
-			unsigned int r;
-			unsigned int g;
-			unsigned int b;
-			unsigned int a;
-
-			Color() = default;
-			Color(unsigned int r,unsigned int g,unsigned int b,	unsigned int a = 255)
-				:r(r),g(g),b(b),a(a){}
-		}color;*/
 		DirectX::XMFLOAT3 normal;
+		DirectX::XMFLOAT2 texCoord;
 		VertexData() = default;
 
 		friend YAML::Emitter& operator<<(YAML::Emitter& out, const VertexData& d)
 		{
 			out << YAML::BeginMap;
 			out << YAML::Key << "Position" << YAML::Flow << YAML::BeginSeq << d.pos.x << d.pos.y << d.pos.z << YAML::EndSeq;
-			//out << YAML::Key << "Color" << YAML::Flow << YAML::BeginSeq << d.color.r << d.color.g << d.color.b << d.color.a << YAML::EndSeq;
 			out << YAML::Key << "Normal" << YAML::Flow << YAML::BeginSeq << d.normal.x << d.normal.y << d.normal.z << YAML::EndSeq;
+			out << YAML::Key << "Texture Coordinates" << YAML::Flow << YAML::BeginSeq << d.texCoord.x << d.texCoord.y << YAML::EndSeq;
 			out << YAML::EndMap;
 			return out;
 		}

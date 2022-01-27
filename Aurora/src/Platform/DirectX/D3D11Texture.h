@@ -8,7 +8,7 @@ namespace Aurora {
 	class D3D11Texture : public Texture , public Bindables
 	{
 	public:
-		D3D11Texture(const class Surface& s);
+		D3D11Texture(const std::string path);
 		void Bind();
 		void Unbind() {}
 	protected:

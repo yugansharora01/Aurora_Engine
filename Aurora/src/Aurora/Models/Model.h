@@ -9,13 +9,14 @@
 
 
 namespace Aurora {
+	class MeshComponent;
 
 	class Mesh
 	{
 	public:
 		Mesh() = default;
-		Mesh(aiMesh* mesh, std::wstring vShaderPath, std::wstring pShaderPath);
-		Mesh(const aiScene* scene, std::wstring vShaderPath, std::wstring pShaderPath);
+		std::string Load(const aiScene* scene, aiMesh* mesh, std::wstring vShaderPath, std::wstring pShaderPath);
+		std::string Load(const aiScene* scene, std::wstring vShaderPath, std::wstring pShaderPath);
 		~Mesh() = default;
 	public:
 		Ref<VertexBuffer> vBuf;
@@ -29,11 +30,13 @@ namespace Aurora {
 	class Model
 	{
 	public:
-		Model(std::string path, std::wstring vShaderPath, std::wstring pShaderPath,bool compress = false);
+		Model(std::string path, std::wstring vShaderPath, std::wstring pShaderPath, MeshComponent* component,bool compress = false);
 		Mesh* LoadModel(Ref<Entity> ParentEntity,Ref<Scene> scene);
 	public:
 		std::vector<Mesh> Meshes;
+		std::vector<std::string> paths;
 		std::string ModelPath;
+		std::string TexPath;
 		bool IsCompressed = false;
 	};
 

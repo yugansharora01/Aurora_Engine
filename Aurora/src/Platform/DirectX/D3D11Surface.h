@@ -93,6 +93,7 @@ namespace Aurora {
 			std::string note;
 		};
 	public:
+		Surface() = default;
 		Surface(unsigned int width, unsigned int height) noexcept;
 		Surface(Surface&& source) noexcept;
 		Surface(Surface&) = delete;

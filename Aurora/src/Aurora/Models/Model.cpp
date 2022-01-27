@@ -1,23 +1,31 @@
 #include "pch.h"
 #include "Model.h"
 #include "Aurora/Scene/Components.h"
+#include "Aurora/Utils/FileOperations.h"
+#include "Aurora/Scene/Components.h"
 
 namespace Aurora {
-	Model::Model(std::string path, std::wstring vShaderPath, std::wstring pShaderPath,bool compress)
+	Model::Model(std::string path, std::wstring vShaderPath, std::wstring pShaderPath, MeshComponent* component,bool compress)
 		:ModelPath(path),IsCompressed(compress)
 	{
 		Assimp::Importer imp;
 		auto model = imp.ReadFile(path, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 
-		if (IsCompressed)
+		if (IsCompressed || model->mNumMeshes == 1)
 		{
-			Meshes.emplace_back(model, vShaderPath, pShaderPath);
+			Mesh m;
+			auto str = m.Load(model, vShaderPath, pShaderPath);
+			//component->path = Files::GetPath(str);
+			component->SetTexture(str);
+			Meshes.push_back(m);
 		}
 		else 
 		{
 			for (unsigned int i = 0; i < model->mNumMeshes; i++)
 			{
-				Meshes.emplace_back(model->mMeshes[i], vShaderPath, pShaderPath);
+				Mesh m;
+				paths.push_back(m.Load(model,model->mMeshes[i], vShaderPath, pShaderPath));
+				Meshes.push_back(m);
 			}
 		}
 		
@@ -34,6 +42,7 @@ namespace Aurora {
 				auto e = scene->CreateChildEntity(ParentEntity, "Child");
 				e->AddComponent<TransformComponent>(*ParentEntity->GetComponent<TransformComponent>());
 				e->AddComponent<MeshComponent>(Meshes[i].vShader, Meshes[i].pShader,Meshes[i].vBuf,Meshes[i].iBuf);
+				e->GetComponent<MeshComponent>()->SetTexture(paths[i]);
 			}
 			Mesh m;
 			m.IsEmpty = true;
@@ -46,7 +55,7 @@ namespace Aurora {
 		
 	}
 	
-	Mesh::Mesh(aiMesh* mesh,std::wstring vShaderPath, std::wstring pShaderPath)
+	std::string Mesh::Load(const aiScene* scene, aiMesh* mesh, std::wstring vShaderPath, std::wstring pShaderPath)
 	{
 		vShader = VertexShader::Create(vShaderPath);
 		pShader = PixelShader::Create(pShaderPath);
@@ -59,6 +68,7 @@ namespace Aurora {
 			VertexData data;
 			data.pos = { mesh->mVertices[i].x,mesh->mVertices[i].y ,mesh->mVertices[i].z };
 			data.normal = *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh->mNormals[i]);
+			data.texCoord = *reinterpret_cast<DirectX::XMFLOAT2*>(&mesh->mTextureCoords[0][i]);
 			vertices.push_back(data);
 		}
 		vBuf = VertexBuffer::Create(vertices);
@@ -66,7 +76,8 @@ namespace Aurora {
 		std::vector<LayoutBuffer> list;
 
 		list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("Normal", 12, PropertiesDataType::Float3, false, 32);
+		list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
+		list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
 
 		vBuf->SetLayout(list, vShader);
 
@@ -84,10 +95,20 @@ namespace Aurora {
 		}
 		iBuf = IndexBuffer::Create(indices);
 
+		if (mesh->mMaterialIndex >= 0)
+		{
+			auto& material = *scene->mMaterials[mesh->mMaterialIndex];
+			aiString texfilename;
+			material.GetTexture(aiTextureType_DIFFUSE, 0, &texfilename);
+			std::string str(texfilename.C_Str());
+			return str;
+		}
+
 	}
 
-	Mesh::Mesh(const aiScene* scene, std::wstring vShaderPath, std::wstring pShaderPath)
+	std::string Mesh::Load(const aiScene* scene, std::wstring vShaderPath, std::wstring pShaderPath)
 	{
+		std::string texPath;
 		vShader = VertexShader::Create(vShaderPath);
 		pShader = PixelShader::Create(pShaderPath);
 
@@ -116,9 +137,18 @@ namespace Aurora {
 				VertexData data;
 				data.pos = { mesh->mVertices[i].x,mesh->mVertices[i].y ,mesh->mVertices[i].z };
 				data.normal = *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh->mNormals[i]);
+				data.texCoord = *reinterpret_cast<DirectX::XMFLOAT2*>(&mesh->mTextureCoords[0][i]);
 				vertices.push_back(data);
 			}
 			
+
+			if (mesh->mMaterialIndex >= 0)
+			{
+				auto& material = *scene->mMaterials[mesh->mMaterialIndex];
+				aiString texfilename;
+				material.GetTexture(aiTextureType_DIFFUSE, 0, &texfilename);
+				texPath = std::string(texfilename.C_Str());
+			}
 		}
 
 		vBuf = VertexBuffer::Create(vertices);
@@ -127,12 +157,15 @@ namespace Aurora {
 
 		list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
 		list.emplace_back("Normal", 12, PropertiesDataType::Float3, false, 32);
+		list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
 
 		vBuf->SetLayout(list, vShader);
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 		
 		iBuf = IndexBuffer::Create(indices);
+
+		return texPath;
 	}
 
 	

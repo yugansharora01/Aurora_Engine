@@ -94,6 +94,10 @@ namespace Aurora {
 		unsigned int height = 0;
 		std::unique_ptr<Color[]> pBuffer;
 
+		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+		ULONG_PTR gdiplusToken;
+		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
 		{
 			// convert filenam to wide string (for Gdiplus)
 			wchar_t wideName[512];
@@ -121,7 +125,7 @@ namespace Aurora {
 				}
 			}
 		}
-
+		Gdiplus::GdiplusShutdown(gdiplusToken);
 		return Surface(width, height, std::move(pBuffer));
 	}
 
