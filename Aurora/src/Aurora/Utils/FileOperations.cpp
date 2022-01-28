@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "FileOperations.h"
+#include "Aurora/Core/Log.h"
 #include <filesystem>
 
-#include "Aurora/Log.h"
 
 namespace Aurora
 {

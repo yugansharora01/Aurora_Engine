@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Bindables.h"
-#include "Aurora/Application.h"
+#include "Aurora/Core/Application.h"
 #include "Platform/Windows/WindowsWindow.h"
 
 namespace Aurora {

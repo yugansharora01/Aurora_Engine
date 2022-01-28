@@ -4,7 +4,7 @@
 #include "Components.h"
 #include "Aurora/Renderer/Renderer.h"
 #include "Aurora/Renderer/EditorCamera.h"
-#include "Aurora/Application.h"
+#include "Aurora/Core/Application.h"
 #include "Aurora/Core/Input.h"
 #include "Aurora/Renderer/Texture.h"
 

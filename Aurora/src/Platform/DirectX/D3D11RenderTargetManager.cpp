@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "D3D11RenderTargetManager.h"
 #include "Platform/Windows/GraphicsThrowMacros.h"
-#include "Aurora/Application.h"
+#include "Aurora/Core/Application.h"
 #include "Platform/Windows/WindowsWindow.h"
 #include "DirectXHelperFunc.h"
 

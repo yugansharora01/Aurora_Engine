@@ -2,9 +2,9 @@
 
 // for use by Aurora application
 
-#include "Aurora/Application.h"
-#include "Aurora/Log.h"
-#include "Aurora/Layer.h"
+#include "Aurora/Core/Application.h"
+#include "Aurora/Core/Log.h"
+#include "Aurora/Core/Layer.h"
 
 #include "Aurora/Imgui/ImguiLayer.h"
 #include "Aurora/Renderer/Renderer.h"

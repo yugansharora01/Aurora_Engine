@@ -1,8 +1,9 @@
 #pragma once
 
 #include "IndexedTriangleList.h"
+#include "Aurora/Core/AuroraMath.h"
+
 #include <DirectXMath.h>
-#include "Aurora/AuroraMath.h"
 #include <vector>
 
 namespace Aurora {

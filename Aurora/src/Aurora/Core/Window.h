@@ -2,9 +2,8 @@
 
 #include "pch.h"
 
-#include "Aurora/Core.h"
 #include "Aurora/Events/Events.h"
-#include "Aurora/Log.h"
+#include "Aurora/Core/Log.h"
 
 namespace Aurora {
 	class Graphics;

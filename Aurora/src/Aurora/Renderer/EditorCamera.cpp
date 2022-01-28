@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "EditorCamera.h"
-#include "Aurora/Log.h"
+#include "Aurora/Core/Log.h"
 #include "Aurora/Core/Input.h"
 
 namespace Aurora {

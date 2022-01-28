@@ -1,8 +1,8 @@
 #pragma once
 #include "ECS.h"
 #include "Aurora/Renderer/BindableBase.h"
-#include "Aurora/AuroraMath.h"
-#include "Aurora/Log.h"
+#include "Aurora/Core/AuroraMath.h"
+#include "Aurora/Core/Log.h"
 #include "Aurora/Renderer/Texture.h"
 
 #include <DirectXMath.h>

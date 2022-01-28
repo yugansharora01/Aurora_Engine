@@ -4,7 +4,6 @@
 #include "Aurora/Scene/Scene.h"
 #include "Aurora/Scene/ECS.h"
 #include "Aurora/Scene/Components.h"
-#include "Aurora/Log.h"
 #include "Aurora/Models/Model.h"
 
 #include <yaml-cpp/yaml.h>

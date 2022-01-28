@@ -2,8 +2,8 @@
 #include "Win32_Window.h"
 #include "WindowsThrowMacros.h"
 
-#include "Aurora/Application.h"
-#include "Aurora/Window.h"
+#include "Aurora/Core/Application.h"
+#include "Aurora/Core/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
 
 #include "Aurora/Renderer/RenderTargetManager.h"

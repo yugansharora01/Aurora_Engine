@@ -2,7 +2,7 @@
 
 #include "IndexedTriangleList.h"
 #include <DirectXMath.h>
-#include "Aurora/AuroraMath.h"
+#include "Aurora/Core/AuroraMath.h"
 
 namespace Aurora {
 

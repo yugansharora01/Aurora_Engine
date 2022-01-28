@@ -51,13 +51,13 @@
     <ClInclude Include="src\Aurora.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Application.h">
+    <ClInclude Include="src\Aurora\Core\Application.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\AuroraMath.h">
+    <ClInclude Include="src\Aurora\Core\AuroraMath.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Core.h">
+    <ClInclude Include="src\Aurora\Core\Core.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\AuTimer.h">
@@ -96,7 +96,7 @@
     <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h">
       <Filter>src\Aurora\Drawables\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\EntryPoint.h">
+    <ClInclude Include="src\Aurora\Core\EntryPoint.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Events\ApplicationEvents.h">
@@ -114,13 +114,13 @@
     <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h">
       <Filter>src\Aurora\Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Layer.h">
+    <ClInclude Include="src\Aurora\Core\Layer.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\LayerStack.h">
+    <ClInclude Include="src\Aurora\Core\LayerStack.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Log.h">
+    <ClInclude Include="src\Aurora\Core\Log.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h">
@@ -171,7 +171,7 @@
     <ClInclude Include="src\Aurora\Utils\PlatformUtil.h">
       <Filter>src\Aurora\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Window.h">
+    <ClInclude Include="src\Aurora\Core\Window.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Buffers.h">
@@ -265,7 +265,7 @@
     <ClInclude Include="src\Aurora\Models\Model.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Aurora\Application.cpp">
+    <ClCompile Include="src\Aurora\Core\Application.cpp">
       <Filter>src\Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp">
@@ -286,13 +286,13 @@
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp">
       <Filter>src\Aurora\Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Layer.cpp">
+    <ClCompile Include="src\Aurora\Core\Layer.cpp">
       <Filter>src\Aurora</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\LayerStack.cpp">
+    <ClCompile Include="src\Aurora\Core\LayerStack.cpp">
       <Filter>src\Aurora</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Log.cpp">
+    <ClCompile Include="src\Aurora\Core\Log.cpp">
       <Filter>src\Aurora</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp">

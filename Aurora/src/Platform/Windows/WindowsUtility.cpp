@@ -2,7 +2,7 @@
 #include "Aurora/Utils/PlatformUtil.h"
 #include "WindowsUtility.h"
 
-#include "Aurora/Application.h"
+#include "Aurora/Core/Application.h"
 #include "Platform/Windows/WindowsWindow.h"
 
 #include <commdlg.h>

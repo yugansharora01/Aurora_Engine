@@ -1,5 +1,5 @@
 #pragma once
-#include "Aurora/Log.h"
+#include "Aurora/Core/Log.h"
 
 #define GFX_EXCEPT_NOINFO(hr) D3D11Graphics::HrException( __LINE__,__FILE__,(hr) )
 #define GFX_THROW_NOINFO(hrcall) if( FAILED( hr = (hrcall) ) ) throw D3D11Graphics::HrException( __LINE__,__FILE__,hr )

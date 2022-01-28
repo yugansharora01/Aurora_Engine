@@ -3,7 +3,7 @@
 #include <vector>
 #include <array>
 #include "IndexedTriangleList.h"
-#include "Aurora/AuroraMath.h"
+#include "Aurora/Core/AuroraMath.h"
 
 namespace Aurora {
 

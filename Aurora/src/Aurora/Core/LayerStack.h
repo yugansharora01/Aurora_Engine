@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Aurora/Core.h"
 #include "Layer.h"
 
 namespace Aurora {

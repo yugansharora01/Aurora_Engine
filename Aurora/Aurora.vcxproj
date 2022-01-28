@@ -139,9 +139,9 @@
   <ItemGroup>
     <ClInclude Include="src\Aurora\Models\Model.h" />
     <ClInclude Include="src\Aurora.h" />
-    <ClInclude Include="src\Aurora\Application.h" />
-    <ClInclude Include="src\Aurora\AuroraMath.h" />
-    <ClInclude Include="src\Aurora\Core.h" />
+    <ClInclude Include="src\Aurora\Core\Application.h" />
+    <ClInclude Include="src\Aurora\Core\AuroraMath.h" />
+    <ClInclude Include="src\Aurora\Core\Core.h" />
     <ClInclude Include="src\Aurora\Core\AuTimer.h" />
     <ClInclude Include="src\Aurora\Core\Graphics.h" />
     <ClInclude Include="src\Aurora\Core\Input.h" />
@@ -154,15 +154,15 @@
     <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Prism.h" />
     <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h" />
-    <ClInclude Include="src\Aurora\EntryPoint.h" />
+    <ClInclude Include="src\Aurora\Core\EntryPoint.h" />
     <ClInclude Include="src\Aurora\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Aurora\Events\Events.h" />
     <ClInclude Include="src\Aurora\Events\KeyboardEvents.h" />
     <ClInclude Include="src\Aurora\Events\MouseEvents.h" />
     <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h" />
-    <ClInclude Include="src\Aurora\Layer.h" />
-    <ClInclude Include="src\Aurora\LayerStack.h" />
-    <ClInclude Include="src\Aurora\Log.h" />
+    <ClInclude Include="src\Aurora\Core\Layer.h" />
+    <ClInclude Include="src\Aurora\Core\LayerStack.h" />
+    <ClInclude Include="src\Aurora\Core\Log.h" />
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
@@ -179,7 +179,7 @@
     <ClInclude Include="src\Aurora\Utils\Convertors.h" />
     <ClInclude Include="src\Aurora\Utils\FileOperations.h" />
     <ClInclude Include="src\Aurora\Utils\PlatformUtil.h" />
-    <ClInclude Include="src\Aurora\Window.h" />
+    <ClInclude Include="src\Aurora\Core\Window.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Buffers.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11RenderTargetManager.h" />
@@ -212,7 +212,7 @@
     <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Aurora\Application.cpp" />
+    <ClCompile Include="src\Aurora\Core\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
     <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
     <ClCompile Include="src\Aurora\Core\UUID.cpp" />
@@ -220,9 +220,9 @@
     <ClCompile Include="src\Aurora\Models\Model.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
-    <ClCompile Include="src\Aurora\Layer.cpp" />
-    <ClCompile Include="src\Aurora\LayerStack.cpp" />
-    <ClCompile Include="src\Aurora\Log.cpp" />
+    <ClCompile Include="src\Aurora\Core\Layer.cpp" />
+    <ClCompile Include="src\Aurora\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Aurora\Core\Log.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp" />

@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Application.h"
 #include "Aurora/Events/ApplicationEvents.h"
-#include "Aurora/Log.h"
 #include "Platform/Windows/Win32_Window.h"
 #include "Platform/Windows/AuroraException.h"
 #include "Aurora/Renderer/RenderTargetManager.h"
