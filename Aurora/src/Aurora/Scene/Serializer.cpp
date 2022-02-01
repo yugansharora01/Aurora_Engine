@@ -166,66 +166,66 @@ namespace Aurora
 
 			if (component->IsModel)
 			{
-				out << YAML::Key << "IsCompressed" << YAML::Value << component->model->IsCompressed;
+				//out << YAML::Key << "IsCompressed" << YAML::Value << component->model->IsCompressed;
 				out << YAML::Key << "Model Name" << YAML::Value << component->MeshName;
-				out << YAML::Key << "Vertex Shader Path" << YAML::Value << component->vShaderPath;
-				out << YAML::Key << "Pixel Shader Path" << YAML::Value << component->pShaderPath;
+				//out << YAML::Key << "Vertex Shader Path" << YAML::Value << component->vShaderPath;
+				//out << YAML::Key << "Pixel Shader Path" << YAML::Value << component->pShaderPath;
 			}
 			else
 			{
 				out << YAML::Key << "Vertex Shader";
 				out << YAML::BeginMap; //Vertex Shader
-				out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
+				//out << YAML::Key << "Path" << YAML::Value << component->vShader->path;
 				out << YAML::Key << "Data for Shader";
 				out << YAML::BeginMap; //Data For Shader
-				for (int i = 0; i < component->vShader->UploadedData.size(); i++)
+				/*for (int i = 0; i < component->vShader->UploadedData.size(); i++)
 				{
 					out << YAML::Key << "Size" << YAML::Value << component->vShader->UploadedData[i].size();
 					out << YAML::Key << "Data" << component->vShader->UploadedData[i];
-				}
+				}*/
 				out << YAML::EndMap; //Data For Shader
 				out << YAML::EndMap; //Vertex Shader
 
 				out << YAML::Key << "Pixel Shader";
 				out << YAML::BeginMap; // Pixel Shader
-				out << YAML::Key << "Path" << YAML::Value << component->pShader->path;
+				//out << YAML::Key << "Path" << YAML::Value << component->pShader->path;
 				out << YAML::Key << "Data for Shader";
 				out << YAML::BeginMap; //Data For Shader
-				for (int i = 0; i < component->pShader->UploadedData.size(); i++)
+				/*for (int i = 0; i < component->pShader->UploadedData.size(); i++)
 				{
 					out << YAML::Key << "Size" << YAML::Value << component->pShader->UploadedData[i].size();
 					out << YAML::Key << "Data" << component->pShader->UploadedData[i];
-				}
+				}*/
 				out << YAML::EndMap; //Data For Shader
 				out << YAML::EndMap; // Pixel Shader
 
 				out << YAML::Key << "Vertex Buffer" << YAML::Value << YAML::BeginMap; // Vertex Buffer
 				out << YAML::Key << "Vertex Data" << YAML::BeginMap; // Vertex Data
-				for (auto i = 0; i < component->vBuf->Vertexdata.size(); i++)
+				/*for (auto i = 0; i < component->vBuf->Vertexdata.size(); i++)
 				{
 					out << YAML::Key << i << YAML::Value << component->vBuf->Vertexdata[i];
-				}
+				}*/
 				out << YAML::EndMap;  // Vertex Data
-				out << YAML::Key << "Topology" << YAML::Value << static_cast<int>(component->vBuf->Topologytype);
+				//out << YAML::Key << "Topology" << YAML::Value << static_cast<int>(component->vBuf->Topologytype);
 				out << YAML::Key << "Layout" << YAML::Value;
 				out << YAML::BeginMap;
-				for (auto i = 0; i < component->vBuf->Layouts.size(); i++)
+				/*for (auto i = 0; i < component->vBuf->Layouts.size(); i++)
 				{
 					auto& layout = component->vBuf->Layouts[i];
 					out << YAML::Key << i << YAML::Value << YAML::Flow;
 					out << YAML::BeginSeq << layout.name << layout.offset << static_cast<int>(layout.type) << layout.Is_Normalised << layout.NumberOfBits;
 					out << YAML::EndSeq;
-				}
+				}*/
 				out << YAML::EndMap;
 				out << YAML::EndMap; // Vertex Buffer
 
 				out << YAML::Key << "Index Buffer";
 				out << YAML::BeginMap; //index Buffer
 				out << YAML::Key << "Indices" << YAML::Flow << YAML::BeginSeq;
-				for (auto& node : component->iBuf->Indices)
+				/*for (auto& node : component->iBuf->Indices)
 				{
 					out << node;
-				}
+				}*/
 				out << YAML::EndSeq;
 
 				out << YAML::EndMap; //index Buffer
@@ -342,7 +342,7 @@ namespace Aurora
 						std::string model = modelName.as<std::string>();
 						std::wstring vshader = meshComponent["Vertex Shader Path"].as<std::wstring>();
 						std::wstring pshader = meshComponent["Pixel Shader Path"].as<std::wstring>();
-						auto component = deserializedEntity->AddComponent<MeshComponent>(compressed,model,vshader,pshader);
+						auto component = deserializedEntity->AddComponent<MeshComponent>(compressed,model);
 
 						component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
 
@@ -447,13 +447,13 @@ namespace Aurora
 
 						auto iBuf = IndexBuffer::Create(Indices);
 
-						auto component = deserializedEntity->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
+						/*auto component = deserializedEntity->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
 
 						component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
 
 						component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
 
-						component->specularPower = meshComponent["Specular Power"].as<float>();
+						component->specularPower = meshComponent["Specular Power"].as<float>();*/
 					}
 					
 				}

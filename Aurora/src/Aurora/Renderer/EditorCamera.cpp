@@ -5,7 +5,7 @@
 
 namespace Aurora {
 
-	EditorCamera::EditorCamera(float fov, float aspectRatio, float nearClip, float farClip)
+	Camera::Camera(float fov, float aspectRatio, float nearClip, float farClip)
 		:m_fov(fov), m_aspectRatio(aspectRatio), m_nearClip(nearClip), m_farClip(farClip)
 	{
 		MoveSpeed = 0.5f;
@@ -26,25 +26,25 @@ namespace Aurora {
 		transform = DirectX::XMMatrixTransformation(zeroVec, identityQuat, scaleVec, zeroVec, DirectX::XMQuaternionRotationRollPitchYawFromVector(rotationVec), translateVec);
 	}
 
-	DirectX::XMMATRIX EditorCamera::GetProjection() noexcept
+	DirectX::XMMATRIX Camera::GetProjection() noexcept
 	{
 		return m_proj;
 	}
 
-	DirectX::XMMATRIX EditorCamera::GetTransform() noexcept
+	DirectX::XMMATRIX Camera::GetTransform() noexcept
 	{
 		return transform;
 	}
 
-	bool EditorCamera::OnEvent(Event& e)
+	bool Camera::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<KeyPressedEvent>(AURORA_BIND_EVENT_FN(EditorCamera::OnKeyPressed));
+		dispatcher.Dispatch<KeyPressedEvent>(AURORA_BIND_EVENT_FN(Camera::OnKeyPressed));
 
 		return false;
 	}
 
-	bool EditorCamera::OnKeyPressed(KeyPressedEvent& e)
+	bool Camera::OnKeyPressed(KeyPressedEvent& e)
 	{
 		AU_INFO("KeyPressed : {0}", (int)e.GetKeyCode());
 
@@ -102,7 +102,7 @@ namespace Aurora {
 		return false;
 	}
 
-	void EditorCamera::UpdateProjection(float fov, float aspectRatio, float nearClip, float farClip)
+	void Camera::UpdateProjection(float fov, float aspectRatio, float nearClip, float farClip)
 	{
 		m_fov = fov; 
 		m_aspectRatio = aspectRatio; 
@@ -111,7 +111,7 @@ namespace Aurora {
 		m_proj = DirectX::XMMatrixPerspectiveLH(m_fov, m_aspectRatio, m_nearClip, m_farClip);
 	}
 
-	void EditorCamera::UpdateTransform(DirectX::XMMATRIX TransformMat)
+	void Camera::UpdateTransform(DirectX::XMMATRIX TransformMat)
 	{
 		transform = TransformMat;
 	}

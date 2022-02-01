@@ -263,6 +263,7 @@
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\DirectXHelperFunc.h" />
     <ClInclude Include="src\Aurora\Models\Model.h" />
+    <ClInclude Include="src\Aurora\Models\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Core\Application.cpp">
@@ -409,6 +410,7 @@
     <ClCompile Include="src\Platform\DirectX\DirectXHelperFunc.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp" />
     <ClCompile Include="src\Aurora\Models\Model.cpp" />
+    <ClCompile Include="src\Aurora\Models\Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\Aurora\Shaders\PhongPS.hlsl" />

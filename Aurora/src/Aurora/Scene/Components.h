@@ -65,30 +65,18 @@ namespace Aurora {
 
 		DirectX::XMMATRIX GetTransform();
 		
-		void UpdateData(DirectX::XMMATRIX transformMat);
 		
-		void UpdateData(DirectX::XMFLOAT3 translate, DirectX::XMFLOAT3 rotation, DirectX::XMFLOAT3 scale)
-		{
-			//TO DO
-		}
 	};
 
 	class MeshComponent : public Component
 	{
 	public:
-		Ref<VertexShader> vShader;
-		Ref<PixelShader> pShader;
-		Ref<VertexBuffer> vBuf;
-		Ref<IndexBuffer> iBuf;
-		Ref<Texture> texture;
 
 		DirectX::XMFLOAT4 color;
 		float specularIntensity;
 		float specularPower;
 
 		std::string MeshName;
-		std::wstring vShaderPath;
-		std::wstring pShaderPath;
 
 		bool IsModel = false;
 		bool IsEmptyParent = false;
@@ -96,13 +84,11 @@ namespace Aurora {
 
 		std::string path;
 
-		Ref<Model> model;
 	public:
 		MeshComponent();
 		MeshComponent(const MeshComponent&) = default;
-		MeshComponent(Ref<VertexShader> VertexShader, Ref<PixelShader> PixelShader, Ref<VertexBuffer> VertexBuffer, Ref<IndexBuffer> IndexBuffer);
-		MeshComponent(std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
-		MeshComponent(bool compress,std::string MeshName, std::wstring vShaderPath, std::wstring pShaderPath);
+		MeshComponent(std::string MeshName);
+		MeshComponent(bool compress,std::string MeshName);
 		~MeshComponent() = default;
 		virtual void update() override;
 		void SetTexture(std::string path);
@@ -120,7 +106,8 @@ namespace Aurora {
 	public:
 		LightComponent();
 		LightComponent(const LightComponent&) = default;
-		~LightComponent() = default;
+		~LightComponent();
+		virtual void OnComponentAdd() override;
 		virtual void update() override {}
 	};
 }

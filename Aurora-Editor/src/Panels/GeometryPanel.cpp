@@ -54,6 +54,6 @@ namespace Aurora
 	{
 		auto e = m_scene->CreateEntity();
 		e->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		e->AddComponent<MeshComponent>(geometry.vShader, geometry.pShader, geometry.vBuffer, geometry.iBuffer);
+		//e->AddComponent<MeshComponent>(geometry.vShader, geometry.pShader, geometry.vBuffer, geometry.iBuffer);
 	}
 }

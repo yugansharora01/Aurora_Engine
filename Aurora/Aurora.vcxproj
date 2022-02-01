@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Aurora\Models\Light.h" />
     <ClInclude Include="src\Aurora\Models\Model.h" />
     <ClInclude Include="src\Aurora.h" />
     <ClInclude Include="src\Aurora\Core\Application.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
     <ClCompile Include="src\Aurora\Core\UUID.cpp" />
     <ClCompile Include="src\Aurora\Events\Events.cpp" />
+    <ClCompile Include="src\Aurora\Models\Light.cpp" />
     <ClCompile Include="src\Aurora\Models\Model.cpp" />
     <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />

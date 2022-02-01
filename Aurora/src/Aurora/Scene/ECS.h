@@ -34,7 +34,8 @@ namespace Aurora {
 	public:
 		Ref<Entity> entity;
 
-		virtual void OnComponentAdd(Entity* e);
+		void AddEntity(Entity* e);
+		virtual void OnComponentAdd(){}
 		virtual void update() {}
 
 		virtual ~Component() {}
@@ -91,9 +92,27 @@ namespace Aurora {
 			components.emplace_back(c);
 			componentArray[GetComponentTypeID<T>()] = c;
 			componentBitSet[GetComponentTypeID<T>()] = true;
-
-			c->OnComponentAdd(this);
+			c->AddEntity(this);
+			c->OnComponentAdd();
 			return c;
+		}
+		
+		//Removes the component from componentArray and also sets the componentBitSet 
+		template<typename T>
+		void RemoveComponent()
+		{
+			auto comp = GetComponent<T>();
+			for (size_t i = 0;i < components.size();i++)
+			{
+				if (comp == components[i])
+				{
+					components.erase(components.begin() + i);
+				}
+			}
+
+			componentArray[GetComponentTypeID<T>()] = NULL;
+			componentBitSet[GetComponentTypeID<T>()] = false;
+			
 		}
 
 		//Returns the component passed as template argument

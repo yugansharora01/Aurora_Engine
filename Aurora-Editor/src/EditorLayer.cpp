@@ -259,26 +259,26 @@ namespace Aurora {
 
 		//-------------------------------------------------------------------------------
 		
-		auto cube = Cube::Get(vShaderpath, pShaderpath);
+		//auto cube = Cube::Get(vShaderpath, pShaderpath);
 
-		auto Box = m_activeScene->CreateEntity("Box1");
+		//auto Box = m_activeScene->CreateEntity("Box1");
 
-		Box->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		Box->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
-		auto c = Box->GetComponent<MeshComponent>();
-		c->color = { 0.3f,0.0f,0.3f,1.0f };
+		//Box->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
+		//Box->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
+		//auto c = Box->GetComponent<MeshComponent>();
+		//c->color = { 0.3f,0.0f,0.3f,1.0f };
 
-		//-----------------------------------------------------------------------------------------
-		
-		auto texcube = Cube::GetTextured(vShaderpath3, pShaderpath3);
+		////-----------------------------------------------------------------------------------------
+		//
+		//auto texcube = Cube::GetTextured(vShaderpath3, pShaderpath3);
 
-		auto TexturedBox = m_activeScene->CreateEntity("TexturedBox");
+		//auto TexturedBox = m_activeScene->CreateEntity("TexturedBox");
 
-		TexturedBox->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		TexturedBox->AddComponent<MeshComponent>(texcube.vShader, texcube.pShader, texcube.vBuffer, texcube.iBuffer);
-		auto c1 = TexturedBox->GetComponent<MeshComponent>();
-		c1->color = { 0.3f,0.0f,0.3f,1.0f };
-		c1->SetTexture("E:\\Yash\\Aurora\\Aurora-Editor\\assets\\images\\kappa50.png");
+		//TexturedBox->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
+		//TexturedBox->AddComponent<MeshComponent>(texcube.vShader, texcube.pShader, texcube.vBuffer, texcube.iBuffer);
+		//auto c1 = TexturedBox->GetComponent<MeshComponent>();
+		//c1->color = { 0.3f,0.0f,0.3f,1.0f };
+		//c1->SetTexture("E:\\Yash\\Aurora\\Aurora-Editor\\assets\\images\\kappa50.png");
 		
 		//-----------------------------------------------------------------------------------------
 		
@@ -286,7 +286,7 @@ namespace Aurora {
 		auto NanoSuit = m_activeScene->CreateEntity("Mesh1");
 
 		NanoSuit->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj", vShaderpath3, pShaderpath3);
+		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj");
 		auto c2 = NanoSuit->GetComponent<MeshComponent>();
 		c2->color = { 0.3f,0.0f,0.3f,1.0f };
 		//c2->SetTexture(c2->path);
@@ -296,7 +296,7 @@ namespace Aurora {
 		auto Light = m_activeScene->CreateEntity("Light1");
 
 		Light->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
-		Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
+		//Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
 		Light->AddComponent<LightComponent>();
 		
 	}

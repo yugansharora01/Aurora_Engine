@@ -15,14 +15,12 @@ namespace Aurora {
 	{
 	public:
 		Mesh() = default;
-		std::string Load(const aiScene* scene, aiMesh* mesh, std::wstring vShaderPath, std::wstring pShaderPath);
-		std::string Load(const aiScene* scene, std::wstring vShaderPath, std::wstring pShaderPath);
+		std::string Load(const aiScene* scene, aiMesh* mesh);
+		std::string Load(const aiScene* scene);
 		~Mesh() = default;
 	public:
 		Ref<VertexBuffer> vBuf;
 		Ref<IndexBuffer> iBuf;
-		Ref<VertexShader> vShader;
-		Ref<PixelShader> pShader;
 		bool IsEmpty = false;
 	};
 
@@ -30,7 +28,7 @@ namespace Aurora {
 	class Model
 	{
 	public:
-		Model(std::string path, std::wstring vShaderPath, std::wstring pShaderPath, MeshComponent* component,bool compress = false);
+		Model(std::string path,bool compress = false);
 		Mesh* LoadModel(Ref<Entity> ParentEntity,Ref<Scene> scene);
 	public:
 		std::vector<Mesh> Meshes;
