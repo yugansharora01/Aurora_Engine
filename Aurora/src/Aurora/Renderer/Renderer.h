@@ -2,13 +2,13 @@
 
 #include "BindableBase.h"
 #include "Aurora/Models/Model.h"
-#include "Platform/DirectX/D3D11Buffers.h"
 
 namespace Aurora 
 {
 	class Camera;
 	class Light;
-
+	class D3D11PixelConstantBuffer;
+	class D3D11VertexConstantBuffer;
 
 	class ModelTexture
 	{

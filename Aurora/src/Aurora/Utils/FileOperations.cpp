@@ -12,30 +12,31 @@ namespace Aurora
 		if (Paths.empty())
 		{
 			AddPath(std::filesystem::current_path().string(), PathType::AssetPath);
+			AddPath("E:\\Yash\\Aurora\\Aurora-Editor\\assets", PathType::AssetPath);
 		}
 
 
 		//just in case relative path is given
 		std::filesystem::path f(FileName);
-		auto file = f.filename();
+		auto file = f.filename().string();
 
 		for (auto& paths : Paths[(int)type])
 		{
-			return Find(FileName, paths);
+			return Find(file, paths);
 		}
 
 		for (auto& paths : Paths[(int)PathType::AssetPath])
 		{
-			auto p = Find(FileName, paths);
+			auto p = Find(file, paths);
 			if (p.empty())
 			{
 				AU_INFO("Finding file recursively...");
-				p = FindRecursively(FileName, paths);
+				p = FindRecursively(file, paths);
 			}
 			return p;
 		}
 		
-		AU_WARN("Can't Find File : {0}", FileName);
+		AU_WARN("Can't Find File : {0}", file);
 		return std::string();
 	}
 
@@ -48,6 +49,7 @@ namespace Aurora
 				return p.path().string();
 			}
 		}
+		return std::string();
 	}
 
 	std::string FilesManager::FindRecursively(std::string FileName,std::string directory)

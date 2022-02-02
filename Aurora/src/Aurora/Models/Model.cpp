@@ -14,9 +14,7 @@ namespace Aurora {
 		if (IsCompressed || model->mNumMeshes == 1)
 		{
 			Mesh m;
-			auto str = m.Load(model);
-			//component->path = Files::GetPath(str);
-			//component->SetTexture(str);
+			TexPath = m.Load(model);
 			Meshes.push_back(m);
 		}
 		else 

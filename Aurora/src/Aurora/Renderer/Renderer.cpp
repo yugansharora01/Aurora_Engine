@@ -6,16 +6,16 @@
 #include "Aurora/Utils/FileOperations.h"
 #include "Aurora/Models/Light.h"
 #include "Aurora/Renderer/EditorCamera.h"
+#include "Platform/DirectX/D3D11Buffers.h"
 
 namespace Aurora 
 {
-
 	std::vector<std::string> Renderer::ModelPaths;
 	RenderQueue Renderer::s_queue;
 	bool Renderer::hasLights = false;
 	std::vector<DirectX::XMFLOAT4> Renderer::data;
-	Ref<D3D11PixelConstantBuffer> Renderer::pConst;
-	Ref<D3D11VertexConstantBuffer> Renderer::vConst;
+	Ref<D3D11PixelConstantBuffer> Renderer::pConst = CreateRef<D3D11PixelConstantBuffer>();
+	Ref<D3D11VertexConstantBuffer> Renderer::vConst = CreateRef<D3D11VertexConstantBuffer>();
 	DirectX::XMMATRIX Renderer::ViewMat;
 	DirectX::XMMATRIX Renderer::ProjMat;
 
@@ -116,7 +116,7 @@ namespace Aurora
 		for (auto& e : s_queue.Models)
 		{
 			auto& l = e.second;
-
+			SetData(l);
 			Bind(l);
 			
 			gfx->DrawIndexed(l.ibuf->GetCount());
@@ -143,7 +143,8 @@ namespace Aurora
 		modelData.ibuf->Bind();
 		if (modelData.Textures.HaveTex(ModelTexture::Albedo))
 		{
-			Ref<Texture> t = Texture::Create(modelData.Textures.GetTex(ModelTexture::Albedo));
+			std::string TexturePath = FilesManager::GetPath(modelData.Textures.GetTex(ModelTexture::Albedo), PathType::ModelPath);
+			Ref<Texture> t = Texture::Create(TexturePath);
 			t->Bind();
 		}
 	}
@@ -205,7 +206,7 @@ namespace Aurora
 		}
 		else
 		{
-			Ref<Model> model = CreateRef<Model>(ModelPath);
+			Ref<Model> model = CreateRef<Model>(ModelPath,true);
 			ModelData data;
 			data.vbuf = model->Meshes[0].vBuf;
 			std::vector<LayoutBuffer> list;
@@ -214,13 +215,14 @@ namespace Aurora
 			list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
 			list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
 
-			data.vbuf->SetLayout(list, data.vshader);
+			data.vbuf->SetLayout(list, ModelProp.vshader);
 			data.ibuf = model->Meshes[0].iBuf;
 			data.vshader = ModelProp.vshader;
 			data.pshader = ModelProp.pshader;
 			data.count = 1;
 			data.mat = GetMatrix(ModelProp);
 			data.MiscelData = ModelProp.MiscelData;
+			data.Textures.AddTexture(model->TexPath, ModelTexture::Albedo);
 			Models.insert({ ModelPath,data });
 		}
 	}
