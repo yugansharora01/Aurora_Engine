@@ -4,6 +4,8 @@
 #include "Platform/Windows/Win32_Window.h"
 #include "Platform/Windows/AuroraException.h"
 #include "Aurora/Renderer/RenderTargetManager.h"
+#include "Aurora/Renderer/Renderer.h"
+#include "Aurora/Utils/FileOperations.h"
 
 #include "imgui.h"
 
@@ -16,17 +18,22 @@ namespace Aurora {
 		AU_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 
+		FilesManager::Init();
+
 		m_Window = Window::Create();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 		
+		Renderer::Init();
+
 		IsSetupDone = true;
 	} 
 
 
 	Application::~Application()
 	{
+		Renderer::ShutDown();
 		m_Window->Close();
 	}
 

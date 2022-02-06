@@ -9,7 +9,6 @@
 #include "Aurora/Imgui/ImguiLayer.h"
 #include "Aurora/Renderer/Renderer.h"
 #include "Aurora/Renderer/BindableBase.h"
-#include "Aurora/Drawables/Geometry/Geometry.h"
 
 #include "Platform/Windows/AuroraException.h"
 #include "Aurora/Renderer/EditorCamera.h"

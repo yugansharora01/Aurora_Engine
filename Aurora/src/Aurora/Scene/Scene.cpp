@@ -140,8 +140,6 @@ namespace Aurora {
 		prop.translate = entity->GetComponent<TransformComponent>()->translate;
 		prop.rotation = entity->GetComponent<TransformComponent>()->rotation;
 		prop.scale = entity->GetComponent<TransformComponent>()->scale;
-		prop.vshader = VertexShader::Create(L"../Aurora/src/Aurora/Shaders/PhongVSTextured.hlsl");
-		prop.pshader = PixelShader::Create(L"../Aurora/src/Aurora/Shaders/PhongPSTextured.hlsl");
 		prop.MiscelData.push_back(entity->GetComponent<MeshComponent>()->color);
 		DirectX::XMFLOAT4 f = { entity->GetComponent<MeshComponent>()->specularPower,entity->GetComponent<MeshComponent>()->specularIntensity,0.0f,0.0f };
 		prop.MiscelData.push_back(f);

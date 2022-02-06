@@ -33,7 +33,6 @@ namespace Aurora {
 		void DestroyEntity(Ref<Entity> entity);
 		void Update(Ref<EditorCamera> Editorcamera, viewportInfo viewport);
 
-		DirectX::XMMATRIX GetMatrix(Ref<Entity> entity);
 		void AddLight(Ref<Entity> e);
 		void RemoveLight(Ref<Entity> e);
 	private:

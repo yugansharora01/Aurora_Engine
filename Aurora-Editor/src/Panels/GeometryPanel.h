@@ -3,7 +3,6 @@
 #include "Aurora/Core/Core.h"
 #include "Aurora/Scene/ECS.h"
 #include "Aurora/Scene/Scene.h"
-#include "Aurora/Drawables/Geometry/IndexedTriangleList.h"
 
 namespace Aurora
 {
@@ -24,6 +23,5 @@ namespace Aurora
 	private:
 		Ref<Scene> m_scene;
 		Ref<Entity> m_selectedEntity;
-		BindableList geometry;
 	};
 }

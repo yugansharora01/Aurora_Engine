@@ -75,27 +75,6 @@
     <ClInclude Include="src\Aurora\Core\UUID.h">
       <Filter>src\Aurora\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Cone.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Cube.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Geometry.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\IndexedTriangleList.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Plane.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Prism.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Drawables\Geometry\Sphere.h">
-      <Filter>src\Aurora\Drawables\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="src\Aurora\Core\EntryPoint.h">
       <Filter>src\Aurora</Filter>
     </ClInclude>

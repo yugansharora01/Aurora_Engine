@@ -16,6 +16,9 @@ namespace Aurora
 	public:
 		static std::map<int,std::vector<std::string>> Paths;
 	public:
+		//Pushes all the default Paths
+		static void Init();
+
 		//Returns the path to the file name provided
 		static std::string GetPath(std::string FileName,PathType type);
 
@@ -24,6 +27,8 @@ namespace Aurora
 
 		//Finds the file recursively in the directory
 		static std::string FindRecursively(std::string FileName, std::string directory);
+
+		static std::string FindDirectory(std::string DirectoryName, std::string StartDirectory = "");
 
 		/*
 		  Adds path to the map of paths

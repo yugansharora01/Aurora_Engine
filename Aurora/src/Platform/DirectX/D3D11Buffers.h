@@ -38,7 +38,6 @@ namespace Aurora {
 		std::vector<Microsoft::WRL::ComPtr<ID3D11Buffer>> Buffers;
 		D3D11_BUFFER_DESC cbd;
 		D3D11_SUBRESOURCE_DATA csd;
-
 	};
 
 
@@ -56,7 +55,6 @@ namespace Aurora {
 
 		virtual void Unbind() noexcept override {}
 	};
-
 
 	class D3D11PixelConstantBuffer : public D3D11Buffer
 	{

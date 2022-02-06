@@ -352,108 +352,108 @@ namespace Aurora
 					}
 					else
 					{
-						auto vetexshader = meshComponent["Vertex Shader"];
-						std::wstring path = vetexshader["Path"].as<std::wstring>();
+					//	auto vetexshader = meshComponent["Vertex Shader"];
+					//	std::string path = vetexshader["Path"].as<std::string>();
 
-						auto vShader = VertexShader::Create(path);
+					//	auto vShader = Shader::Create(path,Shader::VertexShader);
 
-						auto ShaderData = vetexshader["Data for Shader"];
+					//	auto ShaderData = vetexshader["Data for Shader"];
 
-						int size = ShaderData["Size"].as<int>();
+					//	int size = ShaderData["Size"].as<int>();
 
-						auto matrixSeq = ShaderData["Data"];
+					//	auto matrixSeq = ShaderData["Data"];
 
-						std::vector<DirectX::XMFLOAT4> DataToPass;
+					//	std::vector<DirectX::XMFLOAT4> DataToPass;
 
-						for (int i = 0; i < size; i++)
-						{
+					//	for (int i = 0; i < size; i++)
+					//	{
 
-							DataToPass.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
-						}
+					//		DataToPass.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
+					//	}
 
-						vShader->UploadFloat4(DataToPass, true);
-
-
-						auto pixelshader = meshComponent["Pixel Shader"];
-						path = pixelshader["Path"].as<std::wstring>();
-
-						auto pShader = PixelShader::Create(path);
-
-						ShaderData = pixelshader["Data for Shader"];
-
-						if (ShaderData.size() > 0)
-						{
-							size = ShaderData["Size"].as<int>();
-
-							matrixSeq = ShaderData["Data"];
-
-							std::vector<DirectX::XMFLOAT4> vec4;
-
-							for (int i = 0; i < size; i++)
-							{
-								vec4.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
-							}
-
-							pShader->UploadFloat4(vec4);
-						}
+					//	//vShader->UploadFloat4(DataToPass, true);
 
 
-						auto vertexbuffer = meshComponent["Vertex Buffer"];
-						auto vertexdata = vertexbuffer["Vertex Data"];
+					//	auto pixelshader = meshComponent["Pixel Shader"];
+					//	path = pixelshader["Path"].as<std::string>();
 
-						std::vector<VertexData> vertices;
+					//	auto pShader = Shader::Create(path, Shader::PixelShader);
 
-						for (auto i = 0; i < vertexdata.size(); i++)
-						{
-							VertexData d;
+					//	ShaderData = pixelshader["Data for Shader"];
 
-							d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
-							d.normal = vertexdata[i]["Normal"].as<DirectX::XMFLOAT3>();
-							vertices.push_back(d);
-						}
+					//	if (ShaderData.size() > 0)
+					//	{
+					//		size = ShaderData["Size"].as<int>();
 
-						auto vBuf = VertexBuffer::Create(vertices);
+					//		matrixSeq = ShaderData["Data"];
 
-						vBuf->SetTopology((TopologyType)vertexbuffer["Topology"].as<int>());
+					//		std::vector<DirectX::XMFLOAT4> vec4;
 
-						auto layout = vertexbuffer["Layout"];
-						std::vector<LayoutBuffer> layouts;
-						for (auto i = 0; i < layout.size(); i++)
-						{
-							auto lay = layout[i];
-							LayoutBuffer l;
-							l.name = lay[0].as<std::string>();
-							l.offset = lay[1].as<unsigned int>();
-							l.type = (PropertiesDataType)lay[2].as<int>();
-							l.Is_Normalised = lay[3].as<bool>();
-							l.NumberOfBits = lay[4].as<int>();
+					//		for (int i = 0; i < size; i++)
+					//		{
+					//			vec4.push_back(matrixSeq[i].as<DirectX::XMFLOAT4>());
+					//		}
 
-							layouts.push_back(l);
-						}
+					//		//pShader->UploadFloat4(vec4);
+					//	}
 
-						vBuf->SetLayout(layouts, vShader);
 
-						auto indexbuffer = meshComponent["Index Buffer"];
+					//	auto vertexbuffer = meshComponent["Vertex Buffer"];
+					//	auto vertexdata = vertexbuffer["Vertex Data"];
 
-						std::vector<unsigned short> Indices;
+					//	std::vector<VertexData> vertices;
 
-						auto indices = indexbuffer["Indices"];
+					//	for (auto i = 0; i < vertexdata.size(); i++)
+					//	{
+					//		VertexData d;
 
-						for (auto i = 0; i < indices.size(); i++)
-						{
-							Indices.push_back(indices[i].as<unsigned short>());
+					//		d.pos = vertexdata[i]["Position"].as<DirectX::XMFLOAT3>();
+					//		d.normal = vertexdata[i]["Normal"].as<DirectX::XMFLOAT3>();
+					//		vertices.push_back(d);
+					//	}
 
-						}
+					//	auto vBuf = VertexBuffer::Create(vertices);
 
-						auto iBuf = IndexBuffer::Create(Indices);
+					//	vBuf->SetTopology((TopologyType)vertexbuffer["Topology"].as<int>());
 
-						/*auto component = deserializedEntity->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
+					//	auto layout = vertexbuffer["Layout"];
+					//	std::vector<LayoutBuffer> layouts;
+					//	for (auto i = 0; i < layout.size(); i++)
+					//	{
+					//		auto lay = layout[i];
+					//		LayoutBuffer l;
+					//		l.name = lay[0].as<std::string>();
+					//		l.offset = lay[1].as<unsigned int>();
+					//		l.type = (PropertiesDataType)lay[2].as<int>();
+					//		l.Is_Normalised = lay[3].as<bool>();
+					//		l.NumberOfBits = lay[4].as<int>();
 
-						component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
+					//		layouts.push_back(l);
+					//	}
 
-						component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
+					//	vBuf->SetLayout(layouts, vShader);
 
-						component->specularPower = meshComponent["Specular Power"].as<float>();*/
+					//	auto indexbuffer = meshComponent["Index Buffer"];
+
+					//	std::vector<unsigned short> Indices;
+
+					//	auto indices = indexbuffer["Indices"];
+
+					//	for (auto i = 0; i < indices.size(); i++)
+					//	{
+					//		Indices.push_back(indices[i].as<unsigned short>());
+
+					//	}
+
+					//	auto iBuf = IndexBuffer::Create(Indices);
+
+					//	/*auto component = deserializedEntity->AddComponent<MeshComponent>(vShader, pShader, vBuf, iBuf);
+
+					//	component->color = meshComponent["Color"].as<DirectX::XMFLOAT4>();
+
+					//	component->specularIntensity = meshComponent["Specular Intensity"].as<float>();
+
+					//	component->specularPower = meshComponent["Specular Power"].as<float>();*/
 					}
 					
 				}

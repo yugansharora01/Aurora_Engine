@@ -65,7 +65,7 @@ namespace Aurora
 		virtual void Unbind() = 0;
 		virtual void SetData(void* data,unsigned int size) = 0;
 		
-		virtual void SetLayout(std::vector<LayoutBuffer> layout,std::shared_ptr<class VertexShader> vShader) = 0;
+		virtual void SetLayout(std::vector<LayoutBuffer> layout,std::shared_ptr<class Shader> vShader) = 0;
 		virtual void SetTopology(TopologyType type) = 0;
 		static std::shared_ptr<VertexBuffer> Create(
 			const std::vector<VertexData>& vertices);
