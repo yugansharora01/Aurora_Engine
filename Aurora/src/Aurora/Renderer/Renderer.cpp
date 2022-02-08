@@ -19,7 +19,6 @@ namespace Aurora
 	DirectX::XMMATRIX Renderer::ViewMat;
 	DirectX::XMMATRIX Renderer::ProjMat;
 	ShaderManager Renderer::Manager;
-	std::map<ModelTexture::TextureType, Ref<Texture>> ModelTexture::Textures;
 
 	std::vector<DirectX::XMFLOAT4> GetVec(std::vector<DirectX::XMMATRIX> matVec)
 	{
@@ -37,7 +36,7 @@ namespace Aurora
 		return vec;
 	}
 
-	DirectX::XMMATRIX GetMatrix(ModelProperties ModelProp)
+	DirectX::XMMATRIX GetMatrix(DrawableData ModelProp)
 	{
 		auto translate = ModelProp.translate;
 		auto rotation = ModelProp.rotation;
@@ -66,20 +65,33 @@ namespace Aurora
 		
 	}
 
-	bool ModelTexture::HaveTex(TextureType type)
+	void ModelTexture::AddTexture(Ref<Texture> texture, TextureType type)
 	{
-		return TextureNames.contains(type);
+		Textures.insert({ type,texture });
 	}
 
-	std::string ModelTexture::GetTex(TextureType type)
+	bool ModelTexture::HaveTex(TextureType type)
+	{
+		return Textures.contains(type);
+	}
+
+	std::string ModelTexture::GetTexPath(TextureType type)
 	{
 		return TextureNames[type];
+	}
+
+	Ref<Texture> ModelTexture::GetTex(TextureType type)
+	{
+		return Textures[type];
 	}
 
 	void Renderer::Init()
 	{
 		Manager.AddShader("PhongVSTextured.hlsl", "PhongTexturedVS",Shader::VertexShader);
 		Manager.AddShader("PhongPSTextured.hlsl", "PhongTexturedPS",Shader::PixelShader);
+		
+		Manager.AddShader("TexturedVS.hlsl", "TexturedVS",Shader::VertexShader);
+		Manager.AddShader("TexturedPS.hlsl", "TexturedPS",Shader::PixelShader);
 	}
 
 	void Renderer::ShutDown()
@@ -135,9 +147,8 @@ namespace Aurora
 	}
 
 
-	void Renderer::DrawModel(std::string ModelName, ModelProperties ModelProp)
+	void Renderer::DrawModel(DrawableData ModelProp)
 	{
-		std::string ModelPath = FilesManager::GetPath(ModelName,PathType::ModelPath);
 		if (!ModelProp.UsePassedShaders)
 		{
 			if (!data.empty())
@@ -149,11 +160,22 @@ namespace Aurora
 				
 			}
 		}
-		s_queue.submit(ModelPath, ModelProp);
-		ModelPaths.push_back(ModelPath);
+		if (!ModelProp.ModelName.empty())
+		{
+			ModelProp.ModelPath = FilesManager::GetPath(ModelProp.ModelName, PathType::ModelPath);
+		}
+		s_queue.submit(ModelProp);
 	}
 
-	void Renderer::Bind(ModelData modelData)
+	void Renderer::RenderText(TextData textdata)
+	{
+		DrawableData d;
+		d.vshader = Manager.GetShader("TexturedVS");
+		d.pshader = Manager.GetShader("TexturedPS");
+		s_queue.SubmitText(textdata, d);
+	}
+
+	void Renderer::Bind(DrawableData modelData)
 	{
 		pConst->Bind();
 		vConst->Bind();
@@ -167,7 +189,7 @@ namespace Aurora
 		}
 	}
 
-	void Renderer::SetData(ModelData modelData)
+	void Renderer::SetData(DrawableData modelData)
 	{
 		auto& path = modelData.pshader->path;
 		std::vector<DirectX::XMMATRIX> matVec;
@@ -214,16 +236,38 @@ namespace Aurora
 		vConst->Create(vertexData.size() * sizeof(DirectX::XMFLOAT4), vertexData.data(), 0u);
 	}
 
-	void RenderQueue::submit(std::string ModelPath, ModelProperties ModelProp)
+	void RenderQueue::submit(DrawableData ModelProp)
+	{
+		if (!ModelProp.ModelName.empty())
+		{
+			SubmitModel(ModelProp);
+		}
+		else
+		{
+			std::vector<LayoutBuffer> list;
+
+			list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
+
+			ModelProp.vbuf->SetLayout(list, ModelProp.vshader);
+			ModelProp.count = 1;
+			ModelProp.mat = GetMatrix(ModelProp);
+			Models.insert({ ModelProp.ModelPath,ModelProp });
+		}
+		
+	}
+
+	void RenderQueue::SubmitModel(DrawableData ModelProp)
 	{
 		Ref<Model> model;
 		//Check if the map contains the model path
-		if (AllModels.contains(ModelPath))
+		if (AllModels.contains(ModelProp.ModelPath))
 		{
-			if (Models.contains(ModelPath))
+			if (Models.contains(ModelProp.ModelPath))
 			{
 				//Increase the count 
-				Models[ModelPath].count++;
+				Models[ModelProp.ModelPath].count++;
 				//------------------------------------------------------------------
 				// TO DO : Provide Data Per Instance
 				//------------------------------------------------------------------
@@ -231,33 +275,76 @@ namespace Aurora
 			}
 			else
 			{
-				model = AllModels[ModelPath];
+				model = AllModels[ModelProp.ModelPath];
 			}
-			
+
 		}
 		else
 		{
-			model = CreateRef<Model>(ModelPath,true);
-			
-			AllModels.insert({ ModelPath ,model });
+			model = CreateRef<Model>(ModelProp.ModelPath, true);
+
+			AllModels.insert({ ModelProp.ModelPath ,model });
 		}
-		ModelData data;
-		data.vbuf = model->Meshes[0].vBuf;
+		ModelProp.vbuf = model->Meshes[0].vBuf;
 		std::vector<LayoutBuffer> list;
 
 		list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
 		list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
 		list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
 
-		data.vbuf->SetLayout(list, ModelProp.vshader);
-		data.ibuf = model->Meshes[0].iBuf;
-		data.vshader = ModelProp.vshader;
-		data.pshader = ModelProp.pshader;
-		data.count = 1;
-		data.mat = GetMatrix(ModelProp);
-		data.MiscelData = ModelProp.MiscelData;
-		data.Textures.AddTexture(model->TexPath, ModelTexture::Albedo);
-		Models.insert({ ModelPath,data });
+		ModelProp.vbuf->SetLayout(list, ModelProp.vshader);
+		ModelProp.ibuf = model->Meshes[0].iBuf;
+		ModelProp.count = 1;
+		ModelProp.mat = GetMatrix(ModelProp);
+		ModelProp.Textures.AddTexture(model->TexPath, ModelTexture::Albedo);
+		Models.insert({ ModelProp.ModelPath,ModelProp });
+	}
+
+	void RenderQueue::SubmitText(TextData data, DrawableData Prop)
+	{
+		Ref<Model> model;
+		if (AllModels.contains("TextContainer"))
+		{
+			model = AllModels["TextContainer"];
+		}
+		else
+		{
+			std::vector<VertexData> vData;
+
+			vData.emplace_back();
+			vData.emplace_back();
+			vData.emplace_back();
+			vData.emplace_back();
+			vData[0].pos = { -1.0f,-1.0f,0.0f };
+			vData[1].pos = { 1.0f,-1.0f,0.0f };
+			vData[2].pos = { -1.0f, 1.0f,0.0f };
+			vData[3].pos = { 1.0f, 1.0f,0.0f };
+
+			vData[0].texCoord = { -1.0f,-1.0f };
+			vData[1].texCoord = { 1.0f,-1.0f };
+			vData[2].texCoord = { -1.0f, 1.0f };
+			vData[3].texCoord = { 1.0f, 1.0f };
+
+			auto vbuf = VertexBuffer::Create(vData);
+
+			std::vector<unsigned short> iData = { 0,2,1,    2,3,1 };
+			auto ibuf = IndexBuffer::Create(iData);
+
+			std::vector<Mesh> meshes;
+			meshes.emplace_back(vbuf, ibuf);
+
+			model = CreateRef<Model>(meshes);
+		}
+
+		Prop.vbuf = model->Meshes[0].vBuf;
+		Prop.ibuf = model->Meshes[0].iBuf;
+		Prop.translate = data.translate;
+		Prop.rotation = data.rotation;
+		Prop.scale = data.scale;
+		Prop.origin = data.origin;
+		//Prop.Textures.AddTexture()
+
+		submit(Prop);
 	}
 
 	void ShaderManager::AddShader(std::string ShaderName, std::string identifier,Shader::ShaderType type)

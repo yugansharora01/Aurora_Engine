@@ -95,15 +95,24 @@ namespace Aurora {
 				{
 					SubmitEntity(entities[i]);
 				}
-			}
-			if (entities[i]->GetChildrenList().size() != 0)
-			{
-				auto childrens = entities[i]->GetChildrenList();
-				for (size_t j = 0; j < childrens.size(); j++)
+				if (entities[i]->GetChildrenList().size() != 0)
 				{
-					SubmitEntity(childrens[j]);
+					auto childrens = entities[i]->GetChildrenList();
+					for (size_t j = 0; j < childrens.size(); j++)
+					{
+						SubmitEntity(childrens[j]);
+					}
+
 				}
-				
+			}
+			if (entities[i]->HasComponent<TextComponent>())
+			{
+				TextData data;
+				data.translate = entities[i]->GetComponent<TransformComponent>()->translate;
+				data.rotation = entities[i]->GetComponent<TransformComponent>()->rotation;
+				data.scale = entities[i]->GetComponent<TransformComponent>()->scale;
+
+				Renderer::RenderText(data);
 			}
 		}
 		Renderer::EndScene();
@@ -134,8 +143,8 @@ namespace Aurora {
 
 	void Scene::SubmitEntity(Ref<Entity> entity)
 	{
-		auto name = entity->GetComponent<MeshComponent>()->MeshName;
-		ModelProperties prop;
+		DrawableData prop;
+		prop.ModelName = entity->GetComponent<MeshComponent>()->MeshName;
 
 		prop.translate = entity->GetComponent<TransformComponent>()->translate;
 		prop.rotation = entity->GetComponent<TransformComponent>()->rotation;
@@ -144,7 +153,7 @@ namespace Aurora {
 		DirectX::XMFLOAT4 f = { entity->GetComponent<MeshComponent>()->specularPower,entity->GetComponent<MeshComponent>()->specularIntensity,0.0f,0.0f };
 		prop.MiscelData.push_back(f);
 
-		Renderer::DrawModel(name, prop);
+		Renderer::DrawModel(prop);
 	}
 	
 }

@@ -33,15 +33,23 @@ namespace Aurora
 		};
 
 		std::map<TextureType, std::string> TextureNames;
-		static std::map<TextureType, Ref<Texture>> Textures;
+		std::map<TextureType, Ref<Texture>> Textures;
 
 		void AddTexture(std::string tex, TextureType type);
+		void AddTexture(Ref<Texture> texture, TextureType type);
 		bool HaveTex(TextureType type);
-		std::string GetTex(TextureType type);
+		std::string GetTexPath(TextureType type);
+		Ref<Texture> GetTex(TextureType type);
 	};
 
-	struct ModelProperties
+	struct DrawableData
 	{
+	public:
+		unsigned int count;
+		std::string ModelName;
+		std::string ModelPath;
+		Ref<VertexBuffer> vbuf;
+		Ref<IndexBuffer> ibuf;
 		Ref<Shader> vshader;
 		Ref<Shader> pshader;
 		bool UsePassedShaders = false;
@@ -50,20 +58,20 @@ namespace Aurora
 		DirectX::XMFLOAT3 rotation;
 		DirectX::XMFLOAT3 scale;
 		DirectX::XMFLOAT3 origin;
+		DirectX::XMMATRIX mat;
 		std::vector<DirectX::XMFLOAT4> MiscelData;
 	};
 
-	struct ModelData
+	struct TextData
 	{
-		unsigned int count;
-		Ref<VertexBuffer> vbuf; 
-		Ref<IndexBuffer> ibuf; 
-		Ref<Shader> vshader; 
-		Ref<Shader> pshader;
-		ModelTexture Textures;
-
+		unsigned int width;
+		unsigned int height;
+		std::string Text;
+		DirectX::XMFLOAT3 translate;
+		DirectX::XMFLOAT3 rotation;
+		DirectX::XMFLOAT3 scale;
+		DirectX::XMFLOAT3 origin;
 		DirectX::XMMATRIX mat;
-
 		std::vector<DirectX::XMFLOAT4> MiscelData;
 	};
 
@@ -71,11 +79,13 @@ namespace Aurora
 	{
 	public:
 		std::unordered_map<std::string, Ref<Model>> AllModels;
-		std::unordered_map<std::string, ModelData> Models;
+		std::unordered_map<std::string, DrawableData> Models; // TO DO: convert this to vector
 		
 	public:
 		RenderQueue() = default;
-		void submit(std::string ModelPath,ModelProperties ModelProp);
+		void submit(DrawableData ModelProp);
+		void SubmitModel(DrawableData ModelProp);
+		void SubmitText(TextData data, DrawableData Prop);
 	};
 	
 	class Renderer
@@ -85,11 +95,12 @@ namespace Aurora
 		static void ShutDown();
 		static void BeginScene(Ref<Camera> camera,std::vector<Light> lights);
 		static void EndScene();
-		static void DrawModel(std::string ModelName, ModelProperties ModelProp);
+		static void DrawModel(DrawableData ModelProp);
+		static void RenderText(TextData data);
 
 	private:
-		static void Bind(ModelData modelData);
-		static void SetData(ModelData modelData);
+		static void Bind(DrawableData modelData);
+		static void SetData(DrawableData modelData);
 		
 	private:
 		static std::vector<std::string> ModelPaths;

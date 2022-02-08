@@ -30,6 +30,11 @@ namespace Aurora {
 		
 	}
 
+	Model::Model(std::vector<Mesh> m)
+		:Meshes(m)
+	{
+	}
+
 	Mesh* Model::LoadModel(Ref<Entity> ParentEntity, Ref<Scene> scene)
 	{
 		
@@ -53,6 +58,11 @@ namespace Aurora {
 		
 	}
 	
+	Mesh::Mesh(Ref<VertexBuffer> VertexBuf, Ref<IndexBuffer> IndexBuf)
+		:vBuf(VertexBuf),iBuf(IndexBuf)
+	{
+	}
+
 	std::string Mesh::Load(const aiScene* scene, aiMesh* mesh)
 	{
 

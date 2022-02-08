@@ -105,9 +105,18 @@ namespace Aurora {
 		float attQuad;
 	public:
 		LightComponent();
-		LightComponent(const LightComponent&) = default;
 		~LightComponent();
 		virtual void OnComponentAdd() override;
+		virtual void update() override {}
+	};
+
+	class TextComponent : public Component
+	{
+	public:
+		std::string Text;
+	public:
+		TextComponent() = default;
+		~TextComponent() = default;
 		virtual void update() override {}
 	};
 }

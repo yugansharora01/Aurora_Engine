@@ -15,6 +15,7 @@ namespace Aurora {
 	{
 	public:
 		Mesh() = default;
+		Mesh(Ref<VertexBuffer> VertexBuf, Ref<IndexBuffer> IndexBuf);
 		std::string Load(const aiScene* scene, aiMesh* mesh);
 		std::string Load(const aiScene* scene);
 		~Mesh() = default;
@@ -29,6 +30,7 @@ namespace Aurora {
 	{
 	public:
 		Model(std::string path,bool compress = false);
+		Model(std::vector<Mesh> m);
 		Mesh* LoadModel(Ref<Entity> ParentEntity,Ref<Scene> scene);
 	public:
 		std::vector<Mesh> Meshes;

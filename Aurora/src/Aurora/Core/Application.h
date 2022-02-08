@@ -10,7 +10,7 @@
 
 namespace Aurora {
 
-	class AURORA_API Application
+	class Application
 	{
 	public:
 		Application();

@@ -259,6 +259,11 @@ namespace Aurora {
 		Light->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
 		//Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
 		Light->AddComponent<LightComponent>();
+
+		auto Text = m_activeScene->CreateEntity("Text");
+
+		auto TextComp = Text->AddComponent<TextComponent>();
+		TextComp->Text = "LOL";
 		
 	}
 
