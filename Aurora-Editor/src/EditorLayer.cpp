@@ -6,6 +6,7 @@
 #include "Aurora/Utils/PlatformUtil.h"
 #include "Aurora/Utils/FileOperations.h"
 #include "ImGuizmo.h"
+#include "Aurora/Text/Text.h"
 
 #include <imgui.h>
 
@@ -42,7 +43,9 @@ namespace Aurora {
 		auto [xpos, ypos] = Application::Get().GetWindow().GetPos();
 		m_ViewportPos = { viewportPanelPos.x - xpos, viewportPanelPos.y - ypos };
 		
-		ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+
+		ImGui::Image((void*)TextTexture->GetShaderResource().Get(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		//ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		//Guizmo
 		Ref<Entity> selectedEntity = m_sceneHeirarchyPanel->GetSelectedEntity();
@@ -226,6 +229,9 @@ namespace Aurora {
 
 	void EditorLayer::Init()
 	{
+		
+		Text t;
+		TextTexture = t.get();
 		TargetManager = Application::Get().GetWindow().Gfx()->TargetManager;
 
 		RenderTargetProperties property;
@@ -245,59 +251,25 @@ namespace Aurora {
 
 		TargetManager->AddRenderTarget("Mouse-Pick", property);*/
 
-		std::wstring vShaderpath(L"../Aurora/src/Aurora/Shaders/PhongVS.hlsl");
-		std::wstring pShaderpath(L"../Aurora/src/Aurora/Shaders/PhongPS.hlsl");
-
-		std::wstring vShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorIndexVS.hlsl");
-		std::wstring pShaderpath1(L"../Aurora/src/Aurora/Shaders/ColorIndexPS.hlsl");
-		
-		std::wstring vShaderpath2(L"../Aurora/src/Aurora/Shaders/SolidVS.hlsl");
-		std::wstring pShaderpath2(L"../Aurora/src/Aurora/Shaders/SolidPS.hlsl");
-
-		std::wstring vShaderpath3(L"../Aurora/src/Aurora/Shaders/PhongVSTextured.hlsl");
-		std::wstring pShaderpath3(L"../Aurora/src/Aurora/Shaders/PhongPSTextured.hlsl");
-
-		//-------------------------------------------------------------------------------
-		
-		auto cube = Cube::Get(vShaderpath, pShaderpath);
-
-		auto Box = m_activeScene->CreateEntity("Box1");
-
-		Box->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		Box->AddComponent<MeshComponent>(cube.vShader, cube.pShader, cube.vBuffer, cube.iBuffer);
-		auto c = Box->GetComponent<MeshComponent>();
-		c->color = { 0.3f,0.0f,0.3f,1.0f };
-
-		//-----------------------------------------------------------------------------------------
-		
-		auto texcube = Cube::GetTextured(vShaderpath3, pShaderpath3);
-
-		auto TexturedBox = m_activeScene->CreateEntity("TexturedBox");
-
-		TexturedBox->AddComponent<TransformComponent>(DirectX::XMFLOAT3(2.0f, 0.0f, 20.0f));
-		TexturedBox->AddComponent<MeshComponent>(texcube.vShader, texcube.pShader, texcube.vBuffer, texcube.iBuffer);
-		auto c1 = TexturedBox->GetComponent<MeshComponent>();
-		c1->color = { 0.3f,0.0f,0.3f,1.0f };
-		c1->SetTexture("E:\\Yash\\Aurora\\Aurora-Editor\\assets\\images\\kappa50.png");
-		
-		//-----------------------------------------------------------------------------------------
-		
-		
 		auto NanoSuit = m_activeScene->CreateEntity("Mesh1");
 
 		NanoSuit->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj", vShaderpath3, pShaderpath3);
+		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj");
 		auto c2 = NanoSuit->GetComponent<MeshComponent>();
 		c2->color = { 0.3f,0.0f,0.3f,1.0f };
 		//c2->SetTexture(c2->path);
 
-		auto Lightsphere = Sphere::Get(vShaderpath2, pShaderpath2, 10, 10);
 
 		auto Light = m_activeScene->CreateEntity("Light1");
 
 		Light->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
-		Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
+		//Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
 		Light->AddComponent<LightComponent>();
+
+		auto Text = m_activeScene->CreateEntity("Text");
+
+		//auto TextComp = Text->AddComponent<TextComponent>();
+		//TextComp->Text = "LOL";
 		
 	}
 

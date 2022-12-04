@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Aurora/Core.h"
+#include "Aurora/Core/Core.h"
 #include "Aurora/Scene/ECS.h"
 #include "Aurora/Scene/Scene.h"
 

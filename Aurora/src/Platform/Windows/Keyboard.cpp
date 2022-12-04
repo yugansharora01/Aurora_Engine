@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Keyboard.h"
-#include "Aurora/Log.h"
 
 namespace Aurora {
 

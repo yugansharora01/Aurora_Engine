@@ -14,7 +14,7 @@ namespace Aurora {
 		return GetComponent<IDComponent>()->ID;
 	}
 
-	void Component::OnComponentAdd(Entity* e)
+	void Component::AddEntity(Entity* e)
 	{
 		auto list = e->GetScene()->registry->GetList();
 		for (size_t i = 0; i < list.size(); i++)
@@ -25,6 +25,8 @@ namespace Aurora {
 			}
 		}
 	}
+
+	
 
 }
 

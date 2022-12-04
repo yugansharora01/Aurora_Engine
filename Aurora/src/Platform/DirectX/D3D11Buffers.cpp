@@ -65,5 +65,80 @@ namespace Aurora
 			UAVview.GetAddressOf(),
 			&l
 		);
+		Buffers.clear();
 	}
+
+	void D3D11VertexConstantBuffer::Create(unsigned int size, void* data, int slot)
+	{
+		cbd = {};
+		cbd.MiscFlags = 0u;
+		cbd.StructureByteStride = 0u;
+		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cbd.Usage = D3D11_USAGE_DYNAMIC;
+		cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+		CreateNew(size, data, slot);
+	}
+
+	void D3D11VertexConstantBuffer::Bind() noexcept
+	{
+		Getgfx()->GetContext()->VSSetConstantBuffers(0u, (UINT)Buffers.size(), Buffers[0].GetAddressOf());
+		Buffers.clear();
+	}
+
+	void D3D11PixelConstantBuffer::Create(unsigned int size, void* data, int slot)
+	{
+		cbd = {};
+		cbd.MiscFlags = 0u;
+		cbd.StructureByteStride = 0u;
+		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cbd.Usage = D3D11_USAGE_DYNAMIC;
+		cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+		CreateNew(size, data, slot);
+	}
+
+	void D3D11PixelConstantBuffer::Bind() noexcept
+	{
+		Getgfx()->GetContext()->PSSetConstantBuffers(0u, (UINT)Buffers.size(), Buffers[0].GetAddressOf());
+		Buffers.clear();
+	}
+
+	
+	void D3D11Buffer::CreateNew(unsigned int size, void* data, int slot) {
+		INFOMAN;
+		HaveData = true;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
+
+		auto l = size % 16;
+		if (l != 0)
+		{
+			size = 16 * (size / 16 + 1);
+		}
+		cbd.ByteWidth = size;
+
+		if (data == nullptr)
+		{
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, NULL, &buffer));
+		}
+		else {
+			csd = {};
+			csd.pSysMem = data;
+
+			GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&cbd, &csd, &buffer));
+		}
+
+
+		if (slot <= (int)GetNumberOfBuffers() && slot != -1)
+		{
+			std::vector<Microsoft::WRL::ComPtr<ID3D11Buffer>>::iterator it = Buffers.begin() + slot;
+			Buffers.insert(it, buffer);
+		}
+		else
+		{
+			Buffers.push_back(buffer);
+		}
+
+	}
+
 }

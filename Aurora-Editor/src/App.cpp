@@ -1,6 +1,6 @@
 #include "Editorpch.h"
 #include <Aurora.h>
-#include <Aurora/EntryPoint.h>
+#include <Aurora/Core/EntryPoint.h>
 #include "EditorLayer.h"
 
 namespace Aurora {

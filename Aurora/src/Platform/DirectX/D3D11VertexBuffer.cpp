@@ -56,9 +56,10 @@ namespace Aurora {
 		GFX_THROW_INFO(Getgfx()->GetDevice()->CreateBuffer(&bd, &sd, &pVertexBuffer));
 	}
 
-	void D3D11VertexBuffer::SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<VertexShader> vShader)
+	void D3D11VertexBuffer::SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<Shader> vShader)
 	{
-		m_layout = std::make_shared<D3D11InputLayout>(layout,vShader->GetBytecode());
+		auto shader = std::dynamic_pointer_cast<D3D11VertexShader>(vShader);
+		m_layout = std::make_shared<D3D11InputLayout>(layout,shader->GetBytecode());
 		vertexshader = vShader;
 		Layouts = layout;
 	}

@@ -5,7 +5,7 @@
 #include "Aurora/Scene/Components.h"
 
 namespace Aurora {
-	Model::Model(std::string path, std::wstring vShaderPath, std::wstring pShaderPath, MeshComponent* component,bool compress)
+	Model::Model(std::string path,bool compress)
 		:ModelPath(path),IsCompressed(compress)
 	{
 		Assimp::Importer imp;
@@ -14,9 +14,7 @@ namespace Aurora {
 		if (IsCompressed || model->mNumMeshes == 1)
 		{
 			Mesh m;
-			auto str = m.Load(model, vShaderPath, pShaderPath);
-			//component->path = Files::GetPath(str);
-			component->SetTexture(str);
+			TexPath = m.Load(model);
 			Meshes.push_back(m);
 		}
 		else 
@@ -24,7 +22,7 @@ namespace Aurora {
 			for (unsigned int i = 0; i < model->mNumMeshes; i++)
 			{
 				Mesh m;
-				paths.push_back(m.Load(model,model->mMeshes[i], vShaderPath, pShaderPath));
+				paths.push_back(m.Load(model,model->mMeshes[i]));
 				Meshes.push_back(m);
 			}
 		}
@@ -32,18 +30,23 @@ namespace Aurora {
 		
 	}
 
+	Model::Model(std::vector<Mesh> m)
+		:Meshes(m)
+	{
+	}
+
 	Mesh* Model::LoadModel(Ref<Entity> ParentEntity, Ref<Scene> scene)
 	{
 		
 		if (Meshes.size() > 1)
 		{
-			for (size_t i = 0; i < Meshes.size(); i++)
+			/*for (size_t i = 0; i < Meshes.size(); i++)
 			{
 				auto e = scene->CreateChildEntity(ParentEntity, "Child");
 				e->AddComponent<TransformComponent>(*ParentEntity->GetComponent<TransformComponent>());
 				e->AddComponent<MeshComponent>(Meshes[i].vShader, Meshes[i].pShader,Meshes[i].vBuf,Meshes[i].iBuf);
 				e->GetComponent<MeshComponent>()->SetTexture(paths[i]);
-			}
+			}*/
 			Mesh m;
 			m.IsEmpty = true;
 			return &m;
@@ -55,10 +58,13 @@ namespace Aurora {
 		
 	}
 	
-	std::string Mesh::Load(const aiScene* scene, aiMesh* mesh, std::wstring vShaderPath, std::wstring pShaderPath)
+	Mesh::Mesh(Ref<VertexBuffer> VertexBuf, Ref<IndexBuffer> IndexBuf)
+		:vBuf(VertexBuf),iBuf(IndexBuf)
 	{
-		vShader = VertexShader::Create(vShaderPath);
-		pShader = PixelShader::Create(pShaderPath);
+	}
+
+	std::string Mesh::Load(const aiScene* scene, aiMesh* mesh)
+	{
 
 		std::vector<VertexData> vertices;
 		vertices.reserve(mesh->mNumVertices);
@@ -73,13 +79,7 @@ namespace Aurora {
 		}
 		vBuf = VertexBuffer::Create(vertices);
 
-		std::vector<LayoutBuffer> list;
-
-		list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
-
-		vBuf->SetLayout(list, vShader);
+		
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 
@@ -106,11 +106,10 @@ namespace Aurora {
 
 	}
 
-	std::string Mesh::Load(const aiScene* scene, std::wstring vShaderPath, std::wstring pShaderPath)
+	std::string Mesh::Load(const aiScene* scene)
 	{
 		std::string texPath;
-		vShader = VertexShader::Create(vShaderPath);
-		pShader = PixelShader::Create(pShaderPath);
+		
 
 		std::vector<VertexData> vertices;
 
@@ -153,13 +152,7 @@ namespace Aurora {
 
 		vBuf = VertexBuffer::Create(vertices);
 
-		std::vector<LayoutBuffer> list;
-
-		list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("Normal", 12, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
-
-		vBuf->SetLayout(list, vShader);
+		
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 		

@@ -19,3 +19,5 @@
 #include <optional>
 
 #include <assert.h>
+
+#include <Aurora.h>

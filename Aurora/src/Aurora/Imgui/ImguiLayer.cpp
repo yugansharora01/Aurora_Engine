@@ -4,8 +4,8 @@
 #include "backends/imgui_impl_dx11.h"
 #include "backends/imgui_impl_win32.h"
 #include "ImGuizmo.h"
-#include "Aurora/Application.h"
-#include "Aurora/Window.h"
+#include "Aurora/Core/Application.h"
+#include "Aurora/Core/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
 #include "Platform/DirectX/D3D11RenderTargetManager.h"
 

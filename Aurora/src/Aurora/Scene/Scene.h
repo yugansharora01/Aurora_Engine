@@ -1,5 +1,6 @@
 #pragma once
 #include <DirectXMath.h>
+#include "Aurora/Models/Light.h"
 
 namespace Aurora {
 
@@ -7,13 +8,13 @@ namespace Aurora {
 	{
 		DirectX::XMFLOAT2 viewportSize;
 		DirectX::XMFLOAT2 viewportPos;
-		
 	};
 
 	class Entity;
 	class Registry;
 	class EditorCamera;
 	class UUID;
+	class Light;
 
 	class Scene
 	{
@@ -32,10 +33,12 @@ namespace Aurora {
 		void DestroyEntity(Ref<Entity> entity);
 		void Update(Ref<EditorCamera> Editorcamera, viewportInfo viewport);
 
-		DirectX::XMMATRIX GetMatrix(Ref<Entity> entity);
+		void AddLight(Ref<Entity> e);
+		void RemoveLight(Ref<Entity> e);
 	private:
-		void SubmitEntity(Ref<Entity> entity, Ref<EditorCamera> Editorcamera,DirectX::XMMATRIX ViewMat);
-		std::vector<DirectX::XMFLOAT4> Light;
+		void SubmitEntity(Ref<Entity> entity);
+		std::vector<Ref<Entity>> LightEntities;
+		std::vector<Light> Lights;
 	};
 
 }

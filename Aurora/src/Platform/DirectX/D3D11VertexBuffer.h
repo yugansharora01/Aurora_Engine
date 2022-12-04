@@ -20,7 +20,7 @@ namespace Aurora {
 		virtual void SetData(void* data, unsigned int size) override;
 
 
-		virtual void SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<class VertexShader> vShader) override;
+		virtual void SetLayout(std::vector<LayoutBuffer> layout, std::shared_ptr<class Shader> vShader) override;
 		virtual void SetTopology(TopologyType type) override;
 		
 	private:
@@ -28,7 +28,7 @@ namespace Aurora {
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
 		std::shared_ptr<class D3D11InputLayout> m_layout;
 		std::shared_ptr<class D3D11Topology> m_topology;
-		Ref<class VertexShader> vertexshader;
+		Ref<class Shader> vertexshader;
 
 		D3D11_BUFFER_DESC bd;
 		D3D11_SUBRESOURCE_DATA sd;

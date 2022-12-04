@@ -6,14 +6,14 @@
 
 namespace Aurora {
 
-	class EditorCamera
+	class Camera
 	{
 	public:
 		DirectX::XMFLOAT3 translate;
 		DirectX::XMFLOAT3 rotation;
 		DirectX::XMFLOAT3 scale;
 	public:
-		EditorCamera(float fov, float aspectRatio, float nearClip, float farClip);
+		Camera(float fov, float aspectRatio, float nearClip, float farClip);
 		void UpdateProjection(float fov, float aspectRatio, float nearClip, float farClip);
 		void UpdateTransform(DirectX::XMMATRIX TransformMat);
 		DirectX::XMMATRIX GetProjection() noexcept;
@@ -31,5 +31,12 @@ namespace Aurora {
 		float m_aspectRatio;
 		float m_nearClip;
 		float m_farClip;
+	};
+
+	class EditorCamera : public Camera
+	{
+	public:
+		EditorCamera(float fov, float aspectRatio, float nearClip, float farClip)
+			:Camera(fov, aspectRatio, nearClip, farClip){}
 	};
 }
