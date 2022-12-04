@@ -44,8 +44,8 @@ namespace Aurora {
 		m_ViewportPos = { viewportPanelPos.x - xpos, viewportPanelPos.y - ypos };
 		
 
-		ImGui::Image((void*)TextTexture->GetShaderResource().Get(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
-		//ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		//ImGui::Image((void*)TextTexture->GetShaderResource().Get(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		//Guizmo
 		Ref<Entity> selectedEntity = m_sceneHeirarchyPanel->GetSelectedEntity();
@@ -266,7 +266,7 @@ namespace Aurora {
 		//Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
 		Light->AddComponent<LightComponent>();
 
-		auto Text = m_activeScene->CreateEntity("Text");
+		//auto Text = m_activeScene->CreateEntity("Text");
 
 		//auto TextComp = Text->AddComponent<TextComponent>();
 		//TextComp->Text = "LOL";
