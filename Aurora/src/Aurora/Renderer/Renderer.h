@@ -33,13 +33,14 @@ namespace Aurora
 		};
 
 		std::map<TextureType, std::string> TextureNames;
-		std::map<TextureType, Ref<Texture>> Textures;
+		static std::map<std::string, Ref<Texture>> Textures;
 
 		void AddTexture(std::string tex, TextureType type);
-		void AddTexture(Ref<Texture> texture, TextureType type);
+		void AddTexture(Ref<Texture> texture, std::string identifier);
 		bool HaveTex(TextureType type);
 		std::string GetTexPath(TextureType type);
 		Ref<Texture> GetTex(TextureType type);
+		Ref<Texture> GetTex(std::string identifier);
 	};
 
 	struct DrawableData

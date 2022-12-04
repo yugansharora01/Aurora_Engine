@@ -10,3 +10,6 @@
 [submodule "Aurora/vendor/ImGuizmo"]
 	path = Aurora/vendor/ImGuizmo
 	url = https://github.com/yugansharora01/ImGuizmo
+[submodule "Aurora\\vendor\\freetype"]
+	path = Aurora\\vendor\\freetype
+	url = https://github.com/yugansharora01/freetype

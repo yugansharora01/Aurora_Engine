@@ -10,23 +10,23 @@
     <Filter Include="src\Aurora\Core">
       <UniqueIdentifier>{5E8CC435-CA17-32FA-D328-B5EE3F338EFA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Aurora\Drawables">
-      <UniqueIdentifier>{2A98742B-1627-FEF4-BF45-12F0ABB30E9B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Aurora\Drawables\Geometry">
-      <UniqueIdentifier>{C5948A90-31AD-71BA-FA59-015466310654}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Aurora\Events">
       <UniqueIdentifier>{6A2D3BBE-D643-3954-1FBB-C4758B100ADC}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Aurora\Imgui">
       <UniqueIdentifier>{1066C1EE-FC5E-E040-2591-C5C511E9BF4C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Aurora\Models">
+      <UniqueIdentifier>{391365D0-A529-6366-EEA0-EE875AF633EE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Aurora\Renderer">
       <UniqueIdentifier>{AC3EB730-18A0-943E-A10D-DBF00D6ECBFD}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Aurora\Scene">
       <UniqueIdentifier>{E3D570EF-CFCE-8F41-F800-75C6E4586F4D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Aurora\Text">
+      <UniqueIdentifier>{1AB5CD35-8640-3BFA-8F51-BEEEFB5B97FA}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Aurora\Utils">
       <UniqueIdentifier>{266A9EEF-1263-BD41-3B95-A2C627ED9C4D}</UniqueIdentifier>
@@ -43,6 +43,24 @@
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\Assimp">
+      <UniqueIdentifier>{4F43FCAD-BB03-78E4-843E-C161F0BDBCC0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Assimp\include">
+      <UniqueIdentifier>{C2498368-2EB6-3E63-F7A9-D6C063D560CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Assimp\include\assimp">
+      <UniqueIdentifier>{9EE65133-8AA1-41DF-3359-BA291FF38B6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Assimp\include\assimp\Compiler">
+      <UniqueIdentifier>{C877561A-343C-550A-FDA1-85D46925F13F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Assimp\include\assimp\port">
+      <UniqueIdentifier>{D28A92E4-3EF9-E763-87E2-A263F38FDDFF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Assimp\include\assimp\port\AndroidJNI">
+      <UniqueIdentifier>{E38D2E29-CFA0-2E82-788A-0B6F647CCBCF}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor\ImGuizmo">
       <UniqueIdentifier>{73BF7F4C-DF4A-ED10-E85B-700554664911}</UniqueIdentifier>
     </Filter>
@@ -52,15 +70,18 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\Application.h">
-      <Filter>src\Aurora</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Core\AuroraMath.h">
-      <Filter>src\Aurora</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Core\Core.h">
-      <Filter>src\Aurora</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\AuTimer.h">
+      <Filter>src\Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\AuroraMath.h">
+      <Filter>src\Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\Core.h">
+      <Filter>src\Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\EntryPoint.h">
       <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Core\Graphics.h">
@@ -72,11 +93,20 @@
     <ClInclude Include="src\Aurora\Core\Keycode.h">
       <Filter>src\Aurora\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Core\Layer.h">
+      <Filter>src\Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\LayerStack.h">
+      <Filter>src\Aurora\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Aurora\Core\Log.h">
+      <Filter>src\Aurora\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Core\UUID.h">
       <Filter>src\Aurora\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Core\EntryPoint.h">
-      <Filter>src\Aurora</Filter>
+    <ClInclude Include="src\Aurora\Core\Window.h">
+      <Filter>src\Aurora\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Events\ApplicationEvents.h">
       <Filter>src\Aurora\Events</Filter>
@@ -93,14 +123,11 @@
     <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h">
       <Filter>src\Aurora\Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Core\Layer.h">
-      <Filter>src\Aurora</Filter>
+    <ClInclude Include="src\Aurora\Models\Light.h">
+      <Filter>src\Aurora\Models</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Core\LayerStack.h">
-      <Filter>src\Aurora</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Aurora\Core\Log.h">
-      <Filter>src\Aurora</Filter>
+    <ClInclude Include="src\Aurora\Models\Model.h">
+      <Filter>src\Aurora\Models</Filter>
     </ClInclude>
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h">
       <Filter>src\Aurora\Renderer</Filter>
@@ -141,6 +168,9 @@
     <ClInclude Include="src\Aurora\Scene\Serializer.h">
       <Filter>src\Aurora\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Aurora\Text\Text.h">
+      <Filter>src\Aurora\Text</Filter>
+    </ClInclude>
     <ClInclude Include="src\Aurora\Utils\Convertors.h">
       <Filter>src\Aurora\Utils</Filter>
     </ClInclude>
@@ -150,16 +180,10 @@
     <ClInclude Include="src\Aurora\Utils\PlatformUtil.h">
       <Filter>src\Aurora\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\Aurora\Core\Window.h">
-      <Filter>src\Aurora</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Buffers.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h">
-      <Filter>src\Platform\DirectX</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\D3D11RenderTargetManager.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h">
@@ -172,6 +196,9 @@
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11PixelShader.h">
+      <Filter>src\Platform\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\DirectX\D3D11RenderTargetManager.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11Sampler.h">
@@ -190,6 +217,9 @@
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\DirectX\D3D11VertexShader.h">
+      <Filter>src\Platform\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\DirectX\DirectXHelperFunc.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\AuroraException.h">
@@ -237,21 +267,240 @@
     <ClInclude Include="src\pch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\BaseImporter.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Bitmap.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\BlobIOSystem.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\ByteSwapper.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\ColladaMetaData.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Compiler\poppack1.h">
+      <Filter>vendor\Assimp\include\assimp\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Compiler\pstdint.h">
+      <Filter>vendor\Assimp\include\assimp\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Compiler\pushpack1.h">
+      <Filter>vendor\Assimp\include\assimp\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\CreateAnimMesh.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\DefaultIOStream.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\DefaultIOSystem.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Exceptional.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\GenericProperty.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\GltfMaterial.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Hash.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\IOStreamBuffer.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\LineSplitter.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\LogAux.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\MathFunctions.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\MemoryIOWrapper.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\ParsingUtils.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Profiler.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\RemoveComments.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\SGSpatialSort.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\SceneCombiner.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\SkeletonMeshBuilder.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\SmallVector.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\SmoothingGroups.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\SpatialSort.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\StandardShapes.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\StreamReader.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\StreamWriter.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\StringComparison.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\StringUtils.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Subdivision.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\TinyFormatter.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\Vertex.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\XMLTools.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\XmlParser.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\ZipArchiveIOSystem.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\aabb.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\ai_assert.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\anim.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\camera.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\cexport.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\cfileio.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\cimport.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\color4.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\commonMetaData.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\config.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\defs.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\fast_atof.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\importerdesc.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\light.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\material.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\matrix3x3.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\matrix4x4.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\mesh.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\metadata.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\pbrmaterial.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h">
+      <Filter>vendor\Assimp\include\assimp\port\AndroidJNI</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\port\AndroidJNI\BundledAssetIOSystem.h">
+      <Filter>vendor\Assimp\include\assimp\port\AndroidJNI</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\postprocess.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\qnan.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\quaternion.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\scene.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\texture.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\types.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\vector2.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\vector3.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\Assimp\include\assimp\version.h">
+      <Filter>vendor\Assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
       <Filter>vendor\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\DirectX\DirectXHelperFunc.h" />
-    <ClInclude Include="src\Aurora\Models\Model.h" />
-    <ClInclude Include="src\Aurora\Models\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Core\Application.cpp">
-      <Filter>src\Aurora</Filter>
+      <Filter>src\Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp">
       <Filter>src\Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\Graphics.cpp">
+      <Filter>src\Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Core\Layer.cpp">
+      <Filter>src\Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Core\LayerStack.cpp">
+      <Filter>src\Aurora\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aurora\Core\Log.cpp">
       <Filter>src\Aurora\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Core\UUID.cpp">
@@ -266,14 +515,11 @@
     <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp">
       <Filter>src\Aurora\Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Core\Layer.cpp">
-      <Filter>src\Aurora</Filter>
+    <ClCompile Include="src\Aurora\Models\Light.cpp">
+      <Filter>src\Aurora\Models</Filter>
     </ClCompile>
-    <ClCompile Include="src\Aurora\Core\LayerStack.cpp">
-      <Filter>src\Aurora</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Aurora\Core\Log.cpp">
-      <Filter>src\Aurora</Filter>
+    <ClCompile Include="src\Aurora\Models\Model.cpp">
+      <Filter>src\Aurora\Models</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp">
       <Filter>src\Aurora\Renderer</Filter>
@@ -311,16 +557,19 @@
     <ClCompile Include="src\Aurora\Scene\Serializer.cpp">
       <Filter>src\Aurora\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Aurora\Text\Text.cpp">
+      <Filter>src\Aurora\Text</Filter>
+    </ClCompile>
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp">
       <Filter>src\Aurora\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Aurora\Utils\FileOperations.cpp">
       <Filter>src\Aurora\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\D3D11RenderTargetManager.cpp">
+    <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp">
@@ -333,6 +582,9 @@
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11PixelShader.cpp">
+      <Filter>src\Platform\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\DirectX\D3D11RenderTargetManager.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11Sampler.cpp">
@@ -351,6 +603,9 @@
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\D3D11VertexShader.cpp">
+      <Filter>src\Platform\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\DirectX\DirectXHelperFunc.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\AuroraException.cpp">
@@ -386,13 +641,5 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\DirectX\DirectXHelperFunc.cpp" />
-    <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp" />
-    <ClCompile Include="src\Aurora\Models\Model.cpp" />
-    <ClCompile Include="src\Aurora\Models\Light.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="src\Aurora\Shaders\PhongPS.hlsl" />
-    <FxCompile Include="src\Aurora\Shaders\PhongVS.hlsl" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "Aurora/Utils/PlatformUtil.h"
 #include "Aurora/Utils/FileOperations.h"
 #include "ImGuizmo.h"
+#include "Aurora/Text/Text.h"
 
 #include <imgui.h>
 
@@ -42,7 +43,9 @@ namespace Aurora {
 		auto [xpos, ypos] = Application::Get().GetWindow().GetPos();
 		m_ViewportPos = { viewportPanelPos.x - xpos, viewportPanelPos.y - ypos };
 		
-		ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+
+		ImGui::Image((void*)TextTexture->GetShaderResource().Get(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		//ImGui::Image(TargetManager->GetTextureAsPointer("viewport"), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 
 		//Guizmo
 		Ref<Entity> selectedEntity = m_sceneHeirarchyPanel->GetSelectedEntity();
@@ -226,6 +229,9 @@ namespace Aurora {
 
 	void EditorLayer::Init()
 	{
+		
+		Text t;
+		TextTexture = t.get();
 		TargetManager = Application::Get().GetWindow().Gfx()->TargetManager;
 
 		RenderTargetProperties property;
@@ -262,8 +268,8 @@ namespace Aurora {
 
 		auto Text = m_activeScene->CreateEntity("Text");
 
-		auto TextComp = Text->AddComponent<TextComponent>();
-		TextComp->Text = "LOL";
+		//auto TextComp = Text->AddComponent<TextComponent>();
+		//TextComp->Text = "LOL";
 		
 	}
 

@@ -17,6 +17,8 @@ IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
 IncludeDir["yaml_cpp"] = "Aurora/vendor/yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "Aurora/vendor/ImGuizmo"
+IncludeDir["Assimp"] = "Aurora/vendor/Assimp/include"
+IncludeDir["freetype"] = "Aurora/vendor/freetype/include"
 
 project "Aurora"
 	location "Aurora"
@@ -37,7 +39,9 @@ project "Aurora"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/src/Platform/Windows/**.inl",
 		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
-		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp",
+		"%{prj.name}/vendor/Assimp/include/**.h",
+		"%{prj.name}/vendor/Assimp/include/**.cpp"
 	}
 
 	includedirs
@@ -46,13 +50,22 @@ project "Aurora"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.yaml_cpp}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Assimp}",
+		"%{IncludeDir.freetype}"
 	}
 
 	links
 	{
 		"ImGui",
-		"yaml-cpp"
+		"yaml-cpp",
+		"assimp-vc143-mtd.lib",
+		"freetyped.lib"
+	}
+
+	libdirs
+	{
+		"bin/"..outputdir.."/Aurora-Editor"
 	}
 
 	filter "files:Aurora/vendor/ImGuizmo/**.cpp"
@@ -109,13 +122,16 @@ project "Aurora-Editor"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.yaml_cpp}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Assimp}",
+		"%{IncludeDir.freetype}"
 	}
 
 	links
 	{
 		"Aurora"
 	}
+
 
 	filter "system:windows"
 		systemversion "latest"
@@ -196,3 +212,4 @@ project "Sandbox"
 
 include "Aurora/vendor/imgui"
 include "Aurora/vendor/yaml-cpp"
+include "Aurora/vendor/freetype"

@@ -19,6 +19,7 @@ namespace Aurora
 	DirectX::XMMATRIX Renderer::ViewMat;
 	DirectX::XMMATRIX Renderer::ProjMat;
 	ShaderManager Renderer::Manager;
+	std::map<std::string, Ref<Texture>> ModelTexture::Textures;
 
 	std::vector<DirectX::XMFLOAT4> GetVec(std::vector<DirectX::XMMATRIX> matVec)
 	{
@@ -57,22 +58,22 @@ namespace Aurora
 	{
 		std::string TexturePath = FilesManager::GetPath(tex, PathType::ModelPath);
 		TextureNames.insert({ type,TexturePath });
-		if (!Textures.contains(type))
+		if (!Textures.contains(TexturePath))
 		{
 			Ref<Texture> t = Texture::Create(TexturePath);
-			Textures.insert({ type,t });
+			Textures.insert({ TexturePath,t });
 		}
 		
 	}
 
-	void ModelTexture::AddTexture(Ref<Texture> texture, TextureType type)
+	void ModelTexture::AddTexture(Ref<Texture> texture, std::string identifier)
 	{
-		Textures.insert({ type,texture });
+		Textures.insert({ identifier,texture });
 	}
 
 	bool ModelTexture::HaveTex(TextureType type)
 	{
-		return Textures.contains(type);
+		return Textures.contains(TextureNames[type]);
 	}
 
 	std::string ModelTexture::GetTexPath(TextureType type)
@@ -82,7 +83,14 @@ namespace Aurora
 
 	Ref<Texture> ModelTexture::GetTex(TextureType type)
 	{
-		return Textures[type];
+		//Check if it exists
+		return Textures[TextureNames[type]];
+	}
+	
+	Ref<Texture> ModelTexture::GetTex(std::string identifier)
+	{
+		//Check if it exists
+		return Textures[identifier];
 	}
 
 	void Renderer::Init()
@@ -185,7 +193,8 @@ namespace Aurora
 		modelData.ibuf->Bind();
 		if (modelData.Textures.HaveTex(ModelTexture::Albedo))
 		{
-			modelData.Textures.Textures[ModelTexture::Albedo]->Bind();
+			auto& str = modelData.Textures.TextureNames[ModelTexture::Albedo];
+			modelData.Textures.Textures[str]->Bind();
 		}
 	}
 

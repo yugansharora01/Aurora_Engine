@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_BUILD_DLL;AU_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\yaml-cpp\include;vendor\ImGuizmo;E:\Yash\Aurora\Aurora\vendor\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\yaml-cpp\include;vendor\ImGuizmo;vendor\Assimp\include;vendor\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -88,10 +88,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Lib>
-    <Lib>
-      <AdditionalLibraryDirectories>E:\Yash\Aurora\Aurora\vendor\Assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\Debug-windows-x86_64\Aurora-Editor;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -100,7 +98,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_BUILD_DLL;AU_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\yaml-cpp\include;vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\yaml-cpp\include;vendor\ImGuizmo;vendor\Assimp\include;vendor\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -114,6 +112,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\Release-windows-x86_64\Aurora-Editor;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -121,7 +123,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AU_PLATFORM_WINDOWS;AU_BUILD_DLL;AU_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\yaml-cpp\include;vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\yaml-cpp\include;vendor\ImGuizmo;vendor\Assimp\include;vendor\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -135,28 +137,33 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\Dist-windows-x86_64\Aurora-Editor;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Aurora\Models\Light.h" />
-    <ClInclude Include="src\Aurora\Models\Model.h" />
     <ClInclude Include="src\Aurora.h" />
     <ClInclude Include="src\Aurora\Core\Application.h" />
+    <ClInclude Include="src\Aurora\Core\AuTimer.h" />
     <ClInclude Include="src\Aurora\Core\AuroraMath.h" />
     <ClInclude Include="src\Aurora\Core\Core.h" />
-    <ClInclude Include="src\Aurora\Core\AuTimer.h" />
+    <ClInclude Include="src\Aurora\Core\EntryPoint.h" />
     <ClInclude Include="src\Aurora\Core\Graphics.h" />
     <ClInclude Include="src\Aurora\Core\Input.h" />
     <ClInclude Include="src\Aurora\Core\Keycode.h" />
+    <ClInclude Include="src\Aurora\Core\Layer.h" />
+    <ClInclude Include="src\Aurora\Core\LayerStack.h" />
+    <ClInclude Include="src\Aurora\Core\Log.h" />
     <ClInclude Include="src\Aurora\Core\UUID.h" />
-    <ClInclude Include="src\Aurora\Core\EntryPoint.h" />
+    <ClInclude Include="src\Aurora\Core\Window.h" />
     <ClInclude Include="src\Aurora\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Aurora\Events\Events.h" />
     <ClInclude Include="src\Aurora\Events\KeyboardEvents.h" />
     <ClInclude Include="src\Aurora\Events\MouseEvents.h" />
     <ClInclude Include="src\Aurora\Imgui\ImguiLayer.h" />
-    <ClInclude Include="src\Aurora\Core\Layer.h" />
-    <ClInclude Include="src\Aurora\Core\LayerStack.h" />
-    <ClInclude Include="src\Aurora\Core\Log.h" />
+    <ClInclude Include="src\Aurora\Models\Light.h" />
+    <ClInclude Include="src\Aurora\Models\Model.h" />
     <ClInclude Include="src\Aurora\Renderer\BindableBase.h" />
     <ClInclude Include="src\Aurora\Renderer\Bindables.h" />
     <ClInclude Include="src\Aurora\Renderer\Buffer.h" />
@@ -170,17 +177,17 @@
     <ClInclude Include="src\Aurora\Scene\ECS.h" />
     <ClInclude Include="src\Aurora\Scene\Scene.h" />
     <ClInclude Include="src\Aurora\Scene\Serializer.h" />
+    <ClInclude Include="src\Aurora\Text\Text.h" />
     <ClInclude Include="src\Aurora\Utils\Convertors.h" />
     <ClInclude Include="src\Aurora\Utils\FileOperations.h" />
     <ClInclude Include="src\Aurora\Utils\PlatformUtil.h" />
-    <ClInclude Include="src\Aurora\Core\Window.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Buffers.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11DepthStencil.h" />
-    <ClInclude Include="src\Platform\DirectX\D3D11RenderTargetManager.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Graphics.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11IndexBuffer.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11InputLayout.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11PixelShader.h" />
+    <ClInclude Include="src\Platform\DirectX\D3D11RenderTargetManager.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Sampler.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Surface.h" />
     <ClInclude Include="src\Platform\DirectX\D3D11Texture.h" />
@@ -203,21 +210,92 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Platform\Windows\dxerr.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\BaseImporter.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Bitmap.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\BlobIOSystem.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\ByteSwapper.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\ColladaMetaData.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Compiler\poppack1.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Compiler\pstdint.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Compiler\pushpack1.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\CreateAnimMesh.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\DefaultIOStream.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\DefaultIOSystem.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Exceptional.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\GenericProperty.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\GltfMaterial.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Hash.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\IOStreamBuffer.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\LineSplitter.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\LogAux.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\MathFunctions.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\MemoryIOWrapper.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\ParsingUtils.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Profiler.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\RemoveComments.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\SGSpatialSort.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\SceneCombiner.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\SkeletonMeshBuilder.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\SmallVector.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\SmoothingGroups.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\SpatialSort.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\StandardShapes.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\StreamReader.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\StreamWriter.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\StringComparison.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\StringUtils.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Subdivision.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\TinyFormatter.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\Vertex.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\XMLTools.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\XmlParser.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\aabb.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\anim.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\camera.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\cexport.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\cimport.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\color4.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\commonMetaData.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\config.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\defs.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\fast_atof.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\light.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\material.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\mesh.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\metadata.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\pbrmaterial.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\port\AndroidJNI\BundledAssetIOSystem.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\qnan.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\scene.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\texture.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\types.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\vector2.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\vector3.h" />
+    <ClInclude Include="vendor\Assimp\include\assimp\version.h" />
     <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Aurora\Core\Application.cpp" />
     <ClCompile Include="src\Aurora\Core\AuTimer.cpp" />
     <ClCompile Include="src\Aurora\Core\Graphics.cpp" />
-    <ClCompile Include="src\Aurora\Core\UUID.cpp" />
-    <ClCompile Include="src\Aurora\Events\Events.cpp" />
-    <ClCompile Include="src\Aurora\Models\Light.cpp" />
-    <ClCompile Include="src\Aurora\Models\Model.cpp" />
-    <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
-    <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
     <ClCompile Include="src\Aurora\Core\Layer.cpp" />
     <ClCompile Include="src\Aurora\Core\LayerStack.cpp" />
     <ClCompile Include="src\Aurora\Core\Log.cpp" />
+    <ClCompile Include="src\Aurora\Core\UUID.cpp" />
+    <ClCompile Include="src\Aurora\Events\Events.cpp" />
+    <ClCompile Include="src\Aurora\Imgui\ImguiLayer.cpp" />
+    <ClCompile Include="src\Aurora\Imgui\Imguibulid.cpp" />
+    <ClCompile Include="src\Aurora\Models\Light.cpp" />
+    <ClCompile Include="src\Aurora\Models\Model.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Bindables.cpp" />
     <ClCompile Include="src\Aurora\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Aurora\Renderer\EditorCamera.cpp" />
@@ -230,15 +308,16 @@
     <ClCompile Include="src\Aurora\Scene\ECS.cpp" />
     <ClCompile Include="src\Aurora\Scene\Scene.cpp" />
     <ClCompile Include="src\Aurora\Scene\Serializer.cpp" />
+    <ClCompile Include="src\Aurora\Text\Text.cpp" />
     <ClCompile Include="src\Aurora\Utils\Convertors.cpp" />
     <ClCompile Include="src\Aurora\Utils\FileOperations.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Buffers.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11DepthStencil.cpp" />
-    <ClCompile Include="src\Platform\DirectX\D3D11RenderTargetManager.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Graphics.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11IndexBuffer.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11InputLayout.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11PixelShader.cpp" />
+    <ClCompile Include="src\Platform\DirectX\D3D11RenderTargetManager.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Sampler.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Surface.cpp" />
     <ClCompile Include="src\Platform\DirectX\D3D11Texture.cpp" />
@@ -269,18 +348,6 @@
     <ProjectReference Include="vendor\yaml-cpp\yaml-cpp.vcxproj">
       <Project>{88F1A057-74BE-FB62-9DD7-E90A890331F1}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="src\Aurora\Shaders\PhongPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="src\Aurora\Shaders\PhongVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Vertex</ShaderType>
-    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

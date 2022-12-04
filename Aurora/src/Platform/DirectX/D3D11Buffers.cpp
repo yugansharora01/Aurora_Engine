@@ -129,7 +129,7 @@ namespace Aurora
 		}
 
 
-		if (slot <= GetNumberOfBuffers() && slot != -1)
+		if (slot <= (int)GetNumberOfBuffers() && slot != -1)
 		{
 			std::vector<Microsoft::WRL::ComPtr<ID3D11Buffer>>::iterator it = Buffers.begin() + slot;
 			Buffers.insert(it, buffer);

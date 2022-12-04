@@ -11,6 +11,7 @@
 
 
 namespace Aurora {
+	class D3D11Texture;
 
 	class EditorLayer : public Layer
 	{
@@ -42,7 +43,7 @@ namespace Aurora {
 		Ref<SceneHierarchyPanel> m_sceneHeirarchyPanel;
 
 		Ref<GeometryPanel> m_geometryPanel;
-
+		Ref<D3D11Texture> TextTexture;
 	};
 
 }
