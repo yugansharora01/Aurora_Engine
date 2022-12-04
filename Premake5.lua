@@ -9,13 +9,13 @@ workspace "Aurora"
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 
 IncludeDir["spdlog"] = "Aurora/vendor/spdlog/include"
 IncludeDir["imgui"] = "Aurora/vendor/imgui"
-IncludeDir["yaml_cpp"] = "Aurora/vendor/yaml-cpp/include"
+IncludeDir["yaml_cpp"] = "Aurora/vendor/yaml--cpp/include"
 IncludeDir["ImGuizmo"] = "Aurora/vendor/ImGuizmo"
 IncludeDir["Assimp"] = "Aurora/vendor/Assimp/include"
 IncludeDir["freetype"] = "Aurora/vendor/freetype/include"
@@ -25,7 +25,7 @@ project "Aurora"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -65,7 +65,8 @@ project "Aurora"
 
 	libdirs
 	{
-		"bin/"..outputdir.."/Aurora-Editor"
+		"bin/"..outputdir.."/Aurora-Editor",
+		"dlls-and-libs"
 	}
 
 	filter "files:Aurora/vendor/ImGuizmo/**.cpp"
@@ -101,7 +102,7 @@ project "Aurora-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/"..outputdir.."/%{prj.name}")
 	objdir ("bin-int/"..outputdir.."/%{prj.name}")
@@ -131,7 +132,6 @@ project "Aurora-Editor"
 	{
 		"Aurora"
 	}
-
 
 	filter "system:windows"
 		systemversion "latest"
@@ -211,5 +211,5 @@ project "Sandbox"
 		optimize "On"
 
 include "Aurora/vendor/imgui"
-include "Aurora/vendor/yaml-cpp"
+include "Aurora/vendor/yaml--cpp"
 include "Aurora/vendor/freetype"
