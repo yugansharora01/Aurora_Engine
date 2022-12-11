@@ -16,7 +16,7 @@ namespace Aurora
 		FT_Vector     pen;                    /* untransformed origin  */
 		FT_Error      error;
 
-		const char* filename = "D:\\yash\\my-work\\engine\\Aurora-Editor\\assets\\Text-files\\Cursive-like-font.ttf";
+		const char* filename = "D:\\yash\\my-work\\Aurora_Engine\\Aurora-Editor\\assets\\Text-files\\Cursive-like-font.ttf";
 		const char* text = "A";
 
 		double        angle;

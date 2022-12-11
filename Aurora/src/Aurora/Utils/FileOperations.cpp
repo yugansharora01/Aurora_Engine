@@ -10,14 +10,19 @@ namespace Aurora
 	void FilesManager::Init()
 	{
 		AddPath(std::filesystem::current_path().string(), PathType::AssetPath);
-		AddPath("D:\\yash\\my-work\\engine\\Aurora-Editor\\assets", PathType::AssetPath);
-		AddPath("D:\\yash\\my-work\\engine\\Aurora\\src\\Aurora\\Shaders", PathType::ShaderPath);
+		AddPath("D:\\yash\\my-work\\Aurora_Engine\\Aurora-Editor\\assets", PathType::AssetPath);
+		AddPath("D:\\yash\\my-work\\Aurora_Engine\\Aurora\\src\\Aurora\\Shaders", PathType::ShaderPath);
 	}
 
 	std::string FilesManager::GetPath(std::string FileName, PathType type)
 	{
-		//just in case relative path is given
 		std::filesystem::path f(FileName);
+		if (f.is_absolute())
+		{
+			return FileName;
+		}
+		//just in case relative path is given
+		
 		auto file = f.filename().string();
 
 		for (auto& paths : Paths[(int)type])

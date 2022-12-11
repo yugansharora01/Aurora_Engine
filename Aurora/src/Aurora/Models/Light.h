@@ -32,6 +32,7 @@ namespace Aurora
 	public:
 		Light() = default;
 		Light(LightInfo info);
+		void Set(LightInfo other);
 	private:
 		DirectX::XMFLOAT3 Position;
 		DirectX::XMFLOAT4 ambient;

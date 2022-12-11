@@ -65,10 +65,9 @@ namespace Aurora {
 
 	std::string Mesh::Load(const aiScene* scene, aiMesh* mesh)
 	{
-
 		std::vector<VertexData> vertices;
 		vertices.reserve(mesh->mNumVertices);
-
+		name = mesh->mName.C_Str();
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 		{
 			VertexData data;
@@ -78,8 +77,6 @@ namespace Aurora {
 			vertices.push_back(data);
 		}
 		vBuf = VertexBuffer::Create(vertices);
-
-		
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 
@@ -109,7 +106,6 @@ namespace Aurora {
 	std::string Mesh::Load(const aiScene* scene)
 	{
 		std::string texPath;
-		
 
 		std::vector<VertexData> vertices;
 
@@ -140,7 +136,6 @@ namespace Aurora {
 				vertices.push_back(data);
 			}
 			
-
 			if (mesh->mMaterialIndex >= 0)
 			{
 				auto& material = *scene->mMaterials[mesh->mMaterialIndex];
@@ -151,8 +146,6 @@ namespace Aurora {
 		}
 
 		vBuf = VertexBuffer::Create(vertices);
-
-		
 
 		vBuf->SetTopology(TopologyType::Triangle_List);
 		

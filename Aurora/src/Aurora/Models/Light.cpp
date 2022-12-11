@@ -5,13 +5,17 @@ namespace Aurora
 {
     Light::Light(LightInfo info)
     {
-        Position = info.Position;
-        ambient = info.ambient;
-        diffuseColor = info.diffuseColor;
-        diffuseIntensity = info.diffuseIntensity;
-        attConst = info.attConst;
-        attLin = info.attLin;
-        attQuad = info.attQuad;
-        type = info.type;
+        Set(info);
+    }
+    void Light::Set(LightInfo other)
+    {
+        Position = other.Position;
+        ambient = other.ambient;
+        diffuseColor = other.diffuseColor;
+        diffuseIntensity = other.diffuseIntensity;
+        attConst = other.attConst;
+        attLin = other.attLin;
+        attQuad = other.attQuad;
+        type = other.type;
     }
 }

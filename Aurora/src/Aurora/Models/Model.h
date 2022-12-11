@@ -22,6 +22,7 @@ namespace Aurora {
 	public:
 		Ref<VertexBuffer> vBuf;
 		Ref<IndexBuffer> iBuf;
+		std::string name;
 		bool IsEmpty = false;
 	};
 

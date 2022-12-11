@@ -83,7 +83,7 @@ namespace Aurora {
 		auto height = Application::Get().GetWindow().GetHeight();
 		auto width = Application::Get().GetWindow().GetWidth();
 		Editorcamera->UpdateProjection( 1, (float)height/ (float)width, 0.5f, 40.0f);
-
+		UpdateLights();
 		Renderer::BeginScene(Editorcamera,Lights);
 		auto entities = registry->GetList();
 		
@@ -119,6 +119,27 @@ namespace Aurora {
 	}
 
 
+	void Scene::UpdateLights()
+	{
+		for (auto &light : LightEntities)
+		{
+			auto LightComp = light.first->GetComponent<LightComponent>();
+			auto TranformComp = light.first->GetComponent<TransformComponent>();
+			LightInfo info;
+			info.Position = TranformComp->translate;
+			info.ambient = LightComp->ambient;
+			info.diffuseColor = LightComp->diffuseColor;
+			info.diffuseIntensity = LightComp->diffuseIntensity;
+			info.attConst = LightComp->attConst;
+			info.attLin = LightComp->attLin;
+			info.attQuad = LightComp->attQuad;
+			auto it = *std::find(Lights.begin(), Lights.end(), light.second);
+			it->Set(info);
+			/*auto l = std::make_shared<Light>(info);
+			light.second = l;*/
+		}
+	}
+
 	void Scene::AddLight(Ref<Entity> e)
 	{
 		auto LightComp = e->GetComponent<LightComponent>();
@@ -131,21 +152,21 @@ namespace Aurora {
 		info.attConst = LightComp->attConst;
 		info.attLin = LightComp->attLin;
 		info.attQuad = LightComp->attQuad;
-		Light l(info);
+		auto l = std::make_shared<Light>(info);
 		Lights.push_back(l);
-		LightEntities.push_back(e);
+		LightEntities.insert({e,l});
 	}
 
 	void Scene::RemoveLight(Ref<Entity> e)
 	{
-		LightEntities.erase(std::find(LightEntities.begin(),LightEntities.end(),e));
+		LightEntities.erase(e);
 	}
 
 	void Scene::SubmitEntity(Ref<Entity> entity)
 	{
 		DrawableData prop;
 		prop.ModelName = entity->GetComponent<MeshComponent>()->MeshName;
-
+		prop.entity = entity;
 		prop.translate = entity->GetComponent<TransformComponent>()->translate;
 		prop.rotation = entity->GetComponent<TransformComponent>()->rotation;
 		prop.scale = entity->GetComponent<TransformComponent>()->scale;

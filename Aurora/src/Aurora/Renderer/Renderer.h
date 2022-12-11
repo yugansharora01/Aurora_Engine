@@ -61,6 +61,7 @@ namespace Aurora
 		DirectX::XMFLOAT3 origin;
 		DirectX::XMMATRIX mat;
 		std::vector<DirectX::XMFLOAT4> MiscelData;
+		Ref<Entity> entity;
 	};
 
 	struct TextData
@@ -84,8 +85,8 @@ namespace Aurora
 		
 	public:
 		RenderQueue() = default;
-		void submit(DrawableData ModelProp);
-		void SubmitModel(DrawableData ModelProp);
+		void submit(DrawableData& ModelProp);
+		void SubmitModel(DrawableData& ModelProp);
 		void SubmitText(TextData data, DrawableData Prop);
 	};
 	
@@ -94,9 +95,9 @@ namespace Aurora
 	public:
 		static void Init();
 		static void ShutDown();
-		static void BeginScene(Ref<Camera> camera,std::vector<Light> lights);
+		static void BeginScene(Ref<Camera> camera,std::vector<std::shared_ptr<Light>> lights);
 		static void EndScene();
-		static void DrawModel(DrawableData ModelProp);
+		static void DrawModel(DrawableData& ModelProp);
 		static void RenderText(TextData data);
 
 	private:

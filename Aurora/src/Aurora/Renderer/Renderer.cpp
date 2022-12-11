@@ -7,6 +7,8 @@
 #include "Aurora/Models/Light.h"
 #include "Aurora/Renderer/EditorCamera.h"
 #include "Platform/DirectX/D3D11Buffers.h"
+#include "Aurora/Scene/ECS.h"
+#include <Aurora/Scene/Components.h>
 
 namespace Aurora 
 {
@@ -58,7 +60,7 @@ namespace Aurora
 	{
 		std::string TexturePath = FilesManager::GetPath(tex, PathType::ModelPath);
 		TextureNames.insert({ type,TexturePath });
-		if (!Textures.contains(TexturePath))
+		if (!Textures.contains(TexturePath) && !TexturePath.empty())
 		{
 			Ref<Texture> t = Texture::Create(TexturePath);
 			Textures.insert({ TexturePath,t });
@@ -107,10 +109,10 @@ namespace Aurora
 		//TO DO Free everything if anything is required to be freed
 	}
 
-	void Renderer::BeginScene(Ref<Camera> camera,std::vector<Light> lights)
+	void Renderer::BeginScene(Ref<Camera> camera,std::vector<std::shared_ptr<Light>> lights)
 	{
 		//TO DO it will take camera and other scene parameters
-
+		data.clear();
 		ViewMat = DirectX::XMMatrixInverse(NULL, camera->GetTransform());
 
 		ProjMat = camera->GetProjection();
@@ -121,18 +123,18 @@ namespace Aurora
 		for (size_t i = 0; i < lights.size(); i++)
 		{
 			DirectX::XMFLOAT4 temp;
-			auto LOL = DirectX::XMLoadFloat3(&lights[i].Position);
+			auto LOL = DirectX::XMLoadFloat3(&lights[i]->Position);
 			DirectX::XMStoreFloat4(&temp, DirectX::XMVector4Transform(LOL, ViewMat));
 
 			data.push_back(temp);
-			data.push_back(lights[i].ambient);
-			data.push_back(lights[i].diffuseColor);
+			data.push_back(lights[i]->ambient);
+			data.push_back(lights[i]->diffuseColor);
 
 			DirectX::XMFLOAT4 LightConstants;
-			LightConstants.x = lights[i].diffuseIntensity;
-			LightConstants.y = lights[i].attConst;
-			LightConstants.z = lights[i].attLin;
-			LightConstants.w = lights[i].attQuad;
+			LightConstants.x = lights[i]->diffuseIntensity;
+			LightConstants.y = lights[i]->attConst;
+			LightConstants.z = lights[i]->attLin;
+			LightConstants.w = lights[i]->attQuad;
 			data.push_back(LightConstants);
 		}
 
@@ -155,16 +157,23 @@ namespace Aurora
 	}
 
 
-	void Renderer::DrawModel(DrawableData ModelProp)
+	void Renderer::DrawModel(DrawableData& ModelProp)
 	{
 		if (!ModelProp.UsePassedShaders)
 		{
 			if (!data.empty())
 			{
 				//Has Lights
-				
-				ModelProp.vshader = Manager.GetShader("PhongTexturedVS");
-				ModelProp.pshader = Manager.GetShader("PhongTexturedPS");
+				if (ModelProp.entity->HasComponent<LightComponent>())
+				{
+					ModelProp.vshader = Manager.GetShader("TexturedVS");
+					ModelProp.pshader = Manager.GetShader("TexturedPS");
+				}
+				else
+				{
+					ModelProp.vshader = Manager.GetShader("PhongTexturedVS");
+					ModelProp.pshader = Manager.GetShader("PhongTexturedPS");
+				}
 				
 			}
 		}
@@ -191,9 +200,15 @@ namespace Aurora
 		modelData.vshader->Bind();
 		modelData.pshader->Bind();
 		modelData.ibuf->Bind();
+		
 		if (modelData.Textures.HaveTex(ModelTexture::Albedo))
 		{
 			auto& str = modelData.Textures.TextureNames[ModelTexture::Albedo];
+			modelData.Textures.Textures[str]->Bind();
+		}
+		if (modelData.Textures.HaveTex(ModelTexture::Diffuse))
+		{
+			auto& str = modelData.Textures.TextureNames[ModelTexture::Diffuse];
 			modelData.Textures.Textures[str]->Bind();
 		}
 	}
@@ -245,7 +260,7 @@ namespace Aurora
 		vConst->Create(vertexData.size() * sizeof(DirectX::XMFLOAT4), vertexData.data(), 0u);
 	}
 
-	void RenderQueue::submit(DrawableData ModelProp)
+	void RenderQueue::submit(DrawableData& ModelProp)
 	{
 		if (!ModelProp.ModelName.empty())
 		{
@@ -267,7 +282,7 @@ namespace Aurora
 		
 	}
 
-	void RenderQueue::SubmitModel(DrawableData ModelProp)
+	void RenderQueue::SubmitModel(DrawableData& ModelProp)
 	{
 		Ref<Model> model;
 		//Check if the map contains the model path
@@ -290,23 +305,33 @@ namespace Aurora
 		}
 		else
 		{
-			model = CreateRef<Model>(ModelProp.ModelPath, true);
+			model = CreateRef<Model>(ModelProp.ModelPath, false);
 
 			AllModels.insert({ ModelProp.ModelPath ,model });
 		}
-		ModelProp.vbuf = model->Meshes[0].vBuf;
-		std::vector<LayoutBuffer> list;
+		for (int i = 0; i < model->Meshes.size(); i++)
+		{
+			DrawableData MeshData = ModelProp;
+			MeshData.vbuf = model->Meshes[i].vBuf;
+			std::vector<LayoutBuffer> list;
 
-		list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
-		list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
+			list.emplace_back("Position", 0u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("Normal", 12u, PropertiesDataType::Float3, false, 32);
+			list.emplace_back("TexCoord", 24u, PropertiesDataType::Float2, false, 32);
 
-		ModelProp.vbuf->SetLayout(list, ModelProp.vshader);
-		ModelProp.ibuf = model->Meshes[0].iBuf;
-		ModelProp.count = 1;
-		ModelProp.mat = GetMatrix(ModelProp);
-		ModelProp.Textures.AddTexture(model->TexPath, ModelTexture::Albedo);
-		Models.insert({ ModelProp.ModelPath,ModelProp });
+			MeshData.vbuf->SetLayout(list, MeshData.vshader);
+			MeshData.ibuf = model->Meshes[i].iBuf;
+			MeshData.count = 1;
+			MeshData.mat = GetMatrix(MeshData);
+			if (model->paths.size() > 1)
+			{
+				MeshData.Textures.AddTexture(model->paths[i], ModelTexture::Diffuse);
+			}
+			else
+				MeshData.Textures.AddTexture(model->TexPath, ModelTexture::Diffuse);
+			Models.insert({ model->Meshes[i].name,MeshData});
+		}
+		
 	}
 
 	void RenderQueue::SubmitText(TextData data, DrawableData Prop)

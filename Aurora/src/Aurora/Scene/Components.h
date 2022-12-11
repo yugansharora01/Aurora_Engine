@@ -83,7 +83,7 @@ namespace Aurora {
 		bool IsTextured = false;
 
 		std::string path;
-
+		Ref<Texture> texture;
 	public:
 		MeshComponent();
 		MeshComponent(const MeshComponent&) = default;

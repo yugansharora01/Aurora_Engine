@@ -230,8 +230,8 @@ namespace Aurora {
 	void EditorLayer::Init()
 	{
 		
-		Text t;
-		TextTexture = t.get();
+		//Text t;
+		//TextTexture = t.get();
 		TargetManager = Application::Get().GetWindow().Gfx()->TargetManager;
 
 		RenderTargetProperties property;
@@ -254,7 +254,8 @@ namespace Aurora {
 		auto NanoSuit = m_activeScene->CreateEntity("Mesh1");
 
 		NanoSuit->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, -10.0f, 20.0f), DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj");
+		//NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj");
+		NanoSuit->AddComponent<MeshComponent>(false,"assets\\models\\nano_textured\\nanosuit.obj");
 		auto c2 = NanoSuit->GetComponent<MeshComponent>();
 		c2->color = { 0.3f,0.0f,0.3f,1.0f };
 		//c2->SetTexture(c2->path);
@@ -263,7 +264,7 @@ namespace Aurora {
 		auto Light = m_activeScene->CreateEntity("Light1");
 
 		Light->AddComponent<TransformComponent>(DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
-		//Light->AddComponent<MeshComponent>(Lightsphere.vShader, Lightsphere.pShader, Lightsphere.vBuffer, Lightsphere.iBuffer);
+		Light->AddComponent<MeshComponent>(false,"assets\\models\\cube\\Wooden Crate\\Wooden Crate.obj");
 		Light->AddComponent<LightComponent>();
 
 		//auto Text = m_activeScene->CreateEntity("Text");

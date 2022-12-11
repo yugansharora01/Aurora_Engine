@@ -33,12 +33,13 @@ namespace Aurora {
 		void DestroyEntity(Ref<Entity> entity);
 		void Update(Ref<EditorCamera> Editorcamera, viewportInfo viewport);
 
+		void UpdateLights();
 		void AddLight(Ref<Entity> e);
 		void RemoveLight(Ref<Entity> e);
 	private:
 		void SubmitEntity(Ref<Entity> entity);
-		std::vector<Ref<Entity>> LightEntities;
-		std::vector<Light> Lights;
+		std::map<Ref<Entity>, std::shared_ptr<Light>> LightEntities;
+		std::vector<std::shared_ptr<Light>> Lights;
 	};
 
 }
